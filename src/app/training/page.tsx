@@ -30,7 +30,12 @@ export const metadata = pageMetadata({
   description:
     "Inside the Emporium training floor — a cabin mock-up, mirrored grooming studio, recorded interview studio and GDS computer lab where students rehearse the job before the job.",
   path: "/training",
-  keywords: ["cabin mock-up training", "grooming studio", "GDS lab", "aviation practical training"],
+  keywords: [
+    "cabin mock-up training",
+    "grooming studio",
+    "GDS lab",
+    "aviation practical training",
+  ],
 });
 
 const week = [
@@ -78,17 +83,20 @@ export default function TrainingPage() {
             title="Built to be practised in, not looked at."
             onDark
           >
-            Every program spends more hours in these four rooms than in a lecture
-            hall. That ratio is deliberate.
+            Every program spends more hours in these four rooms than in a
+            lecture hall. That ratio is deliberate.
           </SectionHead>
           <FacilityGrid />
-          <CabinWindows />
+          {/* <CabinWindows /> */}
         </div>
       </section>
 
       <section className={cn(surfaceWhite, sectionPad)}>
         <div className={wrap}>
-          <SectionHead eyebrow="Inside each space" title="What actually happens in there.">
+          <SectionHead
+            eyebrow="Inside each space"
+            title="What actually happens in there."
+          >
             A closer look at how each room is used through a program.
           </SectionHead>
 
@@ -122,9 +130,12 @@ export default function TrainingPage() {
 
       <section className={cn(surfacePaper, sectionPad)}>
         <div className={wrap}>
-          <SectionHead eyebrow="A typical week" title="How the timetable is weighted.">
-            Programs differ in length and focus, but the rhythm of a training week
-            looks broadly like this.
+          <SectionHead
+            eyebrow="A typical week"
+            title="How the timetable is weighted."
+          >
+            Programs differ in length and focus, but the rhythm of a training
+            week looks broadly like this.
           </SectionHead>
 
           <ul className={moduleList}>
