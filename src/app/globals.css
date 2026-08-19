@@ -1,0 +1,204 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+@custom-variant dark (&:is(.dark *));
+
+/* ==========================================================================
+   Emporium design tokens
+   ========================================================================== */
+:root {
+  --navy: #0d1642; /* deepest sky — hero + footer base */
+  --navy-2: #101a4d;
+  --royal: #1d2b79; /* brand blue */
+  --sky: #3f5bd6; /* mid sky — links, highlights */
+  --haze: #9db0ee; /* pale sky — accents on dark */
+  --crimson: #d91f2a; /* brand red — thin accents, emblem */
+  --crimson-deep: #c4121f; /* filled CTAs (AA contrast on white) */
+  --ink: #0e1330; /* near-black text */
+  --slate: #4a5170; /* secondary text */
+  --paper: #f5f6fb; /* cool light bg */
+  --cloud: #eaeefa; /* subtle panels */
+  --ticket: #fbfaf5; /* warm ticket paper */
+  --line: #dde2f1; /* hairlines on light */
+  --line-d: rgba(157, 176, 238, 0.18); /* hairlines on dark */
+  --amber: #ffb020; /* board status */
+  --green: #3ecf8e;
+  --shadow: 0 24px 60px -28px rgba(13, 22, 66, 0.45);
+  --r: 18px;
+
+  /* shadcn tokens, retuned to the Emporium palette */
+  --background: var(--paper);
+  --foreground: var(--ink);
+  --card: #ffffff;
+  --card-foreground: var(--ink);
+  --popover: #ffffff;
+  --popover-foreground: var(--ink);
+  --primary: var(--royal);
+  --primary-foreground: #ffffff;
+  --secondary: var(--cloud);
+  --secondary-foreground: var(--royal);
+  --muted: var(--cloud);
+  --muted-foreground: var(--slate);
+  --accent: var(--cloud);
+  --accent-foreground: var(--royal);
+  --destructive: var(--crimson-deep);
+  --border: var(--line);
+  --input: var(--line);
+  --ring: var(--sky);
+  --chart-1: var(--royal);
+  --chart-2: var(--sky);
+  --chart-3: var(--haze);
+  --chart-4: var(--crimson);
+  --chart-5: var(--amber);
+  --radius: 0.75rem;
+  --sidebar: #ffffff;
+  --sidebar-foreground: var(--ink);
+  --sidebar-primary: var(--royal);
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: var(--cloud);
+  --sidebar-accent-foreground: var(--royal);
+  --sidebar-border: var(--line);
+  --sidebar-ring: var(--sky);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+
+  --font-sans: var(--font-instrument-sans);
+  --font-mono: var(--font-space-mono);
+  --font-heading: var(--font-space-grotesk);
+
+  /* brand scale, available as Tailwind utilities (bg-navy, text-slate, …) */
+  --color-navy: var(--navy);
+  --color-navy-2: var(--navy-2);
+  --color-royal: var(--royal);
+  --color-sky: var(--sky);
+  --color-haze: var(--haze);
+  --color-crimson: var(--crimson);
+  --color-crimson-deep: var(--crimson-deep);
+  --color-ink: var(--ink);
+  --color-slate: var(--slate);
+  --color-paper: var(--paper);
+  --color-cloud: var(--cloud);
+  --color-ticket: var(--ticket);
+  --color-hairline: var(--line);
+  --color-amber: var(--amber);
+  --color-green: var(--green);
+
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
+}
+
+/* Breakpoints are named for the boundaries this design already used, and sit
+   one pixel above them so the `max-*` variants (`width < n`) reproduce the
+   original `max-width` queries exactly. Tailwind's own sm/md/lg are untouched,
+   so the shadcn components in ui/ keep working. */
+@theme {
+  --breakpoint-mini: 401px; /* max-mini    → ≤400  narrow phones */
+  --breakpoint-narrow: 481px; /* max-narrow  → ≤480 */
+  --breakpoint-phone: 561px; /* max-phone   → ≤560  small phones */
+  --breakpoint-phablet: 641px; /* max-phablet → ≤640  phones */
+  --breakpoint-tablet: 769px; /* max-tablet  → ≤768  large phones */
+  --breakpoint-laptop: 961px; /* max-laptop  → ≤960  tablets */
+  --breakpoint-navfit: 1061px; /* max-navfit  → ≤1060 nav phone number */
+  --breakpoint-wide: 1181px; /* max-wide    → ≤1180 nav spacing */
+
+  --animate-marquee: marquee 32s linear infinite;
+  --animate-flap: flap 0.13s ease-out;
+
+  @keyframes marquee {
+    to {
+      transform: translateX(-50%);
+    }
+  }
+  @keyframes flap {
+    0% {
+      transform: scaleY(0.2);
+      filter: brightness(0.5);
+    }
+    55% {
+      transform: scaleY(1.06);
+    }
+    100% {
+      transform: scaleY(1);
+      filter: brightness(1);
+    }
+  }
+}
+
+@layer base {
+  * {
+    box-sizing: border-box;
+  }
+  html {
+    /* clears the sticky header so #anchors don't land underneath it */
+    scroll-padding-top: 88px;
+  }
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--font-instrument-sans), system-ui, sans-serif;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-space-grotesk), sans-serif;
+    font-weight: 600;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    margin: 0;
+  }
+  p {
+    margin: 0;
+  }
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+  :focus-visible {
+    outline: 3px solid var(--sky);
+    outline-offset: 3px;
+    border-radius: 6px;
+  }
+}
