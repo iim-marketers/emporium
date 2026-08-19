@@ -27,7 +27,7 @@ export default function NotFound() {
         className={wrap}
         style={{ position: "relative", textAlign: "center" }}
       >
-        <TailFin />
+        <TailFin className="mx-auto h-16 max-phone:h-13" />
         <span
           className={eyebrowOnDark}
           style={{ display: "block", marginTop: 22 }}

@@ -1,33 +1,12 @@
 import type { Metadata, Viewport } from "next";
-import { Instrument_Sans, Space_Grotesk, Space_Mono } from "next/font/google";
 
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { Toaster } from "@/components/ui/sonner";
+import { fontVariables } from "@/lib/fonts";
 import { site } from "@/lib/site";
 
 import "./globals.css";
-
-// Space Grotesk and Instrument Sans are variable fonts — no `weight` list.
-// Space Mono ships as static cuts, so its weights are named explicitly.
-const spaceGrotesk = Space_Grotesk({
-  variable: "--font-space-grotesk",
-  subsets: ["latin"],
-  display: "swap",
-});
-
-const spaceMono = Space_Mono({
-  variable: "--font-space-mono",
-  subsets: ["latin"],
-  weight: ["400", "700"],
-  display: "swap",
-});
-
-const instrumentSans = Instrument_Sans({
-  variable: "--font-instrument-sans",
-  subsets: ["latin"],
-  display: "swap",
-});
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
@@ -58,11 +37,20 @@ export const metadata: Metadata = {
     url: "/",
     title: `${site.name} — Aviation & Hospitality Training`,
     description: site.description,
+    images: [
+      {
+        url: "/opengraph-image",
+        width: 1200,
+        height: 630,
+        alt: `${site.name} — ${site.tagline}`,
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: `${site.name} — Aviation & Hospitality Training`,
     description: site.description,
+    images: ["/opengraph-image"],
   },
   robots: {
     index: true,
@@ -79,11 +67,33 @@ export const viewport: Viewport = {
   viewportFit: "cover",
 };
 
+const organizationJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "EducationalOrganization",
+  name: site.legalName,
+  alternateName: site.name,
+  slogan: site.tagline,
+  url: site.url,
+  logo: `${site.url}/images/logo-lockup.png`,
+  image: `${site.url}/opengraph-image`,
+  description: site.description,
+  email: site.email,
+  telephone: site.phone,
+  address: {
+    "@type": "PostalAddress",
+    streetAddress: site.address.line1,
+    addressLocality: site.address.city,
+    addressRegion: site.address.state,
+    addressCountry: site.address.country,
+  },
+  sameAs: site.social.map((item) => item.href),
+};
+
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en-IN"
-      className={`${spaceGrotesk.variable} ${spaceMono.variable} ${instrumentSans.variable} antialiased`}
+      className={`${fontVariables} antialiased`}
     >
       <body className="flex min-h-screen flex-col text-[17px] max-phone:text-[16px]">
         <SiteHeader />
@@ -92,6 +102,12 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         </main>
         <SiteFooter />
         <Toaster position="bottom-right" />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(organizationJsonLd),
+          }}
+        />
       </body>
     </html>
   );

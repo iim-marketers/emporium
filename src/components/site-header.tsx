@@ -39,7 +39,7 @@ export function SiteHeader() {
   return (
     <header className="sticky top-0 z-50 border-b border-hairline bg-[rgba(255,255,255,0.86)] backdrop-blur-[14px] backdrop-saturate-[1.4] transition-transform duration-300">
       <div className="mx-auto flex h-18 w-[min(1180px,92vw)] items-center justify-between gap-3 max-mini:h-16">
-        <BrandMark variant="dark" />
+        <BrandMark variant="dark" preload />
 
         <nav
           className="flex items-center gap-7.5 max-wide:gap-5 max-laptop:hidden"
