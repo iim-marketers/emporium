@@ -9,7 +9,7 @@ export const eyebrowOnDark =
   "font-mono text-[12.5px] font-bold tracking-[0.34em] text-haze uppercase";
 
 /** Vertical rhythm for a top-level section. */
-export const sectionPad = "py-[80px] max-laptop:py-20 max-phablet:py-16";
+export const sectionPad = "py-[60px] max-laptop:py-20 max-phablet:py-10";
 
 /** The navy sky gradient behind the home hero and every page masthead. */
 export const heroSurface = [
