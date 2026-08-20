@@ -66,9 +66,11 @@
   --color-background: var(--background);
   --color-foreground: var(--foreground);
 
-  --font-sans: var(--font-instrument-sans);
-  --font-mono: var(--font-space-mono);
-  --font-heading: var(--font-space-grotesk);
+  --font-sans: var(--font-poppins);
+  --font-mono: var(--font-code);
+  /* Helvetica is a system face, not a webfont — Arial covers Windows/Android,
+     where no Helvetica is installed. */
+  --font-heading: Helvetica, "Helvetica Neue", Arial, sans-serif;
 
   /* brand scale, available as Tailwind utilities (bg-navy, text-slate, …) */
   --color-navy: var(--navy);
@@ -174,7 +176,7 @@
     margin: 0;
     background: var(--paper);
     color: var(--ink);
-    font-family: var(--font-instrument-sans), system-ui, sans-serif;
+    font-family: var(--font-poppins), system-ui, sans-serif;
     line-height: 1.6;
     -webkit-font-smoothing: antialiased;
     overflow-x: hidden;
@@ -183,7 +185,7 @@
   h2,
   h3,
   h4 {
-    font-family: var(--font-space-grotesk), sans-serif;
+    font-family: Helvetica, sans-serif;
     font-weight: 600;
     line-height: 1.05;
     letter-spacing: -0.02em;

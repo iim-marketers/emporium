@@ -4,16 +4,9 @@ import Link from "next/link";
 import { site } from "@/lib/site";
 import { cn } from "@/lib/utils";
 
-/**
- * Logo art is derived from `public/images/logo-erp.png` (the master supplied by
- * the institute): `logo-fin.png` is the emblem alone, `logo-lockup.png` the full
- * lockup for light surfaces, `logo-lockup-inverse.png` the same with the
- * wordmark knocked out to white for dark ones.
- */
 const FIN = { w: 172, h: 109 };
 const LOCKUP = { w: 660, h: 270 };
 
-/** The tail-fin emblem — a red fin carrying the white compass ornament. */
 export function TailFin({ className }: { className?: string }) {
   return (
     <Image

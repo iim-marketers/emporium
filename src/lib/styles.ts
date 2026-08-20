@@ -9,7 +9,7 @@ export const eyebrowOnDark =
   "font-mono text-[12.5px] font-bold tracking-[0.34em] text-haze uppercase";
 
 /** Vertical rhythm for a top-level section. */
-export const sectionPad = "py-[110px] max-laptop:py-20 max-phablet:py-16";
+export const sectionPad = "py-[80px] max-laptop:py-20 max-phablet:py-16";
 
 /** The navy sky gradient behind the home hero and every page masthead. */
 export const heroSurface = [
@@ -30,9 +30,9 @@ export const pageHeroPad =
  * same width once the hero stacks.
  */
 export const lede =
-  "mt-5.5 text-[19px] text-[#c8d2f4] max-w-[34ch] max-laptop:max-w-[52ch] max-phablet:text-[17px]";
+  "mt-5.5 text-[16px] text-[#c8d2f4] max-w-[50ch] max-laptop:max-w-[52ch] max-phablet:text-[17px]";
 export const ledeWide =
-  "mt-5.5 text-[19px] text-[#c8d2f4] max-w-[56ch] max-laptop:max-w-[52ch] max-phablet:text-[17px]";
+  "mt-5.5 text-[17px] text-[#c8d2f4] max-w-[56ch] max-laptop:max-w-[52ch] max-phablet:text-[17px]";
 
 /** The navy training-floor section, with a blue glow off the top right. */
 export const trainSurface = [

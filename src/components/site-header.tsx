@@ -18,12 +18,13 @@ import { primaryNav, site } from "@/lib/site";
 
 /** Underline grows from the left on hover and for the current section. */
 const navLink = [
-  "relative text-[15.5px] font-medium text-slate transition-colors duration-200",
+  "relative text-[14.5px] font-medium text-slate transition-colors duration-200",
   "hover:text-royal data-[active=true]:text-royal",
   "after:absolute after:-bottom-1.5 after:left-0 after:h-0.5 after:w-0 after:bg-crimson",
   "after:transition-[width] after:duration-[250ms]",
   "hover:after:w-full data-[active=true]:after:w-full",
   "max-wide:text-[15px]",
+  "data-[active=true]:font-semibold",
 ].join(" ");
 
 const mobileNavLink =
@@ -42,7 +43,7 @@ export function SiteHeader() {
         <BrandMark variant="dark" preload />
 
         <nav
-          className="flex items-center gap-7.5 max-wide:gap-5 max-laptop:hidden"
+          className="flex items-center gap-7.5 max-wide:gap-5  max-laptop:hidden"
           aria-label="Primary"
         >
           {primaryNav.map((item) => (
@@ -104,7 +105,7 @@ export function SiteHeader() {
                   Enquire now
                 </Link>
               </nav>
-              <div className="mt-auto border-t border-hairline px-6 py-5">
+              <div className="border-t border-hairline px-6 py-5 mt-0">
                 <p className="font-mono text-[11px] tracking-[0.2em] text-slate uppercase">
                   Admissions
                 </p>

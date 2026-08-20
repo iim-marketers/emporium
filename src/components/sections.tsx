@@ -44,12 +44,10 @@ export function SectionHead({
         center && "mx-auto text-center",
       )}
     >
-      <span className={cn(eyebrow, onDark && onDarkText)}>
-        {eyebrowText}
-      </span>
+      <span className={cn(eyebrow, onDark && onDarkText)}>{eyebrowText}</span>
       <h2
         className={cn(
-          "mt-4 text-[clamp(30px,3.6vw,44px)]",
+          "mt-4 font-medium text-[clamp(30px,3.6vw,44px)]",
           onDark ? "text-white" : "text-ink",
         )}
       >
@@ -139,7 +137,7 @@ export function PillarGrid() {
           <div className="mb-4.5 grid size-11.5 place-items-center rounded-[12px] bg-cloud text-royal">
             {pillar.icon}
           </div>
-          <h3 className="mb-2.25 text-[20px]">{pillar.title}</h3>
+          <h3 className="mb-2.25 font-semibold text-[20px]">{pillar.title}</h3>
           <p className="text-[15.5px] text-slate">{pillar.body}</p>
         </Reveal>
       ))}
@@ -279,20 +277,18 @@ export function AdmissionSteps({
     <>
       <div className="grid grid-cols-4 gap-5.5 max-laptop:grid-cols-2 max-laptop:gap-6.5 max-phone:grid-cols-1">
         {admissionSteps.map((step) => (
-          /* a flex column so the progress bars line up across the row,
-             however long each step's copy runs */
           <Reveal className="relative flex flex-col pt-7" key={step.n}>
             <div className="font-mono text-[14px] font-bold tracking-widest text-crimson">
               {step.n}
             </div>
             <h3 className="mt-3.5 mb-2 text-[20px]">{step.title}</h3>
             <p className="mb-1 text-[15px] text-slate">{step.body}</p>
-            <div className="mt-auto h-0.75 overflow-hidden rounded-[3px] bg-cloud">
+            {/* <div className="mt-auto h-0.75 overflow-hidden rounded-[3px] bg-cloud">
               <i
                 className="block h-full bg-crimson"
                 style={{ width: step.progress }}
               />
-            </div>
+            </div> */}
           </Reveal>
         ))}
       </div>

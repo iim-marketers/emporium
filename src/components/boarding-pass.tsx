@@ -13,14 +13,14 @@ export function BoardingPass({ program }: { program: Program }) {
 
   return (
     <Reveal
-      className="relative grid grid-cols-[1fr_128px] overflow-hidden rounded-[16px] bg-ticket shadow-[var(--shadow)] transition-transform duration-[250ms] hover:-translate-y-[5px] max-phone:grid-cols-1"
+      className="relative grid grid-cols-[1fr_128px] overflow-hidden rounded-[16px] bg-ticket shadow-(--shadow) transition-transform duration-[250ms] hover:-translate-y-[5px] max-phone:grid-cols-1"
       as="article"
     >
       <div className="relative border-r-2 border-dashed border-hairline px-6.5 pt-6.5 pb-5.5 max-phone:border-r-0 max-phone:border-b-2 max-phone:px-5 max-phone:pt-5.5 max-phone:pb-4.5">
         <span className="font-mono text-[11.5px] tracking-[0.16em] text-crimson">
           {program.tag}
         </span>
-        <h3 className="mt-3 mb-1 max-w-[20ch] text-[22px] text-ink">
+        <h3 className="mt-3 mb-1 max-w-[30ch] text-[19px] text-ink">
           <Link href={href} aria-label={`${program.title} — program details`}>
             {program.title}
           </Link>
@@ -36,7 +36,7 @@ export function BoardingPass({ program }: { program: Program }) {
               <div className="font-mono text-[9.5px] tracking-[0.16em] text-[#9098b4] uppercase">
                 {label}
               </div>
-              <div className="mt-[3px] font-heading text-[15px] font-semibold text-royal">
+              <div className="mt-0.75 font-heading text-[15px] font-semibold text-royal">
                 {value}
               </div>
             </div>
@@ -50,7 +50,7 @@ export function BoardingPass({ program }: { program: Program }) {
           // punched notches at the ends of the perforation
           "before:absolute before:size-4 before:rounded-full before:bg-paper before:content-['']",
           "after:absolute after:size-4 after:rounded-full after:bg-paper after:content-['']",
-          "before:-left-[9px] before:-top-2 after:-left-[9px] after:-bottom-2",
+          "before:-left-2.25 before:-top-2 after:-left-2.25 after:-bottom-2",
           // once the card stacks the seam is horizontal, so the notches move to the sides
           "max-phone:flex-row max-phone:items-center max-phone:gap-4.5 max-phone:px-5 max-phone:py-4",
           "max-phone:before:-left-2 max-phone:before:top-auto",
@@ -65,7 +65,7 @@ export function BoardingPass({ program }: { program: Program }) {
             {program.gate}
           </div>
         </div>
-        <div className="mt-3 h-[34px] rounded-[2px] bg-[repeating-linear-gradient(90deg,#fff_0_2px,transparent_2px_4px,#fff_4px_5px,transparent_5px_9px)] opacity-85 max-phone:mt-0 max-phone:h-7 max-phone:flex-1" />
+        <div className="mt-3 h-8.5 rounded-xs bg-[repeating-linear-gradient(90deg,#fff_0_2px,transparent_2px_4px,#fff_4px_5px,transparent_5px_9px)] opacity-85 max-phone:mt-0 max-phone:h-7 max-phone:flex-1" />
         {/* full tap target: this is the card's main action, not just a text link */}
         <Link
           className="mt-auto flex min-h-11 items-center gap-1.5 font-heading text-[13.5px] font-semibold max-phone:mt-0 max-phone:ml-auto max-phone:whitespace-nowrap"

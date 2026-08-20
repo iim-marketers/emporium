@@ -70,7 +70,7 @@ export function PageHero({
 
         <Reveal>
           <span className={eyebrowOnDark}>{eyebrow}</span>
-          <h1 className="mt-4.5 text-[clamp(34px,4.6vw,56px)] max-phablet:text-[clamp(28px,7.6vw,40px)]">
+          <h1 className="mt-4.5 text-[clamp(28px,4.6vw,50px)] max-phablet:text-[clamp(22px,7.6vw,34px)]">
             {title}
           </h1>
           {lede ? <p className={ledeWide}>{lede}</p> : null}
