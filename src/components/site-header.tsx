@@ -10,17 +10,15 @@ import { btn } from "@/lib/btn";
 import { primaryNav, site } from "@/lib/site";
 import { cn } from "@/lib/utils";
 
+/** Underline grows from the left on hover and for the current section. */
 const navLink = [
-  "relative inline-flex flex-col items-center text-[14.5px] font-medium text-slate",
-  "hover:text-royal",
+  "relative text-[14.5px] font-medium text-slate transition-colors duration-200",
+  "hover:text-royal data-[active=true]:text-royal",
+  "after:absolute after:-bottom-1.5 after:left-0 after:h-0.5 after:w-0 after:bg-crimson",
+  "after:transition-[width] after:duration-[250ms]",
+  "hover:after:w-full data-[active=true]:after:w-full",
   "max-wide:text-[15px]",
-  "before:invisible before:h-0 before:overflow-hidden before:font-semibold",
-  "before:content-[attr(data-label)]",
-  "after:absolute after:-bottom-2 after:h-[2px] after:w-full after:rounded-full",
-  "after:bg-transparent",
-  "hover:after:bg-royal/35",
-  "data-[active=true]:font-semibold data-[active=true]:text-royal",
-  "data-[active=true]:after:bg-crimson",
+  "data-[active=true]:font-semibold",
 ].join(" ");
 
 const panelLink = [
@@ -109,7 +107,6 @@ export function SiteHeader() {
                 key={item.href}
                 href={item.href}
                 className={navLink}
-                data-label={item.label}
                 data-active={isActive(item.href)}
                 aria-current={isActive(item.href) ? "page" : undefined}
               >
