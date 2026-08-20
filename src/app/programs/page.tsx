@@ -40,7 +40,7 @@ export default function ProgramsPage() {
         lede="Each program is your boarding pass into a specific role. Pick the one that matches where you want to land — every one of them is classroom-based, hands-on and backed by the placement cell."
         crumbs={[{ label: "Programs" }]}
       >
-        <div className={chips} style={{ marginTop: 28 }}>
+        <div className={cn(chips, "mt-7")}>
           <span className={chipOnDark}>6 programs</span>
           <span className={chipOnDark}>6 – 12 months</span>
           <span className={chipOnDark}>Classroom · on campus</span>

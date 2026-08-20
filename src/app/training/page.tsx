@@ -10,6 +10,7 @@ import {
 import { facilities } from "@/lib/content";
 import { pageMetadata } from "@/lib/seo";
 import {
+  cardBody,
   moduleBody,
   moduleItemWide,
   moduleTitle,
@@ -17,6 +18,7 @@ import {
   moduleNo,
   panel,
   pillarGrid,
+  pillarIcon,
   sectionPad,
   surfacePaper,
   surfaceWhite,
@@ -103,25 +105,11 @@ export default function TrainingPage() {
           <div className={pillarGrid}>
             {facilities.map((facility) => (
               <Reveal className={panel} key={facility.title}>
-                <div
-                  className="mb-4 text-haze"
-                  style={{
-                    width: 46,
-                    height: 46,
-                    borderRadius: 12,
-                    background: "var(--cloud)",
-                    display: "grid",
-                    placeItems: "center",
-                    color: "var(--royal)",
-                    marginBottom: 18,
-                  }}
-                >
+                <div className={pillarIcon}>
                   <FacilityIconSvg icon={facility.icon} />
                 </div>
                 <h3 className="mb-2 text-[18px]">{facility.title}</h3>
-                <p style={{ color: "var(--slate)", fontSize: 15.5 }}>
-                  {facility.detail}
-                </p>
+                <p className={cardBody}>{facility.detail}</p>
               </Reveal>
             ))}
           </div>

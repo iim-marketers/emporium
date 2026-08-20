@@ -8,8 +8,38 @@ export const eyebrow =
 export const eyebrowOnDark =
   "font-mono text-[12.5px] font-bold tracking-[0.34em] text-haze uppercase";
 
+/* --------------------------------------------------------------------------
+   Heading scale
+   --------------------------------------------------------------------------
+   Headings render in the system Helvetica stack (`--font-heading`), which sets
+   noticeably heavier and wider than the old grotesk did. So display sizes run
+   one step smaller than before and at weight 500 — 600 turns into a slab at
+   these sizes. Card headings (18–20px) keep 600, where the extra weight still
+   reads as emphasis rather than mass. Every page pulls from here so the ramp
+   stays identical across the site. */
+
+/** Home + 404 hero. */
+export const heroHeading =
+  "text-[clamp(30px,4vw,52px)] font-medium max-phablet:text-[clamp(31px,8.4vw,46px)]";
+/** Inner-page masthead — titles run longer here, so the ramp is a touch lower. */
+export const pageHeading =
+  "text-[clamp(28px,4.6vw,50px)] font-medium max-phablet:text-[clamp(22px,7.6vw,34px)]";
+/** `SectionHead`'s h2. */
+export const sectionHeading =
+  "text-[clamp(30px,3.6vw,44px)] font-medium";
+/** The dark enquiry band's h2. */
+export const enquireHeading =
+  "text-[clamp(30px,3.8vw,46px)] font-medium";
+/** In-column h2 that sits beside a panel rather than heading a whole section. */
+export const columnHeading = "text-[clamp(26px,3vw,36px)] font-medium";
+
+/** The smaller footnote under a checklist or spec table. */
+export const noteBody = "text-[14.5px] text-slate";
+/** Running prose in a page column, one step up from card copy. */
+export const proseBody = "text-[17px] text-slate";
+
 /** Vertical rhythm for a top-level section. */
-export const sectionPad = "py-[80px] max-laptop:py-20 max-phablet:py-16";
+export const sectionPad = "py-[60px] max-laptop:py-20 max-phablet:py-10";
 
 /** The navy sky gradient behind the home hero and every page masthead. */
 export const heroSurface = [
@@ -78,6 +108,10 @@ export const specRow =
 export const specKey = "text-slate";
 export const specValue =
   "text-right font-heading font-semibold text-royal max-phablet:text-left";
+/** The same rows on a navy surface — hairline, label and value all re-tinted. */
+export const specRowOnDark = "border-(--line-d)";
+export const specKeyOnDark = "text-[#aebbe6]";
+export const specValueOnDark = "text-white";
 
 /** Recruiter logo wall. */
 export const logoGrid =
@@ -115,10 +149,10 @@ export const pillarCard =
   "rounded-(--r) border border-hairline bg-white px-6.5 py-7.5 transition-[transform,box-shadow,border-color] duration-250 hover:-translate-y-1 hover:border-cloud hover:shadow-(--shadow)";
 export const pillarIcon =
   "mb-4.5 grid size-11.5 place-items-center rounded-[12px] bg-cloud text-royal";
-export const pillarHeading = "mb-2.25 text-[20px]";
+export const pillarHeading = "mb-2.25 text-[20px] font-semibold";
 export const cardBody = "text-[15.5px] text-slate";
 /** `.panel h3` and friends — a 20px card heading. */
-export const panelHeading = "mb-3.5 text-[20px]";
+export const panelHeading = "mb-3.5 text-[20px] font-semibold";
 
 /** Numbered "what happens next" steps. */
 export const stepGrid =
@@ -126,7 +160,7 @@ export const stepGrid =
 export const step = "relative pt-7";
 export const stepNo =
   "font-mono text-[14px] font-bold tracking-[0.1em] text-crimson";
-export const stepHeading = "mt-3.5 mb-2 text-[20px]";
+export const stepHeading = "mt-3.5 mb-2 text-[20px] font-semibold";
 export const stepBody = "text-[15px] text-slate";
 
 /** The dark enquiry band and its two-column layout. */
@@ -140,7 +174,6 @@ export const enqGrid =
 export const enqList = "mt-7 grid gap-3 p-0";
 export const enqListItem =
   "flex list-none items-center gap-3 text-[15.5px] text-[#dbe2f7]";
-export const enquireHeading = "text-[clamp(30px,3.8vw,46px)]";
 
 /** Two-column boarding-pass grid. */
 export const passGrid = "grid grid-cols-2 gap-6.5 max-laptop:grid-cols-1";
@@ -148,5 +181,5 @@ export const passGrid = "grid grid-cols-2 gap-6.5 max-laptop:grid-cols-1";
 /** 404 — centres the whole hero. */
 export const notFound = "grid min-h-[70vh] place-items-center text-center";
 
-export const moduleTitle = "mb-1 block font-heading text-[17px]";
+export const moduleTitle = "mb-1 block font-heading text-[17px] font-semibold";
 export const moduleBody = "text-[15px] text-slate";

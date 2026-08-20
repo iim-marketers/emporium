@@ -12,6 +12,7 @@ import { faqs } from "@/lib/content";
 import { pageMetadata } from "@/lib/seo";
 import { site } from "@/lib/site";
 import {
+  cardBody,
   checklistItem,
   checklist,
   checklistTick,
@@ -21,6 +22,7 @@ import {
   faqBody,
   faqItem,
   faqTrigger,
+  noteBody,
   panel,
   panelHeading,
   sectionPad,
@@ -74,7 +76,7 @@ export default function AdmissionsPage() {
         lede="A simple, guided path from your first enquiry to your first day on the job — with counselling before you commit to anything."
         crumbs={[{ label: "Admissions" }]}
       >
-        <div className={chips} style={{ marginTop: 28 }}>
+        <div className={cn(chips, "mt-7")}>
           <span className={chipOnDark}>Rolling intakes</span>
           <span className={chipOnDark}>10+2 &amp; graduates</span>
           <span className={chipOnDark}>Free counselling</span>
@@ -96,7 +98,7 @@ export default function AdmissionsPage() {
         <div className={cn(wrap, split)}>
           <Reveal className={panel}>
             <h3 className={panelHeading}>Documents to keep ready</h3>
-            <ul className={checklist} style={{ marginTop: 16 }}>
+            <ul className={cn(checklist, "mt-4")}>
               {documents.map((doc) => (
                 <li key={doc} className={checklistItem}>
                   <span className={checklistTick}>✓</span>
@@ -104,7 +106,7 @@ export default function AdmissionsPage() {
                 </li>
               ))}
             </ul>
-            <p style={{ color: "var(--slate)", fontSize: 14.5, marginTop: 20 }}>
+            <p className={cn(noteBody, "mt-5")}>
               Airside roles additionally require background verification and a
               medical, which we guide you through after your offer.
             </p>
@@ -112,13 +114,13 @@ export default function AdmissionsPage() {
 
           <Reveal className={panel}>
             <h3 className={panelHeading}>Fees, scholarships &amp; instalments</h3>
-            <p style={{ color: "var(--slate)", fontSize: 15.5 }}>
+            <p className={cardBody}>
               Fees depend on the program&apos;s length and level. Rather than publish a
               number that changes with the intake, we give you the exact fee
               structure during counselling, along with the instalment schedule and
               any merit scholarship you qualify for.
             </p>
-            <div className="grid gap-0" style={{ marginTop: 22 }}>
+            <div className="mt-5.5 grid gap-0">
               <div className={specRow}>
                 <span className={specKey}>Counselling</span>
                 <span className={specValue}>Free</span>

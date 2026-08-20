@@ -24,18 +24,22 @@ export function BrandMark({
   variant = "dark",
   preload = false,
   className,
+  onClick,
 }: {
   /** `dark` = blue wordmark for light backgrounds, `light` = white for dark ones. */
   variant?: "dark" | "light";
   /** Only the header mark is above the fold — the footer's must not preload. */
   preload?: boolean;
   className?: string;
+  /** The header passes its menu-dismiss here — the mark is a nav link too. */
+  onClick?: () => void;
 }) {
   return (
     <Link
       href="/"
       className={cn("flex min-w-0 items-center", className)}
       aria-label={`${site.name} home`}
+      onClick={onClick}
     >
       <Image
         src={

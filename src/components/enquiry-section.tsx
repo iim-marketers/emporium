@@ -1,6 +1,6 @@
 import { EnquiryForm } from "@/components/enquiry-form";
 import { Reveal } from "@/components/reveal";
-import { eyebrowOnDark, sectionPad, wrap } from "@/lib/styles";
+import { enquireHeading, eyebrowOnDark, sectionPad, wrap } from "@/lib/styles";
 import { cn } from "@/lib/utils";
 
 const benefits = [
@@ -46,7 +46,7 @@ export function EnquirySection({
       >
         <Reveal>
           <span className={eyebrowOnDark}>{eyebrow}</span>
-          <h2 className="mt-4 text-[clamp(30px,3.8vw,46px)]">{title}</h2>
+          <h2 className={cn("mt-4", enquireHeading)}>{title}</h2>
           <p className="mt-4.5 max-w-[38ch] text-[18px] text-[#c8d2f4] max-laptop:max-w-[52ch]">
             {lede}
           </p>

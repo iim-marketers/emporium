@@ -20,6 +20,7 @@ import { pageMetadata } from "@/lib/seo";
 import { site } from "@/lib/site";
 import {
   eyebrowOnDark,
+  heroHeading,
   heroPad,
   heroSurface,
   lede,
@@ -72,7 +73,7 @@ export default function HomePage() {
             <span className={eyebrowOnDark}>
               Aviation · Hospitality · Travel · Customer Service
             </span>
-            <h1 className="mt-5.5 text-[clamp(30px,4vw,52px)] font-medium max-phablet:text-[clamp(31px,8.4vw,46px)]">
+            <h1 className={cn("mt-5.5", heroHeading)}>
               Train for the skies.
               <br />
               <em className="text-haze not-italic">Build a new nation.</em>
