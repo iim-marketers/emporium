@@ -13,6 +13,7 @@ import {
 import { pageMetadata } from "@/lib/seo";
 import { arrow, btn } from "@/lib/btn";
 import {
+  cardBody,
   panel,
   panelHeading,
   pillarGrid,
@@ -82,7 +83,7 @@ export default function WhyEmporiumPage() {
             {beliefs.map((belief) => (
               <Reveal className={panel} key={belief.title}>
                 <h3 className={panelHeading}>{belief.title}</h3>
-                <p style={{ color: "var(--slate)", fontSize: 15.5 }}>{belief.body}</p>
+                <p className={cardBody}>{belief.body}</p>
               </Reveal>
             ))}
           </div>

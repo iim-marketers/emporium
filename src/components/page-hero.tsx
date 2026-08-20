@@ -5,6 +5,7 @@ import {
   eyebrowOnDark,
   heroSurface,
   ledeWide,
+  pageHeading,
   pageHeroPad,
   wrap,
 } from "@/lib/styles";
@@ -70,7 +71,7 @@ export function PageHero({
 
         <Reveal>
           <span className={eyebrowOnDark}>{eyebrow}</span>
-          <h1 className="mt-4.5 text-[clamp(28px,4.6vw,50px)] max-phablet:text-[clamp(22px,7.6vw,34px)]">
+          <h1 className={cn("mt-4.5", pageHeading)}>
             {title}
           </h1>
           {lede ? <p className={ledeWide}>{lede}</p> : null}

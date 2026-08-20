@@ -14,7 +14,15 @@ import {
   type Facility,
   type FacilityIcon,
 } from "@/lib/content";
-import { eyebrow, sectionPad, wrap } from "@/lib/styles";
+import {
+  cardBody,
+  eyebrow,
+  pillarHeading,
+  sectionHeading,
+  sectionPad,
+  stepHeading,
+  wrap,
+} from "@/lib/styles";
 import { cn } from "@/lib/utils";
 
 /** Swaps the eyebrow to its on-dark tint inside navy sections. */
@@ -47,7 +55,8 @@ export function SectionHead({
       <span className={cn(eyebrow, onDark && onDarkText)}>{eyebrowText}</span>
       <h2
         className={cn(
-          "mt-4 font-medium text-[clamp(30px,3.6vw,44px)]",
+          "mt-4",
+          sectionHeading,
           onDark ? "text-white" : "text-ink",
         )}
       >
@@ -137,8 +146,8 @@ export function PillarGrid() {
           <div className="mb-4.5 grid size-11.5 place-items-center rounded-[12px] bg-cloud text-royal">
             {pillar.icon}
           </div>
-          <h3 className="mb-2.25 font-semibold text-[20px]">{pillar.title}</h3>
-          <p className="text-[15.5px] text-slate">{pillar.body}</p>
+          <h3 className={pillarHeading}>{pillar.title}</h3>
+          <p className={cardBody}>{pillar.body}</p>
         </Reveal>
       ))}
     </div>
@@ -281,7 +290,7 @@ export function AdmissionSteps({
             <div className="font-mono text-[14px] font-bold tracking-widest text-crimson">
               {step.n}
             </div>
-            <h3 className="mt-3.5 mb-2 text-[20px]">{step.title}</h3>
+            <h3 className={stepHeading}>{step.title}</h3>
             <p className="mb-1 text-[15px] text-slate">{step.body}</p>
             {/* <div className="mt-auto h-0.75 overflow-hidden rounded-[3px] bg-cloud">
               <i

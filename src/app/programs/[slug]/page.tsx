@@ -11,11 +11,13 @@ import { pageMetadata } from "@/lib/seo";
 import { site } from "@/lib/site";
 import { arrow, btn } from "@/lib/btn";
 import {
+  cardBody,
   checklistItem,
   checklist,
   checklistTick,
   chipOnDark,
   chips,
+  columnHeading,
   eyebrow,
   heroCta,
   moduleBody,
@@ -26,6 +28,7 @@ import {
   panel,
   panelHeading,
   passGrid,
+  proseBody,
   sectionPad,
   specKey,
   specRow,
@@ -114,7 +117,7 @@ export default async function ProgramPage({ params }: PageProps<"/programs/[slug
           { label: program.shortTitle },
         ]}
       >
-        <div className={chips} style={{ marginTop: 28 }}>
+        <div className={cn(chips, "mt-7")}>
           <span className={chipOnDark}>{program.duration}</span>
           <span className={chipOnDark}>{program.level}</span>
           <span className={chipOnDark}>{program.mode}</span>
@@ -135,16 +138,12 @@ export default async function ProgramPage({ params }: PageProps<"/programs/[slug
         <div className={cn(wrap, split)}>
           <Reveal>
             <span className={eyebrow}>Overview</span>
-            <h2 style={{ fontSize: "clamp(26px,3vw,36px)", marginTop: 16 }}>
+            <h2 className={cn("mt-4", columnHeading)}>
               What this program is for.
             </h2>
-            <p style={{ color: "var(--slate)", marginTop: 18, fontSize: 17 }}>
-              {program.overview}
-            </p>
+            <p className={cn("mt-4.5", proseBody)}>{program.overview}</p>
 
-            <h3 style={{ fontSize: 20, marginTop: 36, marginBottom: 16 }}>
-              By the end, you can
-            </h3>
+            <h3 className={cn(panelHeading, "mt-9 mb-4")}>By the end, you can</h3>
             <ul className={checklist}>
               {program.outcomes.map((outcome) => (
                 <li key={outcome} className={checklistItem}>
@@ -184,15 +183,12 @@ export default async function ProgramPage({ params }: PageProps<"/programs/[slug
               </div>
             </div>
 
-            <h3 style={{ marginTop: 30, marginBottom: 14 }}>Eligibility</h3>
-            <p style={{ color: "var(--slate)", fontSize: 15.5 }}>
-              {program.eligibility}
-            </p>
+            <h3 className={cn(panelHeading, "mt-7.5 mb-3.5")}>Eligibility</h3>
+            <p className={cardBody}>{program.eligibility}</p>
 
             <Link
               href="/enquire"
-              className={btn({ variant: "dark", block: "phone" })}
-              style={{ marginTop: 26, width: "100%", justifyContent: "center" }}
+              className={cn(btn({ variant: "dark" }), "mt-6.5 w-full justify-center")}
             >
               Enquire about fees <span className={arrow}>→</span>
             </Link>

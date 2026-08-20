@@ -1,4 +1,5 @@
 import { EnquiryForm } from "@/components/enquiry-form";
+import { HashScroll } from "@/components/hash-scroll";
 import { PageHero } from "@/components/page-hero";
 import { Reveal } from "@/components/reveal";
 import { SectionHead } from "@/components/sections";
@@ -14,9 +15,11 @@ import {
   eyebrowOnDark,
   lede,
   sectionPad,
-  specKey,
+  specKeyOnDark,
   specRow,
+  specRowOnDark,
   specValue,
+  specValueOnDark,
   step as step_,
   stepBody,
   stepGrid,
@@ -56,6 +59,8 @@ const nextSteps = [
 export default function EnquirePage() {
   return (
     <>
+      <HashScroll id="enquire" />
+
       <PageHero
         eyebrow="Book your seat"
         title="Your future is boarding."
@@ -77,32 +82,28 @@ export default function EnquirePage() {
               up a campus walk-through of the cabin mock-up and training floor.
             </p>
 
-            <div className="grid gap-0" style={{ marginTop: 32 }}>
-              <div className={specRow} style={{ borderColor: "var(--line-d)" }}>
-                <span className={specKey} style={{ color: "#aebbe6" }}>
-                  Admissions
-                </span>
-                <a href={site.phoneHref} className={cn(specValue, "font-mono")} style={{ color: "#fff" }}>
+            <div className="mt-8 grid gap-0">
+              <div className={cn(specRow, specRowOnDark)}>
+                <span className={specKeyOnDark}>Admissions</span>
+                <a
+                  href={site.phoneHref}
+                  className={cn(specValue, specValueOnDark, "font-mono")}
+                >
                   {site.phone}
                 </a>
               </div>
-              <div className={specRow} style={{ borderColor: "var(--line-d)" }}>
-                <span className={specKey} style={{ color: "#aebbe6" }}>
-                  Email
-                </span>
+              <div className={cn(specRow, specRowOnDark)}>
+                <span className={specKeyOnDark}>Email</span>
                 <a
                   href={`mailto:${site.email}`}
-                  className={specValue}
-                  style={{ color: "#fff" }}
+                  className={cn(specValue, specValueOnDark)}
                 >
                   {site.email}
                 </a>
               </div>
-              <div className={specRow} style={{ borderColor: "var(--line-d)" }}>
-                <span className={specKey} style={{ color: "#aebbe6" }}>
-                  Campus
-                </span>
-                <span className={specValue} style={{ color: "#fff" }}>
+              <div className={cn(specRow, specRowOnDark)}>
+                <span className={specKeyOnDark}>Campus</span>
+                <span className={cn(specValue, specValueOnDark)}>
                   {site.address.city}, {site.address.state}
                 </span>
               </div>
@@ -124,7 +125,9 @@ export default function EnquirePage() {
             </ul>
           </Reveal>
 
-          <Reveal>
+          {/* Anchor target for the header's Enquire CTA; the offset clears
+              the sticky header the glide would otherwise stop underneath. */}
+          <Reveal id="enquire" className="scroll-mt-24">
             <EnquiryForm />
           </Reveal>
         </div>
