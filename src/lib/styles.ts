@@ -19,7 +19,7 @@ export const heroSurface = [
 
 /** Home hero padding. */
 export const heroPad =
-  "pt-[78px] pb-24 max-laptop:pt-[60px] max-laptop:pb-[76px] max-phablet:pt-12 max-phablet:pb-16";
+  "pt-[78px] pb-24 max-laptop:pt-[60px] max-laptop:pb-[76px] max-phablet:pt-6 max-phablet:pb-16";
 
 /** Inner-page masthead padding — tighter than the home hero. */
 export const pageHeroPad =
@@ -30,7 +30,7 @@ export const pageHeroPad =
  * same width once the hero stacks.
  */
 export const lede =
-  "mt-5.5 text-[16px] text-[#c8d2f4] max-w-[50ch] max-laptop:max-w-[52ch] max-phablet:text-[17px]";
+  "mt-5.5 text-[16px] text-[#c8d2f4] max-w-[50ch] max-laptop:max-w-[52ch] max-phablet:text-[14px]";
 export const ledeWide =
   "mt-5.5 text-[17px] text-[#c8d2f4] max-w-[56ch] max-laptop:max-w-[52ch] max-phablet:text-[17px]";
 

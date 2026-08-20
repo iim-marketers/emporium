@@ -37,7 +37,7 @@ const footHeading =
 
 export function SiteFooter() {
   return (
-    <footer className="bg-[#080d2b] pt-[72px] pb-8 text-white">
+    <footer className="bg-[#080d2b] pt-8 lg:pt-16 pb-8 text-white">
       <div className={wrap}>
         <div className="grid grid-cols-[1.4fr_1fr_1fr_1.2fr] gap-10 border-b border-[var(--line-d)] pb-11 max-laptop:grid-cols-2 max-phone:grid-cols-1">
           <div>
