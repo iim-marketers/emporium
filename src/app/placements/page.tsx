@@ -57,8 +57,6 @@ export default function PlacementsPage() {
             "max-laptop:grid-cols-1 max-laptop:gap-10",
           )}
         >
-          {/* The artwork is 436x387, so the frame takes its exact ratio — a 4/3
-              box pillarboxed it and the padding shrank it further. */}
           <Reveal className="relative aspect-436/387 overflow-hidden rounded-(--r) bg-cloud">
             <Image
               src={placementClaim.image}
@@ -77,7 +75,7 @@ export default function PlacementsPage() {
               </h2>
             </div>
             <h2 className={cn("", columnHeading)}>
-              {placementClaim.line2}
+              {placementClaim.line2}{" "}
               <span className="text-crimson">{placementClaim.line3}</span>
             </h2>
             <div className="mt-2 grid gap-5">

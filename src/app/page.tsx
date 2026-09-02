@@ -32,6 +32,8 @@ import {
   heroSurface,
   lede,
   sectionPad,
+  surfacePaper,
+  surfaceWhite,
   wrap,
 } from "@/lib/styles";
 import { cn } from "@/lib/utils";
@@ -127,7 +129,7 @@ export default function HomePage() {
       <TrustStrip />
 
       {/* ============ LIVE HIRING DRIVES ============ */}
-      <section className={cn("bg-paper", sectionPad)} id="jobs">
+      <section className={cn(surfacePaper, sectionPad)} id="jobs">
         <div className={wrap}>
           <SectionHead
             eyebrow="Newest jobs"
@@ -137,14 +139,6 @@ export default function HomePage() {
             through the year. Message the number on a drive to register.
           </SectionHead>
           <JobList items={jobs.slice(0, 2)} />
-          {/* <Reveal className="mt-8">
-            <Link
-              href="/jobs"
-              className={btn({ variant: "dark", block: "phone" })}
-            >
-              See all hiring drives <span className={arrow}>→</span>
-            </Link>
-          </Reveal> */}
         </div>
       </section>
 
@@ -169,7 +163,7 @@ export default function HomePage() {
       </section>
 
       {/* ============ HEADLINE CLAIM ============ */}
-      <section className={cn("bg-white", sectionPad)}>
+      <section className={cn(surfaceWhite, sectionPad)}>
         <div
           className={cn(
             wrap,
@@ -214,7 +208,7 @@ export default function HomePage() {
       </section>
 
       {/* ============ RECRUITER WALL ============ */}
-      <section className={cn("bg-paper", sectionPad)} id="recruiters">
+      <section className={cn(surfacePaper, sectionPad)} id="recruiters">
         <div className={wrap}>
           <SectionHead eyebrow="Our students" title="get placed in.">
             A snapshot of the airlines, airports, hotel groups and cruise lines
@@ -235,21 +229,20 @@ export default function HomePage() {
       {/* <StatsBand /> */}
 
       {/* ============ CENTRES ============ */}
-      <section className={cn("bg-paper", sectionPad)} id="centres">
+      <section className={cn(surfaceWhite, sectionPad)} id="centres">
         <div className={wrap}>
           <SectionHead
             eyebrow="Our centres"
             title="Training floors across the North East and beyond."
-          >
-            Emporium runs training inside established colleges and youth
-            centres, so students train close to home before they fly.
-          </SectionHead>
+            center
+          />
+
           <CentreGrid />
         </div>
       </section>
 
       {/* ============ TESTIMONIALS ============ */}
-      <section className={cn("bg-white", sectionPad)} id="testimonials">
+      <section className={cn(surfacePaper, sectionPad)} id="testimonials">
         <div className={wrap}>
           <SectionHead
             eyebrow="Student testimonial"
@@ -263,7 +256,7 @@ export default function HomePage() {
       </section>
 
       {/* ============ LATEST NEWS ============ */}
-      <section className={cn("bg-paper", sectionPad)} id="news">
+      <section className={cn(surfaceWhite, sectionPad)} id="news">
         <div className={wrap}>
           <SectionHead
             eyebrow="Latest news"
@@ -274,7 +267,7 @@ export default function HomePage() {
       </section>
 
       {/* ============ LATEST BLOG ============ */}
-      <section className={cn("bg-white", sectionPad)} id="blog">
+      <section className={cn(surfacePaper, sectionPad)} id="blog">
         <div className={wrap}>
           <SectionHead eyebrow="Latest blog" title="Reading for aspirants." />
           <BlogGrid />
