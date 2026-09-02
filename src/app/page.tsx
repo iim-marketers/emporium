@@ -166,7 +166,7 @@ export default function HomePage() {
         <div
           className={cn(
             wrap,
-            "grid grid-cols-[0.95fr_1.05fr] items-center gap-14",
+            "grid grid-cols-[0.95fr_1.05fr] items-start gap-14",
             "max-laptop:grid-cols-1 max-laptop:gap-10",
           )}
         >
@@ -181,15 +181,17 @@ export default function HomePage() {
           </Reveal>
 
           <Reveal>
-            <div className="font-heading text-[clamp(38px,5vw,60px)] leading-none font-bold text-royal">
+            <div className="flex items-end gap-3 font-heading text-[clamp(34px,4.5vw,54px)] leading-none font-bold text-royal">
               {headlineClaim.count}
+              <h2 className={cn("text-black mb-1", columnHeading)}>
+                {headlineClaim.line1}
+              </h2>
             </div>
-            <h2 className={cn("mt-3", columnHeading)}>
-              {headlineClaim.line1}
-              <br />
-              <span className="text-crimson">{headlineClaim.line2}</span>
+            <h2 className={cn("", columnHeading)}>
+              {headlineClaim.line2}{" "}
+              <span className="text-crimson">{headlineClaim.line3}</span>
             </h2>
-            <p className="mt-5 max-w-[56ch] text-[17px] text-slate">
+            <p className="mt-5 max-w-[56ch] text-[15px] text-slate">
               {headlineClaim.body}
             </p>
             <Link

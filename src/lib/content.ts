@@ -29,8 +29,9 @@ export const placementClaim = {
 
 export const headlineClaim = {
   count: "Over 50,000+",
-  line1: "students placed",
-  line2: "In 29 different countries",
+  line1: "students",
+  line2: "placed",
+  line3: "in 29 different countries",
   body: "Emporium has one of the best aviation course, cruise line, hospitality course, travel & tourism management, and customer service course. It is a leading Vocational Training Provider (VTP) under the Directorate General of Employment & Craftsmen Training, Ministry of Labour & Employment, Government of India.",
   image: "/misc/students-placed.png",
 };

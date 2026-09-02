@@ -6,7 +6,7 @@ import { cn } from "@/lib/utils";
 
 const metaKey =
   "font-mono text-[10.5px] tracking-[0.16em] text-[#9098b4] uppercase";
-const metaValue = "mt-1 text-[15px] text-ink";
+const metaValue = "mt-1 text-[14.5px] text-ink";
 
 function WhatsAppIcon() {
   return (
@@ -41,7 +41,7 @@ export function JobCard({ job }: { job: Job }) {
           <i className="size-1.75 rounded-full bg-green shadow-[0_0_0_4px_rgba(62,207,142,0.18)]" />
           NOW HIRING
         </span>
-        <h3 className="mt-3 text-[19px] leading-[1.3] text-ink max-phablet:text-[17px]">
+        <h3 className="mt-3 text-[18px] leading-[1.3] text-ink max-phablet:text-[16px]">
           {job.title}
         </h3>
       </div>
@@ -62,7 +62,8 @@ export function JobCard({ job }: { job: Job }) {
         </div>
 
         <p className="mt-5 text-[15px] text-slate">
-          {job.registerWith} — <b className="text-royal">{job.whatsapp.display}</b>
+          {job.registerWith} —{" "}
+          <b className="text-royal">{job.whatsapp.display}</b>
         </p>
 
         <div className="mt-5.5 flex flex-wrap gap-3.5 max-phablet:flex-col max-phablet:items-stretch">

@@ -32,14 +32,14 @@ export function BoardingPass({ program }: { program: Program }) {
         <span className="font-mono text-[11.5px] tracking-[0.16em] text-crimson">
           {program.tag}
         </span>
-        <h3 className="mt-3 text-[19px] leading-tight text-ink">
+        <h3 className="mt-3 text-[18px] leading-tight text-ink">
           <Link href={href} aria-label={`${program.title} — course details`}>
             {program.title}
           </Link>
         </h3>
-        <p className="mt-2.5 text-[14.5px] text-slate">{program.description}</p>
+        <p className="mt-2.5 text-[14px] text-slate">{program.description}</p>
 
-        <dl className="mt-auto grid grid-cols-3 gap-x-4 gap-y-3 border-t border-hairline pt-4.5 max-mini:grid-cols-2">
+        {/* <dl className="mt-auto grid grid-cols-3 gap-x-4 gap-y-3 border-t border-hairline pt-4.5 max-mini:grid-cols-2">
           {specs.map(([label, value]) => (
             <div key={label} className="min-w-0">
               <dt className="font-mono text-[9.5px] tracking-[0.16em] text-[#9098b4] uppercase">
@@ -50,7 +50,7 @@ export function BoardingPass({ program }: { program: Program }) {
               </dd>
             </div>
           ))}
-        </dl>
+        </dl> */}
       </div>
 
       {/* The stub: perforated off the body, with the card's main action on it. */}
@@ -80,10 +80,10 @@ export function BoardingPass({ program }: { program: Program }) {
 
         {/* full tap target: this is the card's main action, not just a text link */}
         <Link
-          className="ml-auto flex min-h-11 flex-none items-center gap-1.5 font-heading text-[13.5px] font-semibold whitespace-nowrap"
+          className="ml-auto flex min-h-11 flex-none items-center gap-1.5 font-heading text-[13.5px] font-semibold whitespace-nowrap hover:underline"
           href={href}
         >
-          Read more →
+          Read more
         </Link>
       </div>
     </Reveal>

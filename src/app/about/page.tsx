@@ -48,7 +48,7 @@ export default function AboutPage() {
         <div
           className={cn(
             wrap,
-            "grid grid-cols-[1.05fr_0.95fr] items-center gap-14",
+            "grid grid-cols-[1.05fr_0.95fr] items-start gap-14",
             "max-laptop:grid-cols-1 max-laptop:gap-10",
           )}
         >
