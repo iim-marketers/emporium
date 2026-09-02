@@ -1,18 +1,21 @@
+import Image from "next/image";
 import Link from "next/link";
 
 import { CountUp } from "@/components/count-up";
+import { Marquee, MarqueeRow } from "@/components/marquee";
 import { Reveal } from "@/components/reveal";
 import { arrow, btn } from "@/lib/btn";
 import {
-  admissionSteps,
-  eligibilityNote,
-  facilities,
+  accreditationNote,
+  accreditations,
+  centreCards,
+  empanelments,
   pillars,
-  recruiters,
+  recruiterLogos,
+  recruiterNames,
   stats,
-  stories,
-  type Facility,
-  type FacilityIcon,
+  testimonialImages,
+  type Stat,
 } from "@/lib/content";
 import {
   cardBody,
@@ -20,7 +23,6 @@ import {
   pillarHeading,
   sectionHeading,
   sectionPad,
-  stepHeading,
   wrap,
 } from "@/lib/styles";
 import { cn } from "@/lib/utils";
@@ -48,7 +50,7 @@ export function SectionHead({
   return (
     <Reveal
       className={cn(
-        "mb-14 max-w-180 max-laptop:mb-11 max-phablet:mb-8.5",
+        "mb-8 max-w-180 max-laptop:mb-11 max-phablet:mb-8.5",
         center && "mx-auto text-center",
       )}
     >
@@ -84,13 +86,13 @@ export function TrustStrip() {
   return (
     <div className="group overflow-hidden bg-navy-2 py-6.5 text-white">
       <p className="mb-4 text-center font-mono text-[11px] tracking-[0.3em] text-haze">
-        TRAINED FOR THE WORLD&apos;S LEADING AIRLINES &amp; HOSPITALITY BRANDS
+        OUR STUDENTS GET PLACED IN
       </p>
       <div
-        className="flex w-max animate-marquee gap-14 whitespace-nowrap group-hover:paused motion-reduce:animate-none max-phablet:gap-10"
+        className="flex w-max animate-marquee gap-14 whitespace-nowrap group-hover:[animation-play-state:paused] motion-reduce:animate-none max-phablet:gap-10"
         aria-hidden="true"
       >
-        {[...recruiters, ...recruiters].map((name, i) => (
+        {[...recruiterNames, ...recruiterNames].map((name, i) => (
           <span
             key={`${name}-${i}`}
             className="font-heading text-[22px] font-semibold tracking-[0.02em] text-white/50 max-phablet:text-[19px]"
@@ -107,9 +109,15 @@ export function TrustStrip() {
 /*  Stats band                                                                 */
 /* -------------------------------------------------------------------------- */
 
-export function StatsBand() {
+export function StatsBand({
+  items = stats,
+  className = "bg-white",
+}: {
+  items?: Stat[];
+  className?: string;
+}) {
   return (
-    <section className={cn("bg-white", sectionPad)}>
+    <section className={cn(className, sectionPad)}>
       <div
         className={cn(
           wrap,
@@ -117,7 +125,7 @@ export function StatsBand() {
           "max-laptop:grid-cols-2 max-laptop:gap-6.5 max-phone:grid-cols-1",
         )}
       >
-        {stats.map((stat) => (
+        {items.map((stat) => (
           <Reveal className="border-l-2 border-crimson pl-5" key={stat.label}>
             <CountUp to={stat.to} suffix={stat.suffix} />
             <div className="mt-2 text-[15px] text-slate">{stat.label}</div>
@@ -129,12 +137,12 @@ export function StatsBand() {
 }
 
 /* -------------------------------------------------------------------------- */
-/*  Pillars                                                                    */
+/*  What Emporium offers                                                       */
 /* -------------------------------------------------------------------------- */
 
 export function PillarGrid() {
   return (
-    <div className="grid grid-cols-3 gap-5 max-laptop:grid-cols-2 max-phone:grid-cols-1">
+    <div className="grid grid-cols-2 gap-5 max-phone:grid-cols-1">
       {pillars.map((pillar) => (
         <Reveal
           className="rounded-(--r) border border-hairline bg-white px-6.5 py-7.5 transition-[transform,box-shadow,border-color] duration-250 hover:-translate-y-1 hover:border-cloud hover:shadow-(--shadow)"
@@ -146,7 +154,7 @@ export function PillarGrid() {
           <div className="mb-4.5 grid size-11.5 place-items-center rounded-[12px] bg-cloud text-royal">
             {pillar.icon}
           </div>
-          <h3 className={pillarHeading}>{pillar.title}</h3>
+          <h3 className={cn(pillarHeading, "max-w-[26ch]")}>{pillar.title}</h3>
           <p className={cardBody}>{pillar.body}</p>
         </Reveal>
       ))}
@@ -155,166 +163,197 @@ export function PillarGrid() {
 }
 
 /* -------------------------------------------------------------------------- */
-/*  Facilities                                                                 */
+/*  Recruiter logo wall                                                        */
 /* -------------------------------------------------------------------------- */
 
-const facilityIcons: Record<FacilityIcon, React.ReactNode> = {
-  cabin: (
-    <>
-      <rect x="3" y="6" width="18" height="12" rx="4" />
-      <circle cx="8" cy="12" r="2.4" />
-      <circle cx="16" cy="12" r="2.4" />
-    </>
-  ),
-  grooming: (
-    <>
-      <ellipse cx="12" cy="9" rx="6" ry="7" />
-      <path d="M12 16 v5 M8 21 h8" />
-    </>
-  ),
-  interview: (
-    <>
-      <rect x="9" y="3" width="6" height="11" rx="3" />
-      <path d="M6 11 a6 6 0 0 0 12 0 M12 17 v4 M8 21 h8" />
-    </>
-  ),
-  lab: (
-    <>
-      <rect x="3" y="4" width="18" height="12" rx="2" />
-      <path d="M8 20 h8 M12 16 v4" />
-    </>
-  ),
-};
-
-export function FacilityIconSvg({ icon }: { icon: FacilityIcon }) {
+/** One logo tile. Fixed width so the marquee rows keep an even rhythm. */
+function LogoTile({ src }: { src: string }) {
   return (
-    <svg
-      width="34"
-      height="34"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="1.6"
-      aria-hidden="true"
+    <div
+      className={cn(
+        "relative h-30 w-38 flex-none rounded-[12px] border border-hairline bg-white",
+        "max-phone:h-20 max-phone:w-31",
+      )}
     >
-      {facilityIcons[icon]}
-    </svg>
-  );
-}
-
-export function FacilityGrid({ items = facilities }: { items?: Facility[] }) {
-  return (
-    <div className="grid grid-cols-4 gap-4.5 max-laptop:grid-cols-2 max-laptop:gap-6.5 max-phone:grid-cols-1">
-      {items.map((facility) => (
-        <Reveal
-          className="rounded-(--r) border border-(--line-d) bg-white/4 px-5.5 py-6.5 transition-[background,transform] duration-250 hover:-translate-y-1 hover:bg-white/8"
-          key={facility.title}
-        >
-          <div className="mb-4 text-haze">
-            <FacilityIconSvg icon={facility.icon} />
-          </div>
-          <h3 className="mb-2 text-[18px]">{facility.title}</h3>
-          <p className="text-[14.5px] text-[#aebbe6]">{facility.body}</p>
-        </Reveal>
-      ))}
+      {/* Eager: a lazy tile would slide into the marquee blank and pop in. */}
+      <Image
+        src={src}
+        alt=""
+        fill
+        sizes="152px"
+        loading="eager"
+        fetchPriority="low"
+        className="object-contain p-3.5 max-phone:p-2.5"
+      />
     </div>
   );
 }
 
-export function CabinWindows() {
+const MARQUEE_ROWS = 3;
+const ROW_DURATION = ["48s", "62s", "40s"];
+
+export function RecruiterWall() {
+  const perRow = Math.ceil(recruiterLogos.length / MARQUEE_ROWS);
+  const rows = Array.from({ length: MARQUEE_ROWS }, (_, r) =>
+    recruiterLogos.slice(r * perRow, (r + 1) * perRow),
+  );
+
   return (
-    <Reveal
-      className="mt-15 flex justify-center gap-3.5 max-tablet:mt-11 max-tablet:flex-wrap"
-      aria-hidden="true"
-    >
-      {Array.from({ length: 6 }).map((_, i) => (
-        <span
-          className="h-19.5 w-13 rounded-[26px/40px] border-[1.5px] border-(--line-d) bg-[linear-gradient(180deg,#0a1030,#122055)] shadow-[inset_0_8px_20px_rgba(63,91,214,0.25)] max-tablet:h-16 max-tablet:w-10.5"
+    <Marquee label="Airlines, hotel groups and cruise lines that recruit Emporium students">
+      {rows.map((row, i) => (
+        <MarqueeRow
           key={i}
-        />
-      ))}
-    </Reveal>
-  );
-}
-
-/* -------------------------------------------------------------------------- */
-/*  Alumni stories                                                             */
-/* -------------------------------------------------------------------------- */
-
-export function StoryGrid() {
-  return (
-    <div className="grid grid-cols-3 gap-5.5 max-laptop:grid-cols-2 max-phone:grid-cols-1">
-      {stories.map((story) => (
-        <Reveal
-          className="relative rounded-(--r) border border-hairline bg-white px-6.5 py-7 transition-[transform,box-shadow] duration-250 hover:-translate-y-1 hover:shadow-(--shadow)"
-          key={story.name}
+          duration={ROW_DURATION[i]}
+          /* every other row drifts the other way */
+          reverse={i % 2 === 1}
         >
-          <div className="absolute top-5.5 right-5.5 rotate-6 rounded-[8px] border-[1.5px] border-crimson px-2 py-1.25 text-center font-mono text-[9px] leading-[1.3] tracking-[0.12em] text-crimson opacity-85 max-mini:top-4.5 max-mini:right-4.5">
-            {story.stamp[0]}
-            <br />
-            {story.stamp[1]}
-          </div>
-          {/* keeps the rotated stamp clear of the quote once cards get wider */}
-          <div className="mt-2 mb-5 text-[16px] text-ink max-laptop:pr-17 max-phone:pr-15.5">
-            &ldquo;{story.quote}&rdquo;
-          </div>
-          <div className="flex items-center gap-3">
-            <span className="grid size-11 place-items-center rounded-full bg-[linear-gradient(135deg,var(--royal),var(--sky))] font-heading text-[13px] font-bold text-white">
-              {story.initials}
-            </span>
-            <div>
-              <b className="block font-heading text-[16px]">{story.name}</b>
-              <span className="text-[13px] text-slate">{story.role}</span>
-            </div>
-          </div>
-        </Reveal>
+          {row.map((src) => (
+            <LogoTile key={src} src={src} />
+          ))}
+        </MarqueeRow>
       ))}
-    </div>
+    </Marquee>
   );
 }
 
 /* -------------------------------------------------------------------------- */
-/*  Admission steps                                                            */
+/*  Accreditation                                                              */
 /* -------------------------------------------------------------------------- */
 
-export function AdmissionSteps({
-  showEligibility = true,
-}: {
-  showEligibility?: boolean;
-}) {
+export function AccreditationStrip({ note = true }: { note?: boolean }) {
   return (
-    <>
-      <div className="grid grid-cols-4 gap-5.5 max-laptop:grid-cols-2 max-laptop:gap-6.5 max-phone:grid-cols-1">
-        {admissionSteps.map((step) => (
-          <Reveal className="relative flex flex-col pt-7" key={step.n}>
-            <div className="font-mono text-[14px] font-bold tracking-widest text-crimson">
-              {step.n}
-            </div>
-            <h3 className={stepHeading}>{step.title}</h3>
-            <p className="mb-1 text-[15px] text-slate">{step.body}</p>
-            {/* <div className="mt-auto h-0.75 overflow-hidden rounded-[3px] bg-cloud">
-              <i
-                className="block h-full bg-crimson"
-                style={{ width: step.progress }}
-              />
-            </div> */}
+    <div>
+      <div className="grid grid-cols-4 gap-5 max-phone:grid-cols-2">
+        {accreditations.map((item) => (
+          <Reveal
+            key={item.src}
+            className="relative grid h-36 place-items-center rounded-(--r) border border-hairline bg-white px-5 py-4"
+          >
+            <Image
+              src={item.src}
+              alt={item.label}
+              fill
+              sizes="(max-width: 560px) 45vw, 22vw"
+              className="object-contain p-5"
+            />
           </Reveal>
         ))}
       </div>
-
-      {showEligibility ? (
-        <Reveal className="mt-11 flex flex-wrap items-center justify-between gap-4 rounded-(--r) border border-hairline bg-paper px-7 py-6 max-tablet:flex-col max-tablet:items-stretch max-tablet:gap-5">
-          <p className="text-[15.5px] text-slate">
-            <b className="text-royal">Eligibility:</b> {eligibilityNote}
-          </p>
-          <Link
-            href="/enquire"
-            className={btn({ variant: "dark", block: "tablet" })}
-          >
-            Check your eligibility <span className={arrow}>→</span>
-          </Link>
-        </Reveal>
+      {note ? (
+        <p className="mt-6 max-w-[68ch] text-[15px] text-slate">
+          {accreditationNote}
+        </p>
       ) : null}
-    </>
+    </div>
+  );
+}
+
+export function EmpanelmentList() {
+  return (
+    <div>
+      <p className="font-heading text-[17px] font-semibold text-royal">
+        {empanelments.intro}
+      </p>
+      <ul className="mt-4.5 grid grid-cols-2 gap-x-6 gap-y-3 p-0 max-phone:grid-cols-1">
+        {empanelments.items.map((item) => (
+          <li
+            key={item}
+            className="flex list-none items-start gap-3 text-[15.5px] text-slate"
+          >
+            <span className="flex-none font-mono font-bold text-crimson">
+              ✓
+            </span>
+            {item}
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
+/* -------------------------------------------------------------------------- */
+/*  Training centres                                                           */
+/* -------------------------------------------------------------------------- */
+
+export function CentreGrid() {
+  return (
+    <div className="grid grid-cols-3 gap-6 max-laptop:grid-cols-2 max-phone:grid-cols-1">
+      {centreCards.map((centre) => (
+        <Reveal
+          key={centre.address}
+          className="overflow-hidden rounded-(--r) border border-hairline bg-white transition-[transform,box-shadow] duration-250 hover:-translate-y-1 hover:shadow-(--shadow)"
+          as="article"
+        >
+          {/* These are institution crests, not photographs — contain, don't crop. */}
+          <div className="relative aspect-16/10 border-b border-hairline bg-paper">
+            <Image
+              src={centre.image}
+              alt=""
+              fill
+              sizes="(max-width: 560px) 92vw, (max-width: 960px) 45vw, 30vw"
+              className="object-contain p-6"
+            />
+          </div>
+          <p className="px-5.5 py-5 text-[15px] text-slate">{centre.address}</p>
+        </Reveal>
+      ))}
+    </div>
+  );
+}
+
+/* -------------------------------------------------------------------------- */
+/*  Student testimonials                                                       */
+/* -------------------------------------------------------------------------- */
+
+/**
+ * The institute publishes its testimonials as screenshots of student messages,
+ * so they are shown as images rather than re-typed as quotes we cannot verify.
+ * Ten of them is too many to sit still, so they drift like the recruiter wall.
+ */
+export function TestimonialGallery() {
+  return (
+    <Marquee label="Messages from students who trained at Emporium" className="gap-0">
+      <MarqueeRow duration="66s" gap="gap-5">
+        {testimonialImages.map((src, i) => (
+          <figure
+            key={src}
+            className="w-[clamp(240px,28vw,340px)] flex-none overflow-hidden rounded-(--r) border border-hairline bg-white p-2.5 shadow-[0_10px_30px_-20px_rgba(13,22,66,0.5)]"
+          >
+            {/* Source stills vary in size, so a fixed box keeps the row even. */}
+            <div className="relative aspect-16/10 overflow-hidden rounded-[10px] bg-cloud">
+              <Image
+                src={src}
+                alt={`Student testimonial ${i + 1}`}
+                fill
+                sizes="340px"
+                loading="eager"
+                fetchPriority="low"
+                className="object-cover"
+              />
+            </div>
+          </figure>
+        ))}
+      </MarqueeRow>
+    </Marquee>
+  );
+}
+
+/* -------------------------------------------------------------------------- */
+/*  Eligibility call-out                                                       */
+/* -------------------------------------------------------------------------- */
+
+export function EligibilityBar({ note }: { note: string }) {
+  return (
+    <Reveal className="mt-11 flex flex-wrap items-center justify-between gap-4 rounded-(--r) border border-hairline bg-paper px-7 py-6 max-tablet:flex-col max-tablet:items-stretch max-tablet:gap-5">
+      <p className="text-[15.5px] text-slate">
+        <b className="text-royal">Eligibility:</b> {note}
+      </p>
+      <Link
+        href="/enquire"
+        className={btn({ variant: "dark", block: "tablet" })}
+      >
+        Check your eligibility <span className={arrow}>→</span>
+      </Link>
+    </Reveal>
   );
 }

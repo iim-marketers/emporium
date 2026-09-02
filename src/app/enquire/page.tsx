@@ -1,3 +1,4 @@
+import { ApplyDialog } from "@/components/apply-dialog";
 import { EnquiryForm } from "@/components/enquiry-form";
 import { HashScroll } from "@/components/hash-scroll";
 import { PageHero } from "@/components/page-hero";
@@ -31,9 +32,9 @@ import {
 import { cn } from "@/lib/utils";
 
 export const metadata = pageMetadata({
-  title: "Enquire & Contact",
+  title: "Enquire",
   description:
-    "Reserve a seat in the next Emporium intake. Share your details and our admissions team will call you with program options, fees and intake dates — no cost, no obligation.",
+    "Enquire about Emporium's certificate courses in aviation, hospitality and cruise line. Share your details and our admissions team will call you with course options, fees and intake dates.",
   path: "/enquire",
   keywords: ["aviation course enquiry", "admission enquiry", "contact Emporium"],
 });
@@ -47,16 +48,25 @@ const nextSteps = [
   {
     n: "SAME WEEK",
     title: "Counselling session",
-    body: "A one-on-one session — in person or on a call — to match you with the right program.",
+    body: "A one-on-one session — in person, at a centre near you, or over free video counselling from home.",
   },
   {
     n: "AFTER THAT",
     title: "Fees & intake dates",
-    body: "You get the fee structure, instalment options and the next intake date in writing.",
+    body: "You get the fee structure, the documents to bring and the next intake date in writing.",
   },
 ];
 
+const benefits = [
+  "No cost, no obligation — just a friendly call",
+  "Personalised course & career guidance",
+  "Free video counselling — talk to a counsellor from home",
+  "100% Placement Assistance through our Placement Cell",
+];
+
 export default function EnquirePage() {
+  const { address } = site;
+
   return (
     <>
       <HashScroll id="enquire" />
@@ -64,7 +74,7 @@ export default function EnquirePage() {
       <PageHero
         eyebrow="Book your seat"
         title="Your future is boarding."
-        lede="Tell us a little about yourself and our admissions team will reach out with program details, fees and the next intake dates."
+        lede="Tell us a little about yourself and our admissions team will reach out with course details, fees and the next intake dates."
         crumbs={[{ label: "Enquire" }]}
       />
 
@@ -78,8 +88,8 @@ export default function EnquirePage() {
               Call the admissions desk.
             </h2>
             <p className={lede}>
-              Lines are open through the week. If you would rather visit, we will set
-              up a campus walk-through of the cabin mock-up and training floor.
+              Lines are open every day. If you would rather visit, we will set up a
+              walk-through of the training floor at the centre nearest you.
             </p>
 
             <div className="mt-8 grid gap-0">
@@ -102,26 +112,30 @@ export default function EnquirePage() {
                 </a>
               </div>
               <div className={cn(specRow, specRowOnDark)}>
-                <span className={specKeyOnDark}>Campus</span>
+                <span className={specKeyOnDark}>Corporate office</span>
+                <a
+                  href={address.mapHref}
+                  target="_blank"
+                  rel="noreferrer"
+                  className={cn(specValue, specValueOnDark)}
+                >
+                  {address.line2}, {address.city}
+                </a>
+              </div>
+              <div className={cn(specRow, specRowOnDark)}>
+                <span className={specKeyOnDark}>Hours</span>
                 <span className={cn(specValue, specValueOnDark)}>
-                  {site.address.city}, {site.address.state}
+                  {site.hours}
                 </span>
               </div>
             </div>
 
             <ul className={enqList}>
-              <li className={enqListItem}>
-                <span className={checklistTick}>✓</span> No cost, no obligation — just a
-                friendly call
-              </li>
-              <li className={enqListItem}>
-                <span className={checklistTick}>✓</span> Personalised program &amp; career
-                guidance
-              </li>
-              <li className={enqListItem}>
-                <span className={checklistTick}>✓</span> Details on scholarships &amp;
-                instalment options
-              </li>
+              {benefits.map((item) => (
+                <li key={item} className={enqListItem}>
+                  <span className={checklistTick}>✓</span> {item}
+                </li>
+              ))}
             </ul>
           </Reveal>
 
@@ -148,6 +162,14 @@ export default function EnquirePage() {
               </Reveal>
             ))}
           </div>
+
+          <Reveal className="mt-11 flex flex-wrap items-center justify-between gap-4 rounded-(--r) border border-hairline bg-paper px-7 py-6 max-tablet:flex-col max-tablet:items-stretch max-tablet:gap-5">
+            <p className="text-[15.5px] text-slate">
+              <b className="text-royal">Already qualified?</b> Send your CV straight
+              to the placement cell for upcoming jobs.
+            </p>
+            <ApplyDialog label="Apply Now" variant="dark" block="tablet" />
+          </Reveal>
         </div>
       </section>
     </>

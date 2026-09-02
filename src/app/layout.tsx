@@ -11,7 +11,7 @@ import "./globals.css";
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
   title: {
-    default: `${site.name} — Aviation & Hospitality Training · ${site.tagline}`,
+    default: `${site.name} — Advanced certificate courses in Aviation, Hospitality & Cruise Line`,
     template: `%s · ${site.name}`,
   },
   description: site.description,
@@ -26,8 +26,9 @@ export const metadata: Metadata = {
     "air hostess course",
     "airport ground staff training",
     "hospitality management course",
+    "cruise line course",
     "travel and tourism course",
-    "Emporium institute",
+    "Emporium Training and Consultancy",
   ],
   alternates: { canonical: "/" },
   openGraph: {
@@ -35,7 +36,7 @@ export const metadata: Metadata = {
     siteName: site.name,
     locale: site.locale,
     url: "/",
-    title: `${site.name} — Aviation & Hospitality Training`,
+    title: `${site.name} — Aviation, Hospitality & Cruise Line Training`,
     description: site.description,
     images: [
       {
@@ -48,7 +49,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: `${site.name} — Aviation & Hospitality Training`,
+    title: `${site.name} — Aviation, Hospitality & Cruise Line Training`,
     description: site.description,
     images: ["/opengraph-image"],
   },
@@ -81,11 +82,13 @@ const organizationJsonLd = {
   telephone: site.phone,
   address: {
     "@type": "PostalAddress",
-    streetAddress: site.address.line1,
+    streetAddress: `${site.address.line1}, ${site.address.line2}`,
     addressLocality: site.address.city,
     addressRegion: site.address.state,
+    postalCode: site.address.pin,
     addressCountry: site.address.country,
   },
+  hasMap: site.address.mapHref,
   sameAs: site.social.map((item) => item.href),
 };
 

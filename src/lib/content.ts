@@ -1,25 +1,110 @@
+/**
+ * Page content taken from emporiumsolutions.com — stats, accreditations,
+ * centres, alumni, news and blog. Everything the pages render lives here so
+ * copy can be edited without touching layout.
+ */
+
+/* -------------------------------------------------------------------------- */
+/*  Headline numbers                                                           */
+/* -------------------------------------------------------------------------- */
+
 export type Stat = { to: number; suffix: string; label: string };
 
+/** Home page band. "Over 50,000+ students placed In 29 different countries". */
 export const stats: Stat[] = [
-  { to: 12000, suffix: "+", label: "Students trained & groomed" },
-  { to: 95, suffix: "%", label: "Placement assistance rate" },
-  { to: 40, suffix: "+", label: "Airline & hospitality recruiters" },
-  { to: 15, suffix: " yrs", label: "Shaping careers across India" },
+  { to: 50000, suffix: "+", label: "Students placed worldwide" },
+  { to: 29, suffix: "", label: "Different countries placed in" },
+  { to: 10, suffix: "+", label: "Centres across India" },
+  { to: 15, suffix: "+ yrs", label: "In skills development" },
 ];
 
-export const recruiters = [
-  "IndiGo",
-  "Air India",
-  "Emirates",
-  "Qatar Airways",
-  "Vistara",
-  "Akasa Air",
-  "Etihad",
-  "Taj Hotels",
-  "Marriott",
-  "Oberoi",
-  "Singapore Airlines",
+/** Placements page headline — the same shape the home page uses for its claim. */
+export const placementClaim = {
+  count: "Over 15,100+",
+  line1: "students placed",
+  line2: "In 14 different countries",
+  image: "/placements/hero.png",
+};
+
+export const headlineClaim = {
+  count: "Over 50,000+",
+  line1: "students placed",
+  line2: "In 29 different countries",
+  body: "Emporium has one of the best aviation course, cruise line, hospitality course, travel & tourism management, and customer service course. It is a leading Vocational Training Provider (VTP) under the Directorate General of Employment & Craftsmen Training, Ministry of Labour & Employment, Government of India.",
+  image: "/misc/students-placed.png",
+};
+
+/* -------------------------------------------------------------------------- */
+/*  Accreditation & empanelment                                                */
+/* -------------------------------------------------------------------------- */
+
+export type Accreditation = { src: string; label: string };
+
+export const accreditations: Accreditation[] = [
+  {
+    src: "/accreditation/msde.png",
+    label: "Government of India — Ministry of Skill Development & Entrepreneurship",
+  },
+  { src: "/accreditation/nsdc.png", label: "National Skill Development Corporation" },
+  { src: "/accreditation/thsc.png", label: "Tourism & Hospitality Skill Council" },
+  { src: "/accreditation/iisc.png", label: "India International Skill Centre" },
 ];
+
+export const accreditationNote =
+  "Emporium is a leading Vocational Training Provider under Directorate General of Employment and Craftsmen Training, Ministry of Labour and Employment, Government of India.";
+
+export const empanelments = {
+  intro: "Directorate of Employment, Skill Development & Entrepreneurship",
+  items: [
+    "Govt. of Nagaland",
+    "Govt. of Manipur",
+    "Govt. of Meghalaya",
+    "Govt. of Arunachal Pradesh",
+    "Govt. of Mizoram",
+    "Govt. of West Bengal",
+  ],
+};
+
+/* -------------------------------------------------------------------------- */
+/*  Recruiter logo wall                                                        */
+/* -------------------------------------------------------------------------- */
+
+/**
+ * The old site's recruiter wall. The source files carry no brand names in their
+ * filenames or alt text, so the wall is presented as one labelled group rather
+ * than pretending to per-logo alt copy we do not have.
+ */
+export const recruiterLogos: string[] = [
+  ...["a", "b", "c", "d"].flatMap((group) =>
+    Array.from({ length: 10 }, (_, i) => `/recruiters/${group}${i + 1}.png`),
+  ),
+  ...Array.from({ length: 7 }, (_, i) => `/recruiters/e${i + 1}.png`),
+  "/recruiters/logo8.png",
+  "/recruiters/logo10.png",
+  "/recruiters/logo15.png",
+  "/recruiters/logo9.webp",
+  "/recruiters/logo11.webp",
+  "/recruiters/el2.webp",
+  "/recruiters/el4.webp",
+];
+
+/** Marquee strip under the hero — recruiters named in the institute's own copy. */
+export const recruiterNames = [
+  "Qatar Airways",
+  "IndiGo",
+  "Park Hyatt",
+  "Carnival Cruise",
+  "Air Asia",
+  "The Oberoi",
+  "Go First",
+  "Leela Palace",
+  "GoAir International",
+  "The Hyatt Group",
+];
+
+/* -------------------------------------------------------------------------- */
+/*  What Emporium offers — the About page's four promises                      */
+/* -------------------------------------------------------------------------- */
 
 export type Pillar = { no: string; icon: string; title: string; body: string };
 
@@ -27,202 +112,300 @@ export const pillars: Pillar[] = [
   {
     no: "01",
     icon: "✦",
-    title: "Industry-current curriculum",
-    body: "Course content mapped to real airline and hotel service standards, refreshed with the industry — not textbooks from a decade ago.",
+    title: "Industrial Certified Training Modules",
+    body: "Each course covers topics ranging from communication skills, grooming skills, English enhancement and personality improvement to detailed knowledge of the Aviation, Hospitality, Cruise line, Travel & Tourism and Customer Service industries.",
   },
   {
     no: "02",
     icon: "✈",
-    title: "Mock cabin & service labs",
-    body: "Practice announcements, service and safety drills in a cabin mock-up and live service setups before you ever face a recruiter.",
+    title: "State of art facilities",
+    body: "Every Emporium centre is fully furnished with computer laboratories and model aeroplanes, supported by updated projectors and cutting-edge audio-visual gear.",
   },
   {
     no: "03",
-    icon: "☺",
-    title: "Grooming & personality",
-    body: "Deportment, communication and confidence coaching so you walk into an interview looking and sounding the part.",
+    icon: "✓",
+    title: "100 Percent Placement Assistance",
+    body: "A specialized Placement Assistance Cell (PAC) organizes on-campus interviews where senior executives from the largest domestic and foreign airlines, five-star hotels and cruise lines meet Emporium students.",
   },
   {
     no: "04",
-    icon: "✓",
-    title: "Interview & GD prep",
-    body: "Mock interviews, group discussions and resume clinics run the way airlines actually screen candidates.",
-  },
-  {
-    no: "05",
-    icon: "◍",
-    title: "Certification readiness",
-    body: "Preparation for English proficiency, first-aid and safety awareness expected across aviation and hospitality roles.",
-  },
-  {
-    no: "06",
-    icon: "♜",
-    title: "Dedicated placement cell",
-    body: "On-campus drives, recruiter referrals and lifetime alumni support — your relationship with us doesn't end at graduation.",
+    icon: "☺",
+    title: "Learning from the best in the industry",
+    body: "Faculty members have years of expertise in the field and participate in professional development programs to stay current with industry practice.",
   },
 ];
 
-export type FacilityIcon = "cabin" | "grooming" | "interview" | "lab";
+export const aboutIntro =
+  "Emporium is a leading Vocational Training Institute in India under the Directorate General of Employment & Craftsmen Training, Ministry of Labour & Employment, Government of India.";
 
-export type Facility = {
-  icon: FacilityIcon;
-  title: string;
-  body: string;
-  detail: string;
-};
+export const aboutBody = [
+  "Emporium has one of the best aviation course, cruise line, hospitality course, travel & tourism management, and customer service course. It is a leading Vocational Training Provider (VTP) under the Directorate General of Employment & Craftsmen Training, Ministry of Labour & Employment, Government of India.",
+  "The major courses are aviation courses, cruise management, hospitality management, travel management, and Customer Service. Each course covers topics ranging from Communication skills, Grooming skills, English enhancement, and Personality improvement to detailed knowledge of Aviation, Hospitality, Cruise line, Travel & Tourism, and Customer Service Industries.",
+  "The Emporium Certificate courses have become well-known for their particular topic, length flexibility, and the value they add to a student's growth plans. Emporium prepares students for high-paying careers.",
+];
 
-export const facilities: Facility[] = [
+/* -------------------------------------------------------------------------- */
+/*  Training centres shown on the home page                                    */
+/* -------------------------------------------------------------------------- */
+
+/** The home page pairs each centre's address with its institution crest. */
+export type CentreCard = { image: string; address: string };
+
+export const centreCards: CentreCard[] = [
   {
-    icon: "cabin",
-    title: "Cabin mock-up",
-    body: "A cabin interior to rehearse service flow, announcements and safety demonstrations.",
-    detail:
-      "Seats, overhead bins, galley and a working PA — the layout crew actually move through. Students run full service sequences and safety demonstrations here until the choreography is automatic.",
+    image: "/centres/crests/shillong.jpg",
+    address:
+      "Don Bosco Youth Centre, Don Bosco Square, Laitumkhrah Shillong, Meghalaya",
   },
   {
-    icon: "grooming",
-    title: "Grooming studio",
-    body: "Mirrored deportment space for posture, makeup, uniform and presentation coaching.",
-    detail:
-      "Full-length mirrors, uniform racks and a makeup counter. Weekly grooming checks mirror the standards an airline appearance panel applies on assessment day.",
+    image: "/centres/crests/gangtok.jpg",
+    address:
+      "Nar Bahadur Bhandari Government College, Tadong, Gangtok, Sikkim",
   },
   {
-    icon: "interview",
-    title: "Interview studio",
-    body: "Recorded mock interviews and group discussions with structured feedback.",
-    detail:
-      "Every mock is recorded and played back with written feedback on content, body language and voice, so improvement is something students can see rather than be told about.",
+    image: "/centres/crests/siliguri.jpg",
+    address: "Salesian College, Don Bosco Colony, Siliguri, West Bengal",
   },
   {
-    icon: "lab",
-    title: "GDS & computer lab",
-    body: "Hands-on reservations, ticketing and customer-handling practice on real tools.",
-    detail:
-      "Workstations for reservation-system practice, fare construction and documentation drills — the systems side of travel and airline front-desk work.",
+    image: "/centres/crests/senapati.jpg",
+    address: "Mount Everest College, Senapati, Manipur",
+  },
+  {
+    image: "/centres/crests/maram.png",
+    address:
+      "Don Bosco College Autonomous, Maram Bazar P.O, Senapati District, Manipur, India - 795015",
+  },
+  {
+    image: "/centres/crests/itanagar.png",
+    address:
+      "Don Bosco Youth Centre, Vivek Vihar, Itanagar, Arunachal Pradesh, 791111 Landmark- Bharatiya Janata Party State office.",
   },
 ];
 
-export type Story = {
-  stamp: [string, string];
-  quote: string;
-  initials: string;
+/* -------------------------------------------------------------------------- */
+/*  Student testimonials (screenshot gallery)                                  */
+/* -------------------------------------------------------------------------- */
+
+export const testimonialImages: string[] = Array.from(
+  { length: 10 },
+  (_, i) => `/testimonials/testimonial-${i + 1}.png`,
+);
+
+/* -------------------------------------------------------------------------- */
+/*  Placements                                                                 */
+/* -------------------------------------------------------------------------- */
+
+export const placementsIntro =
+  "Since we are working very closely with the industry for the last 9 years in India and we follow all the guidelines given by the airlines, hotels and tourism companies, we do not take open admissions to maintain the quality policy and to ensure that every student gets suitable jobs according to the profile.";
+
+export const placementsBody = [
+  "According to the eligibility criteria mentioned above for the various job roles it is mandatory for every candidate to go through screening and interview process and successfully pass in all the two rounds of interview. Our students are getting good starting salaries in India and overseas. Apart from attractive salary packages; our candidates are also getting other benefits like free boarding & lodging, medical, insurance etc. Candidates placed overseas are getting free boarding, lodging, free air tickets, free visa, medical & insurance coverage, traveling allowance etc.",
+  "We feel proud to announce that we have achieved 100% placements with all our batches under the Skill Development Initiative Scheme (SDIS) under the Directorate General of Employment & Training, Ministry of Labour & Employment, Govt. of India. 100% placements will be provided to students who will successfully complete the training and will pass in all the subjects in the final exam. Kindly find some pictures below of our beloved students from North East India who have got jobs with the most eminent brands.",
+];
+
+/**
+ * The "Emporium Alumni" cards — placed students, captioned with the brand and
+ * posting they went to. Image/caption pairs are taken from the institute's own
+ * markup, not inferred.
+ */
+export const placementCards: { image: string; brand: string; role: string }[] = [
+  { image: "/placements/pic4.jpg", brand: "Carnival", role: "Cruise" },
+  { image: "/placements/pic5.jpg", brand: "GoAir", role: "International" },
+  { image: "/placements/pl2.jpg", brand: "Indigo Airlines", role: "Domestic" },
+  { image: "/placements/pic1-1.jpg", brand: "Park Hyatt", role: "Abu Dhabi" },
+  { image: "/placements/pic2.jpg", brand: "Indigo Airlines", role: "Domestic" },
+  { image: "/placements/pic3.jpg", brand: "Leela Palace", role: "Bangalore" },
+  { image: "/placements/team-member1.jpg", brand: "Air Asia", role: "Cabin Crew" },
+];
+
+/* -------------------------------------------------------------------------- */
+/*  Alumni — "Recruiters Speak"                                                */
+/* -------------------------------------------------------------------------- */
+
+export type Alumnus = {
+  image: string;
   name: string;
-  role: string;
+  employer: string;
+  quote: string;
 };
 
-export const stories: Story[] = [
+export const alumni: Alumnus[] = [
   {
-    stamp: ["CABIN", "CREW"],
+    image: "/alumni/steffy-nongthoman.jpeg",
+    name: "Steffy Nongthoman",
+    employer: "The Park Hyatt Hotel & Villas",
     quote:
-      "The mock interviews were tougher than the real one. By the time I sat in front of the airline panel, I'd already done it twenty times.",
-    initials: "AK",
-    name: "Aanya K.",
-    role: "EMP-201 · placed as Cabin Crew",
+      "Emporium Alumni Steffy Nongthoman, currently working at THE PARK HYATT HOTEL & VILLAS — one of the most elite, top luxury, premium global hospitality brands under the HYATT group of hotels from the United States of America.",
   },
   {
-    stamp: ["GROUND", "STAFF"],
+    image: "/alumni/alemienla-imsong.jpg",
+    name: "Alemienla Imsong",
+    employer: "Go First Airlines",
     quote:
-      "I joined shy and unsure. The grooming and GD sessions changed how I carry myself — that confidence got me the offer.",
-    initials: "RM",
-    name: "Rohan M.",
-    role: "EMP-301 · Airport Customer Service",
+      "Emporium Alumni Alemienla Imsong, currently working as a Cabin Crew with Go First Airlines, became the first Naga brand ambassador of the airline. Now her picture is featured on the Go First Airline global website. This is indeed a moment of pride for all of us.",
   },
   {
-    stamp: ["HOTEL", "FRONT"],
+    image: "/alumni/vikhono-savino.jpg",
+    name: "Vikhono Savino",
+    employer: "Qatar Airways",
     quote:
-      "Emporium didn't just teach the syllabus. They kept sending me for drives until I landed the right role in a five-star property.",
-    initials: "SP",
-    name: "Sara P.",
-    role: "EMP-401 · Guest Experience",
+      "Vikhono Savino from Nagaland — Emporium alumni. Currently flying with Qatar Airways, World's No.1 Airline, as a Cabin Crew. Vikhono has flown to over 67 countries and has a flying experience of over 7 years now.",
   },
 ];
 
-export type Step = { n: string; title: string; body: string; progress: string };
+/* -------------------------------------------------------------------------- */
+/*  Achievements                                                               */
+/* -------------------------------------------------------------------------- */
 
-export const admissionSteps: Step[] = [
+export const achievementsLede =
+  "Success is the result of determination, resilience, and seizing opportunities.";
+
+export type Achievement = { image?: string; title: string; body: string };
+
+export const achievements: Achievement[] = [
   {
-    n: "STEP 01",
-    title: "Enquire",
-    body: "Send us your details or call admissions. We'll share programs, fees and the next intake dates.",
-    progress: "25%",
+    image: "/achievements/temsuinla.jpg",
+    title: "Meet Temsuinla — Emporium alumni | Completed her Cabin Crew graduation.",
+    body: "Family is proud of you and we wish you all the very best for your future endeavors. Fly High.",
   },
   {
-    n: "STEP 02",
-    title: "Counselling",
-    body: "A one-on-one session and aptitude check to match you with the right program for your goals.",
-    progress: "50%",
+    title:
+      "Two Emporium alumni featured in #7wonders of Tourism & Hospitality Sector Skill Council",
+    body: "Linseshi Lamlui — Cabin Crew, Go Air & Nitumoni Gogoi — The Oberoi Hotels, Dubai got featured in this video. Both of them completed their training from Emporium Nagaland.",
   },
   {
-    n: "STEP 03",
-    title: "Enrol & train",
-    body: "Complete admission and begin hands-on training, grooming and soft-skills modules.",
-    progress: "75%",
-  },
-  {
-    n: "STEP 04",
-    title: "Interview & place",
-    body: "Sit for recruiter drives with full interview prep and dedicated placement support.",
-    progress: "100%",
+    image: "/achievements/lika-zhimomi.jpg",
+    title: "Lika Zhimomi at SALT Kite Beach Dubai",
+    body: "Emporium Alumni Lika Zhimomi posing for the lens with famous Bollywood Singer Daler Mehndi at SALT Kite Beach Dubai.",
   },
 ];
 
-export const eligibilityNote =
-  "Open to candidates who have passed or are appearing for 10+2 (any stream). Graduates welcome. Minimum age and role criteria vary by airline — we'll guide you.";
+/* -------------------------------------------------------------------------- */
+/*  Franchise                                                                  */
+/* -------------------------------------------------------------------------- */
 
-export type Faq = { q: string; a: string };
+export const franchise = {
+  eyebrow: "India's No.1 Air Hostess Training Institute",
+  title: "Join hands and be a part of the fastest growing industry",
+  returns: "High Returns In 12 To 18 Months Only",
+  invest: "Invest with Emporium",
+  intro: "Own Your Franchise Today with Emporium!",
+  body: [
+    "The Company has over 15 years of experience in skills development for its students in the Aviation, Hospitality, Travel Management, and Customer Service sectors. Successfully trained and placed 30,000+ candidates worldwide.",
+    "More than 10 Centers across India including franchise centers.",
+  ],
+  specs: [
+    { label: "Carpet Area of", value: "2000 sq ft to 2500 sq ft" },
+    { label: "Minimum Investment of", value: "₹50 Lac to ₹80 Lac" },
+  ],
+  benefits: [
+    "INDIA's No. 1 Air Hostess Training Institute",
+    "State of the art infrastructure at Training Centers",
+    "Emporium job-oriented Certificate courses in Aviation, Cruise Lines, Hospitality, Travel Management and Customer Service are appreciated by Industry",
+    "100% Placement Assistance to students provided by Emporium's Expert & Experienced Placement Cell",
+    "Exclusive updated training curriculum for students in soft skills, communications & personality development",
+  ],
+  support: [
+    "Marketing & Advertising",
+    "Staff Recruitment",
+    "Centralized digital course Delivery",
+    "Site section & Layout",
+  ],
+  image: "/misc/franchise.jpg",
+};
 
-export const faqs: Faq[] = [
+/* -------------------------------------------------------------------------- */
+/*  Latest news                                                                */
+/* -------------------------------------------------------------------------- */
+
+export type NewsItem = { title: string; date?: string; body: string[] };
+
+export const news: NewsItem[] = [
   {
-    q: "Do I need to have finished 10+2 to apply?",
-    a: "You can apply while you are appearing for 10+2. Admission is confirmed once results are declared; students who have already passed, or who hold a degree, can join straight away.",
+    title:
+      "PRESS RELEASE — DON BOSCO YOUTH CENTRE SIGNS MOU WITH EMPORIUM TRAINING & CONSULTANCY PVT. LTD. TO BOOST GLOBAL EMPLOYMENT OPPORTUNITIES FOR MEGHALAYA'S YOUTH",
+    date: "September 1, 2025",
+    body: [
+      "Shillong, September 1, 2025: Don Bosco Youth Centre (DBYC), Shillong, one of the oldest and most trusted training centres in Meghalaya, has signed a Memorandum of Understanding (MoU) with Emporium Training & Consultancy Pvt. Ltd. (ETCPL) to provide skill development and employment opportunities to educated unemployed youths of the state.",
+      "Since its inception, Don Bosco Youth Centre has been at the forefront of youth empowerment, providing training in diverse sectors and successfully placing hundreds of students in reputed organizations every year. Known for its commitment to holistic education and skill development, DBYC continues to be a beacon of hope for young people seeking professional growth and livelihood.",
+      "ETCPL, India's leading skill training institute in the fields of Aviation, Hospitality, and Cruiseline, is accredited under the Ministry of Skill Development & Entrepreneurship, Government of India, the National Skill Development Corporation (NSDC), and Skill India International. Established in 2007, ETCPL has placed over one lakh youth globally, with a strong presence in Northeast India.",
+      "Through this collaboration, ETCPL will conduct professional training at the Don Bosco Youth Centre, Shillong, preparing students for careers in aviation, luxury hospitality, and international cruise lines. Placement opportunities will be extended in over 20 countries worldwide, opening doors for the youth of Meghalaya to build successful careers abroad.",
+      "Young aspirants who dream of working as Cabin Crew, Airport Ground Staff, five-star luxury hotel professionals, or on international cruise liners can now connect with the ETCPL office located at the Don Bosco Youth Centre, Laitumkhrah, Shillong. The first batch of training in Shillong will commence in September 2025.",
+      "This MoU marks a significant milestone in advancing employment readiness and global mobility for the youth of Meghalaya, bridging local talent with international opportunities.",
+    ],
   },
   {
-    q: "Is a job guaranteed at the end of the program?",
-    a: "No, and we will not tell you otherwise. Emporium runs a dedicated placement cell that brings recruiters on campus, refers candidates and prepares you for every round — but the final offer depends on your performance and the recruiter's criteria.",
+    title: "KOLKATA AIRPORT BREAKS PRE-COVID PEAKS, RECORDS ALL-TIME HIGHEST PROFIT",
+    body: [
+      "Netaji Subhas Chandra Bose International Airport in Kolkata set an all-time financial high in FY 2023-24, registering its highest-ever revenue of ₹1,578.6 crore and net profit of ₹670 crore — 2.5 times that of Chennai airport's profit and 23% more than Kolkata's previous high in 2019-20. This historic performance re-establishes Kolkata as the highest-grossing airport operated by the Airports Authority of India (AAI).",
+      "The increase in profitability is primarily attributed to traffic revenue, accounting for 79% of overall earnings, with 85% derived from domestic operations. The airport is also a major transit point in the northeast and has healthy international traffic, particularly to Southeast Asia. Number of passengers was 2.1 crore in 2024, an increase of 32 lakh over 2023, close to the pre-pandemic year's highest of 2.3 crore in 2019. Average per-flight passenger load improved to 146, higher than all earlier years.",
+      "Substantial infrastructure overhauls — like a new ATC tower, resurfacing of runways, and apron expansion — have facilitated growth. Terminal capacity expansion and the construction of a domestic cargo terminal are among the projects in the pipeline. With increased investment and growing traffic, the airport plans to reach ₹1,000 crore in profits in 2025-26 and reduce cost by going green.",
+    ],
   },
   {
-    q: "What are the fees, and are instalments available?",
-    a: "Fees vary by program length and level. Instalment plans and merit scholarships are available — our admissions team walks you through the exact numbers for the program you pick during counselling.",
+    title:
+      "INDIGO TO INTRODUCE DIRECT FLIGHTS FROM MUMBAI TO ALMATY, TASHKENT, TBILISI",
+    body: [
+      "IndiGo, India's domestic carrier, said it will introduce direct international flights from Mumbai to three key Central Asian cities — Almaty in Kazakhstan, Tashkent in Uzbekistan, and Tbilisi in Georgia. The new flights are expected to enhance connectivity between India and Central Asia.",
+      "The airline will operate the Mumbai-Almaty sector on July 1, the Mumbai-Tashkent sector on August 1, and the Mumbai-Tbilisi sector on August 2. IndiGo had previously introduced flights to these destinations from Delhi in 2023, and this development indicates its increasing emphasis on international travel.",
+      "It will operate four flights a week to Almaty and Tashkent, and three flights a week to Tbilisi. IndiGo maintains these new destinations will not only enhance travel choices but also assist tourism, trade, and cultural connections between India and the nations concerned.",
+      "Vinay Malhotra, IndiGo's Head of Global Sales, stated that these flights will facilitate easier travel and deepen global connections. He added that these culturally diverse destinations would become more accessible to Indian travelers, aligning with IndiGo's vision of making India more closely connected to the world.",
+    ],
   },
   {
-    q: "Are there height, age or medical criteria?",
-    a: "For in-flight roles, airlines set their own age, height, vision and medical standards, and they differ between carriers. We assess you against the criteria of the airlines currently hiring and tell you honestly where you stand.",
-  },
-  {
-    q: "Can I switch programs after I enrol?",
-    a: "Within the first two weeks, yes — if counselling suggests a better fit, we move you and adjust the fee against the new program.",
-  },
-  {
-    q: "Are classes in person or online?",
-    a: "All programs are classroom-based on campus. Practical work in the cabin mock-up, grooming studio and computer lab is the core of the training, and it does not translate to a screen.",
+    title:
+      "CIVIL AVIATION MINISTER SAID INDIA IN NEXT FIVE YEARS TO CONSTRUCT FIFTY MORE AIRPORTS",
+    body: [
+      "Emphasizing the rise of the Indian aviation industry, Union minister K Rammohan Naidu on Monday stated the nation plans to have 50 more airports within the next 5 years. There are presently 162 airports in India and the figure has increased by more than double from 74 airports in 2014. Addressing the annual general meeting of International Air Transport Association (IATA), he also mentioned that the regional air connectivity scheme of the government (UDAN) made air travel democratic and operationalized 619 routes altogether. Plans are also underway to position India as a global Maintenance, Repair and Overhaul (MRO) hub and the segment is expected to be valued at USD 4 billion by 2031, Naidu added. Naidu also called on international players to partner with India in making sustainable aviation fuel as he stressed the decarbonisation imperative.",
+    ],
   },
 ];
 
-export type PlacementSupport = { title: string; body: string };
+/* -------------------------------------------------------------------------- */
+/*  Latest blog                                                                */
+/* -------------------------------------------------------------------------- */
 
-export const placementSupport: PlacementSupport[] = [
+export type BlogPost = {
+  image: string;
+  title: string;
+  date: string;
+  excerpt: string;
+  href: string;
+};
+
+export const blogPosts: BlogPost[] = [
   {
-    title: "On-campus recruiter drives",
-    body: "Airlines, ground handlers and hotel groups screen on campus through the year, so students interview without chasing openings alone.",
+    image: "/blog/aviation-courses.jpg",
+    title: "Soaring to Success: Unleash Your Wings with Top Aviation Courses",
+    date: "September 21, 2023",
+    excerpt:
+      "Introduction: In Indian mythology flying chariot denotes the concept of aviation activities during that time. Flying birds …",
+    href: "https://www.emporiumsolutions.com/soaring-to-success-unleash-your-wings-with-top-aviation-courses/",
   },
   {
-    title: "Profile & resume clinics",
-    body: "Aviation resumes have a format of their own. We build yours, shoot the photograph, and get the profile recruiter-ready.",
+    image: "/blog/global-career.png",
+    title:
+      "Your Global Career Starts Here: Why Thousands Trust Emporium for Aviation, Hospitality & Cruise Training",
+    date: "July 30, 2025",
+    excerpt:
+      "In a world where skilled professionals are in demand across hospitality, aviation, and cruise industries, the right …",
+    href: "https://www.emporiumsolutions.com/your-global-career-starts-here-why-thousands-trust-emporium-for-aviation-hospitality-cruise-training/",
   },
   {
-    title: "Interview & GD rehearsal",
-    body: "Recorded mocks in recruiter format, repeated until the real panel feels like one more rehearsal.",
+    image: "/blog/top-10-skills.png",
+    title: "Top 10 Skills You Need to Succeed in Aviation and Hospitality",
+    date: "August 5, 2025",
+    excerpt:
+      "The aviation and hospitality industries are more than just glamorous uniforms and international travel. They demand precision, …",
+    href: "https://www.emporiumsolutions.com/top-10-skills-you-need-to-succeed-in-aviation-and-hospitality/",
   },
   {
-    title: "Referrals & alumni network",
-    body: "Alumni already inside airlines and hotels flag openings, and referrals go out from the placement cell directly.",
-  },
-  {
-    title: "Post-placement support",
-    body: "Support does not stop at the first offer — come back to us when you are ready for the next move.",
-  },
-  {
-    title: "Documentation guidance",
-    body: "Background checks, medicals and joining paperwork handled with you, so nothing derails a confirmed offer.",
+    image: "/blog/civil-aviation-boom.png",
+    title:
+      "India's Civil Aviation Boom: A Sky Full of Opportunities for Aspiring Professionals",
+    date: "August 11, 2025",
+    excerpt:
+      "India's civil aviation sector has soared to impressive heights in recent years. According to recent data, India …",
+    href: "https://www.emporiumsolutions.com/indias-civil-aviation-boom-a-sky-full-of-opportunities-for-aspiring-professionals/",
   },
 ];

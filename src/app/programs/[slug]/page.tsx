@@ -1,33 +1,32 @@
+import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
+import { ApplyDialog } from "@/components/apply-dialog";
 import { BoardingPass } from "@/components/boarding-pass";
 import { EnquirySection } from "@/components/enquiry-section";
+import { FaqList } from "@/components/news";
 import { PageHero } from "@/components/page-hero";
 import { Reveal } from "@/components/reveal";
 import { SectionHead } from "@/components/sections";
-import { getProgram, programs } from "@/lib/programs";
-import { pageMetadata } from "@/lib/seo";
-import { site } from "@/lib/site";
 import { arrow, btn } from "@/lib/btn";
+import { programBySlug, programs } from "@/lib/programs";
+import { pageMetadata } from "@/lib/seo";
 import {
   cardBody,
-  checklistItem,
   checklist,
+  checklistItem,
   checklistTick,
-  chipOnDark,
+  chip,
   chips,
   columnHeading,
-  eyebrow,
   heroCta,
-  moduleBody,
   moduleItem,
   moduleList,
-  moduleTitle,
   moduleNo,
+  moduleTitle,
   panel,
   panelHeading,
-  passGrid,
   proseBody,
   sectionPad,
   specKey,
@@ -48,121 +47,99 @@ export function generateStaticParams() {
 
 export async function generateMetadata({ params }: PageProps<"/programs/[slug]">) {
   const { slug } = await params;
-  const program = getProgram(slug);
+  const program = programBySlug(slug);
 
   if (!program) {
     return pageMetadata({
-      title: "Program not found",
-      description: "This program is not part of the current Emporium catalogue.",
+      title: "Course not found",
+      description: "This course is not part of the current Emporium catalogue.",
       path: `/programs/${slug}`,
     });
   }
 
   return pageMetadata({
-    title: program.title,
-    description: `${program.description} ${program.duration} · ${program.level} · classroom training with grooming, interview prep and placement support.`,
+    title: program.shortTitle,
+    description: program.heading,
     path: `/programs/${program.slug}`,
-    keywords: [
-      program.title.toLowerCase(),
-      program.code.toLowerCase(),
-      ...program.careers.map((career) => career.toLowerCase()),
-    ],
+    keywords: program.careers,
   });
 }
 
-export default async function ProgramPage({ params }: PageProps<"/programs/[slug]">) {
-  const { slug } = await params;
-  const program = getProgram(slug);
+/** A run of paragraphs under a two-line heading, as the course pages set them. */
+function Prose({
+  heading,
+  body,
+}: {
+  heading: string;
+  body: readonly string[];
+}) {
+  return (
+    <Reveal>
+      <h2 className={columnHeading}>{heading}</h2>
+      <div className="mt-5 grid gap-4.5">
+        {body.map((paragraph) => (
+          <p key={paragraph.slice(0, 40)} className={proseBody}>
+            {paragraph}
+          </p>
+        ))}
+      </div>
+    </Reveal>
+  );
+}
 
+export default async function ProgramPage({
+  params,
+}: PageProps<"/programs/[slug]">) {
+  const { slug } = await params;
+  const program = programBySlug(slug);
   if (!program) notFound();
 
-  const related = programs.filter((item) => item.slug !== program.slug).slice(0, 2);
-
-  const courseJsonLd = {
-    "@context": "https://schema.org",
-    "@type": "Course",
-    name: program.title,
-    courseCode: program.code,
-    description: program.description,
-    provider: {
-      "@type": "EducationalOrganization",
-      name: site.legalName,
-      url: site.url,
-    },
-    educationalCredentialAwarded: program.level,
-    hasCourseInstance: {
-      "@type": "CourseInstance",
-      courseMode: "onsite",
-      courseWorkload: program.duration,
-      location: {
-        "@type": "Place",
-        address: `${site.address.city}, ${site.address.state}, ${site.address.country}`,
-      },
-    },
-  };
+  const others = programs.filter((item) => item.slug !== program.slug);
 
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(courseJsonLd) }}
-      />
-
       <PageHero
         eyebrow={program.tag}
-        title={program.title}
-        lede={program.description}
-        crumbs={[
-          { label: "Programs", href: "/programs" },
-          { label: program.shortTitle },
-        ]}
+        title={program.heading}
+        lede={program.description.replace(/…$/, "")}
+        crumbs={[{ label: "Courses", href: "/programs" }, { label: program.shortTitle }]}
       >
-        <div className={cn(chips, "mt-7")}>
-          <span className={chipOnDark}>{program.duration}</span>
-          <span className={chipOnDark}>{program.level}</span>
-          <span className={chipOnDark}>{program.mode}</span>
-          <span className={chipOnDark}>Gate {program.gate}</span>
-        </div>
         <div className={heroCta}>
-          <Link href="/enquire" className={btn({ block: "phone" })}>
-            Apply for this program <span className={arrow}>→</span>
+          <Link href="#enquire" className={btn({ block: "phone" })}>
+            Enroll Now <span className={arrow}>→</span>
           </Link>
-          <Link href="/admissions" className={btn({ variant: "ghost", block: "phone" })}>
-            How admissions work
-          </Link>
+          <ApplyDialog
+            label="Apply Now"
+            subject={program.shortTitle}
+            variant="ghost"
+            block="phone"
+          />
         </div>
       </PageHero>
 
       {/* ============ OVERVIEW + SPEC ============ */}
-      <section className={cn(surfacePaper, sectionPad)}>
+      <section className={cn(surfaceWhite, sectionPad)}>
         <div className={cn(wrap, split)}>
-          <Reveal>
-            <span className={eyebrow}>Overview</span>
-            <h2 className={cn("mt-4", columnHeading)}>
-              What this program is for.
-            </h2>
-            <p className={cn("mt-4.5", proseBody)}>{program.overview}</p>
+          <div className="grid gap-12">
+            <Prose heading={program.whatIs.heading} body={program.whatIs.body} />
+            <Prose heading={program.about.heading} body={program.about.body} />
+          </div>
 
-            <h3 className={cn(panelHeading, "mt-9 mb-4")}>By the end, you can</h3>
-            <ul className={checklist}>
-              {program.outcomes.map((outcome) => (
-                <li key={outcome} className={checklistItem}>
-                  <span className={checklistTick}>✓</span>
-                  {outcome}
-                </li>
-              ))}
-            </ul>
-          </Reveal>
+          <Reveal className="grid gap-6">
+            <div className="relative aspect-4/3 overflow-hidden rounded-(--r) bg-cloud">
+              <Image
+                src={program.image}
+                alt=""
+                fill
+                sizes="(max-width: 960px) 92vw, 40vw"
+                className="object-cover"
+              />
+            </div>
 
-          <Reveal className={panel}>
-            <h3 className={panelHeading}>Program details</h3>
-            <div className="grid gap-0">
+            <div className={panel}>
+              <h3 className={panelHeading}>Course at a glance</h3>
               <div className={specRow}>
-                <span className={specKey}>Course code</span>
-                <span className={cn(specValue, "font-mono")}>{program.code}</span>
-              </div>
-              <div className={specRow}>
-                <span className={specKey}>Duration</span>
+                <span className={specKey}>Course Duration</span>
                 <span className={specValue}>{program.duration}</span>
               </div>
               <div className={specRow}>
@@ -177,77 +154,156 @@ export default async function ProgramPage({ params }: PageProps<"/programs/[slug
                 <span className={specKey}>Intake</span>
                 <span className={specValue}>{program.intake}</span>
               </div>
-              <div className={specRow}>
-                <span className={specKey}>Gate</span>
-                <span className={specValue}>{program.gate}</span>
-              </div>
+              <Link
+                href="#enquire"
+                className={btn({ variant: "dark", block: "always", class: "mt-6" })}
+              >
+                Enquire about this course <span className={arrow}>→</span>
+              </Link>
             </div>
-
-            <h3 className={cn(panelHeading, "mt-7.5 mb-3.5")}>Eligibility</h3>
-            <p className={cardBody}>{program.eligibility}</p>
-
-            <Link
-              href="/enquire"
-              className={cn(btn({ variant: "dark" }), "mt-6.5 w-full justify-center")}
-            >
-              Enquire about fees <span className={arrow}>→</span>
-            </Link>
           </Reveal>
         </div>
       </section>
 
-      {/* ============ MODULES ============ */}
+      {/* ============ WHY EMPORIUM ============ */}
+      <section className={cn(surfacePaper, sectionPad)}>
+        <div className={cn(wrap, "max-w-[80ch]")}>
+          <Prose heading={program.why.heading} body={program.why.body} />
+        </div>
+      </section>
+
+      {/* ============ POSITION DETAILS ============ */}
+      <section className={cn(trainSurface, sectionPad)}>
+        <div className={cn(wrap, "relative")}>
+          <SectionHead
+            eyebrow="Position details"
+            title="Where this course places you."
+            onDark
+          />
+          <div className="grid max-w-[80ch] gap-4.5">
+            {program.overview.split("\n\n").map((paragraph) => (
+              <p
+                key={paragraph.slice(0, 40)}
+                className="text-[16.5px] text-[#c1cbee]"
+              >
+                {paragraph}
+              </p>
+            ))}
+          </div>
+
+          <Reveal className="mt-12 rounded-(--r) border border-(--line-d) bg-white/4 px-7 py-7">
+            <h3 className="mb-3.5 text-[20px] font-semibold text-white">
+              Training Methodology
+            </h3>
+            <p className="max-w-[76ch] text-[15.5px] text-[#aebbe6]">
+              {program.trainingMethodology}
+            </p>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* ============ MODULES + JOB ROLES ============ */}
       <section className={cn(surfaceWhite, sectionPad)}>
+        <div className={cn(wrap, split)}>
+          <div>
+            <h2 className={columnHeading}>Course Modules</h2>
+            <ul className={cn(moduleList, "mt-6")}>
+              {program.modules.map((module, i) => (
+                <li key={module} className={moduleItem}>
+                  <span className={moduleNo}>
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                  <span className={moduleTitle}>{module}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div className="grid gap-6">
+            <div className={panel}>
+              <h3 className={panelHeading}>Job positions</h3>
+              <ul className={checklist}>
+                {program.careers.map((role) => (
+                  <li key={role} className={checklistItem}>
+                    <span className={checklistTick}>✓</span> {role}
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <div className={panel}>
+              <h3 className={panelHeading}>Eligibility Criteria &amp; Documents</h3>
+              <p className={cardBody}>{program.eligibility}</p>
+              <ul className={cn(checklist, "mt-4.5")}>
+                {program.documents.map((doc) => (
+                  <li key={doc} className={checklistItem}>
+                    <span className={checklistTick}>✓</span> {doc}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ============ PAY PACKAGE ============ */}
+      <section className={cn(surfacePaper, sectionPad)}>
         <div className={wrap}>
-          <SectionHead eyebrow="Curriculum" title="What you'll actually train on.">
-            Modules run in sequence, with practical work in the cabin mock-up,
-            grooming studio and computer lab woven through the whole program.
+          <SectionHead
+            eyebrow="Industry pay package"
+            title="What the roles pay."
+          >
+            Indicative bands published by the institute. Actual offers depend on the
+            recruiter, the role and your performance at interview.
           </SectionHead>
 
-          <ul className={moduleList}>
-            {program.modules.map((module, index) => (
-              <Reveal as="li" key={module.title} className={moduleItem}>
-                <span className={moduleNo}>
-                  {String(index + 1).padStart(2, "0")}
-                </span>
-                <div>
-                  <b className={moduleTitle}>{module.title}</b>
-                  <p className={moduleBody}>{module.detail}</p>
+          <div
+            className={cn(
+              "grid gap-6",
+              program.pay.length > 1 ? "grid-cols-2 max-phone:grid-cols-1" : "",
+            )}
+          >
+            {program.pay.map((band, i) => (
+              <Reveal key={band.role ?? i} className={panel}>
+                {band.role ? (
+                  <div className={chips}>
+                    <span className={chip}>{band.role}</span>
+                  </div>
+                ) : null}
+                <div className={cn(band.role && "mt-5")}>
+                  <div className="font-mono text-[10.5px] tracking-[0.16em] text-[#9098b4] uppercase">
+                    Domestic job
+                  </div>
+                  <p className="mt-1.5 text-[16px] text-ink">{band.domestic}</p>
+                </div>
+                <div className="mt-5 border-t border-hairline pt-5">
+                  <div className="font-mono text-[10.5px] tracking-[0.16em] text-[#9098b4] uppercase">
+                    International job
+                  </div>
+                  <p className="mt-1.5 text-[16px] text-ink">
+                    {band.international}
+                  </p>
                 </div>
               </Reveal>
             ))}
-          </ul>
+          </div>
         </div>
       </section>
 
-      {/* ============ CAREERS ============ */}
-      <section className={cn(trainSurface, sectionPad)}>
-        <div className={wrap}>
-          <SectionHead eyebrow="Where it lands you" title="Roles this program targets." onDark>
-            These are the job titles our placement cell puts graduates of{" "}
-            {program.code} in front of. Final selection always depends on your
-            performance and the recruiter&apos;s criteria.
-          </SectionHead>
-
-          <Reveal className={chips}>
-            {program.careers.map((career) => (
-              <span className={chipOnDark} key={career}>
-                {career}
-              </span>
-            ))}
-          </Reveal>
+      {/* ============ FAQ ============ */}
+      <section className={cn(surfaceWhite, sectionPad)}>
+        <div className={cn(wrap, "max-w-[900px]")}>
+          <SectionHead eyebrow="FAQs" title="Asked and answered." />
+          <FaqList items={program.faqs} />
         </div>
       </section>
 
-      {/* ============ RELATED ============ */}
+      {/* ============ OTHER COURSES ============ */}
       <section className={cn(surfaceProgram, sectionPad)}>
         <div className={wrap}>
-          <SectionHead eyebrow="Other destinations" title="Also worth a look.">
-            Students often compare {program.shortTitle} with these two before they
-            decide.
-          </SectionHead>
-          <div className={passGrid}>
-            {related.map((item) => (
+          <SectionHead eyebrow="Also at Emporium" title="Other courses." />
+          <div className="grid grid-cols-2 gap-6.5 max-laptop:grid-cols-1">
+            {others.map((item) => (
               <BoardingPass key={item.slug} program={item} />
             ))}
           </div>
@@ -255,16 +311,9 @@ export default async function ProgramPage({ params }: PageProps<"/programs/[slug
       </section>
 
       <EnquirySection
-        eyebrow={`Apply · ${program.code}`}
-        title={
-          <>
-            Reserve your seat on
-            <br />
-            {program.shortTitle}.
-          </>
-        }
-        lede={`Tell us a little about yourself and our admissions team will call you with fees, the next intake date and everything ${program.code} covers.`}
-        defaultProgram={program.title}
+        eyebrow="Book your seat"
+        title={<>Ready to enroll?</>}
+        subject={program.shortTitle}
       />
     </>
   );

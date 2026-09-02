@@ -1,67 +1,104 @@
 /**
  * Single source of truth for institute-wide details.
- * Swap these values (or hydrate them from the Node API later) without touching pages.
+ * Values mirror emporiumsolutions.com — swap them (or hydrate from the Node API
+ * later) without touching pages.
  */
 
 export const site = {
   name: "Emporium",
-  legalName: "Emporium Institute of Aviation & Hospitality",
-  tagline: "Building a New Nation",
+  legalName: "Emporium Training & Consultancy Pvt. Ltd.",
+  tagline: "Certificate course in Aviation, Hospitality & Cruise line",
+  heroLine: "With a fantastic career, you may live your passion every day",
   description:
-    "Emporium prepares India's next generation of cabin crew, airport ground staff and hospitality professionals with industry-current training, grooming and dedicated placement support.",
-  url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://emporium.example",
+    "Emporium is a leading Vocational Training Provider (VTP) under the Directorate General of Employment & Craftsmen Training, Ministry of Labour & Employment, Government of India — training India's next generation for aviation, hospitality, cruise line, travel & tourism and customer service careers.",
+  url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.emporiumsolutions.com",
   locale: "en_IN",
-  phone: "1800-000-000",
-  phoneHref: "tel:1800000000",
-  email: "admissions@emporium.example",
+
+  phone: "+91 98366 08888",
+  phoneHref: "tel:+919836608888",
+  altPhone: "+91 98305 64000",
+  altPhoneHref: "tel:+919830564000",
+  email: "info@emporiumsolutions.com",
+  hours: "Monday to Sunday, 10am to 9:00pm",
+
   address: {
-    line1: "Campus address line 1",
-    city: "Bengaluru",
-    state: "Karnataka",
+    org: "Emporium Training and Consultancy",
+    line1: "230/B AJC Bose Road, 3rd Floor",
+    line2: "Minto Park",
+    city: "Kolkata",
+    state: "West Bengal",
+    pin: "700 020",
     country: "India",
+    mapHref: "https://maps.app.goo.gl/sgAQeV6E7fdsyd6V6",
   },
+
+  /** External destinations the old site's chrome pointed at. */
+  studentLogin: "https://onlinelms.ebraindigit.com/dashboard",
+  brochure: "/emporium-company-profile.pdf",
+
   social: [
-    { label: "Instagram", href: "https://instagram.com" },
-    { label: "Facebook", href: "https://facebook.com" },
-    { label: "YouTube", href: "https://youtube.com" },
-    { label: "LinkedIn", href: "https://linkedin.com" },
+    {
+      label: "LinkedIn",
+      href: "https://www.linkedin.com/company/emporium-training/?viewAsMember=true",
+    },
+    { label: "Facebook", href: "https://www.facebook.com/EmporiumTrainingIndia" },
+    {
+      label: "Instagram",
+      href: "https://instagram.com/emporium_institute?igshid=ZGUzMzM3NWJiOQ==",
+    },
+    {
+      label: "YouTube",
+      href: "https://www.youtube.com/channel/UCeAjDr5sCJ0FGeS7O_9NMDw",
+    },
   ],
+
+  /** The institute's own qualifier on its placement claim. */
   disclaimer:
-    "Emporium is a skills-training institute. It provides dedicated placement support; final selection and outcomes depend on individual performance and recruiter criteria, and no job is guaranteed.",
+    "100% placements will be provided to students who will successfully complete the training and will pass in all the subjects in the final exam.",
+
+  copyright: "Copyright © Emporium 2026. All rights reserved",
 } as const;
 
 export type NavItem = { label: string; href: string };
+export type NavGroup = NavItem & { children?: NavItem[] };
 
-export const primaryNav: NavItem[] = [
-  { label: "Programs", href: "/programs" },
-  { label: "Why Emporium", href: "/why-emporium" },
-  { label: "Training", href: "/training" },
+/** Course slugs live here so the nav, footer and cards can't drift apart. */
+export const courseNav: NavItem[] = [
+  { label: "Aviation", href: "/programs/aviation" },
+  { label: "Hospitality", href: "/programs/hospitality" },
+  { label: "Cruise", href: "/programs/cruise" },
+];
+
+export const primaryNav: NavGroup[] = [
+  { label: "About Us", href: "/about" },
+  { label: "Courses", href: "/programs", children: courseNav },
   { label: "Placements", href: "/placements" },
-  { label: "Admissions", href: "/admissions" },
+  { label: "Jobs", href: "/jobs" },
+  { label: "Franchise", href: "/franchise" },
+  { label: "Contact", href: "/contact" },
 ];
 
 export const footerNav: { heading: string; items: NavItem[] }[] = [
   {
-    heading: "Programs",
+    heading: "Company",
     items: [
-      { label: "Cabin Crew Training", href: "/programs/air-hostess-cabin-crew-training" },
-      { label: "Airport Ground Staff", href: "/programs/airport-ground-staff-customer-service" },
-      {
-        label: "Hospitality Management",
-        href: "/programs/hospitality-guest-experience-management",
-      },
-      { label: "Travel & Tourism", href: "/programs/travel-tourism-management" },
-      { label: "Aviation Management", href: "/programs/advanced-airport-aviation-management" },
+      { label: "About", href: "/about" },
+      { label: "Placements", href: "/placements" },
+      { label: "Jobs", href: "/jobs" },
+      { label: "Achievements", href: "/achievements" },
     ],
   },
   {
-    heading: "Institute",
+    heading: "Support",
     items: [
-      { label: "Why Emporium", href: "/why-emporium" },
-      { label: "Training & facilities", href: "/training" },
-      { label: "Placements", href: "/placements" },
-      { label: "Admissions", href: "/admissions" },
+      { label: "Franchise", href: "/franchise" },
+      { label: "Contact", href: "/contact" },
       { label: "Enquire", href: "/enquire" },
     ],
   },
+];
+
+export const legalNav: NavItem[] = [
+  { label: "Privacy Policy", href: "/privacy-policy" },
+  { label: "Cookie Policy", href: "/cookie-policy" },
 ];

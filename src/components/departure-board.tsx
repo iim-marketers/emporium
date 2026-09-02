@@ -2,7 +2,7 @@
 
 import * as React from "react";
 
-import { programs } from "@/lib/programs";
+import { jobs } from "@/lib/jobs";
 import { cn } from "@/lib/utils";
 
 const gridCols =
@@ -26,20 +26,17 @@ const statusCell = "bg-[linear-gradient(180deg,#3a2a08,#241a05)] text-amber";
 const GLYPHS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789 &-/.".split("");
 const DEST_LEN = 17;
 const STAT_LEN = 9;
-const STATUSES = [
-  "BOARDING",
-  "CHECK-IN",
-  "ON TIME",
-  "GATE OPEN",
-  "ENROLLING",
-  "FINAL CALL",
-];
+/* Ambient flicker pool. Every entry must fit STAT_LEN or it is clipped. */
+const STATUSES = ["OPEN ALL", "INVITE", "HIRING", "REGISTER", "APPLY NOW"];
 
-const rowsData = programs.map((program) => ({
-  flight: program.board.flight,
-  destination: program.board.destination,
-  gate: program.gate,
-  status: program.board.status,
+/* The board runs Emporium's live campus recruitment drives — the same list the
+   /jobs page renders, so a drive can never appear in one place and not the other. */
+const rowsData = jobs.map((job) => ({
+  id: job.id,
+  flight: job.board.flight,
+  destination: job.board.destination,
+  gate: job.board.when,
+  status: job.board.status,
 }));
 
 /** Next intake label — the first of next month, e.g. "NEXT INTAKE · SEP 01". */
@@ -196,7 +193,7 @@ export function DepartureBoard() {
         ].join(" ")}
         ref={boardRef}
         role="img"
-        aria-label="Departure board of Emporium career programs, all boarding now."
+        aria-label="Departure board of Emporium's live campus recruitment drives."
       >
         <div className="flex items-center justify-between border-b border-[var(--line-d)] px-1.5 pt-1 pb-3.5">
           <span className="font-mono text-[13px] font-bold tracking-[0.3em] text-amber">
@@ -208,9 +205,9 @@ export function DepartureBoard() {
         </div>
 
         <div className={cn(gridCols, headRow)}>
-          <span className={headCell}>FLIGHT</span>
+          <span className={headCell}>DRIVE</span>
           <span className={headCell}>DESTINATION</span>
-          <span className={cn(headCell, "max-phone:hidden")}>GATE</span>
+          <span className={cn(headCell, "max-phone:hidden")}>DATE</span>
           <span className={cn(headCell, "text-right")}>STATUS</span>
         </div>
 
@@ -218,7 +215,7 @@ export function DepartureBoard() {
           {rowsData.map((row, rowIndex) => (
             <div
               className={cn(gridCols, "border-t border-[rgba(157,176,238,0.08)] px-1.5 py-[7px] first:border-t-0 max-phone:px-1")}
-              key={row.flight}
+              key={row.id}
             >
               <span className="font-mono text-[length:var(--cell-fs)] font-bold whitespace-nowrap text-haze">
                 {row.flight}
@@ -264,7 +261,7 @@ export function DepartureBoard() {
         </div>
 
         <div className="mt-3 flex flex-wrap items-center justify-between gap-3 border-t border-[var(--line-d)] pt-3 font-mono text-[clamp(9px,2.2cqi,11px)] tracking-[0.16em] text-[#5c6aa0]">
-          <span>EMPORIUM INTL · TERMINAL E</span>
+          <span>EMPORIUM · CAMPUS DRIVES</span>
           <span>{intake}</span>
         </div>
       </div>

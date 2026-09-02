@@ -41,7 +41,7 @@ export default function NotFound() {
             Back to home <span className={arrow}>→</span>
           </Link>
           <Link href="/programs" className={btn({ variant: "ghost", block: "phone" })}>
-            Explore programs
+            Explore courses
           </Link>
         </div>
       </div>

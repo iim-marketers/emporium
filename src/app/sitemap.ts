@@ -9,11 +9,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const staticRoutes = [
     { path: "/", priority: 1 },
     { path: "/programs", priority: 0.9 },
-    { path: "/admissions", priority: 0.9 },
+    { path: "/about", priority: 0.8 },
+    { path: "/placements", priority: 0.8 },
+    { path: "/jobs", priority: 0.8 },
     { path: "/enquire", priority: 0.8 },
-    { path: "/why-emporium", priority: 0.7 },
-    { path: "/training", priority: 0.7 },
-    { path: "/placements", priority: 0.7 },
+    { path: "/contact", priority: 0.7 },
+    { path: "/franchise", priority: 0.6 },
+    { path: "/achievements", priority: 0.5 },
+    { path: "/privacy-policy", priority: 0.3 },
+    { path: "/cookie-policy", priority: 0.3 },
   ];
 
   return [
