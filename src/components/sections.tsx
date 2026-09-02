@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import Image from "next/image";
 import Link from "next/link";
 
@@ -66,7 +67,7 @@ export function SectionHead({
       {children ? (
         <p
           className={cn(
-            "mt-4 text-[18px] max-tablet:text-[17px]",
+            "mt-4 text-[15px] max-tablet:text-[14px]",
             onDark ? "text-[#c1cbee]" : "text-slate",
           )}
         >
