@@ -19,7 +19,7 @@ export const sectionHeading = "text-[clamp(30px,3.6vw,44px)] font-medium";
 /** The dark enquiry band's h2. */
 export const enquireHeading = "text-[clamp(30px,3.8vw,46px)] font-medium";
 /** In-column h2 that sits beside a panel rather than heading a whole section. */
-export const columnHeading = "text-[clamp(26px,3vw,36px)] font-medium";
+export const columnHeading = "text-[clamp(20px,3vw,30px)] font-medium";
 
 /** The smaller footnote under a checklist or spec table. */
 export const noteBody = "text-[14.5px] text-slate";
