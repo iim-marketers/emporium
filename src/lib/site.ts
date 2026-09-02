@@ -1,9 +1,3 @@
-/**
- * Single source of truth for institute-wide details.
- * Values mirror emporiumsolutions.com — swap them (or hydrate from the Node API
- * later) without touching pages.
- */
-
 export const site = {
   name: "Emporium",
   legalName: "Emporium Training & Consultancy Pvt. Ltd.",
@@ -41,7 +35,10 @@ export const site = {
       label: "LinkedIn",
       href: "https://www.linkedin.com/company/emporium-training/?viewAsMember=true",
     },
-    { label: "Facebook", href: "https://www.facebook.com/EmporiumTrainingIndia" },
+    {
+      label: "Facebook",
+      href: "https://www.facebook.com/EmporiumTrainingIndia",
+    },
     {
       label: "Instagram",
       href: "https://instagram.com/emporium_institute?igshid=ZGUzMzM3NWJiOQ==",

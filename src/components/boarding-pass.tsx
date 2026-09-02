@@ -4,15 +4,6 @@ import Link from "next/link";
 import { Reveal } from "@/components/reveal";
 import type { Program } from "@/lib/programs";
 
-/**
- * A course rendered as a tear-off boarding pass, under the institute's own
- * course artwork.
- *
- * The stub is a full-width strip along the bottom rather than a side column:
- * three of these sit in a row, and a side stub leaves too little room for the
- * title and spec row at that width. The punched notches are `::before`/`::after`
- * circles in the page background colour, sitting at the ends of the perforation.
- */
 export function BoardingPass({ program }: { program: Program }) {
   const href = `/programs/${program.slug}`;
 
@@ -24,7 +15,7 @@ export function BoardingPass({ program }: { program: Program }) {
 
   return (
     <Reveal
-      className="flex flex-col overflow-hidden rounded-[16px] bg-ticket shadow-(--shadow) transition-transform duration-[250ms] hover:-translate-y-[5px]"
+      className="flex flex-col overflow-hidden rounded-[16px] bg-ticket shadow-(--shadow) transition-transform duration-250 hover:-translate-y-1.25"
       as="article"
     >
       <div className="relative aspect-2/1 bg-cloud">
@@ -41,7 +32,7 @@ export function BoardingPass({ program }: { program: Program }) {
         <span className="font-mono text-[11.5px] tracking-[0.16em] text-crimson">
           {program.tag}
         </span>
-        <h3 className="mt-3 text-[19px] leading-[1.25] text-ink">
+        <h3 className="mt-3 text-[19px] leading-tight text-ink">
           <Link href={href} aria-label={`${program.title} — course details`}>
             {program.title}
           </Link>
@@ -54,7 +45,7 @@ export function BoardingPass({ program }: { program: Program }) {
               <dt className="font-mono text-[9.5px] tracking-[0.16em] text-[#9098b4] uppercase">
                 {label}
               </dt>
-              <dd className="mt-0.75 font-heading text-[14.5px] leading-[1.25] font-semibold text-royal">
+              <dd className="mt-0.75 font-heading text-[14.5px] leading-tight font-semibold text-royal">
                 {value}
               </dd>
             </div>

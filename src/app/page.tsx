@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import Image from "next/image";
 import Link from "next/link";
 
@@ -185,7 +186,7 @@ export default function HomePage() {
           </Reveal>
 
           <Reveal>
-            <div className="font-heading text-[clamp(38px,5vw,60px)] leading-[1] font-bold text-royal">
+            <div className="font-heading text-[clamp(38px,5vw,60px)] leading-none font-bold text-royal">
               {headlineClaim.count}
             </div>
             <h2 className={cn("mt-3", columnHeading)}>

@@ -45,7 +45,9 @@ export function generateStaticParams() {
   return programs.map((program) => ({ slug: program.slug }));
 }
 
-export async function generateMetadata({ params }: PageProps<"/programs/[slug]">) {
+export async function generateMetadata({
+  params,
+}: PageProps<"/programs/[slug]">) {
   const { slug } = await params;
   const program = programBySlug(slug);
 
@@ -102,7 +104,10 @@ export default async function ProgramPage({
         eyebrow={program.tag}
         title={program.heading}
         lede={program.description.replace(/…$/, "")}
-        crumbs={[{ label: "Courses", href: "/programs" }, { label: program.shortTitle }]}
+        crumbs={[
+          { label: "Courses", href: "/programs" },
+          { label: program.shortTitle },
+        ]}
       >
         <div className={heroCta}>
           <Link href="#enquire" className={btn({ block: "phone" })}>
@@ -121,7 +126,10 @@ export default async function ProgramPage({
       <section className={cn(surfaceWhite, sectionPad)}>
         <div className={cn(wrap, split)}>
           <div className="grid gap-12">
-            <Prose heading={program.whatIs.heading} body={program.whatIs.body} />
+            <Prose
+              heading={program.whatIs.heading}
+              body={program.whatIs.body}
+            />
             <Prose heading={program.about.heading} body={program.about.body} />
           </div>
 
@@ -156,7 +164,11 @@ export default async function ProgramPage({
               </div>
               <Link
                 href="#enquire"
-                className={btn({ variant: "dark", block: "always", class: "mt-6" })}
+                className={btn({
+                  variant: "dark",
+                  block: "always",
+                  class: "mt-6",
+                })}
               >
                 Enquire about this course <span className={arrow}>→</span>
               </Link>
@@ -232,7 +244,9 @@ export default async function ProgramPage({
             </div>
 
             <div className={panel}>
-              <h3 className={panelHeading}>Eligibility Criteria &amp; Documents</h3>
+              <h3 className={panelHeading}>
+                Eligibility Criteria &amp; Documents
+              </h3>
               <p className={cardBody}>{program.eligibility}</p>
               <ul className={cn(checklist, "mt-4.5")}>
                 {program.documents.map((doc) => (
@@ -253,8 +267,8 @@ export default async function ProgramPage({
             eyebrow="Industry pay package"
             title="What the roles pay."
           >
-            Indicative bands published by the institute. Actual offers depend on the
-            recruiter, the role and your performance at interview.
+            Indicative bands published by the institute. Actual offers depend on
+            the recruiter, the role and your performance at interview.
           </SectionHead>
 
           <div
@@ -292,7 +306,7 @@ export default async function ProgramPage({
 
       {/* ============ FAQ ============ */}
       <section className={cn(surfaceWhite, sectionPad)}>
-        <div className={cn(wrap, "max-w-[900px]")}>
+        <div className={cn(wrap, "max-w-225")}>
           <SectionHead eyebrow="FAQs" title="Asked and answered." />
           <FaqList items={program.faqs} />
         </div>

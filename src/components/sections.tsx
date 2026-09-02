@@ -27,7 +27,6 @@ import {
 } from "@/lib/styles";
 import { cn } from "@/lib/utils";
 
-/** Swaps the eyebrow to its on-dark tint inside navy sections. */
 const onDarkText = "text-haze";
 
 /* -------------------------------------------------------------------------- */
@@ -89,7 +88,7 @@ export function TrustStrip() {
         OUR STUDENTS GET PLACED IN
       </p>
       <div
-        className="flex w-max animate-marquee gap-14 whitespace-nowrap group-hover:[animation-play-state:paused] motion-reduce:animate-none max-phablet:gap-10"
+        className="flex w-max animate-marquee gap-14 whitespace-nowrap group-hover:paused motion-reduce:animate-none max-phablet:gap-10"
         aria-hidden="true"
       >
         {[...recruiterNames, ...recruiterNames].map((name, i) => (
@@ -305,14 +304,12 @@ export function CentreGrid() {
 /*  Student testimonials                                                       */
 /* -------------------------------------------------------------------------- */
 
-/**
- * The institute publishes its testimonials as screenshots of student messages,
- * so they are shown as images rather than re-typed as quotes we cannot verify.
- * Ten of them is too many to sit still, so they drift like the recruiter wall.
- */
 export function TestimonialGallery() {
   return (
-    <Marquee label="Messages from students who trained at Emporium" className="gap-0">
+    <Marquee
+      label="Messages from students who trained at Emporium"
+      className="gap-0"
+    >
       <MarqueeRow duration="66s" gap="gap-5">
         {testimonialImages.map((src, i) => (
           <figure

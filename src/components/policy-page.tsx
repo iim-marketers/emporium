@@ -35,7 +35,7 @@ export function PolicyPage({
       />
 
       <section className={cn(surfaceWhite, sectionPad)}>
-        <div className={cn(wrap, "max-w-[820px]")}>
+        <div className={cn(wrap, "text-justify")}>
           <div className="grid gap-10">
             {sections.map((section, i) => (
               <Reveal key={section.heading ?? `intro-${i}`}>

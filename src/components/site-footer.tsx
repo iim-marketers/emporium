@@ -42,12 +42,13 @@ export function SiteFooter() {
   return (
     <footer className="bg-[#080d2b] pt-8 lg:pt-16 pb-8 text-white">
       <div className={wrap}>
-        <div className="grid grid-cols-[1.4fr_1fr_1fr_1.3fr] gap-10 border-b border-[var(--line-d)] pb-11 max-laptop:grid-cols-2 max-phone:grid-cols-1">
+        <div className="grid grid-cols-[1.4fr_1fr_1fr_1.3fr] gap-10 border-b border-(--line-d) pb-11 max-laptop:grid-cols-2 max-phone:grid-cols-1">
           <div>
             <BrandMark variant="light" />
             <p className="mt-4.5 max-w-[34ch] text-[15px] text-[#9aa6d6]">
               Certificate courses in Aviation, Hospitality &amp; Cruise line —
-              training India&apos;s next generation for careers around the world.
+              training India&apos;s next generation for careers around the
+              world.
             </p>
             <div className="mt-5.5 flex gap-3">
               {site.social.map((item) => (
@@ -57,7 +58,7 @@ export function SiteFooter() {
                   aria-label={item.label}
                   target="_blank"
                   rel="noreferrer"
-                  className="grid size-[38px] place-items-center rounded-[10px] border border-[var(--line-d)] text-haze transition-all duration-200 hover:-translate-y-0.5 hover:bg-white/[0.06] hover:text-white"
+                  className="grid size-9.5 place-items-center rounded-[10px] border border-(--line-d) text-haze transition-all duration-200 hover:-translate-y-0.5 hover:bg-white/6 hover:text-white"
                 >
                   <svg
                     width="18"
@@ -76,7 +77,7 @@ export function SiteFooter() {
               href={site.brochure}
               target="_blank"
               rel="noreferrer"
-              className="mt-5.5 inline-flex items-center gap-2 rounded-[999px] border border-[var(--line-d)] px-4 py-2.5 font-heading text-[14px] font-semibold text-white transition-colors duration-200 hover:bg-white/[0.06]"
+              className="mt-5.5 inline-flex items-center gap-2 rounded-[999px] border border-(--line-d) px-4 py-2.5 font-heading text-[14px] font-semibold text-white transition-colors duration-200 hover:bg-white/6"
             >
               ⇩ Download Our Brochure
             </a>
@@ -112,7 +113,7 @@ export function SiteFooter() {
             <a href={`mailto:${site.email}`} className={footLink}>
               {site.email}
             </a>
-            <p className="mb-[11px] text-[14px] text-[#7f8bbb]">{site.hours}</p>
+            <p className="mb-2.75 text-[14px] text-[#7f8bbb]">{site.hours}</p>
             <ApplyDialog
               label="Apply Now"
               variant="ghost"

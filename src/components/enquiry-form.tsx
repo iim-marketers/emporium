@@ -6,16 +6,6 @@ import { toast } from "sonner";
 import { arrow, btn } from "@/lib/btn";
 import { cn } from "@/lib/utils";
 
-/**
- * Emporium's two lead forms, reproducing the field set the institute collects:
- *
- *   enquire — Name, Email, Phone Number, Location, Message
- *   apply   — the same, plus a CV upload ("Upload your CV for upcoming Jobs!")
- *
- * Submission is still local: it validates, then hands back a reference. Wire the
- * POST below to the Node API when the backend lands.
- */
-
 const card =
   "rounded-[20px] bg-ticket px-[30px] py-8 text-ink shadow-[var(--shadow)] max-phablet:px-5 max-phablet:py-6";
 const cardHead =
@@ -52,7 +42,11 @@ const empty: Values = {
 };
 
 /** Every field on the institute's form is required; formats are checked too. */
-function validate(values: Values, variant: FormVariant, cv: File | null): Errors {
+function validate(
+  values: Values,
+  variant: FormVariant,
+  cv: File | null,
+): Errors {
   const errors: Errors = {};
 
   if (!values.name.trim()) errors.name = "Please enter your full name";
@@ -65,7 +59,8 @@ function validate(values: Values, variant: FormVariant, cv: File | null): Errors
   else if (!/^[6-9]\d{9}$/.test(values.phone.replace(/\D/g, "")))
     errors.phone = "Enter a valid 10-digit mobile number";
 
-  if (!values.location.trim()) errors.location = "Please enter your district and state";
+  if (!values.location.trim())
+    errors.location = "Please enter your district and state";
   if (!values.message.trim()) errors.message = "Please enter a message";
 
   if (variant === "apply") {
@@ -131,8 +126,6 @@ export function EnquiryForm({
 
     setSubmitting(true);
 
-    // TODO: POST to the Node API once the backend is wired up.
-    // A multipart body is needed on the apply variant, for the CV.
     await new Promise((resolve) => setTimeout(resolve, 600));
 
     setSubmitting(false);
@@ -166,7 +159,11 @@ export function EnquiryForm({
         </div>
         <button
           type="button"
-          className={btn({ variant: "outline", block: "always", class: "mt-5" })}
+          className={btn({
+            variant: "outline",
+            block: "always",
+            class: "mt-5",
+          })}
           onClick={reset}
         >
           Send another {isApply ? "application" : "enquiry"}
@@ -302,7 +299,7 @@ export function EnquiryForm({
                 aria-describedby={errors.cv ? id("cv-err") : id("cv-hint")}
                 className={cn(
                   fieldCls,
-                  "cursor-pointer py-[9px] text-[14px]",
+                  "cursor-pointer py-2.25 text-[14px]",
                   "file:mr-3 file:cursor-pointer file:rounded-[8px] file:border-0",
                   "file:bg-cloud file:px-3.5 file:py-2 file:font-heading",
                   "file:text-[13.5px] file:font-semibold file:text-royal",
@@ -360,7 +357,8 @@ export function EnquiryForm({
           className={btn({ block: "always", class: "mt-1.5" })}
           disabled={submitting}
         >
-          {submitting ? "Submitting…" : "Submit"} <span className={arrow}>→</span>
+          {submitting ? "Submitting…" : "Submit"}{" "}
+          <span className={arrow}>→</span>
         </button>
         <p className="mt-3.5 text-center text-[12px] text-slate">
           By submitting, you agree to be contacted by Emporium about admissions.
