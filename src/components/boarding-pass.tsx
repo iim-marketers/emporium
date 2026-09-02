@@ -19,13 +19,13 @@ export function BoardingPass({ program }: { program: Program }) {
       className="flex flex-col overflow-hidden rounded-[16px] bg-ticket shadow-(--shadow) transition-transform duration-250 hover:-translate-y-1.25"
       as="article"
     >
-      <div className="relative aspect-2/1 bg-cloud">
+      <div className="relative aspect-27/20 bg-cloud">
         <Image
           src={program.cardImage}
           alt=""
           fill
           sizes="(max-width: 960px) 92vw, 32vw"
-          className="object-cover"
+          className="object-top"
         />
       </div>
 
@@ -75,7 +75,7 @@ export function BoardingPass({ program }: { program: Program }) {
         </div>
 
         <div
-          className="h-7 max-w-24 flex-1 rounded-xs bg-[repeating-linear-gradient(90deg,#fff_0_2px,transparent_2px_4px,#fff_4px_5px,transparent_5px_9px)] opacity-85 max-narrow:hidden"
+          className="h-7 max-w-30 mx-auto flex-1 rounded-xs bg-[repeating-linear-gradient(90deg,#fff_0_2px,transparent_2px_4px,#fff_4px_5px,transparent_5px_9px)] opacity-85 max-narrow:hidden"
           aria-hidden="true"
         />
 

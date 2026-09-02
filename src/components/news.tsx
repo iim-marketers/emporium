@@ -64,7 +64,7 @@ export function BlogGrid() {
         <Reveal
           key={post.href}
           as="article"
-          className="group flex flex-col overflow-hidden rounded-(--r) border border-hairline bg-white transition-[transform,box-shadow] duration-250 hover:-translate-y-1 hover:shadow-(--shadow)"
+          className="group max-h-150 flex flex-col overflow-hidden rounded-(--r) border border-hairline bg-white transition-[transform,box-shadow] duration-250 hover:-translate-y-1 hover:shadow-(--shadow)"
         >
           <div className="relative aspect-16/10 bg-cloud">
             <Image
@@ -89,7 +89,9 @@ export function BlogGrid() {
                 {post.title}
               </a>
             </h3>
-            <p className="mt-2.5 text-[14.5px] text-slate">{post.excerpt}</p>
+            {/* <p className="mt-2.5 text-[14.5px] text-slate truncate">
+              {post.excerpt}
+            </p> */}
           </div>
         </Reveal>
       ))}

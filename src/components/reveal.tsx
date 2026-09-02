@@ -5,14 +5,9 @@ import * as React from "react";
 import { cn } from "@/lib/utils";
 
 type RevealProps = React.ComponentProps<"div"> & {
-  /** Render as a different element while keeping the reveal behaviour. */
   as?: "div" | "section" | "li" | "article";
 };
 
-/**
- * Fades content up the first time it enters the viewport.
- * Respects prefers-reduced-motion by showing content immediately.
- */
 export function Reveal({
   as = "div",
   className,
