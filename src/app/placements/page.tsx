@@ -53,7 +53,7 @@ export default function PlacementsPage() {
         <div
           className={cn(
             wrap,
-            "grid grid-cols-[1fr_1fr] items-center gap-14",
+            "grid grid-cols-[1fr_1fr] items-start gap-14",
             "max-laptop:grid-cols-1 max-laptop:gap-10",
           )}
         >
