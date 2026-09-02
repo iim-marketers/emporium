@@ -83,7 +83,7 @@ export default function HomePage() {
           <div>
             {/* <span className={eyebrowOnDark}>{site.tagline}</span> */}
             <span className={eyebrowOnDark}>
-              Aviation · Hospitality · Travel · Customer Service
+              Aviation · Hospitality · Cruise
             </span>
             <h1 className={cn("mt-5.5", heroHeading)}>
               Train for the skies.
@@ -91,10 +91,9 @@ export default function HomePage() {
               <em className="text-haze not-italic">Build a new nation.</em>
             </h1>
             <p className={lede}>
-              Emporium Certification Courses on Aviation, Hospitality
-              Management, Cruise Lines and Travel &amp; Tourism — with grooming,
-              communication and 100% placement assistance through our dedicated
-              Placement Cell.
+              Emporium Certification Courses on Aviation, Hospitality Management
+              and Cruise Lines — with grooming, communication and 100% placement
+              assistance through our dedicated Placement Cell.
             </p>
             <div className={heroCta}>
               <Link href="/enquire#enquire" className={btn({ block: "phone" })}>
@@ -211,8 +210,8 @@ export default function HomePage() {
       <section className={cn(surfacePaper, sectionPad)} id="recruiters">
         <div className={wrap}>
           <SectionHead eyebrow="Our students" title="get placed in.">
-            A snapshot of the airlines, airports, hotel groups and cruise lines
-            that have taken on Emporium graduates.
+            {/* A snapshot of the airlines, airports, hotel groups and cruise lines
+            that have taken on Emporium graduates. */}
           </SectionHead>
           <RecruiterWall />
 

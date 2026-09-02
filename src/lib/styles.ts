@@ -1,5 +1,5 @@
 /** The centred content column every section sits in. */
-export const wrap = "mx-auto w-[min(1180px,92vw)]";
+export const wrap = "mx-auto w-[min(1080px,92vw)]";
 
 export const mono = "font-mono";
 
@@ -15,7 +15,7 @@ export const heroHeading =
 export const pageHeading =
   "text-[clamp(28px,4.6vw,50px)] font-medium max-phablet:text-[clamp(22px,7.6vw,34px)]";
 /** `SectionHead`'s h2. */
-export const sectionHeading = "text-[clamp(30px,3.6vw,44px)] font-medium";
+export const sectionHeading = "text-[clamp(20px,3.2vw,38px)] font-medium";
 /** The dark enquiry band's h2. */
 export const enquireHeading = "text-[clamp(30px,3.8vw,46px)] font-medium";
 /** In-column h2 that sits beside a panel rather than heading a whole section. */
