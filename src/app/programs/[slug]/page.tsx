@@ -8,7 +8,7 @@ import { EnquirySection } from "@/components/enquiry-section";
 import { FaqList } from "@/components/news";
 import { PageHero } from "@/components/page-hero";
 import { Reveal } from "@/components/reveal";
-import { SectionHead } from "@/components/sections";
+import { AccreditationStrip, SectionHead } from "@/components/sections";
 import { arrow, btn } from "@/lib/btn";
 import { programBySlug, programs } from "@/lib/programs";
 import { pageMetadata } from "@/lib/seo";
@@ -78,9 +78,12 @@ function Prose({
   return (
     <Reveal>
       <h2 className={columnHeading}>{heading}</h2>
-      <div className="mt-5 grid gap-4.5">
+      <div className="mt-3 grid gap-3">
         {body.map((paragraph) => (
-          <p key={paragraph.slice(0, 40)} className={proseBody}>
+          <p
+            key={paragraph.slice(0, 40)}
+            className={cn(proseBody, "text-[15px] text-justify")}
+          >
             {paragraph}
           </p>
         ))}
@@ -179,7 +182,7 @@ export default async function ProgramPage({
 
       {/* ============ WHY EMPORIUM ============ */}
       <section className={cn(surfacePaper, sectionPad)}>
-        <div className={cn(wrap, "max-w-[80ch]")}>
+        <div className={cn(wrap, "")}>
           <Prose heading={program.why.heading} body={program.why.body} />
         </div>
       </section>
@@ -192,7 +195,7 @@ export default async function ProgramPage({
             title="Where this course places you."
             onDark
           />
-          <div className="grid max-w-[80ch] gap-4.5">
+          <div className="grid  gap-4.5">
             {program.overview.split("\n\n").map((paragraph) => (
               <p
                 key={paragraph.slice(0, 40)}
@@ -207,7 +210,7 @@ export default async function ProgramPage({
             <h3 className="mb-3.5 text-[20px] font-semibold text-white">
               Training Methodology
             </h3>
-            <p className="max-w-[76ch] text-[15.5px] text-[#aebbe6]">
+            <p className=" text-[15.5px] text-[#aebbe6]">
               {program.trainingMethodology}
             </p>
           </Reveal>
@@ -306,14 +309,22 @@ export default async function ProgramPage({
 
       {/* ============ FAQ ============ */}
       <section className={cn(surfaceWhite, sectionPad)}>
-        <div className={cn(wrap, "max-w-225")}>
+        <div className={cn(wrap, "")}>
           <SectionHead eyebrow="FAQs" title="Asked and answered." />
           <FaqList items={program.faqs} />
         </div>
       </section>
 
+      {/* ============ ACCREDITATION ============ */}
+      <section className={cn(surfacePaper, sectionPad)}>
+        <div className={wrap}>
+          <SectionHead eyebrow="Approved and" title="Accredited by." />
+          <AccreditationStrip />
+        </div>
+      </section>
+
       {/* ============ OTHER COURSES ============ */}
-      <section className={cn(surfaceProgram, sectionPad)}>
+      {/* <section className={cn(surfacePaper, sectionPad)}>
         <div className={wrap}>
           <SectionHead eyebrow="Also at Emporium" title="Other courses." />
           <div className="grid grid-cols-2 gap-6.5 max-laptop:grid-cols-1">
@@ -322,13 +333,13 @@ export default async function ProgramPage({
             ))}
           </div>
         </div>
-      </section>
+      </section> */}
 
-      <EnquirySection
+      {/* <EnquirySection
         eyebrow="Book your seat"
         title={<>Ready to enroll?</>}
         subject={program.shortTitle}
-      />
+      /> */}
     </>
   );
 }

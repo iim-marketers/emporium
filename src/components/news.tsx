@@ -109,8 +109,8 @@ export function FaqList({ items }: { items: readonly Faq[] }) {
           <AccordionTrigger className={cn(faqTrigger, "gap-6")}>
             <span className="pr-4">{item.q}</span>
           </AccordionTrigger>
-          <AccordionContent className={cn(faqBody, "max-w-[78ch]")}>
-            <p>{item.a}</p>
+          <AccordionContent className={cn(faqBody, "")}>
+            <p className="text-[15px] text-justify">{item.a}</p>
           </AccordionContent>
         </AccordionItem>
       ))}

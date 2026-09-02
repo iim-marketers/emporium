@@ -238,11 +238,11 @@ export function AccreditationStrip({ note = true }: { note?: boolean }) {
           </Reveal>
         ))}
       </div>
-      {note ? (
+      {/* {note ? (
         <p className="mt-6 max-w-[68ch] text-[15px] text-slate">
           {accreditationNote}
         </p>
-      ) : null}
+      ) : null} */}
     </div>
   );
 }
