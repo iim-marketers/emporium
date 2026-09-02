@@ -139,7 +139,7 @@
   --breakpoint-tablet: 769px; /* max-tablet  → ≤768  large phones */
   --breakpoint-laptop: 961px; /* max-laptop  → ≤960  tablets */
   --breakpoint-navfit: 1061px; /* max-navfit  → ≤1060 nav phone number */
-  --breakpoint-wide: 1181px; /* max-wide    → ≤1180 nav spacing */
+  --breakpoint-wide: 1281px; /* max-wide    → ≤1280 nav spacing */
 
   --animate-marquee: marquee 32s linear infinite;
   --animate-flap: flap 0.13s ease-out;

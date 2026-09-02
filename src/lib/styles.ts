@@ -1,5 +1,5 @@
 /** The centred content column every section sits in. */
-export const wrap = "mx-auto w-[min(1180px,92vw)]";
+export const wrap = "mx-auto w-[min(1280px,92vw)]";
 
 export const mono = "font-mono";
 
@@ -8,16 +8,6 @@ export const eyebrow =
 export const eyebrowOnDark =
   "font-mono text-[12.5px] font-bold tracking-[0.34em] text-haze uppercase";
 
-/* --------------------------------------------------------------------------
-   Heading scale
-   --------------------------------------------------------------------------
-   Headings render in the system Helvetica stack (`--font-heading`), which sets
-   noticeably heavier and wider than the old grotesk did. So display sizes run
-   one step smaller than before and at weight 500 — 600 turns into a slab at
-   these sizes. Card headings (18–20px) keep 600, where the extra weight still
-   reads as emphasis rather than mass. Every page pulls from here so the ramp
-   stays identical across the site. */
-
 /** Home + 404 hero. */
 export const heroHeading =
   "text-[clamp(30px,4vw,52px)] font-medium max-phablet:text-[clamp(31px,8.4vw,46px)]";
@@ -25,11 +15,9 @@ export const heroHeading =
 export const pageHeading =
   "text-[clamp(28px,4.6vw,50px)] font-medium max-phablet:text-[clamp(22px,7.6vw,34px)]";
 /** `SectionHead`'s h2. */
-export const sectionHeading =
-  "text-[clamp(30px,3.6vw,44px)] font-medium";
+export const sectionHeading = "text-[clamp(30px,3.6vw,44px)] font-medium";
 /** The dark enquiry band's h2. */
-export const enquireHeading =
-  "text-[clamp(30px,3.8vw,46px)] font-medium";
+export const enquireHeading = "text-[clamp(30px,3.8vw,46px)] font-medium";
 /** In-column h2 that sits beside a panel rather than heading a whole section. */
 export const columnHeading = "text-[clamp(26px,3vw,36px)] font-medium";
 
@@ -39,7 +27,7 @@ export const noteBody = "text-[14.5px] text-slate";
 export const proseBody = "text-[17px] text-slate";
 
 /** Vertical rhythm for a top-level section. */
-export const sectionPad = "py-[60px] max-laptop:py-20 max-phablet:py-10";
+export const sectionPad = "py-[50px] max-laptop:py-20 max-phablet:py-10";
 
 /** The navy sky gradient behind the home hero and every page masthead. */
 export const heroSurface = [

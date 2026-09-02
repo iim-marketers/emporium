@@ -5,8 +5,8 @@ import { cn } from "@/lib/utils";
 
 const benefits = [
   "No cost, no obligation — just a friendly call",
-  "Personalised program & career guidance",
-  "Details on scholarships & instalment options",
+  "Personalised course & career guidance",
+  "100% Placement Assistance through our Placement Cell",
 ];
 
 export function EnquirySection({
@@ -18,13 +18,14 @@ export function EnquirySection({
       Reserve a seat.
     </>
   ),
-  lede = "Tell us a little about yourself and our admissions team will reach out with program details, fees and the next intake dates.",
-  defaultProgram,
+  lede = "Tell us a little about yourself and our admissions team will reach out with course details, fees and the next intake dates.",
+  subject,
 }: {
   eyebrow?: string;
   title?: React.ReactNode;
   lede?: string;
-  defaultProgram?: string;
+  /** Course the visitor arrived from, shown as context on the form. */
+  subject?: string;
 }) {
   return (
     <section
@@ -63,7 +64,7 @@ export function EnquirySection({
         </Reveal>
 
         <Reveal>
-          <EnquiryForm defaultProgram={defaultProgram} />
+          <EnquiryForm subject={subject} />
         </Reveal>
       </div>
     </section>

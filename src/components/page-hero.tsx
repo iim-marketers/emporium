@@ -71,9 +71,7 @@ export function PageHero({
 
         <Reveal>
           <span className={eyebrowOnDark}>{eyebrow}</span>
-          <h1 className={cn("mt-4.5", pageHeading)}>
-            {title}
-          </h1>
+          <h1 className={cn("mt-4.5", pageHeading)}>{title}</h1>
           {lede ? <p className={ledeWide}>{lede}</p> : null}
           {children}
         </Reveal>

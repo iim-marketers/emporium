@@ -1,43 +1,50 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import Image from "next/image";
 import Link from "next/link";
 
 import { BoardingPassGrid } from "@/components/boarding-pass";
 import { DepartureBoard } from "@/components/departure-board";
 import { EnquirySection } from "@/components/enquiry-section";
+import { JobList } from "@/components/job-board";
+import { BlogGrid, NewsList } from "@/components/news";
 import { Reveal } from "@/components/reveal";
 import {
-  AdmissionSteps,
-  CabinWindows,
-  FacilityGrid,
-  PillarGrid,
+  AccreditationStrip,
+  CentreGrid,
+  RecruiterWall,
   SectionHead,
   StatsBand,
-  StoryGrid,
+  TestimonialGallery,
   TrustStrip,
 } from "@/components/sections";
 import { arrow, btn } from "@/lib/btn";
+import { headlineClaim } from "@/lib/content";
+import { jobs } from "@/lib/jobs";
 import { programs } from "@/lib/programs";
 import { pageMetadata } from "@/lib/seo";
 import { site } from "@/lib/site";
 import {
+  columnHeading,
   eyebrowOnDark,
+  heroCta,
   heroHeading,
   heroPad,
   heroSurface,
   lede,
   sectionPad,
-  trainSurface,
   wrap,
 } from "@/lib/styles";
 import { cn } from "@/lib/utils";
 
 export const metadata = pageMetadata({
-  title: `${site.name} — Aviation & Hospitality Training · ${site.tagline}`,
+  title: `${site.name} — Advanced certificate courses in Aviation, Hospitality & Cruise Line`,
   description: site.description,
   path: "/",
   keywords: [
     "aviation institute India",
     "cabin crew academy",
-    "placement support",
+    "cruise line course",
+    "placement assistance",
   ],
 });
 
@@ -70,6 +77,7 @@ export default function HomePage() {
           )}
         >
           <div>
+            {/* <span className={eyebrowOnDark}>{site.tagline}</span> */}
             <span className={eyebrowOnDark}>
               Aviation · Hospitality · Travel · Customer Service
             </span>
@@ -79,32 +87,32 @@ export default function HomePage() {
               <em className="text-haze not-italic">Build a new nation.</em>
             </h1>
             <p className={lede}>
-              Emporium prepares India&apos;s next generation of cabin crew,
-              airport ground staff and hospitality professionals — with
-              industry-current training, grooming and dedicated placement
-              support.
+              Emporium Certification Courses on Aviation, Hospitality
+              Management, Cruise Lines and Travel &amp; Tourism — with grooming,
+              communication and 100% placement assistance through our dedicated
+              Placement Cell.
             </p>
-            <div className="mt-8.5 flex flex-wrap gap-3.5 max-phablet:mt-7 max-phablet:flex-col max-phablet:items-stretch max-phablet:gap-3">
-              <Link href="/enquire" className={btn({ block: "phone" })}>
-                Apply for the next intake <span className={arrow}>→</span>
+            <div className={heroCta}>
+              <Link href="/enquire#enquire" className={btn({ block: "phone" })}>
+                Enroll Now <span className={arrow}>→</span>
               </Link>
               <Link
-                href="/programs"
+                href="/about"
                 className={btn({ variant: "ghost", block: "phone" })}
               >
-                Explore programs
+                Read More
               </Link>
             </div>
-            <div className="mt-6.5 flex flex-wrap gap-5.5 font-mono text-[13.5px] text-[#93a2d6] max-phablet:gap-x-4.5 max-phablet:gap-y-2.5 max-phablet:text-[12.5px]">
+            <div className="hidden mt-6.5 md:flex flex-wrap gap-5.5 font-mono text-[13.5px] text-[#93a2d6] max-phablet:gap-x-4.5 max-phablet:gap-y-2.5 max-phablet:text-[12.5px]">
               <span className="flex items-center gap-2">
                 <i className="size-1.75 rounded-full bg-green shadow-[0_0_0_4px_rgba(62,207,142,0.18)]" />{" "}
                 Admissions open
               </span>
               <span className="flex items-center gap-2">
-                6 career-ready programs
+                Aviation · Hospitality · Cruise
               </span>
               <span className="flex items-center gap-2">
-                Placement cell on campus
+                10+ centres in India
               </span>
             </div>
           </div>
@@ -113,99 +121,166 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ============ TRUST STRIP ============ */}
+      {/* ============ RECRUITER MARQUEE ============ */}
       <TrustStrip />
 
-      {/* ============ STATS ============ */}
-      <StatsBand />
-
-      {/* ============ WHY EMPORIUM ============ */}
-      <section className={cn("bg-paper", sectionPad)} id="why">
+      {/* ============ LIVE HIRING DRIVES ============ */}
+      <section className={cn("bg-paper", sectionPad)} id="jobs">
         <div className={wrap}>
           <SectionHead
-            eyebrow="Why Emporium"
-            title="A runway from the classroom to the cabin."
+            eyebrow="Newest jobs"
+            title="Campus interviews, happening now."
           >
-            Skilling is nation-building. Every course at Emporium is built to
-            turn ambition into an interview-ready, world-ready professional —
-            not just a certificate.
+            Airlines, airports and hotel groups screen at Emporium centres
+            through the year. Message the number on a drive to register.
           </SectionHead>
-          <PillarGrid />
+          <JobList items={jobs.slice(0, 2)} />
+          {/* <Reveal className="mt-8">
+            <Link
+              href="/jobs"
+              className={btn({ variant: "dark", block: "phone" })}
+            >
+              See all hiring drives <span className={arrow}>→</span>
+            </Link>
+          </Reveal> */}
         </div>
       </section>
 
-      {/* ============ PROGRAMS ============ */}
+      {/* ============ COURSES ============ */}
       <section
         className={cn(
           "bg-[linear-gradient(180deg,#fff,var(--paper))]",
           sectionPad,
         )}
-        id="programs"
+        id="courses"
       >
         <div className={wrap}>
           <SectionHead
-            eyebrow="Programs · Choose your destination"
-            title="Six ways to board your career."
+            eyebrow="Our placement linked courses"
+            title="Offered by Emporium."
           >
-            Each program is your boarding pass into a specific role. Pick the
-            one that matches where you want to land.
+            Three certificate courses, each a boarding pass into a specific
+            industry. Pick the one that matches where you want to land.
           </SectionHead>
           <BoardingPassGrid items={programs} />
         </div>
       </section>
 
-      {/* ============ TRAINING EXPERIENCE ============ */}
-      <section className={cn(trainSurface, sectionPad)} id="train">
-        <div className={cn(wrap, "relative")}>
-          <SectionHead
-            eyebrow="The training floor"
-            title="Where practice feels like the real thing."
-            onDark
-          >
-            Confidence comes from repetition in the right environment. Emporium
-            campuses are built to rehearse the job before the job.
-          </SectionHead>
-          <FacilityGrid />
-          {/* <CabinWindows /> */}
-        </div>
-      </section>
+      {/* ============ HEADLINE CLAIM ============ */}
+      <section className={cn("bg-white", sectionPad)}>
+        <div
+          className={cn(
+            wrap,
+            "grid grid-cols-[0.95fr_1.05fr] items-center gap-14",
+            "max-laptop:grid-cols-1 max-laptop:gap-10",
+          )}
+        >
+          <Reveal className="relative aspect-4/3 overflow-hidden rounded-(--r) bg-cloud">
+            <Image
+              src={headlineClaim.image}
+              alt="Emporium students placed with airlines and hotel groups worldwide"
+              fill
+              sizes="(max-width: 960px) 92vw, 45vw"
+              className="object-cover"
+            />
+          </Reveal>
 
-      {/* ============ PLACEMENTS ============ */}
-      <section className={cn("bg-paper", sectionPad)} id="placements">
-        <div className={wrap}>
-          <SectionHead
-            eyebrow="Placements & alumni"
-            title="The window seat, earned."
-          >
-            Our placement cell runs drives, referrals and interview prep
-            year-round. Here&apos;s the kind of journey Emporium is built to
-            support.
-          </SectionHead>
-          <StoryGrid />
-          <Reveal className="mt-10">
+          <Reveal>
+            <div className="font-heading text-[clamp(38px,5vw,60px)] leading-none font-bold text-royal">
+              {headlineClaim.count}
+            </div>
+            <h2 className={cn("mt-3", columnHeading)}>
+              {headlineClaim.line1}
+              <br />
+              <span className="text-crimson">{headlineClaim.line2}</span>
+            </h2>
+            <p className="mt-5 max-w-[56ch] text-[17px] text-slate">
+              {headlineClaim.body}
+            </p>
             <Link
-              href="/placements"
-              className={btn({ variant: "dark", block: "phone" })}
+              href="/about"
+              className={btn({
+                variant: "dark",
+                block: "phone",
+                class: "mt-7.5",
+              })}
             >
-              How placement support works <span className={arrow}>→</span>
+              View More <span className={arrow}>→</span>
             </Link>
           </Reveal>
         </div>
       </section>
 
-      {/* ============ ADMISSIONS ============ */}
-      <section className={cn("bg-white", sectionPad)} id="admit">
+      {/* ============ RECRUITER WALL ============ */}
+      <section className={cn("bg-paper", sectionPad)} id="recruiters">
         <div className={wrap}>
-          <SectionHead eyebrow="Admissions" title="Four steps to boarding.">
-            A simple, guided path from your first enquiry to your first day on
-            the job.
+          <SectionHead eyebrow="Our students" title="get placed in.">
+            A snapshot of the airlines, airports, hotel groups and cruise lines
+            that have taken on Emporium graduates.
           </SectionHead>
-          <AdmissionSteps />
+          <RecruiterWall />
+
+          <div className="mt-14">
+            <h3 className="mb-6 font-mono text-[12.5px] font-bold tracking-[0.34em] text-sky uppercase">
+              Approved and accredited by
+            </h3>
+            <AccreditationStrip />
+          </div>
+        </div>
+      </section>
+
+      {/* ============ STATS ============ */}
+      {/* <StatsBand /> */}
+
+      {/* ============ CENTRES ============ */}
+      <section className={cn("bg-paper", sectionPad)} id="centres">
+        <div className={wrap}>
+          <SectionHead
+            eyebrow="Our centres"
+            title="Training floors across the North East and beyond."
+          >
+            Emporium runs training inside established colleges and youth
+            centres, so students train close to home before they fly.
+          </SectionHead>
+          <CentreGrid />
+        </div>
+      </section>
+
+      {/* ============ TESTIMONIALS ============ */}
+      <section className={cn("bg-white", sectionPad)} id="testimonials">
+        <div className={wrap}>
+          <SectionHead
+            eyebrow="Student testimonial"
+            title="In their own words."
+          >
+            Messages from students who trained at Emporium and went on to fly,
+            serve and sail with brands around the world.
+          </SectionHead>
+          <TestimonialGallery />
+        </div>
+      </section>
+
+      {/* ============ LATEST NEWS ============ */}
+      <section className={cn("bg-paper", sectionPad)} id="news">
+        <div className={wrap}>
+          <SectionHead
+            eyebrow="Latest news"
+            title="From Emporium and the industry."
+          />
+          <NewsList />
+        </div>
+      </section>
+
+      {/* ============ LATEST BLOG ============ */}
+      <section className={cn("bg-white", sectionPad)} id="blog">
+        <div className={wrap}>
+          <SectionHead eyebrow="Latest blog" title="Reading for aspirants." />
+          <BlogGrid />
         </div>
       </section>
 
       {/* ============ ENQUIRE ============ */}
-      <EnquirySection />
+      {/* <EnquirySection /> */}
     </>
   );
 }

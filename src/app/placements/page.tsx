@@ -1,22 +1,26 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import Image from "next/image";
+
 import { EnquirySection } from "@/components/enquiry-section";
+import { Marquee, MarqueeRow } from "@/components/marquee";
 import { PageHero } from "@/components/page-hero";
 import { Reveal } from "@/components/reveal";
 import {
+  AccreditationStrip,
+  RecruiterWall,
   SectionHead,
-  StatsBand,
-  StoryGrid,
-  TrustStrip,
 } from "@/components/sections";
-import { placementSupport, recruiters } from "@/lib/content";
-import { pageMetadata } from "@/lib/seo";
-import { site } from "@/lib/site";
 import {
-  elig,
-  logoCell,
-  logoGrid,
-  pillarCard,
-  pillarGrid,
-  pillarHeading,
+  alumni,
+  placementCards,
+  placementClaim,
+  placementsBody,
+  placementsIntro,
+} from "@/lib/content";
+import { pageMetadata } from "@/lib/seo";
+import {
+  columnHeading,
+  proseBody,
   sectionPad,
   surfacePaper,
   surfaceWhite,
@@ -27,89 +31,167 @@ import { cn } from "@/lib/utils";
 export const metadata = pageMetadata({
   title: "Placements",
   description:
-    "On-campus recruiter drives, resume clinics, recorded mock interviews, alumni referrals and post-placement support — how the Emporium placement cell works, stated honestly.",
+    "Over 15,100+ Emporium students placed in 14 different countries. How the Placement Assistance Cell screens, prepares and places candidates with airlines, hotels and cruise lines.",
   path: "/placements",
-  keywords: ["aviation placement support", "cabin crew jobs India", "airline recruiter drives"],
+  keywords: ["aviation placements", "cabin crew jobs", "placement assistance"],
 });
 
 export default function PlacementsPage() {
   return (
     <>
       <PageHero
-        eyebrow="Placements & alumni"
-        title="The window seat, earned."
-        lede="Our placement cell runs drives, referrals and interview prep year-round. Here is exactly what that support looks like — and what it does not promise."
+        eyebrow="Placements"
+        title={
+          <>Certificate course in Aviation, Hospitality &amp; Cruise line</>
+        }
+        lede={placementsIntro}
         crumbs={[{ label: "Placements" }]}
       />
 
-      <StatsBand />
-
-      <section className={cn(surfacePaper, sectionPad)}>
-        <div className={wrap}>
-          <SectionHead eyebrow="What the cell does" title="Six kinds of support, all year.">
-            Placement work at Emporium is a continuous process that starts in your
-            first month, not a scramble in your last.
-          </SectionHead>
-
-          <div className={pillarGrid}>
-            {placementSupport.map((item) => (
-              <Reveal className={pillarCard} key={item.title}>
-                <h3 className={pillarHeading}>{item.title}</h3>
-                <p>{item.body}</p>
-              </Reveal>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <TrustStrip />
-
+      {/* ============ THE CLAIM ============ */}
       <section className={cn(surfaceWhite, sectionPad)}>
-        <div className={wrap}>
-          <SectionHead
-            eyebrow="Recruiters"
-            title="Where our students are trained to go."
-          >
-            Students train to the service standards of these airlines and hospitality
-            groups, and our placement cell works to put candidates in front of them.
-          </SectionHead>
+        <div
+          className={cn(
+            wrap,
+            "grid grid-cols-[0.95fr_1.05fr] items-center gap-14",
+            "max-laptop:grid-cols-1 max-laptop:gap-10",
+          )}
+        >
+          <Reveal className="relative aspect-4/3 overflow-hidden rounded-(--r) bg-cloud">
+            <Image
+              src={placementClaim.image}
+              alt="Emporium students placed with leading airlines and hotel brands"
+              fill
+              sizes="(max-width: 960px) 92vw, 45vw"
+              className="object-contain p-6"
+            />
+          </Reveal>
 
-          <div className={logoGrid}>
-            {recruiters.map((name) => (
-              <Reveal className={logoCell} key={name}>
-                {name}
-              </Reveal>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className={cn(surfacePaper, sectionPad)}>
-        <div className={wrap}>
-          <SectionHead eyebrow="Alumni stories" title="Journeys we were built to support.">
-            Three graduates, three programs, three very different starting points.
-          </SectionHead>
-          <StoryGrid />
-
-          <Reveal className={elig}>
-            <p>
-              <b>Our honest position:</b> {site.disclaimer}
-            </p>
+          <Reveal>
+            <div className="font-heading text-[clamp(38px,5vw,60px)] leading-none font-bold text-royal">
+              {placementClaim.count}
+            </div>
+            <h2 className={cn("mt-3", columnHeading)}>
+              {placementClaim.line1}
+              <br />
+              <span className="text-crimson">{placementClaim.line2}</span>
+            </h2>
+            <div className="mt-6 grid gap-5">
+              {placementsBody.map((paragraph) => (
+                <p
+                  key={paragraph.slice(0, 40)}
+                  className={cn(proseBody, "text-justify")}
+                >
+                  {paragraph}
+                </p>
+              ))}
+            </div>
           </Reveal>
         </div>
       </section>
 
-      <EnquirySection
-        eyebrow="Start the journey"
-        title={
-          <>
-            Placement support
-            <br />
-            starts at admission.
-          </>
-        }
-        lede="Enquire now and our team will explain how drives, referrals and interview prep work for the program you are considering."
-      />
+      {/* ============ OUR RECRUITERS ============ */}
+      <section className={cn(surfacePaper, sectionPad)}>
+        <div className={wrap}>
+          <SectionHead eyebrow="Our" title="Recruiters.">
+            The airlines, airports, hotel groups and cruise lines that hire from
+            Emporium.
+          </SectionHead>
+          <RecruiterWall />
+        </div>
+      </section>
+
+      {/* ============ RECRUITERS SPEAK ============ */}
+      {/* <section className={cn(surfaceWhite, sectionPad)}>
+        <div className={wrap}>
+          <SectionHead eyebrow="Recruiters" title="Speak." />
+
+          <div className="grid grid-cols-3 gap-6 max-laptop:grid-cols-1">
+            {alumni.map((person) => (
+              <Reveal
+                key={person.name}
+                as="article"
+                className="flex flex-col rounded-(--r) border border-hairline bg-white px-6.5 py-7 transition-[transform,box-shadow] duration-250 hover:-translate-y-1 hover:shadow-(--shadow)"
+              >
+                <p className="text-[15.5px] text-ink">{person.quote}</p>
+
+                <div className="mt-auto flex items-center gap-4 border-t border-hairline pt-5.5">
+                  <span className="relative size-14 flex-none overflow-hidden rounded-full bg-cloud">
+                    <Image
+                      src={person.image}
+                      alt={`${person.name}, Emporium alumni at ${person.employer}`}
+                      fill
+                      sizes="56px"
+                      className="object-cover object-top"
+                    />
+                  </span>
+                  <div className="min-w-0">
+                    <b className="block font-heading text-[16.5px] text-royal">
+                      {person.name}
+                    </b>
+                    <span className="mt-0.5 block font-mono text-[11px] tracking-[0.14em] text-crimson uppercase">
+                      {person.employer}
+                    </span>
+                  </div>
+                </div>
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      </section> */}
+
+      {/* ============ EMPORIUM ALUMNI ============ */}
+      <section className={cn(surfacePaper, sectionPad)}>
+        <div className={wrap}>
+          <SectionHead eyebrow="Emporium" title="Alumni.">
+            Students from North East India now working with some of the most
+            eminent brands in aviation, hospitality and cruise.
+          </SectionHead>
+
+          <Reveal>
+            <Marquee label="Emporium alumni and where they were placed">
+              <MarqueeRow duration="42s" gap="gap-5">
+                {placementCards.map((card, i) => (
+                  <article
+                    key={`${card.image}-${i}`}
+                    className="w-[clamp(190px,23vw,248px)] flex-none overflow-hidden rounded-(--r) border border-hairline bg-white"
+                  >
+                    <div className="relative aspect-square bg-cloud">
+                      <Image
+                        src={card.image}
+                        alt={`Emporium graduate placed with ${card.brand}`}
+                        fill
+                        sizes="248px"
+                        loading="eager"
+                        fetchPriority="low"
+                        className="object-cover"
+                      />
+                    </div>
+                    <div className="px-4.5 py-4">
+                      <div className="font-heading text-[16px] font-semibold text-royal">
+                        {card.brand}
+                      </div>
+                      <div className="mt-0.5 font-mono text-[11.5px] tracking-[0.14em] text-crimson uppercase">
+                        {card.role}
+                      </div>
+                    </div>
+                  </article>
+                ))}
+              </MarqueeRow>
+            </Marquee>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* ============ ACCREDITATION ============ */}
+      <section className={cn(surfaceWhite, sectionPad)}>
+        <div className={wrap}>
+          <SectionHead eyebrow="Approved and" title="Accredited by." />
+          <AccreditationStrip />
+        </div>
+      </section>
+
+      {/* <EnquirySection /> */}
     </>
   );
 }
