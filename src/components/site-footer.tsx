@@ -79,7 +79,7 @@ export function SiteFooter() {
               rel="noreferrer"
               className="mt-5.5 inline-flex items-center gap-2 rounded-[999px] border border-(--line-d) px-4 py-2.5 font-heading text-[14px] font-semibold text-white transition-colors duration-200 hover:bg-white/6"
             >
-              ⇩ Download Our Brochure
+              Download Our Brochure
             </a>
           </div>
 

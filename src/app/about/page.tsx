@@ -1,7 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
 
-import { EnquirySection } from "@/components/enquiry-section";
 import { PageHero } from "@/components/page-hero";
 import { Reveal } from "@/components/reveal";
 import {
@@ -60,23 +59,16 @@ export default function AboutPage() {
                 Aviation, Hospitality &amp; Cruise Line
               </span>
             </h2>
-            <div className="mt-6 grid gap-5">
+            <div className="mt-4 grid gap-5">
               {aboutBody.map((paragraph) => (
-                <p key={paragraph.slice(0, 40)} className={proseBody}>
+                <p
+                  key={paragraph.slice(0, 40)}
+                  className={cn(proseBody, "text-[15px] text-justify")}
+                >
                   {paragraph}
                 </p>
               ))}
             </div>
-            <Link
-              href="/programs"
-              className={btn({
-                variant: "dark",
-                block: "phone",
-                class: "mt-8",
-              })}
-            >
-              Explore the courses <span className={arrow}>→</span>
-            </Link>
           </Reveal>
 
           <Reveal className="relative aspect-4/3 overflow-hidden rounded-(--r) bg-cloud">
@@ -92,10 +84,10 @@ export default function AboutPage() {
       </section>
 
       {/* ============ STATS ============ */}
-      <StatsBand className={surfacePaper} />
+      {/* <StatsBand className={surfacePaper} /> */}
 
       {/* ============ WHAT SETS US APART ============ */}
-      <section className={cn(surfaceWhite, sectionPad)}>
+      <section className={cn(surfacePaper, sectionPad)}>
         <div className={wrap}>
           <SectionHead
             eyebrow="Unlock your potential"
@@ -109,7 +101,7 @@ export default function AboutPage() {
       </section>
 
       {/* ============ EMPANELMENT & ACCREDITATION ============ */}
-      <section className={cn(surfacePaper, sectionPad)}>
+      <section className={cn(surfaceWhite, sectionPad)}>
         <div
           className={cn(
             wrap,
@@ -138,8 +130,6 @@ export default function AboutPage() {
           </Reveal>
         </div>
       </section>
-
-      {/* <EnquirySection /> */}
     </>
   );
 }

@@ -276,24 +276,25 @@ export function EmpanelmentList() {
 
 export function CentreGrid() {
   return (
-    <div className="grid grid-cols-3 gap-6 max-laptop:grid-cols-2 max-phone:grid-cols-1">
+    /* One row of six on desktop, as the institute presents them. No card
+       chrome — the crests sit straight on the section background. */
+    <div className="grid grid-cols-6 gap-x-6 gap-y-11 max-laptop:grid-cols-3 max-phone:grid-cols-2">
       {centreCards.map((centre) => (
-        <Reveal
-          key={centre.address}
-          className="overflow-hidden rounded-(--r) border border-hairline bg-white transition-[transform,box-shadow] duration-250 hover:-translate-y-1 hover:shadow-(--shadow)"
-          as="article"
-        >
-          {/* These are institution crests, not photographs — contain, don't crop. */}
-          <div className="relative aspect-16/10 border-b border-hairline bg-paper">
+        <Reveal key={centre.address} as="article" className="text-center">
+          {/* Institution crests, not photographs, and all square — contain,
+              never crop. */}
+          <div className="relative mx-auto aspect-square w-full max-w-45">
             <Image
               src={centre.image}
               alt=""
               fill
-              sizes="(max-width: 560px) 92vw, (max-width: 960px) 45vw, 30vw"
-              className="object-contain p-6"
+              sizes="(max-width: 560px) 45vw, (max-width: 960px) 30vw, 180px"
+              className="object-contain"
             />
           </div>
-          <p className="px-5.5 py-5 text-[15px] text-slate">{centre.address}</p>
+          <p className="mt-4.5 text-[14.5px] leading-snug text-slate italic">
+            {centre.address}
+          </p>
         </Reveal>
       ))}
     </div>

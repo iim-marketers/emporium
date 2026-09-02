@@ -26,11 +26,8 @@ const statusCell = "bg-[linear-gradient(180deg,#3a2a08,#241a05)] text-amber";
 const GLYPHS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789 &-/.".split("");
 const DEST_LEN = 17;
 const STAT_LEN = 9;
-/* Ambient flicker pool. Every entry must fit STAT_LEN or it is clipped. */
 const STATUSES = ["OPEN ALL", "INVITE", "HIRING", "REGISTER", "APPLY NOW"];
 
-/* The board runs Emporium's live campus recruitment drives — the same list the
-   /jobs page renders, so a drive can never appear in one place and not the other. */
 const rowsData = jobs.map((job) => ({
   id: job.id,
   flight: job.board.flight,
@@ -46,10 +43,6 @@ function nextIntakeLabel() {
   const month = next.toLocaleString("en-IN", { month: "short" }).toUpperCase();
   return `NEXT INTAKE · ${month} 01`;
 }
-
-/* The clock and the intake date are external (wall-clock) state, so they are read
-   through useSyncExternalStore — that keeps the server render deterministic and
-   avoids a hydration mismatch on the first paint. */
 
 function subscribeToSecond(onChange: () => void) {
   const id = window.setInterval(onChange, 1000);
@@ -81,7 +74,9 @@ export function DepartureBoard() {
     const board = boardRef.current;
     if (!board) return;
 
-    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const reduce = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
     const timers: number[] = [];
     let revealed = false;
 
@@ -169,25 +164,22 @@ export function DepartureBoard() {
   }, []);
 
   return (
-    /* Flap cells size themselves from the board's own width rather than a fixed
-       15px, so destinations stay legible as the hero column narrows.
-       `--board-fixed` is a row's non-cell width and `--board-div` the total
-       cell-widths per row. */
     <div className="@container max-laptop:order-2">
       <div
         className={[
-          "relative rounded-[20px] border border-[var(--line-d)] bg-[#070c28] px-4.5 pt-4.5 pb-5",
+          "relative rounded-[20px] border border-(--line-d) bg-[#070c28] px-4.5 pt-4.5 pb-5",
           "shadow-[0_40px_90px_-40px_rgba(0,0,0,0.8),inset_0_1px_0_rgba(255,255,255,0.05)]",
           "before:pointer-events-none before:absolute before:inset-0 before:rounded-[20px] before:content-['']",
           "before:bg-[linear-gradient(180deg,rgba(255,255,255,0.06),transparent_22%)]",
           "[--board-fixed:82px] [--board-div:37.1]",
-          "[--cell-w:clamp(7px,calc((100cqi_-_var(--board-fixed))_/_var(--board-div)),15px)]",
-          "[--cell-gap:calc(var(--cell-w)_*_0.17)]",
-          "[--cell-h:calc(var(--cell-w)_*_1.47)]",
-          "[--cell-fs:calc(var(--cell-w)_*_0.87)]",
-          "[--col-flight:calc(var(--cell-w)_*_4.3)]",
-          "[--col-gate:calc(var(--cell-w)_*_2.7)]",
-          "[--col-status:calc(var(--cell-w)_*_9_+_var(--cell-gap)_*_8)]",
+          "[--cell-max:15px] xl:[--cell-max:18px]",
+          "[--cell-w:clamp(7px,calc((100cqi-var(--board-fixed))/var(--board-div)),var(--cell-max))]",
+          "[--cell-gap:calc(var(--cell-w)*0.17)]",
+          "[--cell-h:calc(var(--cell-w)*1.47)]",
+          "[--cell-fs:calc(var(--cell-w)*0.87)]",
+          "[--col-flight:calc(var(--cell-w)*4.3)]",
+          "[--col-gate:calc(var(--cell-w)*2.7)]",
+          "[--col-status:calc(var(--cell-w)*9+var(--cell-gap)*8)]",
           "max-phone:px-3.5 max-phone:pt-3.5 max-phone:pb-4",
           "max-phone:[--board-div:34.4] max-phone:[--board-fixed:60px]",
         ].join(" ")}
@@ -195,7 +187,7 @@ export function DepartureBoard() {
         role="img"
         aria-label="Departure board of Emporium's live campus recruitment drives."
       >
-        <div className="flex items-center justify-between border-b border-[var(--line-d)] px-1.5 pt-1 pb-3.5">
+        <div className="flex items-center justify-between border-b border-(--line-d) px-1.5 pt-1 pb-3.5">
           <span className="font-mono text-[13px] font-bold tracking-[0.3em] text-amber">
             ✈ DEPARTURES
           </span>
@@ -214,10 +206,13 @@ export function DepartureBoard() {
         <div>
           {rowsData.map((row, rowIndex) => (
             <div
-              className={cn(gridCols, "border-t border-[rgba(157,176,238,0.08)] px-1.5 py-[7px] first:border-t-0 max-phone:px-1")}
+              className={cn(
+                gridCols,
+                "border-t border-[rgba(157,176,238,0.08)] px-1.5 py-1.75 first:border-t-0 max-phone:px-1",
+              )}
               key={row.id}
             >
-              <span className="font-mono text-[length:var(--cell-fs)] font-bold whitespace-nowrap text-haze">
+              <span className="font-mono text-(length:--cell-fs) font-bold whitespace-nowrap text-haze">
                 {row.flight}
               </span>
 
@@ -236,7 +231,7 @@ export function DepartureBoard() {
                 ))}
               </span>
 
-              <span className="text-center font-mono text-[length:var(--cell-fs)] text-[#eef2ff] max-phone:hidden">
+              <span className="text-center font-mono text-(length:--cell-fs) text-[#eef2ff] max-phone:hidden">
                 {row.gate}
               </span>
 
@@ -260,7 +255,7 @@ export function DepartureBoard() {
           ))}
         </div>
 
-        <div className="mt-3 flex flex-wrap items-center justify-between gap-3 border-t border-[var(--line-d)] pt-3 font-mono text-[clamp(9px,2.2cqi,11px)] tracking-[0.16em] text-[#5c6aa0]">
+        <div className="mt-3 flex flex-wrap items-center justify-between gap-3 border-t border-(--line-d) pt-3 font-mono text-[clamp(9px,2.2cqi,11px)] tracking-[0.16em] text-[#5c6aa0]">
           <span>EMPORIUM · CAMPUS DRIVES</span>
           <span>{intake}</span>
         </div>
