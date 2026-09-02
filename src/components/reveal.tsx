@@ -13,14 +13,21 @@ type RevealProps = React.ComponentProps<"div"> & {
  * Fades content up the first time it enters the viewport.
  * Respects prefers-reduced-motion by showing content immediately.
  */
-export function Reveal({ as = "div", className, children, ...props }: RevealProps) {
+export function Reveal({
+  as = "div",
+  className,
+  children,
+  ...props
+}: RevealProps) {
   const ref = React.useRef<HTMLDivElement>(null);
 
   React.useEffect(() => {
     const el = ref.current;
     if (!el) return;
 
-    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const reduce = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
     if (reduce) {
       el.dataset.shown = "true";
       return;
@@ -49,7 +56,7 @@ export function Reveal({ as = "div", className, children, ...props }: RevealProp
       ref={ref}
       data-shown="false"
       className={cn(
-        "translate-y-[26px] opacity-0 transition-[opacity,transform] duration-700 ease-[cubic-bezier(0.2,0.7,0.2,1)]",
+        "translate-y-6.5 opacity-0 transition-[opacity,transform] duration-700 ease-[cubic-bezier(0.2,0.7,0.2,1)]",
         "data-[shown=true]:translate-y-0 data-[shown=true]:opacity-100",
         "motion-reduce:translate-y-0 motion-reduce:opacity-100 motion-reduce:transition-none",
         className,

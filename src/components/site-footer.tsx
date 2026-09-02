@@ -124,9 +124,6 @@ export function SiteFooter() {
         </div>
 
         <div className="flex flex-wrap items-center justify-between gap-3.5 pt-6.5 max-phablet:flex-col max-phablet:items-start">
-          <p className="max-w-[70ch] text-[13px] text-[#6f7bae]">
-            {site.disclaimer}
-          </p>
           <div className="flex flex-wrap items-center gap-x-5 gap-y-2">
             {legalNav.map((item) => (
               <Link

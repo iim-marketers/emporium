@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import Image from "next/image";
 import Link from "next/link";
 
@@ -74,7 +75,7 @@ export function BoardingPass({ program }: { program: Program }) {
         </div>
 
         <div
-          className="h-7 flex-1 rounded-xs bg-[repeating-linear-gradient(90deg,#fff_0_2px,transparent_2px_4px,#fff_4px_5px,transparent_5px_9px)] opacity-85 max-narrow:hidden"
+          className="h-7 max-w-24 flex-1 rounded-xs bg-[repeating-linear-gradient(90deg,#fff_0_2px,transparent_2px_4px,#fff_4px_5px,transparent_5px_9px)] opacity-85 max-narrow:hidden"
           aria-hidden="true"
         />
 

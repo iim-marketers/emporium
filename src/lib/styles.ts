@@ -1,5 +1,5 @@
 /** The centred content column every section sits in. */
-export const wrap = "mx-auto w-[min(1080px,92vw)]";
+export const wrap = "mx-auto w-[min(1130px,92vw)]";
 
 export const mono = "font-mono";
 
