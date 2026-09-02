@@ -181,7 +181,7 @@ export default function HomePage() {
           </Reveal>
 
           <Reveal>
-            <div className="flex items-end gap-3 font-heading text-[clamp(34px,4.5vw,54px)] leading-none font-bold text-royal">
+            <div className="flex items-end gap-3 font-heading text-[clamp(34px,4.5vw,48px)] leading-none font-bold text-royal">
               {headlineClaim.count}
               <h2 className={cn("text-black mb-1", columnHeading)}>
                 {headlineClaim.line1}

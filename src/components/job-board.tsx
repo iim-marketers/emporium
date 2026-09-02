@@ -1,5 +1,15 @@
+"use client";
+
+import * as React from "react";
+
 import { ApplyDialog } from "@/components/apply-dialog";
 import { Reveal } from "@/components/reveal";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  type CarouselApi,
+} from "@/components/ui/carousel";
 import { btn } from "@/lib/btn";
 import { jobs, type Job } from "@/lib/jobs";
 import { cn } from "@/lib/utils";
@@ -7,6 +17,9 @@ import { cn } from "@/lib/utils";
 const metaKey =
   "font-mono text-[10.5px] tracking-[0.16em] text-[#9098b4] uppercase";
 const metaValue = "mt-1 text-[14.5px] text-ink";
+
+/** How long a drive sits on screen before the board turns to the next one. */
+const DWELL_MS = 4000;
 
 function WhatsAppIcon() {
   return (
@@ -23,7 +36,15 @@ function WhatsAppIcon() {
   );
 }
 
-export function JobCard({ job }: { job: Job }) {
+export function JobCard({
+  job,
+  animate = true,
+  className,
+}: {
+  job: Job;
+  animate?: boolean;
+  className?: string;
+}) {
   const meta = [
     ["Position", job.position],
     job.employer ? ["Job Posting", job.employer] : null,
@@ -31,12 +52,17 @@ export function JobCard({ job }: { job: Job }) {
     ["Time", job.time],
   ].filter(Boolean) as [string, string][];
 
+  const Shell = animate ? Reveal : "article";
+
   return (
-    <Reveal
-      as="article"
-      className="overflow-hidden rounded-(--r) border border-hairline bg-white transition-[transform,box-shadow] duration-250 hover:-translate-y-1 hover:shadow-(--shadow)"
+    <Shell
+      {...(animate ? { as: "article" as const } : {})}
+      className={cn(
+        "overflow-hidden rounded-(--r) border border-hairline bg-white",
+        className,
+      )}
     >
-      <div className="border-b border-hairline bg-paper px-6.5 py-5 max-phablet:px-5">
+      <div className="border-b  border-hairline bg-paper px-6.5 py-5 max-phablet:px-5">
         <span className="flex items-center gap-2 font-mono text-[11px] font-bold tracking-[0.2em] text-crimson">
           <i className="size-1.75 rounded-full bg-green shadow-[0_0_0_4px_rgba(62,207,142,0.18)]" />
           NOW HIRING
@@ -56,7 +82,7 @@ export function JobCard({ job }: { job: Job }) {
           ))}
         </div>
 
-        <div className="mt-5 border-t border-hairline pt-4.5">
+        <div className="mt-5 border-t -mx-6.5 px-6.5 border-hairline pt-4.5">
           <div className={metaKey}>Venue</div>
           <div className={cn(metaValue, "max-w-[70ch]")}>{job.venue}</div>
         </div>
@@ -78,16 +104,113 @@ export function JobCard({ job }: { job: Job }) {
           <ApplyDialog subject={job.position} block="phone" />
         </div>
       </div>
-    </Reveal>
+    </Shell>
   );
 }
 
 export function JobList({ items = jobs }: { items?: Job[] }) {
+  const [api, setApi] = React.useState<CarouselApi>();
+  const [selected, setSelected] = React.useState(0);
+  const [held, setHeld] = React.useState(false);
+
+  React.useEffect(() => {
+    if (!api) return;
+    const onSelect = () => setSelected(api.selectedScrollSnap());
+    onSelect();
+    api.on("select", onSelect).on("reInit", onSelect);
+    return () => {
+      api.off("select", onSelect).off("reInit", onSelect);
+    };
+  }, [api]);
+
+  React.useEffect(() => {
+    if (!api || held) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+    // `selected` in the deps is deliberate: each turn re-arms a fresh dwell.
+    const id = window.setInterval(() => {
+      if (!document.hidden) api.scrollNext();
+    }, DWELL_MS);
+    return () => window.clearInterval(id);
+  }, [api, held, selected]);
+
+  if (items.length < 2) {
+    return (
+      <div className="grid gap-6">
+        {items.map((job) => (
+          <JobCard key={job.id} job={job} />
+        ))}
+      </div>
+    );
+  }
+
   return (
-    <div className="grid gap-6">
-      {items.map((job) => (
-        <JobCard key={job.id} job={job} />
-      ))}
-    </div>
+    <Reveal
+      onMouseEnter={() => setHeld(true)}
+      onMouseLeave={() => setHeld(false)}
+      onFocusCapture={() => setHeld(true)}
+      onBlurCapture={() => setHeld(false)}
+    >
+      <Carousel
+        opts={{ loop: true, align: "start" }}
+        setApi={setApi}
+        aria-label="Live hiring drives. Turns automatically — hover or focus to hold."
+      >
+        <CarouselContent className="-ml-4 py-2">
+          {items.map((job) => (
+            <CarouselItem key={job.id} className="pl-4">
+              <JobCard job={job} animate={false} className="h-full" />
+            </CarouselItem>
+          ))}
+        </CarouselContent>
+      </Carousel>
+
+      <div className="mt-3 flex items-center justify-center gap-4">
+        <BoardButton label="Previous drive" onClick={() => api?.scrollPrev()}>
+          ‹
+        </BoardButton>
+
+        <div className="flex items-center gap-2">
+          {items.map((job, i) => (
+            <button
+              key={job.id}
+              type="button"
+              aria-label={`Show drive ${i + 1} of ${items.length}`}
+              aria-current={i === selected}
+              onClick={() => api?.scrollTo(i)}
+              className={cn(
+                "h-1.5 cursor-pointer rounded-full transition-[width,background-color] duration-300",
+                i === selected ? "w-6 bg-royal" : "w-1.5 bg-hairline",
+              )}
+            />
+          ))}
+        </div>
+
+        <BoardButton label="Next drive" onClick={() => api?.scrollNext()}>
+          ›
+        </BoardButton>
+      </div>
+    </Reveal>
+  );
+}
+
+function BoardButton({
+  label,
+  onClick,
+  children,
+}: {
+  label: string;
+  onClick: () => void;
+  children: React.ReactNode;
+}) {
+  return (
+    <button
+      type="button"
+      aria-label={label}
+      onClick={onClick}
+      className="flex size-9 cursor-pointer items-center justify-center rounded-full border border-hairline bg-white pb-0.5 text-[20px] leading-none text-royal transition-colors duration-200 hover:border-royal hover:bg-cloud"
+    >
+      {children}
+    </button>
   );
 }
