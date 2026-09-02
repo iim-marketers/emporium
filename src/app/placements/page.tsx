@@ -53,34 +53,38 @@ export default function PlacementsPage() {
         <div
           className={cn(
             wrap,
-            "grid grid-cols-[0.95fr_1.05fr] items-center gap-14",
+            "grid grid-cols-[1fr_1fr] items-center gap-14",
             "max-laptop:grid-cols-1 max-laptop:gap-10",
           )}
         >
-          <Reveal className="relative aspect-4/3 overflow-hidden rounded-(--r) bg-cloud">
+          {/* The artwork is 436x387, so the frame takes its exact ratio — a 4/3
+              box pillarboxed it and the padding shrank it further. */}
+          <Reveal className="relative aspect-436/387 overflow-hidden rounded-(--r) bg-cloud">
             <Image
               src={placementClaim.image}
               alt="Emporium students placed with leading airlines and hotel brands"
               fill
-              sizes="(max-width: 960px) 92vw, 45vw"
-              className="object-contain p-6"
+              sizes="(max-width: 960px) 92vw, 50vw"
+              className="object-cover"
             />
           </Reveal>
 
           <Reveal>
-            <div className="font-heading text-[clamp(38px,5vw,60px)] leading-none font-bold text-royal">
+            <div className="flex items-end gap-3 font-heading text-[clamp(38px,5vw,60px)] leading-none font-bold text-royal">
               {placementClaim.count}
+              <h2 className={cn("text-black mb-1", columnHeading)}>
+                {placementClaim.line1}
+              </h2>
             </div>
-            <h2 className={cn("mt-3", columnHeading)}>
-              {placementClaim.line1}
-              <br />
-              <span className="text-crimson">{placementClaim.line2}</span>
+            <h2 className={cn("", columnHeading)}>
+              {placementClaim.line2}
+              <span className="text-crimson">{placementClaim.line3}</span>
             </h2>
-            <div className="mt-6 grid gap-5">
+            <div className="mt-2 grid gap-5">
               {placementsBody.map((paragraph) => (
                 <p
                   key={paragraph.slice(0, 40)}
-                  className={cn(proseBody, "text-justify")}
+                  className={cn(proseBody, "text-[15px] text-justify")}
                 >
                   {paragraph}
                 </p>

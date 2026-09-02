@@ -21,8 +21,9 @@ export const stats: Stat[] = [
 /** Placements page headline — the same shape the home page uses for its claim. */
 export const placementClaim = {
   count: "Over 15,100+",
-  line1: "students placed",
-  line2: "In 14 different countries",
+  line1: "students",
+  line2: "placed",
+  line3: "in 14 different countries",
   image: "/placements/hero.png",
 };
 
@@ -43,10 +44,17 @@ export type Accreditation = { src: string; label: string };
 export const accreditations: Accreditation[] = [
   {
     src: "/accreditation/msde.png",
-    label: "Government of India — Ministry of Skill Development & Entrepreneurship",
+    label:
+      "Government of India — Ministry of Skill Development & Entrepreneurship",
   },
-  { src: "/accreditation/nsdc.png", label: "National Skill Development Corporation" },
-  { src: "/accreditation/thsc.png", label: "Tourism & Hospitality Skill Council" },
+  {
+    src: "/accreditation/nsdc.png",
+    label: "National Skill Development Corporation",
+  },
+  {
+    src: "/accreditation/thsc.png",
+    label: "Tourism & Hospitality Skill Council",
+  },
   { src: "/accreditation/iisc.png", label: "India International Skill Centre" },
 ];
 
@@ -140,7 +148,7 @@ export const aboutIntro =
 
 export const aboutBody = [
   "Emporium has one of the best aviation course, cruise line, hospitality course, travel & tourism management, and customer service course. It is a leading Vocational Training Provider (VTP) under the Directorate General of Employment & Craftsmen Training, Ministry of Labour & Employment, Government of India.",
-  "The major courses are aviation courses, cruise management, hospitality management, travel management, and Customer Service. Each course covers topics ranging from Communication skills, Grooming skills, English enhancement, and Personality improvement to detailed knowledge of Aviation, Hospitality, Cruise line, Travel & Tourism, and Customer Service Industries.",
+  // "The major courses are aviation courses, cruise management, hospitality management, travel management, and Customer Service. Each course covers topics ranging from Communication skills, Grooming skills, English enhancement, and Personality improvement to detailed knowledge of Aviation, Hospitality, Cruise line, Travel & Tourism, and Customer Service Industries.",
   "The Emporium Certificate courses have become well-known for their particular topic, length flexibility, and the value they add to a student's growth plans. Emporium prepares students for high-paying careers.",
 ];
 
@@ -159,8 +167,7 @@ export const centreCards: CentreCard[] = [
   },
   {
     image: "/centres/crests/gangtok.jpg",
-    address:
-      "Nar Bahadur Bhandari Government College, Tadong, Gangtok, Sikkim",
+    address: "Nar Bahadur Bhandari Government College, Tadong, Gangtok, Sikkim",
   },
   {
     image: "/centres/crests/siliguri.jpg",
@@ -208,15 +215,28 @@ export const placementsBody = [
  * posting they went to. Image/caption pairs are taken from the institute's own
  * markup, not inferred.
  */
-export const placementCards: { image: string; brand: string; role: string }[] = [
-  { image: "/placements/pic4.jpg", brand: "Carnival", role: "Cruise" },
-  { image: "/placements/pic5.jpg", brand: "GoAir", role: "International" },
-  { image: "/placements/pl2.jpg", brand: "Indigo Airlines", role: "Domestic" },
-  { image: "/placements/pic1-1.jpg", brand: "Park Hyatt", role: "Abu Dhabi" },
-  { image: "/placements/pic2.jpg", brand: "Indigo Airlines", role: "Domestic" },
-  { image: "/placements/pic3.jpg", brand: "Leela Palace", role: "Bangalore" },
-  { image: "/placements/team-member1.jpg", brand: "Air Asia", role: "Cabin Crew" },
-];
+export const placementCards: { image: string; brand: string; role: string }[] =
+  [
+    { image: "/placements/pic4.jpg", brand: "Carnival", role: "Cruise" },
+    { image: "/placements/pic5.jpg", brand: "GoAir", role: "International" },
+    {
+      image: "/placements/pl2.jpg",
+      brand: "Indigo Airlines",
+      role: "Domestic",
+    },
+    { image: "/placements/pic1-1.jpg", brand: "Park Hyatt", role: "Abu Dhabi" },
+    {
+      image: "/placements/pic2.jpg",
+      brand: "Indigo Airlines",
+      role: "Domestic",
+    },
+    { image: "/placements/pic3.jpg", brand: "Leela Palace", role: "Bangalore" },
+    {
+      image: "/placements/team-member1.jpg",
+      brand: "Air Asia",
+      role: "Cabin Crew",
+    },
+  ];
 
 /* -------------------------------------------------------------------------- */
 /*  Alumni — "Recruiters Speak"                                                */
@@ -265,7 +285,8 @@ export type Achievement = { image?: string; title: string; body: string };
 export const achievements: Achievement[] = [
   {
     image: "/achievements/temsuinla.jpg",
-    title: "Meet Temsuinla — Emporium alumni | Completed her Cabin Crew graduation.",
+    title:
+      "Meet Temsuinla — Emporium alumni | Completed her Cabin Crew graduation.",
     body: "Family is proud of you and we wish you all the very best for your future endeavors. Fly High.",
   },
   {
@@ -335,7 +356,8 @@ export const news: NewsItem[] = [
     ],
   },
   {
-    title: "KOLKATA AIRPORT BREAKS PRE-COVID PEAKS, RECORDS ALL-TIME HIGHEST PROFIT",
+    title:
+      "KOLKATA AIRPORT BREAKS PRE-COVID PEAKS, RECORDS ALL-TIME HIGHEST PROFIT",
     body: [
       "Netaji Subhas Chandra Bose International Airport in Kolkata set an all-time financial high in FY 2023-24, registering its highest-ever revenue of ₹1,578.6 crore and net profit of ₹670 crore — 2.5 times that of Chennai airport's profit and 23% more than Kolkata's previous high in 2019-20. This historic performance re-establishes Kolkata as the highest-grossing airport operated by the Airports Authority of India (AAI).",
       "The increase in profitability is primarily attributed to traffic revenue, accounting for 79% of overall earnings, with 85% derived from domestic operations. The airport is also a major transit point in the northeast and has healthy international traffic, particularly to Southeast Asia. Number of passengers was 2.1 crore in 2024, an increase of 32 lakh over 2023, close to the pre-pandemic year's highest of 2.3 crore in 2019. Average per-flight passenger load improved to 146, higher than all earlier years.",

@@ -73,6 +73,8 @@ export default function HomePage() {
           className={cn(
             wrap,
             "grid grid-cols-[1.05fr_0.95fr] items-center gap-14",
+            // past 1280px the board gets the larger share — it reads better big
+            "xl:grid-cols-[1fr_1.15fr]",
             "max-laptop:grid-cols-1 max-laptop:gap-11",
           )}
         >
@@ -94,7 +96,7 @@ export default function HomePage() {
             </p>
             <div className={heroCta}>
               <Link href="/enquire#enquire" className={btn({ block: "phone" })}>
-                Enroll Now <span className={arrow}>→</span>
+                Enroll Now
               </Link>
               <Link
                 href="/about"

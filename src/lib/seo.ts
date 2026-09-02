@@ -9,10 +9,6 @@ type PageMetaInput = {
   keywords?: string[];
 };
 
-/**
- * Builds a complete, canonical-aware Metadata object for a page.
- * `metadataBase` and the title template live in the root layout.
- */
 export function pageMetadata({
   title,
   description,
