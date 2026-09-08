@@ -4,9 +4,6 @@
 
 @custom-variant dark (&:is(.dark *));
 
-/* ==========================================================================
-   Emporium design tokens
-   ========================================================================== */
 :root {
   --navy: #0d1642; /* deepest sky — hero + footer base */
   --navy-2: #101a4d;
@@ -143,8 +140,7 @@
 
   --animate-marquee: marquee 32s linear infinite;
   --animate-flap: flap 0.13s ease-out;
-  /* Rides the hero's dotted flight path; the element supplies the path. */
-  --animate-fly: fly 30s linear infinite;
+  --animate-fly: fly 30s linear -7.5s infinite;
 
   @keyframes marquee {
     to {
@@ -179,8 +175,10 @@
     box-sizing: border-box;
   }
   html {
-    /* clears the sticky header so #anchors don't land underneath it */
-    scroll-padding-top: 88px;
+    /* Clears the 72px sticky header (64px on mini) and leaves a little air
+       above whatever the glide lands on. Anchor targets should not add their
+       own scroll-margin on top of this. */
+    scroll-padding-top: 120px;
   }
   body {
     margin: 0;

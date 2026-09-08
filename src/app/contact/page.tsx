@@ -34,7 +34,11 @@ export const metadata = pageMetadata({
   description:
     "Emporium's corporate office in Kolkata plus training centres in Imphal, Senapati, Maram, Siliguri, Guwahati, Gangtok, Shillong and Itanagar — with phone numbers for each.",
   path: "/contact",
-  keywords: ["Emporium contact", "training centres", "Kolkata aviation institute"],
+  keywords: [
+    "Emporium contact",
+    "training centres",
+    "Kolkata aviation institute",
+  ],
 });
 
 function CentreCard({ centre }: { centre: Centre }) {
@@ -43,7 +47,7 @@ function CentreCard({ centre }: { centre: Centre }) {
       as="article"
       className="overflow-hidden rounded-(--r) border border-hairline bg-white transition-[transform,box-shadow] duration-250 hover:-translate-y-1 hover:shadow-(--shadow)"
     >
-      <div className="relative aspect-16/9 bg-cloud">
+      <div className="relative aspect-video bg-cloud">
         <Image
           src={centre.image}
           alt=""
@@ -132,7 +136,9 @@ export default function ContactPage() {
           )}
         >
           <Reveal>
-            <span className={eyebrowOnDark}>Emporium Training and Consultancy</span>
+            <span className={eyebrowOnDark}>
+              Emporium Training and Consultancy
+            </span>
             <h2 className={cn("mt-4", columnHeading, "text-white")}>
               Get a call back.
             </h2>
@@ -181,9 +187,15 @@ export default function ContactPage() {
             </div>
           </Reveal>
 
-          <Reveal id="enquire" className="scroll-mt-24">
-            <EnquiryForm />
-          </Reveal>
+          {/* Anchor target for the header's Enquire CTA. The id sits on a
+              plain wrapper, not on the Reveal: the Reveal is translated down
+              until it animates in, so landing on it would stop the glide
+              short. `scroll-padding-top` clears the sticky header. */}
+          <div id="enquire">
+            <Reveal>
+              <EnquiryForm />
+            </Reveal>
+          </div>
         </div>
       </section>
 

@@ -48,6 +48,8 @@ export function Hero() {
           style={{
             offsetPath: `path("${FLIGHT_PATH}")`,
             offsetRotate: "auto",
+            /* In frame from the first paint — the `fly` animation's negative
+               delay starts the loop at this same point along the path. */
             offsetDistance: "44%",
           }}
         >
