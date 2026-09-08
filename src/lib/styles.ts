@@ -27,7 +27,7 @@ export const noteBody = "text-[14.5px] text-slate";
 export const proseBody = "text-[17px] text-slate";
 
 /** Vertical rhythm for a top-level section. */
-export const sectionPad = "py-[50px] max-laptop:py-20 max-phablet:py-10";
+export const sectionPad = "py-[50px] max-laptop:py-15 max-phablet:py-10";
 
 /** The navy sky gradient behind the home hero and every page masthead. */
 export const heroSurface = [
@@ -73,7 +73,7 @@ export const chipOnDark =
 /** Ticked list of short lines. */
 export const checklist = "m-0 grid gap-3 p-0";
 export const checklistItem =
-  "flex list-none items-start gap-3 text-[15.5px] text-slate";
+  "flex list-none items-start gap-3 text-[15px] text-slate";
 export const checklistTick = "flex-none font-mono font-bold text-crimson";
 
 /** Two columns that collapse together with the rest of the page. */

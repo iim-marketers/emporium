@@ -57,7 +57,7 @@ export default function PlacementsPage() {
             "max-laptop:grid-cols-1 max-laptop:gap-10",
           )}
         >
-          <Reveal className="relative aspect-436/387 overflow-hidden rounded-(--r) bg-cloud">
+          <Reveal className="relative aspect-436/387 overflow-hidden rounded-(--r) bg-cloud mt-5">
             <Image
               src={placementClaim.image}
               alt="Emporium students placed with leading airlines and hotel brands"
@@ -143,7 +143,7 @@ export default function PlacementsPage() {
       </section> */}
 
       {/* ============ EMPORIUM ALUMNI ============ */}
-      <section className={cn(surfacePaper, sectionPad)}>
+      <section className={cn(surfaceWhite, sectionPad)}>
         <div className={wrap}>
           <SectionHead eyebrow="Emporium" title="Alumni.">
             Students from North East India now working with some of the most
@@ -186,14 +186,12 @@ export default function PlacementsPage() {
       </section>
 
       {/* ============ ACCREDITATION ============ */}
-      <section className={cn(surfaceWhite, sectionPad)}>
+      <section className={cn(surfacePaper, sectionPad)}>
         <div className={wrap}>
           <SectionHead eyebrow="Approved and" title="Accredited by." />
           <AccreditationStrip />
         </div>
       </section>
-
-      {/* <EnquirySection /> */}
     </>
   );
 }

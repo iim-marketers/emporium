@@ -18,7 +18,7 @@ export const placementClaim = {
   line1: "students",
   line2: "placed",
   line3: "in 14 different countries",
-  image: "/placements/hero.png",
+  image: "/placements/hero-v2.png",
 };
 
 export const headlineClaim = {
@@ -27,7 +27,7 @@ export const headlineClaim = {
   line2: "placed",
   line3: "in 29 different countries",
   body: "Emporium has one of the best aviation course, cruise line, hospitality course, travel & tourism management, and customer service course. It is a leading Vocational Training Provider (VTP) under the Directorate General of Employment & Craftsmen Training, Ministry of Labour & Employment, Government of India.",
-  image: "/misc/students-placed.png",
+  image: "/misc/students-placed-v2.png",
 };
 
 /* -------------------------------------------------------------------------- */
@@ -178,13 +178,54 @@ export const centreCards: CentreCard[] = [
 ];
 
 /* -------------------------------------------------------------------------- */
-/*  Student testimonials (screenshot gallery)                                  */
+/*  Student testimonials (video gallery)                                       */
 /* -------------------------------------------------------------------------- */
 
-export const testimonialImages: string[] = Array.from(
-  { length: 10 },
-  (_, i) => `/testimonials/testimonial-${i + 1}.png`,
-);
+export type TestimonialVideo = {
+  /** YouTube id — enough to build both the still and the player. */
+  id: string;
+  title: string;
+};
+
+/**
+ * Landscape uploads only — the row is 16:9 and the channel's vertical Shorts
+ * would have to be cropped to the point of losing their subject.
+ */
+export const testimonialVideos: TestimonialVideo[] = [
+  { id: "0ek6Q1XbsH0", title: "A dream I didn't know was this close" },
+  {
+    id: "W5rjm9aEL4c",
+    title: "Dreams that took flight, careers that began here",
+  },
+  { id: "n62u4t4Wnhs", title: "From training to takeoff in just 60 days" },
+  { id: "X8cC0DivyLk", title: "Where dreams come true" },
+  {
+    id: "1aojZBio8OM",
+    title: "Found us on social media, found my career in 60 days",
+  },
+  { id: "7MzXSGsoldA", title: "One scroll. One decision. One new life." },
+  {
+    id: "9MOnUG8LD_E",
+    title: "Placed in 40 days at ITC Grand Chola",
+  },
+  {
+    id: "NsogEH67ZqI",
+    title: "Placed at ITC Grand Chola and Jio World Centre, Mumbai",
+  },
+  {
+    id: "wsYgzdmCpqs",
+    title: "Placed at Jio World Centre, Mumbai",
+  },
+  {
+    id: "WBG9qzZr-dI",
+    title: "The Emporium placement policy, explained",
+  },
+  {
+    id: "6RFs-MCQ8U4",
+    title: "60 days to your dream career in hospitality, aviation and cruise",
+  },
+  { id: "c_n6w_oqGvg", title: "Unlock your career potential today" },
+];
 
 /* -------------------------------------------------------------------------- */
 /*  Placements                                                                 */
@@ -315,7 +356,7 @@ export const franchise = {
     "Centralized digital course Delivery",
     "Site section & Layout",
   ],
-  image: "/misc/franchise.jpg",
+  image: "/misc/franchise-v2.png",
 };
 
 /* -------------------------------------------------------------------------- */

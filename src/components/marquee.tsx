@@ -69,8 +69,10 @@ export function MarqueeRow({
     >
       {children}
       {/* The loop's second half — decorative, and dropped when motion is off.
-          `contents` keeps these as flex items of the row rather than one box. */}
-      <div aria-hidden="true" className="contents motion-reduce:hidden">
+          `contents` keeps these as flex items of the row rather than one box.
+          `inert` matters once a row holds controls: the copy is hidden from
+          assistive tech, so it must not be reachable by tab or click either. */}
+      <div aria-hidden="true" inert className="contents motion-reduce:hidden">
         {children}
       </div>
     </div>

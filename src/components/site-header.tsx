@@ -5,7 +5,7 @@ import { usePathname } from "next/navigation";
 import * as React from "react";
 
 import { BrandMark } from "@/components/brand-mark";
-import { scrollToId } from "@/components/hash-scroll";
+import { ScrollLink } from "@/components/hash-scroll";
 import { btn } from "@/lib/btn";
 import { primaryNav, site, type NavItem } from "@/lib/site";
 import { wrap } from "@/lib/styles";
@@ -22,36 +22,58 @@ const navLink = [
   "data-[active=true]:font-semibold",
 ].join(" ");
 
-const panelLink = [
-  "relative flex min-h-14 items-center gap-4 px-[4vw]",
-  "font-heading text-[16.5px] font-semibold text-ink",
-  "before:absolute before:top-1/2 before:left-0 before:h-7 before:w-[3px]",
+const panelSurface =
+  "bg-[radial-gradient(900px_420px_at_86%_-12%,rgba(63,91,214,0.55),transparent_62%),radial-gradient(620px_380px_at_2%_104%,rgba(217,31,42,0.2),transparent_62%),linear-gradient(180deg,var(--navy)_0%,var(--navy-2)_55%,#0c1440_100%)]";
+
+/** One gate row: mono gate code, destination, chevron. */
+const gateRow = [
+  "group relative flex min-h-14 flex-1 items-center gap-4 py-3",
+  "text-white transition-colors duration-200",
+  "before:absolute before:top-1/2 before:-left-[4vw] before:h-8 before:w-[3px]",
   "before:-translate-y-1/2 before:rounded-full before:bg-transparent",
-  "hover:text-royal",
-  "data-[active=true]:bg-royal/[0.06] data-[active=true]:text-royal",
+  "before:transition-colors before:duration-200",
   "data-[active=true]:before:bg-crimson",
 ].join(" ");
 
-/** Nested course links inside the mobile panel. */
-const panelSubLink = [
-  "relative flex min-h-12 items-center px-[4vw] pl-[7vw]",
-  "text-[15.5px] font-medium text-slate",
-  "hover:text-royal data-[active=true]:font-semibold data-[active=true]:text-royal",
+const gateCode = [
+  "flex-none font-mono text-[11px] tracking-[0.2em] text-haze/70",
+  "transition-colors duration-200",
+  "group-data-[active=true]:text-crimson",
 ].join(" ");
 
-/** The form sits partway down /enquire, so the CTA aims at it, not the page. */
-const enquireHref = "/enquire#enquire";
+const gateLabel = [
+  "font-heading text-[18px] leading-none font-semibold tracking-[-0.01em]",
+  "max-mini:text-[16px]",
+].join(" ");
+
+/** Nested course links inside the mobile panel. */
+const gateSubLink = [
+  "group flex min-h-10 items-center gap-3 pl-[24px]",
+  "text-[15.5px] font-medium text-[#c2cdf0] transition-colors duration-200",
+  "hover:text-white data-[active=true]:font-semibold data-[active=true]:text-white",
+].join(" ");
+
+/** Gate codes read like a real board — 01, 02, … — rather than list indices. */
+const gateNo = (index: number) => String(index + 1).padStart(2, "0");
 
 export function SiteHeader() {
   const pathname = usePathname();
   const [open, setOpen] = React.useState(false);
   const [courses, setCourses] = React.useState(false);
+  /** Which mobile group is expanded, by href. Only one opens at a time. */
+  const [group, setGroup] = React.useState<string | null>(null);
   const coursesRef = React.useRef<HTMLDivElement>(null);
+  const toggleRef = React.useRef<HTMLButtonElement>(null);
 
   const isActive = (href: string) => {
     const path = href.split("#")[0];
     return pathname === path || pathname.startsWith(`${path}/`);
   };
+
+  /** The group holding the current page, so the panel opens already unfolded. */
+  const activeGroup =
+    primaryNav.find((item) => item.children && isActive(item.href))?.href ??
+    null;
 
   /** Navigating is the usual way out of the menu, so every link dismisses it. */
   const close = React.useCallback(() => {
@@ -59,24 +81,25 @@ export function SiteHeader() {
     setCourses(false);
   }, []);
 
-  const onEnquire = (event: React.MouseEvent<HTMLAnchorElement>) => {
-    close();
-
-    const modified =
-      event.metaKey || event.ctrlKey || event.shiftKey || event.altKey;
-    if (modified || event.button !== 0) return;
-    if (pathname !== "/enquire") return;
-
-    event.preventDefault();
-    window.history.replaceState(null, "", enquireHref);
-    scrollToId("enquire");
+  const toggleMenu = () => {
+    if (!open) setGroup(activeGroup);
+    setOpen(!open);
   };
+
+  const [lastPath, setLastPath] = React.useState(pathname);
+  if (lastPath !== pathname) {
+    setLastPath(pathname);
+    setOpen(false);
+    setCourses(false);
+  }
 
   React.useEffect(() => {
     if (!open) return;
 
     const onKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "Escape") setOpen(false);
+      if (event.key !== "Escape") return;
+      setOpen(false);
+      toggleRef.current?.focus();
     };
 
     const desktop = window.matchMedia("(min-width: 961px)");
@@ -118,10 +141,24 @@ export function SiteHeader() {
     };
   }, [courses]);
 
+  /** Rows fan in one after another once the panel lands. */
+  const stagger = (index: number) => ({
+    transitionDelay: open ? `${110 + index * 45}ms` : "0ms",
+  });
+  const rowIn = [
+    "transition-[opacity,transform] duration-[380ms] ease-out",
+    "motion-reduce:transition-none",
+  ].join(" ");
+
   return (
     <header className="sticky top-0 z-50 [--header-h:72px] max-mini:[--header-h:64px]">
       <div className="relative z-10 border-b border-hairline bg-[rgba(255,255,255,0.86)] backdrop-blur-[14px] backdrop-saturate-[1.4]">
-        <div className={cn(wrap, "flex h-(--header-h) items-center justify-between gap-3")}>
+        <div
+          className={cn(
+            wrap,
+            "flex h-(--header-h) items-center justify-between gap-3",
+          )}
+        >
           <BrandMark variant="dark" preload onClick={close} />
 
           <nav
@@ -213,7 +250,7 @@ export function SiteHeader() {
             )}
           </nav>
 
-          <div className="flex flex-none items-center gap-3.5 max-mini:gap-1.5">
+          <div className="flex flex-none items-center gap-3.5 max-mini:gap-0.5">
             {/* <a
               href={site.phoneHref}
               className="font-mono text-[14px] text-royal max-navfit:hidden"
@@ -228,22 +265,24 @@ export function SiteHeader() {
             >
               Student Login
             </a>
-            <Link
-              href={enquireHref}
-              scroll={false}
-              onClick={onEnquire}
+            {/* The form sits partway down /enquire, so the CTA aims at it. */}
+            <ScrollLink
+              href="/enquire"
+              to="enquire"
+              onClick={close}
               className={btn({ size: "sm" })}
             >
               Enquire
-            </Link>
+            </ScrollLink>
 
             <button
+              ref={toggleRef}
               type="button"
-              className="hidden min-h-11 min-w-11 flex-none cursor-pointer flex-col items-center justify-center gap-1.25 border-0 bg-none p-2 max-laptop:flex max-mini:px-1 max-mini:py-2"
+              className="hidden min-h-11 min-w-11 flex-none cursor-pointer flex-col items-end justify-center gap-1.25 border-0 bg-none p-2 max-laptop:flex max-mini:px-1 max-mini:py-2"
               aria-label={open ? "Close menu" : "Open menu"}
               aria-expanded={open}
               aria-controls="mobile-nav"
-              onClick={() => setOpen((value) => !value)}
+              onClick={toggleMenu}
             >
               <span
                 className={cn(
@@ -273,79 +312,161 @@ export function SiteHeader() {
 
       <div
         id="mobile-nav"
+        role="dialog"
+        aria-modal="true"
+        aria-label="Menu"
         className={cn(
-          "absolute inset-x-0 top-full z-10 hidden max-laptop:block",
-          "border-b border-hairline bg-white shadow-[0_18px_30px_rgb(0_0_0/0.08)]",
-          "transition-[opacity,transform,visibility] duration-200 ease-out",
+          "fixed inset-x-0 top-(--header-h) bottom-0 z-0 hidden max-laptop:block",
+          "overflow-y-auto overscroll-contain",
+          panelSurface,
+          "border-t-2 border-crimson text-white",
+          "transition-[opacity,transform,visibility] duration-300 ease-out",
           "motion-reduce:transition-none",
           open
-            ? "translate-y-0 opacity-100"
-            : "invisible -translate-y-2 opacity-0",
+            ? "visible translate-y-0 opacity-100"
+            : "invisible -translate-y-1.5 opacity-0",
         )}
       >
-        <nav
-          className="max-h-[calc(100dvh-var(--header-h))] overflow-y-auto overscroll-contain"
-          aria-label="Mobile"
-        >
-          {primaryNav.map((item) => (
-            <div key={item.href} className="border-b border-hairline">
-              <Link
-                href={item.href}
-                className={panelLink}
-                data-active={isActive(item.href)}
-                aria-current={isActive(item.href) ? "page" : undefined}
-                onClick={close}
-              >
-                {item.label}
-              </Link>
-              {item.children?.map((child) => (
-                <Link
-                  key={child.href}
-                  href={child.href}
-                  className={panelSubLink}
-                  data-active={isActive(child.href)}
-                  onClick={close}
+        <div className={cn(wrap, "flex min-h-full flex-col pt-0.5 pb-6")}>
+          <nav aria-label="Mobile">
+            {primaryNav.map((item, index) => {
+              const expanded = group === item.href;
+
+              return (
+                <div
+                  key={item.href}
+                  className={cn(
+                    "mx-[-4vw] border-b border-(--line-d) px-[4vw]",
+                    rowIn,
+                    open
+                      ? "translate-y-0 opacity-100"
+                      : "translate-y-2.5 opacity-0",
+                  )}
+                  style={stagger(index + 1)}
                 >
-                  {child.label}
-                </Link>
-              ))}
+                  <div className="flex items-center">
+                    <Link
+                      href={item.href}
+                      className={gateRow}
+                      data-active={isActive(item.href)}
+                      aria-current={isActive(item.href) ? "page" : undefined}
+                      onClick={close}
+                    >
+                      <span className={gateCode}>{gateNo(index)}</span>
+                      <span className={gateLabel}>{item.label}</span>
+                      <svg
+                        width="16"
+                        height="16"
+                        viewBox="0 0 16 16"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="1.6"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        aria-hidden="true"
+                        className={cn(
+                          "ml-auto flex-none text-haze/50",
+                          "transition-transform duration-200 group-hover:translate-x-1",
+                          "motion-reduce:transition-none",
+                          item.children && "hidden",
+                        )}
+                      >
+                        <path d="M3 8h9M8.5 4.5 12 8l-3.5 3.5" />
+                      </svg>
+                    </Link>
+
+                    {item.children ? (
+                      <button
+                        type="button"
+                        className="-mr-2 flex min-h-11 min-w-11 flex-none cursor-pointer items-center justify-center rounded-full text-haze"
+                        aria-expanded={expanded}
+                        aria-controls={`gate-${gateNo(index)}`}
+                        aria-label={`${expanded ? "Hide" : "Show"} ${item.label.toLowerCase()}`}
+                        onClick={() => setGroup(expanded ? null : item.href)}
+                      >
+                        <svg
+                          width="13"
+                          height="13"
+                          viewBox="0 0 12 12"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="1.8"
+                          strokeLinecap="round"
+                          aria-hidden="true"
+                          className={cn(
+                            "transition-transform duration-250 ease-out",
+                            "motion-reduce:transition-none",
+                            expanded && "rotate-180",
+                          )}
+                        >
+                          <path d="M2.5 4.5 6 8l3.5-3.5" />
+                        </svg>
+                      </button>
+                    ) : null}
+                  </div>
+
+                  {item.children ? (
+                    <div
+                      id={`gate-${gateNo(index)}`}
+                      className={cn(
+                        "grid transition-[grid-template-rows] duration-300 ease-out",
+                        "motion-reduce:transition-none",
+                        expanded ? "grid-rows-[1fr]" : "grid-rows-[0fr]",
+                      )}
+                    >
+                      <div className="overflow-hidden">
+                        <div className="pb-3">
+                          {item.children.map((child) => (
+                            <Link
+                              key={child.href}
+                              href={child.href}
+                              className={gateSubLink}
+                              data-active={isActive(child.href)}
+                              tabIndex={expanded ? undefined : -1}
+                              onClick={close}
+                            >
+                              <span
+                                className="h-px w-2.5 flex-none bg-haze/40 transition-[width] duration-200 group-hover:w-6"
+                                aria-hidden="true"
+                              />
+                              {child.label}
+                            </Link>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+                  ) : null}
+                </div>
+              );
+            })}
+          </nav>
+
+          {/* Boarding-pass stub: the panel's one call to action, plus contact. */}
+          <div
+            className={cn(
+              "mt-auto pt-6",
+              rowIn,
+              open ? "translate-y-0 opacity-100" : "translate-y-3 opacity-0",
+            )}
+            style={stagger(primaryNav.length + 1)}
+          >
+            <div className="px-2">
+              <Link
+                href={site.studentLogin}
+                scroll={false}
+                onClick={close}
+                className={btn({ size: "base", block: "always" })}
+              >
+                Student Login
+              </Link>
             </div>
-          ))}
 
-          <Link
-            href={enquireHref}
-            className={cn(panelLink, "border-b border-hairline")}
-            scroll={false}
-            onClick={onEnquire}
-          >
-            Enquire
-          </Link>
-          <a
-            href={site.studentLogin}
-            target="_blank"
-            rel="noreferrer"
-            className={panelLink}
-            onClick={close}
-          >
-            Student Login
-          </a>
-        </nav>
+            <p className="mt-3.5 text-center font-mono text-[10px] tracking-[0.2em] text-haze/45 uppercase">
+              {site.hours}
+            </p>
+          </div>
+        </div>
       </div>
-
-      {/* Dimmed page behind the panel; tapping it is the quickest way out. */}
-      <button
-        type="button"
-        tabIndex={-1}
-        aria-hidden="true"
-        onClick={close}
-        className={cn(
-          "fixed inset-x-0 top-(--header-h) bottom-0 hidden max-laptop:block",
-          "bg-navy/35 backdrop-blur-[2px]",
-          "transition-[opacity,visibility] duration-200 ease-out",
-          "motion-reduce:transition-none",
-          open ? "opacity-100" : "invisible opacity-0",
-        )}
-      />
     </header>
   );
 }

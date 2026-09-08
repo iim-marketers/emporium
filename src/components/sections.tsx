@@ -15,7 +15,6 @@ import {
   recruiterLogos,
   recruiterNames,
   stats,
-  testimonialImages,
   type Stat,
 } from "@/lib/content";
 import {
@@ -302,41 +301,6 @@ export function CentreGrid() {
         </Reveal>
       ))}
     </div>
-  );
-}
-
-/* -------------------------------------------------------------------------- */
-/*  Student testimonials                                                       */
-/* -------------------------------------------------------------------------- */
-
-export function TestimonialGallery() {
-  return (
-    <Marquee
-      label="Messages from students who trained at Emporium"
-      className="gap-0"
-    >
-      <MarqueeRow duration="66s" gap="gap-5">
-        {testimonialImages.map((src, i) => (
-          <figure
-            key={src}
-            className="w-[clamp(240px,28vw,340px)] flex-none overflow-hidden rounded-(--r) border border-hairline bg-white p-2.5 shadow-[0_10px_30px_-20px_rgba(13,22,66,0.5)]"
-          >
-            {/* Source stills vary in size, so a fixed box keeps the row even. */}
-            <div className="relative aspect-16/10 overflow-hidden rounded-[10px] bg-cloud">
-              <Image
-                src={src}
-                alt={`Student testimonial ${i + 1}`}
-                fill
-                sizes="340px"
-                loading="eager"
-                fetchPriority="low"
-                className="object-cover"
-              />
-            </div>
-          </figure>
-        ))}
-      </MarqueeRow>
-    </Marquee>
   );
 }
 
