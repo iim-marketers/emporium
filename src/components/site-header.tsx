@@ -3,6 +3,13 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import * as React from "react";
+import {
+  ConciergeBellIcon,
+  GraduationCapIcon,
+  PlaneIcon,
+  ShipIcon,
+  type LucideIcon,
+} from "lucide-react";
 
 import { BrandMark } from "@/components/brand-mark";
 import { ScrollLink } from "@/components/hash-scroll";
@@ -24,6 +31,48 @@ const navLink = [
 
 const panelSurface =
   "bg-[radial-gradient(900px_420px_at_86%_-12%,rgba(63,91,214,0.55),transparent_62%),radial-gradient(620px_380px_at_2%_104%,rgba(217,31,42,0.2),transparent_62%),linear-gradient(180deg,var(--navy)_0%,var(--navy-2)_55%,#0c1440_100%)]";
+
+/** Desktop Courses menu: one course row, then the "all courses" footer link. */
+const menuRow = [
+  "group/row relative flex items-center gap-3.5 rounded-[12px] px-3 py-2.5",
+  "transition-colors duration-200 hover:bg-cloud data-[active=true]:bg-cloud",
+  /* Crimson tick on the current course, as on the mobile gate rows. */
+  "before:absolute before:top-1/2 before:left-0 before:h-6 before:w-[3px]",
+  "before:-translate-y-1/2 before:rounded-full before:bg-transparent",
+  "data-[active=true]:before:bg-crimson",
+].join(" ");
+
+const menuIcon = [
+  "grid size-9.5 flex-none place-items-center rounded-[11px]",
+  "bg-cloud text-royal transition-colors duration-200",
+  "group-hover/row:bg-royal group-hover/row:text-white",
+  "group-data-[active=true]/row:bg-royal group-data-[active=true]/row:text-white",
+].join(" ");
+
+const menuFoot = [
+  "mt-1 flex items-center justify-between gap-3 rounded-[12px] bg-paper px-3.5 py-3",
+  "font-heading text-[13.5px] font-semibold text-royal",
+  "transition-colors duration-200 hover:bg-cloud",
+].join(" ");
+
+/** Slides in from the left edge of the row on hover. */
+const menuArrow = [
+  "flex-none text-royal opacity-0 transition-[opacity,transform] duration-200",
+  "-translate-x-1 group-hover/row:translate-x-0 group-hover/row:opacity-100",
+  "motion-reduce:transition-none",
+].join(" ");
+
+/** A course reads faster with its own mark than as one more line of text. */
+const courseIcons: Record<string, LucideIcon> = {
+  "/programs/aviation": PlaneIcon,
+  "/programs/hospitality": ConciergeBellIcon,
+  "/programs/cruise": ShipIcon,
+};
+
+function CourseIcon({ href }: { href: string }) {
+  const Icon = courseIcons[href] ?? GraduationCapIcon;
+  return <Icon size={19} strokeWidth={1.6} aria-hidden="true" />;
+}
 
 /** One gate row: mono gate code, destination, chevron. */
 const gateRow = [
@@ -205,7 +254,7 @@ export function SiteHeader() {
 
                   <div
                     className={cn(
-                      "absolute top-full left-1/2 z-20 -translate-x-1/2 pt-3",
+                      "absolute top-full left-1/2 z-20 w-[366px] -translate-x-1/2 pt-3",
                       "transition-[opacity,transform,visibility] duration-200 ease-out",
                       "motion-reduce:transition-none",
                       courses
@@ -213,26 +262,75 @@ export function SiteHeader() {
                         : "invisible -translate-y-1 opacity-0",
                     )}
                   >
-                    <div className="min-w-56 overflow-hidden rounded-[14px] border border-hairline bg-white py-2 shadow-(--shadow)">
-                      <Link
-                        href={item.href}
-                        onClick={close}
-                        className="block px-4.5 py-2.5 font-heading text-[14.5px] font-semibold text-royal hover:bg-cloud"
-                      >
-                        All courses
-                      </Link>
-                      <span className="my-1 block h-px bg-hairline" />
+                    {/* Notch pointing back at the trigger; the card paints over
+                        its lower half. */}
+                    <span
+                      aria-hidden="true"
+                      className="absolute top-[6.5px] left-1/2 size-3 -translate-x-1/2 rotate-45 rounded-[2px] border-t border-l border-hairline bg-white"
+                    />
+                    <div className="relative rounded-[16px] border border-hairline bg-white p-1.5 shadow-(--shadow)">
                       {item.children.map((child: NavItem) => (
                         <Link
                           key={child.href}
                           href={child.href}
                           onClick={close}
                           data-active={isActive(child.href)}
-                          className="block px-4.5 py-2.5 text-[14.5px] text-slate hover:bg-cloud hover:text-royal data-[active=true]:font-semibold data-[active=true]:text-royal"
+                          aria-current={
+                            isActive(child.href) ? "page" : undefined
+                          }
+                          className={menuRow}
                         >
-                          {child.label}
+                          <span className={menuIcon}>
+                            <CourseIcon href={child.href} />
+                          </span>
+                          <span className="min-w-0 flex-1">
+                            <span className="block font-heading text-[14.5px] font-semibold text-ink group-data-[active=true]/row:text-royal">
+                              {child.label}
+                            </span>
+                            {child.blurb ? (
+                              <span className="mt-0.5 block truncate text-[12.5px] text-slate">
+                                {child.blurb}
+                              </span>
+                            ) : null}
+                          </span>
+                          <svg
+                            width="15"
+                            height="15"
+                            viewBox="0 0 16 16"
+                            fill="none"
+                            stroke="currentColor"
+                            strokeWidth="1.6"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            aria-hidden="true"
+                            className={menuArrow}
+                          >
+                            <path d="M3 8h9M8.5 4.5 12 8l-3.5 3.5" />
+                          </svg>
                         </Link>
                       ))}
+
+                      <Link
+                        href={item.href}
+                        onClick={close}
+                        className={cn(menuFoot, "group/row")}
+                      >
+                        All courses
+                        <svg
+                          width="15"
+                          height="15"
+                          viewBox="0 0 16 16"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="1.7"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          aria-hidden="true"
+                          className="flex-none transition-transform duration-200 group-hover/row:translate-x-1 motion-reduce:transition-none"
+                        >
+                          <path d="M3 8h9M8.5 4.5 12 8l-3.5 3.5" />
+                        </svg>
+                      </Link>
                     </div>
                   </div>
                 </div>
@@ -251,12 +349,6 @@ export function SiteHeader() {
           </nav>
 
           <div className="flex flex-none items-center gap-3.5 max-mini:gap-0.5">
-            {/* <a
-              href={site.phoneHref}
-              className="font-mono text-[14px] text-royal max-navfit:hidden"
-            >
-              {site.phone}
-            </a> */}
             <a
               href={site.studentLogin}
               target="_blank"

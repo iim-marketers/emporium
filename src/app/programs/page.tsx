@@ -2,7 +2,11 @@ import { BoardingPassGrid } from "@/components/boarding-pass";
 import { EnquirySection } from "@/components/enquiry-section";
 import { PageHero } from "@/components/page-hero";
 import { AccreditationStrip, SectionHead } from "@/components/sections";
-import { eligibilityCriteria, programs, requiredDocuments } from "@/lib/programs";
+import {
+  eligibilityCriteria,
+  programs,
+  requiredDocuments,
+} from "@/lib/programs";
 import { pageMetadata } from "@/lib/seo";
 import {
   checklist,
@@ -48,12 +52,14 @@ export default function ProgramsPage() {
       <section className={cn(surfaceWhite, sectionPad)}>
         <div className={cn(wrap, split)}>
           <div>
-            <h2 className={columnHeading}>Eligibility Criteria &amp; Documents</h2>
+            <h2 className={columnHeading}>
+              Eligibility Criteria &amp; Documents
+            </h2>
             <p className={cn("mt-5", proseBody)}>{eligibilityCriteria}</p>
             <p className={cn("mt-4", proseBody)}>
-              Carry the following to your counselling session. Our admissions team
-              will tell you exactly where you stand against the criteria of the
-              airlines, hotels and cruise lines currently hiring.
+              Carry the following to your counselling session. Our admissions
+              team will tell you exactly where you stand against the criteria of
+              the airlines, hotels and cruise lines currently hiring.
             </p>
           </div>
 
@@ -83,7 +89,7 @@ export default function ProgramsPage() {
         </div>
       </section>
 
-      <EnquirySection />
+      {/* <EnquirySection />   */}
     </>
   );
 }
