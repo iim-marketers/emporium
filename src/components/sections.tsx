@@ -323,3 +323,29 @@ export function EligibilityBar({ note }: { note: string }) {
     </Reveal>
   );
 }
+
+/* -------------------------------------------------------------------------- */
+/*  Empty state                                                               */
+/* -------------------------------------------------------------------------- */
+
+export function EmptyState({
+  title,
+  body,
+  className,
+}: {
+  title: string;
+  body: string;
+  className?: string;
+}) {
+  return (
+    <Reveal
+      className={cn(
+        "grid place-items-center gap-2 rounded-(--r) border border-dashed border-hairline bg-white px-7 py-14 text-center",
+        className,
+      )}
+    >
+      <p className="font-heading text-[18px] font-semibold text-ink">{title}</p>
+      <p className={cn(cardBody, "max-w-[46ch]")}>{body}</p>
+    </Reveal>
+  );
+}
