@@ -254,7 +254,7 @@ export function SiteHeader() {
 
                   <div
                     className={cn(
-                      "absolute top-full left-1/2 z-20 w-[366px] -translate-x-1/2 pt-3",
+                      "absolute top-full left-1/2 z-20 w-91.5 -translate-x-1/2 pt-3",
                       "transition-[opacity,transform,visibility] duration-200 ease-out",
                       "motion-reduce:transition-none",
                       courses
@@ -266,7 +266,7 @@ export function SiteHeader() {
                         its lower half. */}
                     <span
                       aria-hidden="true"
-                      className="absolute top-[6.5px] left-1/2 size-3 -translate-x-1/2 rotate-45 rounded-[2px] border-t border-l border-hairline bg-white"
+                      className="absolute top-[6.5px] left-1/2 size-3 -translate-x-1/2 rotate-45 rounded-xs border-t border-l border-hairline bg-white"
                     />
                     <div className="relative rounded-[16px] border border-hairline bg-white p-1.5 shadow-(--shadow)">
                       {item.children.map((child: NavItem) => (
