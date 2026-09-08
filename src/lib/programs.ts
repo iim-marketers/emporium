@@ -1,9 +1,3 @@
-/**
- * The three certificate courses Emporium runs, as published on
- * emporiumsolutions.com. Course copy, module lists, job roles, pay bands and
- * FAQs are reproduced from the institute's own pages.
- */
-
 export type ProgramLevel =
   | "Certificate"
   | "Advanced Certificate"
