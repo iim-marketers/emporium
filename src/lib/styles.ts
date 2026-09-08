@@ -27,7 +27,7 @@ export const noteBody = "text-[14.5px] text-slate";
 export const proseBody = "text-[17px] text-slate";
 
 /** Vertical rhythm for a top-level section. */
-export const sectionPad = "py-[50px] max-laptop:py-20 max-phablet:py-10";
+export const sectionPad = "py-[50px] max-laptop:py-15 max-phablet:py-10";
 
 /** The navy sky gradient behind the home hero and every page masthead. */
 export const heroSurface = [

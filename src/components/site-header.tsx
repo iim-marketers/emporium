@@ -250,7 +250,7 @@ export function SiteHeader() {
             )}
           </nav>
 
-          <div className="flex flex-none items-center gap-3.5 max-mini:gap-1.5">
+          <div className="flex flex-none items-center gap-3.5 max-mini:gap-0.5">
             {/* <a
               href={site.phoneHref}
               className="font-mono text-[14px] text-royal max-navfit:hidden"
@@ -278,7 +278,7 @@ export function SiteHeader() {
             <button
               ref={toggleRef}
               type="button"
-              className="hidden min-h-11 min-w-11 flex-none cursor-pointer flex-col items-center justify-center gap-1.25 border-0 bg-none p-2 max-laptop:flex max-mini:px-1 max-mini:py-2"
+              className="hidden min-h-11 min-w-11 flex-none cursor-pointer flex-col items-end justify-center gap-1.25 border-0 bg-none p-2 max-laptop:flex max-mini:px-1 max-mini:py-2"
               aria-label={open ? "Close menu" : "Open menu"}
               aria-expanded={open}
               aria-controls="mobile-nav"
