@@ -1,5 +1,4 @@
 import { BoardingPassGrid } from "@/components/boarding-pass";
-import { EnquirySection } from "@/components/enquiry-section";
 import { PageHero } from "@/components/page-hero";
 import { AccreditationStrip, SectionHead } from "@/components/sections";
 import {
@@ -88,8 +87,6 @@ export default function ProgramsPage() {
           <AccreditationStrip />
         </div>
       </section>
-
-      {/* <EnquirySection />   */}
     </>
   );
 }
