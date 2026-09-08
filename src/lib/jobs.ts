@@ -21,8 +21,6 @@ export type Job = {
   /** What the candidate should send over WhatsApp. */
   registerWith: string;
   whatsapp: { display: string; href: string };
-  /** Split-flap board fields — uppercase, ≤17 chars for the destination.
-   *  `when` is the compact DD/MM the board's date column shows. */
   board: { flight: string; destination: string; when: string; status: string };
 };
 
@@ -128,14 +126,17 @@ export function parseDriveDate(date: string): Date | null {
 }
 
 /**
- * The drives still worth turning up to. Today counts — a drive runs for the
- * whole day — and a date the parser cannot read is kept rather than hidden,
- * because a stale card beats a drive that silently vanishes off the board.
+ * Whether a drive is over. Today counts as still open — a drive runs for the
+ * whole day — and a date the parser cannot read is treated as open rather than
+ * hidden, because a stale card beats a drive that silently vanishes.
  */
+export function isDriveClosed(job: Job, today: Date = new Date()): boolean {
+  const when = parseDriveDate(job.date);
+  return !!when && differenceInCalendarDays(when, today) < 0;
+}
+
+/** The drives still worth turning up to. */
 export function openDrives(list: Job[] = jobs): Job[] {
   const today = new Date();
-  return list.filter((job) => {
-    const when = parseDriveDate(job.date);
-    return !when || differenceInCalendarDays(when, today) >= 0;
-  });
+  return list.filter((job) => !isDriveClosed(job, today));
 }

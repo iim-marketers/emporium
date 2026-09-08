@@ -43,8 +43,6 @@ export function Hero() {
         />
         <circle cx="1050" cy="255" r="4" fill="#fff" />
 
-        {/* An airliner runs the route the dotted line traces. Reduced motion
-            parks it partway along rather than at the offscreen start. */}
         <g
           className="animate-fly motion-reduce:animate-none"
           style={{
