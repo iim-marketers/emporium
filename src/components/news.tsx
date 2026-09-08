@@ -89,9 +89,6 @@ export function BlogGrid() {
                 {post.title}
               </a>
             </h3>
-            {/* <p className="mt-2.5 text-[14.5px] text-slate truncate">
-              {post.excerpt}
-            </p> */}
           </div>
         </Reveal>
       ))}

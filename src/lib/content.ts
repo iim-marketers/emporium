@@ -1,9 +1,3 @@
-/**
- * Page content taken from emporiumsolutions.com — stats, accreditations,
- * centres, alumni, news and blog. Everything the pages render lives here so
- * copy can be edited without touching layout.
- */
-
 /* -------------------------------------------------------------------------- */
 /*  Headline numbers                                                           */
 /* -------------------------------------------------------------------------- */
@@ -78,11 +72,6 @@ export const empanelments = {
 /*  Recruiter logo wall                                                        */
 /* -------------------------------------------------------------------------- */
 
-/**
- * The old site's recruiter wall. The source files carry no brand names in their
- * filenames or alt text, so the wall is presented as one labelled group rather
- * than pretending to per-logo alt copy we do not have.
- */
 export const recruiterLogos: string[] = [
   ...["a", "b", "c", "d"].flatMap((group) =>
     Array.from({ length: 10 }, (_, i) => `/recruiters/${group}${i + 1}.png`),
@@ -97,7 +86,6 @@ export const recruiterLogos: string[] = [
   "/recruiters/el4.webp",
 ];
 
-/** Marquee strip under the hero — recruiters named in the institute's own copy. */
 export const recruiterNames = [
   "Qatar Airways",
   "IndiGo",
@@ -149,7 +137,6 @@ export const aboutIntro =
 
 export const aboutBody = [
   "Emporium has one of the best aviation course, cruise line, hospitality course, travel & tourism management, and customer service course. It is a leading Vocational Training Provider (VTP) under the Directorate General of Employment & Craftsmen Training, Ministry of Labour & Employment, Government of India.",
-  // "The major courses are aviation courses, cruise management, hospitality management, travel management, and Customer Service. Each course covers topics ranging from Communication skills, Grooming skills, English enhancement, and Personality improvement to detailed knowledge of Aviation, Hospitality, Cruise line, Travel & Tourism, and Customer Service Industries.",
   "The Emporium Certificate courses have become well-known for their particular topic, length flexibility, and the value they add to a student's growth plans. Emporium prepares students for high-paying careers.",
 ];
 
@@ -211,11 +198,6 @@ export const placementsBody = [
   "We feel proud to announce that we have achieved 100% placements with all our batches under the Skill Development Initiative Scheme (SDIS) under the Directorate General of Employment & Training, Ministry of Labour & Employment, Govt. of India. 100% placements will be provided to students who will successfully complete the training and will pass in all the subjects in the final exam. Kindly find some pictures below of our beloved students from North East India who have got jobs with the most eminent brands.",
 ];
 
-/**
- * The "Emporium Alumni" cards — placed students, captioned with the brand and
- * posting they went to. Image/caption pairs are taken from the institute's own
- * markup, not inferred.
- */
 export const placementCards: { image: string; brand: string; role: string }[] =
   [
     { image: "/placements/pic4.jpg", brand: "Carnival", role: "Cruise" },
@@ -392,7 +374,6 @@ export type BlogPost = {
   image: string;
   title: string;
   date: string;
-  excerpt: string;
   href: string;
 };
 
@@ -401,8 +382,7 @@ export const blogPosts: BlogPost[] = [
     image: "/blog/aviation-courses.jpg",
     title: "Soaring to Success: Unleash Your Wings with Top Aviation Courses",
     date: "September 21, 2023",
-    excerpt:
-      "Introduction: In Indian mythology flying chariot denotes the concept of aviation activities during that time. Flying birds …",
+
     href: "https://www.emporiumsolutions.com/soaring-to-success-unleash-your-wings-with-top-aviation-courses/",
   },
   {
@@ -410,16 +390,14 @@ export const blogPosts: BlogPost[] = [
     title:
       "Your Global Career Starts Here: Why Thousands Trust Emporium for Aviation, Hospitality & Cruise Training",
     date: "July 30, 2025",
-    excerpt:
-      "In a world where skilled professionals are in demand across hospitality, aviation, and cruise industries, the right …",
+
     href: "https://www.emporiumsolutions.com/your-global-career-starts-here-why-thousands-trust-emporium-for-aviation-hospitality-cruise-training/",
   },
   {
     image: "/blog/top-10-skills.png",
     title: "Top 10 Skills You Need to Succeed in Aviation and Hospitality",
     date: "August 5, 2025",
-    excerpt:
-      "The aviation and hospitality industries are more than just glamorous uniforms and international travel. They demand precision, …",
+
     href: "https://www.emporiumsolutions.com/top-10-skills-you-need-to-succeed-in-aviation-and-hospitality/",
   },
   {
@@ -427,8 +405,6 @@ export const blogPosts: BlogPost[] = [
     title:
       "India's Civil Aviation Boom: A Sky Full of Opportunities for Aspiring Professionals",
     date: "August 11, 2025",
-    excerpt:
-      "India's civil aviation sector has soared to impressive heights in recent years. According to recent data, India …",
     href: "https://www.emporiumsolutions.com/indias-civil-aviation-boom-a-sky-full-of-opportunities-for-aspiring-professionals/",
   },
 ];

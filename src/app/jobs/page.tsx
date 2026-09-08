@@ -4,7 +4,7 @@ import { JobList } from "@/components/job-board";
 import { PageHero } from "@/components/page-hero";
 import { Reveal } from "@/components/reveal";
 import { SectionHead } from "@/components/sections";
-import { jobsIntro } from "@/lib/jobs";
+import { jobsIntro, openDrives } from "@/lib/jobs";
 import { pageMetadata } from "@/lib/seo";
 import { heroCta, sectionPad, surfacePaper, wrap } from "@/lib/styles";
 import { cn } from "@/lib/utils";
@@ -16,6 +16,10 @@ export const metadata = pageMetadata({
   path: "/jobs",
   keywords: ["cabin crew hiring", "ground staff jobs", "campus interview"],
 });
+
+/** The board hides drives once their date passes, so the prerendered page must
+ *  not outlive one by more than an hour. */
+export const revalidate = 3600;
 
 export default function JobsPage() {
   return (
@@ -36,13 +40,14 @@ export default function JobsPage() {
           <SectionHead
             eyebrow="Open drives"
             title="Register before you turn up."
+            className="mb-4!"
           >
             Message the WhatsApp number on a drive with the details it asks for.
             Drives marked <b>only by invitation</b> are for shortlisted
             candidates.
           </SectionHead>
 
-          <JobList />
+          <JobList items={openDrives()} />
 
           <Reveal className="mt-11 flex flex-wrap items-center justify-between gap-4 rounded-(--r) border border-hairline bg-white px-7 py-6 max-tablet:flex-col max-tablet:items-stretch max-tablet:gap-5">
             <p className="text-[15.5px] text-slate">

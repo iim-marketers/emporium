@@ -5,6 +5,8 @@
  * old site's only per-drive action — plus the shared "Apply Now" CV form.
  */
 
+import { differenceInCalendarDays, isValid, parse } from "date-fns";
+
 export type Job = {
   id: string;
   title: string;
@@ -45,7 +47,12 @@ export const jobs: Job[] = [
       "Emporium Skills Training Institute, Sardar Ji Building, Near Sarusajai Stadium, Opp. Central Jail, NH 37, Lokhra, Guwahati",
     registerWith: "Apply via WhatsApp your Name, Age, Qualification",
     whatsapp: whatsapp("7086617388"),
-    board: { flight: "GAU", destination: "GUWAHATI ASSAM", when: "16/09", status: "OPEN ALL" },
+    board: {
+      flight: "GAU",
+      destination: "GUWAHATI ASSAM",
+      when: "16/09",
+      status: "OPEN ALL",
+    },
   },
   {
     id: "darjeeling-cabin-crew",
@@ -58,7 +65,12 @@ export const jobs: Job[] = [
     venue: "Southfield College",
     registerWith: "Apply via WhatsApp your Name, Age, Qualification",
     whatsapp: whatsapp("74070 07517"),
-    board: { flight: "DAJ", destination: "DARJEELING W.B.", when: "23/05", status: "INVITE" },
+    board: {
+      flight: "DAJ",
+      destination: "DARJEELING W.B.",
+      when: "23/05",
+      status: "INVITE",
+    },
   },
   {
     id: "imphal-cabin-crew-female",
@@ -72,7 +84,12 @@ export const jobs: Job[] = [
       "Emporium Skills Training Institute, Mantripukhri Bazaar, Imphal East, Above Kadak Chai Restaurant, Imphal, Manipur",
     registerWith: "Apply via WhatsApp your Name, Age, Qualification",
     whatsapp: whatsapp("98638 17991"),
-    board: { flight: "IMF", destination: "IMPHAL MANIPUR", when: "29/05", status: "INVITE" },
+    board: {
+      flight: "IMF",
+      destination: "IMPHAL MANIPUR",
+      when: "29/05",
+      status: "INVITE",
+    },
   },
   {
     id: "imphal-cabin-crew-all",
@@ -86,9 +103,39 @@ export const jobs: Job[] = [
       "Emporium Skills Training Institute, Mantripukhri Bazaar, Imphal East, Above Kadak Chai Restaurant, Imphal, Manipur",
     registerWith: "Register via WhatsApp your Name, e-mail, Contact No.",
     whatsapp: whatsapp("88091 01202"),
-    board: { flight: "IMF", destination: "IMPHAL MANIPUR", when: "11/06", status: "INVITE" },
+    board: {
+      flight: "IMF",
+      destination: "IMPHAL MANIPUR",
+      when: "11/06",
+      status: "INVITE",
+    },
   },
 ];
 
 export const jobsIntro =
   "Since we are working very closely with the industry for the last 9 years in India and we follow all the guidelines given by the airlines, hotels and tourism companies, we do not take open admissions to maintain the quality policy and to ensure that every student gets suitable jobs according to the profile.";
+
+/**
+ * Drive dates are authored for people to read ("16th September 2026"), so the
+ * board reads them back through here to work out how far off a drive is.
+ * Returns null for anything it cannot parse, and callers fall back to the
+ * written date.
+ */
+export function parseDriveDate(date: string): Date | null {
+  const cleaned = date.replace(/(\d+)(st|nd|rd|th)/i, "$1").trim();
+  const parsed = parse(cleaned, "d MMMM yyyy", new Date());
+  return isValid(parsed) ? parsed : null;
+}
+
+/**
+ * The drives still worth turning up to. Today counts — a drive runs for the
+ * whole day — and a date the parser cannot read is kept rather than hidden,
+ * because a stale card beats a drive that silently vanishes off the board.
+ */
+export function openDrives(list: Job[] = jobs): Job[] {
+  const today = new Date();
+  return list.filter((job) => {
+    const when = parseDriveDate(job.date);
+    return !when || differenceInCalendarDays(when, today) >= 0;
+  });
+}

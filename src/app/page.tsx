@@ -4,7 +4,6 @@ import Link from "next/link";
 
 import { BoardingPassGrid } from "@/components/boarding-pass";
 import { DepartureBoard } from "@/components/departure-board";
-import { EnquirySection } from "@/components/enquiry-section";
 import { JobList } from "@/components/job-board";
 import { BlogGrid, NewsList } from "@/components/news";
 import { Reveal } from "@/components/reveal";
@@ -19,7 +18,7 @@ import {
 } from "@/components/sections";
 import { arrow, btn } from "@/lib/btn";
 import { headlineClaim } from "@/lib/content";
-import { jobs } from "@/lib/jobs";
+import { openDrives } from "@/lib/jobs";
 import { programs } from "@/lib/programs";
 import { pageMetadata } from "@/lib/seo";
 import { site } from "@/lib/site";
@@ -49,6 +48,10 @@ export const metadata = pageMetadata({
     "placement assistance",
   ],
 });
+
+/** The board hides drives once their date passes, so the prerendered page must
+ *  not outlive one by more than an hour. */
+export const revalidate = 3600;
 
 export default function HomePage() {
   return (
@@ -133,11 +136,12 @@ export default function HomePage() {
           <SectionHead
             eyebrow="Newest jobs"
             title="Campus interviews, happening now."
+            className="mb-4"
           >
             Airlines, airports and hotel groups screen at Emporium centres
             through the year. Message the number on a drive to register.
           </SectionHead>
-          <JobList items={jobs.slice(0, 2)} />
+          <JobList items={openDrives().slice(0, 2)} />
         </div>
       </section>
 
@@ -274,9 +278,6 @@ export default function HomePage() {
           <BlogGrid />
         </div>
       </section>
-
-      {/* ============ ENQUIRE ============ */}
-      {/* <EnquirySection /> */}
     </>
   );
 }

@@ -40,18 +40,21 @@ export function SectionHead({
   children,
   onDark = false,
   center = false,
+  className,
 }: {
   eyebrow: string;
   title: React.ReactNode;
   children?: React.ReactNode;
   onDark?: boolean;
   center?: boolean;
+  className?: string;
 }) {
   return (
     <Reveal
       className={cn(
         "mb-8 max-w-180 max-laptop:mb-11 max-phablet:mb-8.5",
         center && "mx-auto text-center",
+        className,
       )}
     >
       <span className={cn(eyebrow, onDark && onDarkText)}>{eyebrowText}</span>
