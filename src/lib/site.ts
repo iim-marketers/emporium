@@ -56,14 +56,27 @@ export const site = {
   copyright: "Copyright © Emporium 2026. All rights reserved",
 } as const;
 
-export type NavItem = { label: string; href: string };
+/** `blurb` is nav-menu copy — the roles the course trains for, in one line. */
+export type NavItem = { label: string; href: string; blurb?: string };
 export type NavGroup = NavItem & { children?: NavItem[] };
 
 /** Course slugs live here so the nav, footer and cards can't drift apart. */
 export const courseNav: NavItem[] = [
-  { label: "Aviation", href: "/programs/aviation" },
-  { label: "Hospitality", href: "/programs/hospitality" },
-  { label: "Cruise", href: "/programs/cruise" },
+  {
+    label: "Aviation",
+    href: "/programs/aviation",
+    blurb: "Cabin crew, air hostess & ground services",
+  },
+  {
+    label: "Hospitality",
+    href: "/programs/hospitality",
+    blurb: "Front office, guest relations & F&B",
+  },
+  {
+    label: "Cruise",
+    href: "/programs/cruise",
+    blurb: "Onboard hospitality, F&B & housekeeping",
+  },
 ];
 
 export const primaryNav: NavGroup[] = [

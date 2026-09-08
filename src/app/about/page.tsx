@@ -74,7 +74,7 @@ export default function AboutPage() {
 
           <Reveal className="relative aspect-4/3 overflow-hidden rounded-(--r) bg-cloud">
             <Image
-              src="/misc/courses.jpg"
+              src="/misc/courses-v2.png"
               alt="Emporium students in training"
               fill
               sizes="(max-width: 960px) 92vw, 45vw"

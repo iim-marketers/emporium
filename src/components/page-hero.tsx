@@ -46,29 +46,6 @@ export function PageHero({
       </svg>
 
       <div className={cn(wrap, "relative")}>
-        {/* {crumbs.length > 0 ? (
-          <nav
-            className="mb-5.5 flex items-center gap-2.5 font-mono text-[11.5px] tracking-[0.18em] text-[#93a2d6] uppercase max-phablet:flex-wrap max-phablet:gap-y-1"
-            aria-label="Breadcrumb"
-          >
-            <Link href="/" className="hover:text-white">
-              Home
-            </Link>
-            {crumbs.map((crumb) => (
-              <span key={crumb.label} className="contents">
-                <span className="opacity-50">/</span>
-                {crumb.href ? (
-                  <Link href={crumb.href} className="hover:text-white">
-                    {crumb.label}
-                  </Link>
-                ) : (
-                  <span>{crumb.label}</span>
-                )}
-              </span>
-            ))}
-          </nav>
-        ) : null} */}
-
         <Reveal>
           <span className={eyebrowOnDark}>{eyebrow}</span>
           <h1 className={cn("mt-4.5", pageHeading)}>{title}</h1>
