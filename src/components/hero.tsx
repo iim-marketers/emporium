@@ -106,9 +106,6 @@ export function Hero() {
             <span className="flex items-center gap-2">
               Aviation · Hospitality · Cruise
             </span>
-            <span className="flex items-center gap-2">
-              10+ centres in India
-            </span>
           </div>
         </div>
 
