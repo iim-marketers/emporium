@@ -4,8 +4,6 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 
 import { ApplyDialog } from "@/components/apply-dialog";
-import { BoardingPass } from "@/components/boarding-pass";
-import { EnquirySection } from "@/components/enquiry-section";
 import { FaqList } from "@/components/news";
 import { PageHero } from "@/components/page-hero";
 import { Reveal } from "@/components/reveal";
@@ -138,7 +136,7 @@ export default async function ProgramPage({
           </div>
 
           <Reveal className="grid gap-6">
-            <div className="relative aspect-4/3 overflow-hidden rounded-(--r) bg-cloud">
+            <div className="relative aspect-3/2 overflow-hidden rounded-(--r) bg-cloud">
               <Image
                 src={program.image}
                 alt=""
