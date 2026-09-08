@@ -170,7 +170,6 @@ export function SiteHeader() {
     };
   }, [open]);
 
-  /* The Courses menu closes on Escape and on any click outside it. */
   React.useEffect(() => {
     if (!courses) return;
 
@@ -262,8 +261,6 @@ export function SiteHeader() {
                         : "invisible -translate-y-1 opacity-0",
                     )}
                   >
-                    {/* Notch pointing back at the trigger; the card paints over
-                        its lower half. */}
                     <span
                       aria-hidden="true"
                       className="absolute top-[6.5px] left-1/2 size-3 -translate-x-1/2 rotate-45 rounded-xs border-t border-l border-hairline bg-white"
