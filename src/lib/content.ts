@@ -188,10 +188,6 @@ export type TestimonialVideo = {
 };
 
 /**
- * Films from the institute's own channel, youtube.com/@EmporiumTrainingInstitute.
- * Nothing is downloaded: the still comes from YouTube's thumbnail CDN and the
- * player from its embed, so a new testimonial is one line here.
- *
  * Landscape uploads only — the row is 16:9 and the channel's vertical Shorts
  * would have to be cropped to the point of losing their subject.
  */
