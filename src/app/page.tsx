@@ -16,6 +16,7 @@ import {
   TrustStrip,
 } from "@/components/sections";
 import { TestimonialGallery } from "@/components/testimonial-videos";
+import { blogPosts } from "@/lib/blog";
 import { arrow, btn } from "@/lib/btn";
 import { headlineClaim } from "@/lib/content";
 import { openDrives } from "@/lib/jobs";
@@ -199,7 +200,19 @@ export default function HomePage() {
       <section className={cn(surfacePaper, sectionPad)} id="blog">
         <div className={wrap}>
           <SectionHead eyebrow="Latest blog" title="Reading for aspirants." />
-          <BlogGrid />
+          <BlogGrid posts={blogPosts.slice(0, 4)} />
+
+          {/* The grid holds four; everything older lives on the archive page. */}
+          {blogPosts.length > 4 ? (
+            <div className="mt-9 flex justify-center">
+              <Link
+                href="/blog"
+                className={btn({ variant: "outline", block: "phone" })}
+              >
+                All posts <span className={arrow}>→</span>
+              </Link>
+            </div>
+          ) : null}
         </div>
       </section>
     </>

@@ -37,7 +37,9 @@ export function Reveal({
           }
         });
       },
-      { threshold: 0.14 },
+      // A block taller than the viewport can never reach a fractional threshold
+      // — its visible share is capped — so trigger on its top edge instead.
+      { rootMargin: "0px 0px -12% 0px" },
     );
 
     io.observe(el);

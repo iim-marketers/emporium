@@ -1,5 +1,6 @@
 import type { MetadataRoute } from "next";
 
+import { blogPosts } from "@/lib/blog";
 import { programs } from "@/lib/programs";
 import { site } from "@/lib/site";
 
@@ -16,6 +17,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { path: "/contact", priority: 0.7 },
     { path: "/franchise", priority: 0.6 },
     { path: "/achievements", priority: 0.5 },
+    { path: "/blog", priority: 0.5 },
     { path: "/privacy-policy", priority: 0.3 },
     { path: "/cookie-policy", priority: 0.3 },
   ];
@@ -32,6 +34,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: now,
       changeFrequency: "monthly" as const,
       priority: 0.8,
+    })),
+    ...blogPosts.map((post) => ({
+      url: `${site.url}/blog/${post.slug}`,
+      lastModified: now,
+      changeFrequency: "yearly" as const,
+      priority: 0.4,
     })),
   ];
 }
