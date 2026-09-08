@@ -175,10 +175,12 @@
     box-sizing: border-box;
   }
   html {
-    /* Clears the 72px sticky header (64px on mini) and leaves a little air
-       above whatever the glide lands on. Anchor targets should not add their
-       own scroll-margin on top of this. */
-    scroll-padding-top: 120px;
+    scroll-padding-top: 104px;
+  }
+  @media (width < 769px) {
+    html {
+      scroll-padding-top: 84px;
+    }
   }
   body {
     margin: 0;

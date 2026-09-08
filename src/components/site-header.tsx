@@ -199,7 +199,10 @@ export function SiteHeader() {
   ].join(" ");
 
   return (
-    <header className="sticky top-0 z-50 [--header-h:72px] max-mini:[--header-h:64px]">
+    <header
+      data-site-header
+      className="sticky top-0 z-50 [--header-h:72px] max-mini:[--header-h:64px]"
+    >
       <div className="relative z-10 border-b border-hairline bg-[rgba(255,255,255,0.86)] backdrop-blur-[14px] backdrop-saturate-[1.4]">
         <div
           className={cn(

@@ -143,10 +143,6 @@ export default function EnquirePage() {
             </ul>
           </Reveal>
 
-          {/* Anchor target for the header's Enquire CTA. The id sits on a
-              plain wrapper, not on the Reveal: the Reveal is translated down
-              until it animates in, so landing on it would stop the glide
-              short. `scroll-padding-top` clears the sticky header. */}
           <div id="enquire">
             <Reveal>
               <EnquiryForm />

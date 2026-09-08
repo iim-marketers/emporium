@@ -26,8 +26,10 @@ import { Textarea } from "@/components/ui/textarea";
 import { arrow, btn } from "@/lib/btn";
 import { cn } from "@/lib/utils";
 
+/* The padding steps down twice: on a phone the whole form is barely a
+   screenful, so the frame gives back what it can. */
 const cardSurface =
-  "rounded-[20px] border border-hairline bg-ticket p-7 text-ink shadow-[var(--shadow)] max-phablet:p-5";
+  "rounded-[20px] border border-hairline bg-ticket p-7 text-ink shadow-[var(--shadow)] max-phablet:p-5 max-phone:p-4";
 
 const control =
   "bg-white text-ink rounded-xl placeholder:text-slate/55 focus-visible:ring-sky/20 aria-invalid:ring-destructive/15";
@@ -177,7 +179,6 @@ export function EnquiryForm({
     setErrors(found);
     if (Object.keys(found).length > 0) {
       toast.error("Please check the highlighted fields.");
-      // Jump to the problem rather than leaving people to hunt for the red text.
       const first = fieldOrder.find((key) => found[key]);
       if (first) document.getElementById(id(first))?.focus();
       return;
@@ -257,7 +258,7 @@ export function EnquiryForm({
   return (
     <div className={cn(framed && cardSurface)}>
       {framed ? (
-        <header className="mb-6 flex items-start gap-3.5 border-b border-hairline pb-5">
+        <header className="mb-6 flex items-start gap-3.5 border-b border-hairline pb-5 max-phone:mb-4 max-phone:pb-4">
           <span className="grid size-10 flex-none place-items-center rounded-xl bg-royal/8 text-royal">
             {isApply ? (
               <PaperclipIcon className="size-4.5" />
@@ -279,7 +280,7 @@ export function EnquiryForm({
       ) : null}
 
       <form onSubmit={handleSubmit} noValidate>
-        <FieldGroup className="gap-4">
+        <FieldGroup className="gap-4 max-phone:gap-3.5">
           {subject && framed ? (
             <Badge
               variant="secondary"
@@ -306,7 +307,7 @@ export function EnquiryForm({
           {/* Container queries, not media queries: this form renders in a wide
               page column and in a 560px dialog, so the pairing has to follow
               the form's own width rather than the viewport's. */}
-          <div className="grid gap-4 @md/field-group:grid-cols-2">
+          <div className="grid gap-4 max-phone:gap-3.5 @md/field-group:grid-cols-2">
             <Field className={fieldCls} data-invalid={Boolean(errors.email)}>
               <FieldLabel htmlFor={id("email")} className={labelCls}>
                 Email <Req />
@@ -421,9 +422,6 @@ export function EnquiryForm({
                     </span>
                   </label>
                 )}
-                {/* Inside the wrapper for the same reason as the input, and
-                      sr-only because `aria-label` on the input shadows the drop
-                      area's own text. */}
                 <FieldDescription id={id("cv-hint")} className="sr-only">
                   PDF or Word document, up to 8 MB.
                 </FieldDescription>
@@ -442,7 +440,10 @@ export function EnquiryForm({
             <Textarea
               {...fieldProps("message")}
               rows={3}
-              className={cn(textareaCls, isApply ? "min-h-16" : "min-h-24")}
+              className={cn(
+                textareaCls,
+                isApply ? "min-h-16" : "min-h-24 max-phone:min-h-20",
+              )}
               placeholder={
                 isApply
                   ? "Tell us about your experience and the roles you are after."
