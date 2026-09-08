@@ -83,12 +83,12 @@ export const split =
 /** Numbered curriculum rows. */
 export const moduleList = "m-0 grid gap-0 p-0";
 export const moduleItem =
-  "grid list-none grid-cols-[58px_1fr] gap-4 border-t border-hairline py-4.5 first:border-t-0 max-phone:grid-cols-1 max-phone:gap-1.5";
+  "grid list-none grid-cols-[18px_1fr] gap-3 border-t border-hairline py-4.5 first:border-t-0";
 /** Wider gutter for word labels ("Mon – Tue") rather than "01". */
 export const moduleItemWide =
   "grid list-none grid-cols-[92px_1fr] gap-4 border-t border-hairline py-4.5 first:border-t-0 max-phone:grid-cols-1 max-phone:gap-1.5";
 export const moduleNo =
-  "pt-[3px] font-mono text-[12px] tracking-[0.16em] text-crimson";
+  "pt-[4px] font-mono text-[12px] tracking-[0.16em] text-crimson";
 
 /** Key/value rows. */
 export const specRow =
