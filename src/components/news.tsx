@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 
 import { Reveal } from "@/components/reveal";
 import {
@@ -7,9 +8,10 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import { blogPosts, news } from "@/lib/content";
+import { blogPosts, type BlogPost } from "@/lib/blog";
+import { news } from "@/lib/content";
 import type { Faq } from "@/lib/programs";
-import { faqBody, faqItem, faqTrigger } from "@/lib/styles";
+import { faqBody, faqItem, faqTrigger, heroSurface } from "@/lib/styles";
 import { cn } from "@/lib/utils";
 
 /* -------------------------------------------------------------------------- */
@@ -28,14 +30,7 @@ export function NewsList() {
           <AccordionTrigger
             className={cn(faqTrigger, "gap-6 text-[17px] leading-[1.35]")}
           >
-            <span className="pr-4">
-              {item.title}
-              {item.date ? (
-                <span className="mt-1.5 block font-mono text-[12px] font-normal tracking-[0.12em] text-crimson uppercase">
-                  {item.date}
-                </span>
-              ) : null}
-            </span>
+            <span className="pr-4">{item.title}</span>
           </AccordionTrigger>
           <AccordionContent className={cn(faqBody)}>
             {item.body.map((paragraph) => (
@@ -57,37 +52,51 @@ export function NewsList() {
 /*  Latest blog                                                                */
 /* -------------------------------------------------------------------------- */
 
-export function BlogGrid() {
+/** Stands in for the artwork on posts that were published without an image. */
+export function PostTile() {
+  return (
+    <div className={cn("grid h-full place-items-center", heroSurface)}>
+      <span className="font-mono text-[11px] tracking-[0.24em] text-haze uppercase">
+        Emporium · Blog
+      </span>
+    </div>
+  );
+}
+
+/** Posts default to the whole list; the home page passes the newest few. */
+export function BlogGrid({ posts = blogPosts }: { posts?: BlogPost[] }) {
   return (
     <div className="grid grid-cols-4 gap-5.5 max-laptop:grid-cols-2 max-phone:grid-cols-1">
-      {blogPosts.map((post) => (
+      {posts.map((post) => (
         <Reveal
-          key={post.href}
+          key={post.slug}
           as="article"
           className="group max-h-150 flex flex-col overflow-hidden rounded-(--r) border border-hairline bg-white transition-[transform,box-shadow] duration-250 hover:-translate-y-1 hover:shadow-(--shadow)"
         >
           <div className="relative aspect-16/10 bg-cloud">
-            <Image
-              src={post.image}
-              alt=""
-              fill
-              sizes="(max-width: 560px) 92vw, (max-width: 960px) 45vw, 23vw"
-              className="object-cover"
-            />
+            {post.image ? (
+              <Image
+                src={post.image}
+                alt=""
+                fill
+                sizes="(max-width: 560px) 92vw, (max-width: 960px) 45vw, 23vw"
+                className="object-cover"
+              />
+            ) : (
+              <PostTile />
+            )}
           </div>
           <div className="flex flex-1 flex-col px-5.5 py-5">
             <span className="font-mono text-[11px] tracking-[0.16em] text-crimson uppercase">
               {post.date}
             </span>
             <h3 className="mt-2.5 text-[17px] leading-[1.3] text-ink">
-              <a
-                href={post.href}
-                target="_blank"
-                rel="noreferrer"
+              <Link
+                href={`/blog/${post.slug}`}
                 className="after:absolute after:inset-0 after:content-['']"
               >
                 {post.title}
-              </a>
+              </Link>
             </h3>
           </div>
         </Reveal>
