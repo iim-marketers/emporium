@@ -50,7 +50,7 @@ export const pageHeroPad =
 export const lede =
   "mt-5.5 text-[16px] text-[#c8d2f4] max-w-[50ch] max-laptop:max-w-[52ch] max-phablet:text-[14px]";
 export const ledeWide =
-  "mt-5.5 text-[17px] text-[#c8d2f4] max-w-[56ch] max-laptop:max-w-[52ch] max-phablet:text-[17px]";
+  "mt-5.5 text-[16px] text-[#c8d2f4] max-w-[75ch] max-laptop:max-w-[52ch] max-phablet:text-[16px]";
 
 /** The navy training-floor section, with a blue glow off the top right. */
 export const trainSurface = [
