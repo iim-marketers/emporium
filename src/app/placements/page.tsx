@@ -57,7 +57,7 @@ export default function PlacementsPage() {
             "max-laptop:grid-cols-1 max-laptop:gap-10",
           )}
         >
-          <Reveal className="relative aspect-436/387 overflow-hidden rounded-(--r) bg-cloud">
+          <Reveal className="relative aspect-436/387 overflow-hidden rounded-(--r) bg-cloud mt-5">
             <Image
               src={placementClaim.image}
               alt="Emporium students placed with leading airlines and hotel brands"

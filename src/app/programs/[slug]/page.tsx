@@ -198,7 +198,7 @@ export default async function ProgramPage({
             {program.overview.split("\n\n").map((paragraph) => (
               <p
                 key={paragraph.slice(0, 40)}
-                className="text-[16.5px] text-[#c1cbee]"
+                className="text-[15px] text-[#c1cbee]"
               >
                 {paragraph}
               </p>
@@ -209,7 +209,7 @@ export default async function ProgramPage({
             <h3 className="mb-3.5 text-[20px] font-semibold text-white">
               Training Methodology
             </h3>
-            <p className=" text-[15.5px] text-[#aebbe6]">
+            <p className=" text-[14.5px] text-[#aebbe6]">
               {program.trainingMethodology}
             </p>
           </Reveal>

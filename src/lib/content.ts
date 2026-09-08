@@ -18,7 +18,7 @@ export const placementClaim = {
   line1: "students",
   line2: "placed",
   line3: "in 14 different countries",
-  image: "/placements/hero.png",
+  image: "/placements/hero-v2.png",
 };
 
 export const headlineClaim = {
