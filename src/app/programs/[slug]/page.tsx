@@ -4,6 +4,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 
 import { ApplyDialog } from "@/components/apply-dialog";
+import { ScrollLink } from "@/components/hash-scroll";
 import { FaqList } from "@/components/news";
 import { PageHero } from "@/components/page-hero";
 import { Reveal } from "@/components/reveal";
@@ -112,9 +113,13 @@ export default async function ProgramPage({
         ]}
       >
         <div className={heroCta}>
-          <Link href="#enquire" className={btn({ block: "phone" })}>
+          <ScrollLink
+            href="/enquire"
+            to="enquire"
+            className={btn({ block: "phone" })}
+          >
             Enroll Now <span className={arrow}>→</span>
-          </Link>
+          </ScrollLink>
           <ApplyDialog
             label="Apply Now"
             subject={program.shortTitle}
@@ -164,8 +169,9 @@ export default async function ProgramPage({
                 <span className={specKey}>Intake</span>
                 <span className={specValue}>{program.intake}</span>
               </div>
-              <Link
-                href="#enquire"
+              <ScrollLink
+                href="/enquire"
+                to="enquire"
                 className={btn({
                   variant: "dark",
                   block: "always",
@@ -173,7 +179,7 @@ export default async function ProgramPage({
                 })}
               >
                 Enquire about this course <span className={arrow}>→</span>
-              </Link>
+              </ScrollLink>
             </div>
           </Reveal>
         </div>

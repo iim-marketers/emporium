@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 import { BoardingPassGrid } from "@/components/boarding-pass";
+import { ScrollLink } from "@/components/hash-scroll";
 import { DepartureBoard } from "@/components/departure-board";
 import { JobList } from "@/components/job-board";
 import { BlogGrid, NewsList } from "@/components/news";
@@ -13,9 +14,9 @@ import {
   RecruiterWall,
   SectionHead,
   StatsBand,
-  TestimonialGallery,
   TrustStrip,
 } from "@/components/sections";
+import { TestimonialGallery } from "@/components/testimonial-videos";
 import { arrow, btn } from "@/lib/btn";
 import { headlineClaim } from "@/lib/content";
 import { openDrives } from "@/lib/jobs";
@@ -99,9 +100,13 @@ export default function HomePage() {
               assistance through our dedicated Placement Cell.
             </p>
             <div className={heroCta}>
-              <Link href="/enquire#enquire" className={btn({ block: "phone" })}>
+              <ScrollLink
+                href="/enquire"
+                to="enquire"
+                className={btn({ block: "phone" })}
+              >
                 Enroll Now
-              </Link>
+              </ScrollLink>
               <Link
                 href="/about"
                 className={btn({ variant: "ghost", block: "phone" })}
@@ -253,8 +258,8 @@ export default function HomePage() {
             eyebrow="Student testimonial"
             title="In their own words."
           >
-            Messages from students who trained at Emporium and went on to fly,
-            serve and sail with brands around the world.
+            Films from students who trained at Emporium and went on to fly,
+            serve and sail with brands around the world. Pick one to play it.
           </SectionHead>
           <TestimonialGallery />
         </div>

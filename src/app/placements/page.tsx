@@ -143,7 +143,7 @@ export default function PlacementsPage() {
       </section> */}
 
       {/* ============ EMPORIUM ALUMNI ============ */}
-      <section className={cn(surfacePaper, sectionPad)}>
+      <section className={cn(surfaceWhite, sectionPad)}>
         <div className={wrap}>
           <SectionHead eyebrow="Emporium" title="Alumni.">
             Students from North East India now working with some of the most
@@ -186,14 +186,12 @@ export default function PlacementsPage() {
       </section>
 
       {/* ============ ACCREDITATION ============ */}
-      <section className={cn(surfaceWhite, sectionPad)}>
+      <section className={cn(surfacePaper, sectionPad)}>
         <div className={wrap}>
           <SectionHead eyebrow="Approved and" title="Accredited by." />
           <AccreditationStrip />
         </div>
       </section>
-
-      {/* <EnquirySection /> */}
     </>
   );
 }
