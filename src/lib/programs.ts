@@ -4,7 +4,10 @@
  * FAQs are reproduced from the institute's own pages.
  */
 
-export type ProgramLevel = "Certificate" | "Advanced Certificate" | "Fast Track";
+export type ProgramLevel =
+  | "Certificate"
+  | "Advanced Certificate"
+  | "Fast Track";
 
 export type PayBand = {
   /** Role the band applies to — omitted when the course quotes a single band. */
@@ -85,7 +88,7 @@ export const programs: Program[] = [
     level: "Advanced Certificate",
     mode: "Classroom",
     gate: "A1",
-    image: "/courses/aviation-hero.png",
+    image: "/courses/aviation-hero-new.png",
     cardImage: "/courses/aviation-card.png",
     overview: positionDetails.join("\n\n"),
     whatIs: {
@@ -196,7 +199,7 @@ export const programs: Program[] = [
     level: "Advanced Certificate",
     mode: "Classroom",
     gate: "B1",
-    image: "/courses/hospitality-hero.png",
+    image: "/courses/hospitality-hero-new.png",
     cardImage: "/courses/hospitality-card.png",
     overview: positionDetails.join("\n\n"),
     whatIs: {
@@ -304,7 +307,7 @@ export const programs: Program[] = [
     level: "Fast Track",
     mode: "Classroom",
     gate: "C1",
-    image: "/courses/cruise-hero.png",
+    image: "/courses/cruise-hero-new.png",
     cardImage: "/courses/cruise-card.png",
     overview: [
       "The operations of cruise ships offer a wide range of opportunities for people with different backgrounds in hospitality. Each cruise ship operations manager is essential to providing passengers with the highest level of service, from creating delectable meals to locating proper housing. Living in a setting analogous to a five-star hotel for extended periods of time has its advantages, even though their obligations can prohibit them from experiencing every Caribbean atmosphere or Atlantic landscape the ship passes through.",
