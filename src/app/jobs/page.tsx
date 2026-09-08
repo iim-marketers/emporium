@@ -17,8 +17,6 @@ export const metadata = pageMetadata({
   keywords: ["cabin crew hiring", "ground staff jobs", "campus interview"],
 });
 
-/** The board hides drives once their date passes, so the prerendered page must
- *  not outlive one by more than an hour. */
 export const revalidate = 3600;
 
 export default function JobsPage() {
