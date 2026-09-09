@@ -1,0 +1,139 @@
+/* Emporium branding for the Payload admin panel.
+   Payload ships its own rules inside the `payload-default` cascade layer, so
+   everything here is unlayered and wins without !important. Both themes are
+   styled, so `admin.theme` in the Payload config can be flipped freely. */
+
+:root {
+  --em-navy: #0d1642;
+  --em-abyss: #080c28;
+  --em-royal: #1d2b79;
+  --em-sky: #3f5bd6;
+  --em-paper: #f5f6fb;
+
+  /* Payload derives every surface, hairline and text tone from this grey
+     ladder, so recolouring it repaints the whole panel in one pass. The light
+     theme reads it top down and the dark theme bottom up, which is why the
+     pale end is cool white and the deep end is the brand navy. */
+  --color-base-0: #ffffff;
+  --color-base-50: #eef1fb;
+  --color-base-100: #e0e6f7;
+  --color-base-150: #d1d9f2;
+  --color-base-200: #c1cbec;
+  --color-base-250: #b0bde6;
+  --color-base-300: #9daade;
+  --color-base-350: #8c9bd1;
+  --color-base-400: #7b8bc6;
+  --color-base-450: #6a7bbb;
+  --color-base-500: #5a6cb0;
+  --color-base-550: #4b5da5;
+  --color-base-600: #3f5199;
+  --color-base-650: #35458c;
+  --color-base-700: #2b3a7d;
+  --color-base-750: #22306e;
+  --color-base-800: #1a255f;
+  --color-base-850: #131d52;
+  --color-base-900: var(--em-navy);
+  --color-base-950: #0a0f30;
+  --color-base-1000: var(--em-abyss);
+
+  --font-body: var(--font-poppins), -apple-system, BlinkMacSystemFont,
+    "Segoe UI", Roboto, sans-serif;
+
+  --style-radius-s: 6px;
+  --style-radius-m: 10px;
+  --style-radius-l: 14px;
+
+  --accessibility-outline: 2px solid var(--em-sky);
+}
+
+/* Payload's primary button is a neutral elevation by default; the site's
+   filled CTA is royal blue. */
+.btn--style-primary {
+  --bg-color: var(--em-royal);
+  --hover-bg: var(--em-sky);
+  --color: #ffffff;
+  --hover-color: #ffffff;
+}
+
+/* Royal sits too close to the navy background once the panel goes dark. */
+html[data-theme="dark"] .btn--style-primary {
+  --bg-color: var(--em-sky);
+  --hover-bg: color-mix(in srgb, #ffffff 18%, var(--em-sky));
+}
+
+.nav {
+  background: var(--theme-elevation-50);
+}
+
+/* Auth screens: login, create-first-user, forgot and reset password. */
+.template-minimal {
+  background:
+    radial-gradient(
+      1100px 620px at 50% -10%,
+      color-mix(in srgb, var(--em-sky) 14%, transparent),
+      transparent 70%
+    ),
+    var(--em-paper);
+}
+
+html[data-theme="dark"] .template-minimal {
+  background:
+    radial-gradient(
+      1100px 620px at 50% -10%,
+      color-mix(in srgb, var(--em-sky) 22%, transparent),
+      transparent 70%
+    ),
+    var(--em-abyss);
+}
+
+.template-minimal__wrap {
+  background: var(--theme-elevation-0);
+  border: 1px solid var(--theme-elevation-100);
+  border-radius: var(--style-radius-l);
+  padding: calc(var(--base) * 1.6) calc(var(--base) * 1.4);
+  box-shadow: 0 24px 60px -28px rgba(13, 22, 66, 0.45);
+}
+
+/* In the dark theme elevation-0 is the page itself, so the card lifts a step. */
+html[data-theme="dark"] .template-minimal__wrap {
+  background: var(--theme-elevation-50);
+  border-color: var(--theme-elevation-150);
+  box-shadow: 0 30px 70px -30px #04061a;
+}
+
+.login__brand {
+  margin-bottom: calc(var(--base) * 1.4);
+}
+
+.emporium-logo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.emporium-logo__mark {
+  height: 56px;
+  width: auto;
+}
+
+html[data-theme="light"] .emporium-logo__mark--on-dark,
+html[data-theme="dark"] .emporium-logo__mark--on-light {
+  display: none;
+}
+
+.emporium-logo__caption {
+  font-size: 0.85rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--theme-elevation-500);
+}
+
+html[data-theme="dark"] .emporium-logo__caption {
+  color: var(--theme-elevation-600);
+}
+
+.emporium-icon {
+  height: 22px;
+  width: auto;
+}

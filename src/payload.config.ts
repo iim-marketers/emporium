@@ -31,9 +31,28 @@ export default buildConfig({
   admin: {
     user: Users.slug,
     importMap: { baseDir: path.resolve(dirname) },
+    components: {
+      graphics: {
+        Icon: "/components/admin/icon#EmporiumIcon",
+        Logo: "/components/admin/logo#EmporiumLogo",
+      },
+    },
+    theme: "light",
     meta: {
       titleSuffix: " · Emporium",
       description: "Publish blog posts and news for the Emporium website.",
+      /** Without these the admin tab falls back to Payload's own favicon and
+       *  an "Payload App" Open Graph card. */
+      icons: [
+        { rel: "icon", type: "image/png", sizes: "32x32", url: "/icon.png" },
+        { rel: "apple-touch-icon", type: "image/png", url: "/apple-icon.png" },
+      ],
+      defaultOGImageType: "off",
+      openGraph: {
+        siteName: "Emporium",
+        title: "Content Studio",
+        description: "Publish blog posts and news for the Emporium website.",
+      },
     },
   },
   collections: [Posts, News, Media, Users],
