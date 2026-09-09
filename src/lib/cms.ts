@@ -7,12 +7,16 @@ async function cms() {
   return getPayload({ config });
 }
 
+/** Every read below passes `overrideAccess: false`. The Local API skips access
+ *  control otherwise, which would put unpublished drafts on the live site. */
+
 export async function getPosts(limit?: number): Promise<Post[]> {
   const payload = await cms();
   const result = await payload.find({
     collection: "posts",
     depth: 1,
     limit: limit ?? 0,
+    overrideAccess: false,
     sort: "-publishedAt",
   });
   return result.docs;
@@ -24,6 +28,7 @@ export async function getPostSlugs(): Promise<string[]> {
     collection: "posts",
     depth: 0,
     limit: 0,
+    overrideAccess: false,
     pagination: false,
     select: { slug: true },
     sort: "-publishedAt",
@@ -37,6 +42,7 @@ export async function getPostBySlug(slug: string): Promise<Post | null> {
     collection: "posts",
     depth: 1,
     limit: 1,
+    overrideAccess: false,
     where: { slug: { equals: slug } },
   });
   return result.docs[0] ?? null;
@@ -48,6 +54,7 @@ export async function getNews(): Promise<News[]> {
     collection: "news",
     depth: 0,
     limit: 0,
+    overrideAccess: false,
     sort: "_order",
   });
   return result.docs;

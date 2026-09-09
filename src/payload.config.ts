@@ -19,6 +19,19 @@ import { seedAdmin } from "./seed-admin";
 
 const dirname = path.dirname(fileURLToPath(import.meta.url));
 
+/** The admin issues a few requests against `serverURL` rather than relative
+ *  paths, so it has to be the origin the panel is served from. Pointing it at
+ *  the deployed site breaks those requests in local development. */
+function resolveServerURL() {
+  if (!process.env.VERCEL) {
+    return `http://localhost:${process.env.PORT ?? 3000}`;
+  }
+  if (process.env.VERCEL_ENV === "production") {
+    return process.env.NEXT_PUBLIC_SITE_URL;
+  }
+  return `https://${process.env.VERCEL_URL}`;
+}
+
 const allowedOrigins = [
   process.env.NEXT_PUBLIC_SITE_URL,
   process.env.VERCEL_PROJECT_PRODUCTION_URL &&
@@ -41,8 +54,6 @@ export default buildConfig({
     meta: {
       titleSuffix: " · Emporium",
       description: "Publish blog posts and news for the Emporium website.",
-      /** Without these the admin tab falls back to Payload's own favicon and
-       *  an "Payload App" Open Graph card. */
       icons: [
         { rel: "icon", type: "image/png", sizes: "32x32", url: "/icon.png" },
         { rel: "apple-touch-icon", type: "image/png", url: "/apple-icon.png" },
@@ -86,7 +97,7 @@ export default buildConfig({
   ],
   onInit: seedAdmin,
   secret: process.env.PAYLOAD_SECRET ?? "",
-  serverURL: process.env.NEXT_PUBLIC_SITE_URL,
+  serverURL: resolveServerURL(),
   sharp,
   typescript: { outputFile: path.resolve(dirname, "payload-types.ts") },
 });
