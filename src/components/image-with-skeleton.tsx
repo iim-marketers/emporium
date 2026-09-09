@@ -6,7 +6,6 @@ import * as React from "react";
 import { cn } from "@/lib/utils";
 
 type ImageWithSkeletonProps = ImageProps & {
-  /** Tweaks the placeholder — a lighter tint over dark sections, say. */
   skeletonClassName?: string;
   /** Only read for non-`fill` images, where we supply the sizing wrapper. */
   wrapperClassName?: string;

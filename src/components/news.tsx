@@ -16,11 +16,6 @@ import { faqBody, faqItem, faqTrigger, heroSurface } from "@/lib/styles";
 import { cn } from "@/lib/utils";
 import type { News, Post } from "@/payload-types";
 
-/* -------------------------------------------------------------------------- */
-/*  Latest news                                                                */
-/* -------------------------------------------------------------------------- */
-
-/** Long press releases, collapsed — the first one opens by default. */
 export function NewsList({ items }: { items: News[] }) {
   if (items.length === 0) {
     return (
@@ -37,7 +32,11 @@ export function NewsList({ items }: { items: News[] }) {
       // defaultValue={[String(items[0].id)]}
     >
       {items.map((item) => (
-        <AccordionItem key={item.id} value={String(item.id)} className={faqItem}>
+        <AccordionItem
+          key={item.id}
+          value={String(item.id)}
+          className={faqItem}
+        >
           <AccordionTrigger
             className={cn(faqTrigger, "gap-6 text-[17px] leading-[1.35]")}
           >
@@ -52,11 +51,6 @@ export function NewsList({ items }: { items: News[] }) {
   );
 }
 
-/* -------------------------------------------------------------------------- */
-/*  Latest blog                                                                */
-/* -------------------------------------------------------------------------- */
-
-/** Stands in for the artwork on posts that were published without an image. */
 export function PostTile() {
   return (
     <div className={cn("grid h-full place-items-center", heroSurface)}>
@@ -67,7 +61,6 @@ export function PostTile() {
   );
 }
 
-/** The home page passes the newest few; the archive has its own layout. */
 export function BlogGrid({ posts }: { posts: Post[] }) {
   if (posts.length === 0) {
     return (
@@ -122,10 +115,6 @@ export function BlogGrid({ posts }: { posts: Post[] }) {
     </div>
   );
 }
-
-/* -------------------------------------------------------------------------- */
-/*  FAQ accordion — shared by the three course pages                           */
-/* -------------------------------------------------------------------------- */
 
 export function FaqList({ items }: { items: readonly Faq[] }) {
   if (items.length === 0) {

@@ -19,7 +19,6 @@ export const metadata = pageMetadata({
   keywords: ["aviation blog", "cabin crew interview", "hospitality careers"],
 });
 
-/** The archive: every post, newest first, with room for the opening line. */
 export default async function BlogPage() {
   const posts = await getPosts();
 

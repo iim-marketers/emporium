@@ -24,14 +24,12 @@ export function EnquirySection({
   eyebrow?: string;
   title?: React.ReactNode;
   lede?: string;
-  /** Course the visitor arrived from, shown as context on the form. */
   subject?: string;
 }) {
   return (
     <section
       className={cn(
         "relative overflow-hidden bg-[linear-gradient(160deg,var(--navy)_0%,var(--royal)_130%)] text-white",
-        // warm glow rising from the lower left
         "before:pointer-events-none before:absolute before:inset-0 before:content-['']",
         "before:bg-[radial-gradient(700px_380px_at_12%_110%,rgba(217,31,42,0.18),transparent_60%)]",
         sectionPad,

@@ -2,7 +2,6 @@
 
 import * as React from "react";
 
-/** Counts from 0 to `to` the first time it scrolls into view. */
 export function CountUp({ to, suffix = "" }: { to: number; suffix?: string }) {
   const ref = React.useRef<HTMLDivElement>(null);
 

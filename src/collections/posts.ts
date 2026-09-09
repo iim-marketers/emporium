@@ -1,14 +1,9 @@
-/**
- * Blog articles. Replaces the hand-written array these pages used to import,
- * so staff publish from the admin panel rather than through a deploy.
- */
 import type { CollectionConfig } from "payload";
 
 import { isSignedIn, publishedOrSignedIn } from "./access";
 import { revalidate } from "./revalidate";
 
-/** Mirrors the slugs the WordPress posts were migrated under: lowercase words
- *  joined by hyphens, with punctuation dropped. */
+/** Mirrors the slugs the migrated WordPress posts already use. */
 function slugify(value: string) {
   return value
     .toLowerCase()
@@ -17,7 +12,6 @@ function slugify(value: string) {
     .replace(/^-+|-+$/g, "");
 }
 
-/** The home page grid, the archive and the article itself all change together. */
 function postPaths(slug?: string) {
   return ["/", "/blog", ...(slug ? [`/blog/${slug}`] : [])];
 }

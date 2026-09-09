@@ -1,14 +1,7 @@
-/**
- * Emporium's training centres and admission offices, as listed on the
- * institute's contact page.
- */
-
 export type Centre = {
   slug: string;
   name: string;
-  /** Institution or building the centre sits inside, when the listing names one. */
   venue?: string;
-  /** State the centre sits in — shown as the card's badge. */
   state: string;
   address: string[];
   phones: { label: string; href: string }[];
@@ -16,7 +9,6 @@ export type Centre = {
   image: string;
 };
 
-/** Turns "(+91) 98366 08888" into a dialable href. */
 function tel(display: string) {
   return { label: display, href: `tel:+91${display.replace(/\D/g, "")}` };
 }
@@ -166,11 +158,8 @@ export const admissionOffices: Centre[] = [
 export const instagramUrl = (handle: string) =>
   `https://instagram.com/${handle}`;
 
-/**
- * Google Maps search for a centre. The venue is included ahead of the street
- * lines — most of these sit inside a named college, which Maps resolves far
- * better than the postal address on its own.
- */
+/** The venue goes ahead of the street lines: most of these sit inside a named
+ *  college, which Maps resolves far better than the postal address alone. */
 export const directionsUrl = (centre: Centre) =>
   `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
     [centre.venue, ...centre.address].filter(Boolean).join(", "),

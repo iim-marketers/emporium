@@ -44,7 +44,6 @@ export default function AboutPage() {
         crumbs={[{ label: "About Us" }]}
       />
 
-      {/* ============ WHAT WE DO ============ */}
       <section className={cn(surfaceWhite, sectionPad)}>
         <div
           className={cn(
@@ -84,10 +83,8 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* ============ STATS ============ */}
       {/* <StatsBand className={surfacePaper} /> */}
 
-      {/* ============ WHAT SETS US APART ============ */}
       <section className={cn(surfacePaper, sectionPad)}>
         <div className={wrap}>
           <SectionHead
@@ -101,7 +98,6 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* ============ EMPANELMENT & ACCREDITATION ============ */}
       <section className={cn(surfaceWhite, sectionPad)}>
         <div
           className={cn(

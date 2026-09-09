@@ -47,7 +47,6 @@ export default function ProgramsPage() {
         </div>
       </section>
 
-      {/* ============ ELIGIBILITY ============ */}
       <section className={cn(surfaceWhite, sectionPad)}>
         <div className={cn(wrap, split)}>
           <div>
@@ -77,7 +76,6 @@ export default function ProgramsPage() {
         </div>
       </section>
 
-      {/* ============ ACCREDITATION ============ */}
       <section className={cn(surfacePaper, sectionPad)}>
         <div className={wrap}>
           <SectionHead

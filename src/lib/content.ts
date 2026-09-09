@@ -1,10 +1,5 @@
-/* -------------------------------------------------------------------------- */
-/*  Headline numbers                                                           */
-/* -------------------------------------------------------------------------- */
-
 export type Stat = { to: number; suffix: string; label: string };
 
-/** Home page band. "Over 50,000+ students placed In 29 different countries". */
 export const stats: Stat[] = [
   { to: 50000, suffix: "+", label: "Students placed worldwide" },
   { to: 29, suffix: "", label: "Different countries placed in" },
@@ -12,7 +7,6 @@ export const stats: Stat[] = [
   { to: 15, suffix: "+ yrs", label: "In skills development" },
 ];
 
-/** Placements page headline — the same shape the home page uses for its claim. */
 export const placementClaim = {
   count: "Over 15,100+",
   line1: "students",
@@ -29,10 +23,6 @@ export const headlineClaim = {
   body: "Emporium has one of the best aviation course, cruise line, hospitality course, travel & tourism management, and customer service course. It is a leading Vocational Training Provider (VTP) under the Directorate General of Employment & Craftsmen Training, Ministry of Labour & Employment, Government of India.",
   image: "/misc/students-placed-v2.png",
 };
-
-/* -------------------------------------------------------------------------- */
-/*  Accreditation & empanelment                                                */
-/* -------------------------------------------------------------------------- */
 
 export type Accreditation = { src: string; label: string };
 
@@ -68,10 +58,6 @@ export const empanelments = {
   ],
 };
 
-/* -------------------------------------------------------------------------- */
-/*  Recruiter logo wall                                                        */
-/* -------------------------------------------------------------------------- */
-
 export const recruiterLogos: string[] = [
   ...["a", "b", "c", "d"].flatMap((group) =>
     Array.from({ length: 10 }, (_, i) => `/recruiters/${group}${i + 1}.png`),
@@ -98,10 +84,6 @@ export const recruiterNames = [
   "GoAir International",
   "The Hyatt Group",
 ];
-
-/* -------------------------------------------------------------------------- */
-/*  What Emporium offers — the About page's four promises                      */
-/* -------------------------------------------------------------------------- */
 
 export type Pillar = { no: string; icon: string; title: string; body: string };
 
@@ -140,11 +122,6 @@ export const aboutBody = [
   "The Emporium Certificate courses have become well-known for their particular topic, length flexibility, and the value they add to a student's growth plans. Emporium prepares students for high-paying careers.",
 ];
 
-/* -------------------------------------------------------------------------- */
-/*  Training centres shown on the home page                                    */
-/* -------------------------------------------------------------------------- */
-
-/** The home page pairs each centre's address with its institution crest. */
 export type CentreCard = { image: string; address: string };
 
 export const centreCards: CentreCard[] = [
@@ -177,20 +154,13 @@ export const centreCards: CentreCard[] = [
   },
 ];
 
-/* -------------------------------------------------------------------------- */
-/*  Student testimonials (video gallery)                                       */
-/* -------------------------------------------------------------------------- */
-
 export type TestimonialVideo = {
-  /** YouTube id — enough to build both the still and the player. */
   id: string;
   title: string;
 };
 
-/**
- * Landscape uploads only — the row is 16:9 and the channel's vertical Shorts
- * would have to be cropped to the point of losing their subject.
- */
+/** Landscape only — the row is 16:9, and the channel's vertical Shorts would
+ *  have to be cropped past the point of keeping their subject. */
 export const testimonialVideos: TestimonialVideo[] = [
   { id: "0ek6Q1XbsH0", title: "A dream I didn't know was this close" },
   {
@@ -227,10 +197,6 @@ export const testimonialVideos: TestimonialVideo[] = [
   { id: "c_n6w_oqGvg", title: "Unlock your career potential today" },
 ];
 
-/* -------------------------------------------------------------------------- */
-/*  Placements                                                                 */
-/* -------------------------------------------------------------------------- */
-
 export const placementsIntro =
   "Since we are working very closely with the industry for the last 9 years in India and we follow all the guidelines given by the airlines, hotels and tourism companies, we do not take open admissions to maintain the quality policy and to ensure that every student gets suitable jobs according to the profile.";
 
@@ -261,10 +227,6 @@ export const placementCards: { image: string; brand: string; role: string }[] =
       role: "Cabin Crew",
     },
   ];
-
-/* -------------------------------------------------------------------------- */
-/*  Alumni — "Recruiters Speak"                                                */
-/* -------------------------------------------------------------------------- */
 
 export type Alumnus = {
   image: string;
@@ -297,10 +259,6 @@ export const alumni: Alumnus[] = [
   },
 ];
 
-/* -------------------------------------------------------------------------- */
-/*  Achievements                                                               */
-/* -------------------------------------------------------------------------- */
-
 export const achievementsLede =
   "Success is the result of determination, resilience, and seizing opportunities.";
 
@@ -324,10 +282,6 @@ export const achievements: Achievement[] = [
     body: "Emporium Alumni Lika Zhimomi posing for the lens with famous Bollywood Singer Daler Mehndi at SALT Kite Beach Dubai.",
   },
 ];
-
-/* -------------------------------------------------------------------------- */
-/*  Franchise                                                                  */
-/* -------------------------------------------------------------------------- */
 
 export const franchise = {
   eyebrow: "India's No.1 Air Hostess Training Institute",

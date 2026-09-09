@@ -1,14 +1,11 @@
 /**
- * The blog posts as they were hard-coded before the admin panel existed, kept
- * only as the input to `src/seed/index.ts`. The site itself no longer reads
- * this file; the posts live in Postgres. Slugs match the original WordPress
- * URLs, which is why the seed matches on them.
+ * Kept only as input to `src/seed/index.ts` — the site reads posts from
+ * Postgres now. Slugs match the original WordPress URLs, which is why the
+ * seed matches on them.
  */
 
-/**
- * Article text carries the emphasis the posts were published with:
- * `**bold**` and `*italic*`. `RichText` on the article page renders it.
- */
+/** Text carries the emphasis the posts were published with, as `**bold**` and
+ *  `*italic*`. */
 export type BlogBlock =
   | { kind: "heading"; level: 2 | 3; text: string }
   | { kind: "text"; text: string }
@@ -16,13 +13,10 @@ export type BlogBlock =
 
 export type BlogPost = {
   slug: string;
-  /** Omitted where the original post carried no artwork; cards fall back to
-   *  a branded tile. Drop a file in `public/blog/` to give one an image. */
+  /** Drop a file in `public/blog/` to give a post artwork. */
   image?: string;
   title: string;
-  /** As published — the cards and the article masthead both print it. */
   date: string;
-  /** Opening line, reused as the meta description and the card summary. */
   excerpt: string;
   blocks: BlogBlock[];
 };

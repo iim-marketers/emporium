@@ -12,9 +12,6 @@ import {
 import { btn, type BtnProps } from "@/lib/btn";
 import { cn } from "@/lib/utils";
 
-/**
- * "Apply Now" — the CV-upload form, in a modal.
- */
 export function ApplyDialog({
   label = "Apply Now",
   subject,

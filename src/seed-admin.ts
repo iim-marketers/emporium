@@ -1,9 +1,5 @@
-/**
- * Keeps the one admin account in step with the environment. Runs on every
- * Payload boot: creates the account the first time, and rehashes only when
- * ADMIN_PASSWORD actually changes, tracked by a digest rather than the
- * password itself.
- */
+/** Runs on every Payload boot. Rehashes only when ADMIN_PASSWORD changes,
+ *  tracked by a digest so there is no stored password to compare against. */
 import { createHash } from "crypto";
 import type { Payload } from "payload";
 

@@ -1,9 +1,5 @@
-/**
- * Turns the shapes the old content files used into the Lexical editor state
- * Payload stores. The articles carry `**bold**` and `*italic*` inline, which
- * the previous renderer parsed on every request; here they become real
- * formatting once, at migration time.
- */
+/** The archived articles carry `**bold**` and `*italic*` inline. Here they
+ *  become real Lexical formatting once, at migration time. */
 import type { BlogBlock } from "./legacy-blog";
 
 /** Lexical's inline format bitmask. Only these two appear in the copy. */
@@ -20,7 +16,6 @@ type TextNode = {
   version: number;
 };
 
-/** The shape Payload's rich text field accepts for a child of the root. */
 type LexicalNode = {
   [key: string]: unknown;
   type: string;
@@ -120,7 +115,6 @@ function root(children: LexicalNode[]) {
   };
 }
 
-/** Article bodies, which mix headings, paragraphs and bullet lists. */
 export function blocksToLexical(blocks: BlogBlock[]) {
   return root(
     blocks.map((block) => {
@@ -131,7 +125,6 @@ export function blocksToLexical(blocks: BlogBlock[]) {
   );
 }
 
-/** Press releases, which are plain runs of paragraphs. */
 export function paragraphsToLexical(paragraphs: string[]) {
   return root(paragraphs.map(paragraph));
 }

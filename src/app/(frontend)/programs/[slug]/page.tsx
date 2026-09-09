@@ -67,7 +67,6 @@ export async function generateMetadata({
   });
 }
 
-/** A run of paragraphs under a two-line heading, as the course pages set them. */
 function Prose({
   heading,
   body,
@@ -129,7 +128,6 @@ export default async function ProgramPage({
         </div>
       </PageHero>
 
-      {/* ============ OVERVIEW + SPEC ============ */}
       <section className={cn(surfaceWhite, sectionPad)}>
         <div className={cn(wrap, split)}>
           <div className="grid gap-12">
@@ -182,14 +180,12 @@ export default async function ProgramPage({
         </div>
       </section>
 
-      {/* ============ WHY EMPORIUM ============ */}
       <section className={cn(surfacePaper, sectionPad)}>
         <div className={cn(wrap, "")}>
           <Prose heading={program.why.heading} body={program.why.body} />
         </div>
       </section>
 
-      {/* ============ POSITION DETAILS ============ */}
       <section className={cn(trainSurface, sectionPad)}>
         <div className={cn(wrap, "relative")}>
           <SectionHead
@@ -219,7 +215,6 @@ export default async function ProgramPage({
         </div>
       </section>
 
-      {/* ============ MODULES + JOB ROLES ============ */}
       <section className={cn(surfacePaper, sectionPad)}>
         <div className={cn(wrap, split)}>
           <div>
@@ -265,7 +260,6 @@ export default async function ProgramPage({
         </div>
       </section>
 
-      {/* ============ PAY PACKAGE ============ */}
       {/* <section className={cn(surfacePaper, sectionPad)}>
         <div className={wrap}>
           <SectionHead
@@ -309,7 +303,6 @@ export default async function ProgramPage({
         </div>
       </section> */}
 
-      {/* ============ FAQ ============ */}
       <section className={cn(surfaceWhite, sectionPad)}>
         <div className={cn(wrap, "")}>
           <SectionHead eyebrow="FAQs" title="Asked and answered." />
@@ -317,7 +310,6 @@ export default async function ProgramPage({
         </div>
       </section>
 
-      {/* ============ ACCREDITATION ============ */}
       <section className={cn(surfacePaper, sectionPad)}>
         <div className={wrap}>
           <SectionHead eyebrow="Approved and" title="Accredited by." />

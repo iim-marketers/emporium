@@ -49,7 +49,6 @@ export default function PlacementsPage() {
         crumbs={[{ label: "Placements" }]}
       />
 
-      {/* ============ THE CLAIM ============ */}
       <section className={cn(surfaceWhite, sectionPad)}>
         <div
           className={cn(
@@ -93,7 +92,6 @@ export default function PlacementsPage() {
         </div>
       </section>
 
-      {/* ============ OUR RECRUITERS ============ */}
       <section className={cn(surfacePaper, sectionPad)}>
         <div className={wrap}>
           <SectionHead eyebrow="Our" title="Recruiters.">
@@ -104,7 +102,6 @@ export default function PlacementsPage() {
         </div>
       </section>
 
-      {/* ============ RECRUITERS SPEAK ============ */}
       {/* <section className={cn(surfaceWhite, sectionPad)}>
         <div className={wrap}>
           <SectionHead eyebrow="Recruiters" title="Speak." />
@@ -143,7 +140,6 @@ export default function PlacementsPage() {
         </div>
       </section> */}
 
-      {/* ============ EMPORIUM ALUMNI ============ */}
       <section className={cn(surfaceWhite, sectionPad)}>
         <div className={wrap}>
           <SectionHead eyebrow="Emporium" title="Alumni.">
@@ -186,7 +182,6 @@ export default function PlacementsPage() {
         </div>
       </section>
 
-      {/* ============ ACCREDITATION ============ */}
       <section className={cn(surfacePaper, sectionPad)}>
         <div className={wrap}>
           <SectionHead eyebrow="Approved and" title="Accredited by." />

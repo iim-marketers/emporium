@@ -3,12 +3,8 @@
 import { scrollToTop } from "@/components/hash-scroll";
 import { cn } from "@/lib/utils";
 
-/**
- * "Back to top" for visitors who have read all the way down to the footer.
- *
- * It sits in the footer's legal bar rather than floating over the page, so it
- * never covers content. It goes full width once that bar stacks on phones.
- */
+/** Sits in the footer's legal bar rather than floating, so it never covers
+ *  content. */
 export function ScrollToTop({ className }: { className?: string }) {
   return (
     <button

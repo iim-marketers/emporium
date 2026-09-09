@@ -1,8 +1,5 @@
-/**
- * Publishing writes to Postgres, but the public pages are prerendered, so a
- * saved document has to invalidate the routes that print it. Calls are guarded
- * because the same hooks run from the seed script, outside any request scope.
- */
+/** Guarded because the same hooks run from the seed script, outside any
+ *  request scope, where `revalidatePath` throws. */
 import { revalidatePath } from "next/cache";
 import type { Payload } from "payload";
 

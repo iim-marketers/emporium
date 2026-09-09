@@ -13,7 +13,6 @@ import { cn } from "@/lib/utils";
 
 export type Crumb = { label: string; href?: string };
 
-/** Dark gradient masthead used at the top of every inner page. */
 export function PageHero({
   eyebrow,
   title,

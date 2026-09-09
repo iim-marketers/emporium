@@ -1,8 +1,3 @@
-/**
- * Renders the Lexical documents the admin panel writes. The converters below
- * reproduce the markup the articles were published with, so a post edited in
- * the panel prints exactly like one migrated from the old content files.
- */
 import {
   type JSXConvertersFunction,
   RichText as LexicalRichText,
@@ -17,8 +12,8 @@ import {
 } from "@/lib/styles";
 import { cn } from "@/lib/utils";
 
-/** `strong` and `em` come from the default text converter, which carries no
- *  classes of its own, so the emphasis is styled from the container. */
+/** The default text converter carries no classes, so `strong` and `em` have to
+ *  be styled from the container. */
 const emphasis = "[&_strong]:font-semibold [&_strong]:text-ink [&_em]:text-ink";
 
 const articleConverters: JSXConvertersFunction = ({ defaultConverters }) => ({
@@ -26,7 +21,6 @@ const articleConverters: JSXConvertersFunction = ({ defaultConverters }) => ({
   heading: ({ node, nodesToJSX }) => {
     const children = nodesToJSX({ nodes: node.children });
 
-    /** Only h2 and h3 are offered in the editor; anything else reads as h3. */
     return node.tag === "h2" ? (
       <h2 className="mt-6 text-[26px] leading-[1.2] text-ink max-phablet:mt-9 max-phablet:text-[22px]">
         {children}
@@ -66,7 +60,6 @@ const articleConverters: JSXConvertersFunction = ({ defaultConverters }) => ({
   ),
 });
 
-/** Blog articles: headings, prose and the ticked checklists. */
 export function ArticleBody({ data }: { data: Post["content"] }) {
   return (
     <LexicalRichText
@@ -86,7 +79,6 @@ const newsConverters: JSXConvertersFunction = ({ defaultConverters }) => ({
   ),
 });
 
-/** Press releases inside the accordion, which are runs of plain paragraphs. */
 export function NewsBody({ data }: { data: News["body"] }) {
   return (
     <LexicalRichText

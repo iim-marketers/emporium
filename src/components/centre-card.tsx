@@ -5,10 +5,7 @@ import { Reveal } from "@/components/reveal";
 import { directionsUrl, instagramUrl, type Centre } from "@/lib/centres";
 import { cn } from "@/lib/utils";
 
-/* -------------------------------------------------------------------------- */
-/*  Instagram glyph — lucide dropped its brand icons, so this one is local     */
-/* -------------------------------------------------------------------------- */
-
+/** Lucide dropped its brand icons, so this one is local. */
 function InstagramIcon({ className }: { className?: string }) {
   return (
     <svg
@@ -27,10 +24,6 @@ function InstagramIcon({ className }: { className?: string }) {
     </svg>
   );
 }
-
-/* -------------------------------------------------------------------------- */
-/*  Centre card                                                                */
-/* -------------------------------------------------------------------------- */
 
 const actionPill = [
   "inline-flex items-center gap-2 rounded-[999px] border border-hairline bg-paper",

@@ -49,7 +49,6 @@ export default function ContactPage() {
         crumbs={[{ label: "Contact Us" }]}
       />
 
-      {/* ============ CORPORATE OFFICE + CALLBACK FORM ============ */}
       <section className={cn(enquireSurface, sectionPad)}>
         <div
           className={cn(
@@ -118,7 +117,6 @@ export default function ContactPage() {
         </div>
       </section>
 
-      {/* ============ CENTRES ============ */}
       <section className={cn(surfaceWhite, sectionPad)}>
         <div className={wrap}>
           <SectionHead eyebrow="Our centres" title="Where you can train.">
@@ -130,7 +128,6 @@ export default function ContactPage() {
         </div>
       </section>
 
-      {/* ============ ADMISSION OFFICES ============ */}
       <section className={cn(surfacePaper, sectionPad)}>
         <div className={wrap}>
           <SectionHead eyebrow="Admission offices" title="Enquire in person." />

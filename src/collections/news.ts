@@ -1,7 +1,3 @@
-/**
- * Press releases and industry announcements. They render as an accordion on
- * the home page, so there is no slug and no route of their own.
- */
 import type { CollectionConfig } from "payload";
 
 import { isSignedIn, publishedOrSignedIn } from "./access";
@@ -22,8 +18,7 @@ export const News: CollectionConfig = {
     update: isSignedIn,
   },
   versions: { drafts: true },
-  /** The accordion prints these in the order they are listed here, so the
-   *  admin reorders them by dragging rather than by editing dates. */
+  /** The accordion has no date to sort on, so the admin drags to reorder. */
   orderable: true,
   defaultSort: "_order",
   hooks: {

@@ -15,7 +15,6 @@ export function TailFin({ className }: { className?: string }) {
       width={FIN.w}
       height={FIN.h}
       aria-hidden="true"
-      /* Sizing lives on the wrapper so the skeleton inherits the same box. */
       wrapperClassName={cn("w-auto", className)}
       className="h-full w-auto"
     />
@@ -33,7 +32,6 @@ export function BrandMark({
   /** Only the header mark is above the fold — the footer's must not preload. */
   preload?: boolean;
   className?: string;
-  /** The header dismisses its menu here, and short-circuits to a scroll home. */
   onClick?: (event: React.MouseEvent<HTMLAnchorElement>) => void;
 }) {
   return (
@@ -55,7 +53,7 @@ export function BrandMark({
         preload={preload}
         wrapperClassName="h-13 max-mini:h-10"
         className="h-full w-auto"
-        /* The inverse lockup sits on navy — a pale placeholder would flare. */
+        /* A pale placeholder would flare against the navy lockup. */
         skeletonClassName={
           variant === "light" ? "bg-white/12 text-white/25" : undefined
         }

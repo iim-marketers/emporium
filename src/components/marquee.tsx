@@ -1,26 +1,18 @@
 import { cn } from "@/lib/utils";
 
 /**
- * Shared infinite-scroll marquee.
+ * `MarqueeRow` renders a second, aria-hidden copy of its items because the
+ * keyframe translates the track by -50%, which only lines up seamlessly with
+ * exactly two copies.
  *
- * `Marquee` is the clipping frame: it owns the feathered edges and the pause,
- * and is focusable so the motion can be stopped without a mouse. `MarqueeRow`
- * is one scrolling track — hand it the real items and it renders a second,
- * aria-hidden copy behind them, because the keyframe translates the track by
- * -50% and only lines up seamlessly with exactly two copies.
- *
- * Under `prefers-reduced-motion` the animation stops, the duplicate copy is
- * dropped and the row wraps into a static block.
- *
- * Note the pause classes spell out `[animation-play-state:paused]`: Tailwind
- * has no `paused` utility, so a bare `group-hover:paused` silently does nothing.
+ * The pause classes spell out `[animation-play-state:paused]`: Tailwind has no
+ * `paused` utility, so a bare `group-hover:paused` silently does nothing.
  */
 export function Marquee({
   label,
   className,
   children,
 }: {
-  /** Describes the whole set, and tells people the motion can be paused. */
   label: string;
   className?: string;
   children: React.ReactNode;
@@ -48,7 +40,7 @@ export function MarqueeRow({
   gap = "gap-3.5",
   children,
 }: {
-  /** Set per row from its content width, so every row travels at a similar speed. */
+  /** Set from the row's content width, so every row travels at a similar speed. */
   duration: string;
   reverse?: boolean;
   gap?: string;

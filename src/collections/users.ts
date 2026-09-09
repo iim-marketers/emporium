@@ -1,9 +1,5 @@
-/**
- * The single admin account. Payload needs an auth collection to run the admin
- * panel at all, so this stays, but it is hidden from the navigation and holds
- * one row seeded from ADMIN_EMAIL and ADMIN_PASSWORD. Nobody signs up, and
- * nobody adds accounts from the panel.
- */
+/** Payload needs an auth collection to run the admin panel at all. This holds
+ *  one row, seeded from ADMIN_EMAIL and ADMIN_PASSWORD by `onInit`. */
 import type { CollectionConfig } from "payload";
 
 export const Users: CollectionConfig = {
@@ -11,7 +7,6 @@ export const Users: CollectionConfig = {
   auth: true,
   admin: { hidden: true, useAsTitle: "email" },
   access: {
-    /** The account is created by `onInit` from the environment, never here. */
     create: () => false,
     delete: () => false,
     read: ({ req }) => Boolean(req.user),
@@ -23,8 +18,7 @@ export const Users: CollectionConfig = {
       type: "text",
       hidden: true,
       admin: { readOnly: true },
-      /** Lets the boot check tell an unchanged password from a rotated one
-       *  without rehashing on every cold start. */
+      /** Lets the boot check spot a rotated password without rehashing. */
     },
   ],
 };

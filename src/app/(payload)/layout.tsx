@@ -1,5 +1,5 @@
-/* Root layout for the admin panel. The public site has its own root layout in
-   the (frontend) group, so the two never share styling. */
+/* The public site has its own root layout in the (frontend) group, so the two
+   never share styling. */
 import config from "@payload-config";
 import { handleServerFunctions, RootLayout } from "@payloadcms/next/layouts";
 import type { ServerFunctionClient } from "payload";

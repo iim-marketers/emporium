@@ -18,7 +18,6 @@ import { primaryNav, site, type NavItem } from "@/lib/site";
 import { wrap } from "@/lib/styles";
 import { cn } from "@/lib/utils";
 
-/** Underline grows from the left on hover and for the current section. */
 const navLink = [
   "relative text-[14.5px] font-medium text-slate transition-colors duration-200",
   "hover:text-royal data-[active=true]:text-royal",
@@ -32,11 +31,9 @@ const navLink = [
 const panelSurface =
   "bg-[radial-gradient(900px_420px_at_86%_-12%,rgba(63,91,214,0.55),transparent_62%),radial-gradient(620px_380px_at_2%_104%,rgba(217,31,42,0.2),transparent_62%),linear-gradient(180deg,var(--navy)_0%,var(--navy-2)_55%,#0c1440_100%)]";
 
-/** Desktop Courses menu: one course row, then the "all courses" footer link. */
 const menuRow = [
   "group/row relative flex items-center gap-3.5 rounded-[12px] px-3 py-2.5",
   "transition-colors duration-200 hover:bg-cloud data-[active=true]:bg-cloud",
-  /* Crimson tick on the current course, as on the mobile gate rows. */
   "before:absolute before:top-1/2 before:left-0 before:h-6 before:w-[3px]",
   "before:-translate-y-1/2 before:rounded-full before:bg-transparent",
   "data-[active=true]:before:bg-crimson",
@@ -55,14 +52,12 @@ const menuFoot = [
   "transition-colors duration-200 hover:bg-cloud",
 ].join(" ");
 
-/** Slides in from the left edge of the row on hover. */
 const menuArrow = [
   "flex-none text-royal opacity-0 transition-[opacity,transform] duration-200",
   "-translate-x-1 group-hover/row:translate-x-0 group-hover/row:opacity-100",
   "motion-reduce:transition-none",
 ].join(" ");
 
-/** A course reads faster with its own mark than as one more line of text. */
 const courseIcons: Record<string, LucideIcon> = {
   "/programs/aviation": PlaneIcon,
   "/programs/hospitality": ConciergeBellIcon,
@@ -74,7 +69,6 @@ function CourseIcon({ href }: { href: string }) {
   return <Icon size={19} strokeWidth={1.6} aria-hidden="true" />;
 }
 
-/** One gate row: mono gate code, destination, chevron. */
 const gateRow = [
   "group relative flex min-h-14 flex-1 items-center gap-4 py-3",
   "text-white transition-colors duration-200",
@@ -95,21 +89,19 @@ const gateLabel = [
   "max-mini:text-[16px]",
 ].join(" ");
 
-/** Nested course links inside the mobile panel. */
 const gateSubLink = [
   "group flex min-h-10 items-center gap-3 pl-[24px]",
   "text-[15.5px] font-medium text-[#c2cdf0] transition-colors duration-200",
   "hover:text-white data-[active=true]:font-semibold data-[active=true]:text-white",
 ].join(" ");
 
-/** Gate codes read like a real board — 01, 02, … — rather than list indices. */
+/** Gate codes read like a real board — 01, 02, … — not list indices. */
 const gateNo = (index: number) => String(index + 1).padStart(2, "0");
 
 export function SiteHeader() {
   const pathname = usePathname();
   const [open, setOpen] = React.useState(false);
   const [courses, setCourses] = React.useState(false);
-  /** Which mobile group is expanded, by href. Only one opens at a time. */
   const [group, setGroup] = React.useState<string | null>(null);
   const coursesRef = React.useRef<HTMLDivElement>(null);
   const toggleRef = React.useRef<HTMLButtonElement>(null);
@@ -119,21 +111,18 @@ export function SiteHeader() {
     return pathname === path || pathname.startsWith(`${path}/`);
   };
 
-  /** The group holding the current page, so the panel opens already unfolded. */
+  /** Holds the current page, so the panel opens already unfolded. */
   const activeGroup =
     primaryNav.find((item) => item.children && isActive(item.href))?.href ??
     null;
 
-  /** Navigating is the usual way out of the menu, so every link dismisses it. */
   const close = React.useCallback(() => {
     setOpen(false);
     setCourses(false);
   }, []);
 
-  /**
-   * The mark is a link home, but a visitor already on the home page reads it as
-   * "take me back to the top" — so there it scrolls instead of re-navigating.
-   */
+  /** A visitor already on the home page reads the mark as "back to the top",
+   *  so there it scrolls instead of re-navigating. */
   const onBrandClick = (event: React.MouseEvent<HTMLAnchorElement>) => {
     close();
 
@@ -548,7 +537,6 @@ export function SiteHeader() {
             })}
           </nav>
 
-          {/* Boarding-pass stub: the panel's one call to action, plus contact. */}
           <div
             className={cn(
               "mt-auto pt-6",

@@ -14,7 +14,6 @@ const metaKey =
   "font-mono text-[10.5px] tracking-[0.16em] text-[#9098b4] uppercase";
 const metaValue = "mt-1 text-[14.5px] text-ink";
 
-/** The board's two kinds of drive, as written in `job.board.status`. */
 const statuses: Record<string, { label: string; dot: string }> = {
   "OPEN ALL": {
     label: "Open to all",
@@ -169,10 +168,9 @@ function NoDrives() {
 }
 
 type Destination = {
-  /** Slug of the place, for the tab and panel ids. */
   key: string;
   location: string;
-  /** "Guwahati" and "Assam" apart, so phones can show just the city. */
+  /** Kept apart so phones can show just the city. */
   city: string;
   region: string;
   flight: string;
@@ -180,11 +178,9 @@ type Destination = {
 };
 
 /**
- * Drives grouped by where they run.
- *
- * Two drives in Imphal are one place to travel to, not two, so they share a
- * tab and the panel lists both. That is also why the tabs carry no date —
- * a tab can stand for several — and the cards below carry them instead.
+ * Two drives in Imphal are one place to travel to, not two, so they share a tab
+ * and the panel lists both. That is also why the tabs carry no date: a tab can
+ * stand for several, so the cards below carry them instead.
  */
 function byDestination(items: Job[]): Destination[] {
   const found: Destination[] = [];
@@ -210,7 +206,6 @@ function byDestination(items: Job[]): Destination[] {
   return found;
 }
 
-/** One place on the picker: the city, and the code the board flips for it. */
 function DriveTab({
   place,
   selected,
@@ -327,7 +322,6 @@ export function JobList({ items = jobs }: { items?: Job[] }) {
             aria-label="Hiring drives by city"
             className={cn(
               "flex flex-wrap gap-3",
-              // phones swipe the row instead of stacking it, edge to edge
               "max-phablet:snap-x max-phablet:snap-mandatory max-phablet:flex-nowrap max-phablet:overflow-x-auto",
               "max-phablet:-mx-[4vw] max-phablet:px-[4vw] max-phablet:pb-1",
               "[scrollbar-width:none] [&::-webkit-scrollbar]:hidden",

@@ -1,12 +1,10 @@
 /**
- * Migrates the content that used to be hard-coded into Payload, reading the
- * archived copies in this folder. Run with:
+ * Migrates the hard-coded content in this folder into Payload. Run with:
  *
  *   pnpm payload run src/seed/index.ts
  *
- * Matching on slug for posts, on title for news and on filename for artwork,
- * it updates what is already there rather than duplicating it, so it is safe
- * to run again after correcting something in the source files.
+ * Matches on slug for posts, title for news and filename for artwork, updating
+ * what is already there, so it is safe to run again.
  */
 import path from "path";
 import { fileURLToPath } from "url";
@@ -23,11 +21,8 @@ const publicDir = path.resolve(
   "../../public",
 );
 
-/**
- * The posts carry dates like "August 22, 2025", which `Date` reads as local
- * midnight. Storing that directly would move the day backwards in every
- * timezone east of UTC, so the calendar date is re-read as UTC.
- */
+/** `Date` reads "August 22, 2025" as local midnight, which would move the day
+ *  backwards east of UTC, so the calendar date is re-read as UTC. */
 function toISODate(value: string) {
   const local = new Date(value);
   if (Number.isNaN(local.getTime())) {
@@ -40,7 +35,6 @@ function toISODate(value: string) {
 
 const payload = await getPayload({ config });
 
-/** Uploads the file once; later runs reuse the record already in the store. */
 async function upsertMedia(source: string, alt: string) {
   const filename = path.basename(source);
   const existing = await payload.find({

@@ -1,15 +1,10 @@
-/**
- * Privacy and cookie policies, reproduced from emporiumsolutions.com.
- *
- * A section is either running paragraphs, a bulleted list, or both — the policy
- * page renders whichever keys are present.
- */
+/** A section is running paragraphs, a bulleted list, or both. The policy page
+ *  renders whichever keys are present. */
 
 export type PolicySection = {
   heading?: string;
   body?: string[];
   list?: string[];
-  /** Trailing paragraphs after a list. */
   after?: string[];
 };
 

@@ -17,7 +17,7 @@ import {
   TrustStrip,
 } from "@/components/sections";
 import { TestimonialGallery } from "@/components/testimonial-videos";
-import { countPosts, getNews, getPosts } from "@/lib/cms";
+import { getNews, getPosts } from "@/lib/cms";
 import { arrow, btn } from "@/lib/btn";
 import { headlineClaim } from "@/lib/content";
 import { openDrives } from "@/lib/jobs";
@@ -48,23 +48,16 @@ export const metadata = pageMetadata({
 export const revalidate = 3600;
 
 export default async function HomePage() {
-  const [posts, postCount, news] = await Promise.all([
-    getPosts(4),
-    countPosts(),
-    getNews(),
-  ]);
+  const [latest, news] = await Promise.all([getPosts(5), getNews()]);
 
   const latestDrives = openDrives().slice(0, 2);
 
   return (
     <>
-      {/* ============ HERO ============ */}
       <Hero />
 
-      {/* ============ RECRUITER MARQUEE ============ */}
       <TrustStrip />
 
-      {/* ============ LIVE HIRING DRIVES ============ */}
       {latestDrives && latestDrives.length > 0 && (
         <section className={cn(surfacePaper, sectionPad)} id="jobs">
           <div className={wrap}>
@@ -81,7 +74,6 @@ export default async function HomePage() {
         </section>
       )}
 
-      {/* ============ COURSES ============ */}
       <section
         className={cn(
           "bg-[linear-gradient(180deg,#fff,var(--paper))]",
@@ -101,7 +93,6 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* ============ HEADLINE CLAIM ============ */}
       <section className={cn(surfaceWhite, sectionPad)}>
         <div
           className={cn(
@@ -148,7 +139,6 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* ============ RECRUITER WALL ============ */}
       <section className={cn(surfacePaper, sectionPad)} id="recruiters">
         <div className={wrap}>
           <SectionHead eyebrow="Placements" title="Where our students land.">
@@ -166,10 +156,8 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* ============ STATS ============ */}
       {/* <StatsBand /> */}
 
-      {/* ============ CENTRES ============ */}
       <section className={cn(surfaceWhite, sectionPad)} id="centres">
         <div className={wrap}>
           <SectionHead
@@ -182,7 +170,6 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* ============ TESTIMONIALS ============ */}
       <section className={cn(surfacePaper, sectionPad)} id="testimonials">
         <div className={wrap}>
           <SectionHead
@@ -196,7 +183,6 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* ============ LATEST NEWS ============ */}
       <section className={cn(surfaceWhite, sectionPad)} id="news">
         <div className={wrap}>
           <SectionHead
@@ -207,14 +193,12 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* ============ LATEST BLOG ============ */}
       <section className={cn(surfacePaper, sectionPad)} id="blog">
         <div className={wrap}>
           <SectionHead eyebrow="Latest blog" title="Reading for aspirants." />
-          <BlogGrid posts={posts} />
+          <BlogGrid posts={latest.slice(0, 4)} />
 
-          {/* Everything older lives on the archive page. */}
-          {postCount > 4 ? (
+          {latest.length > 4 ? (
             <div className="mt-9 flex justify-center">
               <Link
                 href="/blog"

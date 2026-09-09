@@ -41,7 +41,6 @@ export default function FranchisePage() {
         crumbs={[{ label: "Franchise" }]}
       />
 
-      {/* ============ INVEST WITH EMPORIUM ============ */}
       <section className={cn(surfaceWhite, sectionPad)}>
         <div
           className={cn(
@@ -92,7 +91,6 @@ export default function FranchisePage() {
         </div>
       </section>
 
-      {/* ============ BENEFITS ============ */}
       <section className={cn(surfacePaper, sectionPad)}>
         <div className={cn(wrap, split)}>
           <div className={panel}>
@@ -123,7 +121,6 @@ export default function FranchisePage() {
         </div>
       </section>
 
-      {/* ============ RETURNS ============ */}
       <section className={cn(trainSurface, sectionPad)}>
         <div className={cn(wrap, "relative")}>
           <SectionHead eyebrow="Join hands" title={franchise.returns} onDark>

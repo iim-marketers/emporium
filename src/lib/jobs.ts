@@ -1,16 +1,8 @@
-/**
- * Live campus recruitment drives, as posted on the institute's home page.
- *
- * Each drive carries a WhatsApp number candidates message to register — the
- * old site's only per-drive action — plus the shared "Apply Now" CV form.
- */
-
 import { differenceInCalendarDays, isValid, parse } from "date-fns";
 
 export type Job = {
   id: string;
   title: string;
-  /** Split for the board: where the drive runs. */
   location: string;
   position: string;
   /** Named only on the ground-staff drive. */
@@ -18,7 +10,6 @@ export type Job = {
   date: string;
   time: string;
   venue: string;
-  /** What the candidate should send over WhatsApp. */
   registerWith: string;
   whatsapp: { display: string; href: string };
   board: { flight: string; destination: string; when: string; status: string };
@@ -113,29 +104,21 @@ export const jobs: Job[] = [
 export const jobsIntro =
   "Since we are working very closely with the industry for the last 9 years in India and we follow all the guidelines given by the airlines, hotels and tourism companies, we do not take open admissions to maintain the quality policy and to ensure that every student gets suitable jobs according to the profile.";
 
-/**
- * Drive dates are authored for people to read ("16th September 2026"), so the
- * board reads them back through here to work out how far off a drive is.
- * Returns null for anything it cannot parse, and callers fall back to the
- * written date.
- */
+/** Dates are authored for people to read ("16th September 2026"). Returns null
+ *  for anything it cannot parse; callers fall back to the written date. */
 export function parseDriveDate(date: string): Date | null {
   const cleaned = date.replace(/(\d+)(st|nd|rd|th)/i, "$1").trim();
   const parsed = parse(cleaned, "d MMMM yyyy", new Date());
   return isValid(parsed) ? parsed : null;
 }
 
-/**
- * Whether a drive is over. Today counts as still open — a drive runs for the
- * whole day — and a date the parser cannot read is treated as open rather than
- * hidden, because a stale card beats a drive that silently vanishes.
- */
+/** Today counts as still open, and an unparsable date is treated as open too:
+ *  a stale card beats a drive that silently vanishes. */
 export function isDriveClosed(job: Job, today: Date = new Date()): boolean {
   const when = parseDriveDate(job.date);
   return !!when && differenceInCalendarDays(when, today) < 0;
 }
 
-/** The drives still worth turning up to. */
 export function openDrives(list: Job[] = jobs): Job[] {
   const today = new Date();
   return list.filter((job) => !isDriveClosed(job, today));

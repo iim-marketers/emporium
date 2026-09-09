@@ -1,8 +1,5 @@
-/**
- * The press releases as they were hard-coded before the admin panel existed,
- * kept only as the input to `src/seed/index.ts`. The home page now reads them
- * from Postgres, in the order they are listed here.
- */
+/** Kept only as input to `src/seed/index.ts` — the home page reads news from
+ *  Postgres now, in the order listed here. */
 
 export type NewsItem = { title: string; date?: string; body: string[] };
 
