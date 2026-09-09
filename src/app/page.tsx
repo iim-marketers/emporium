@@ -47,6 +47,9 @@ export const metadata = pageMetadata({
 export const revalidate = 3600;
 
 export default function HomePage() {
+  const latestDrives = openDrives().slice(0, 2);
+  console.log(latestDrives);
+
   return (
     <>
       {/* ============ HERO ============ */}
@@ -56,19 +59,21 @@ export default function HomePage() {
       <TrustStrip />
 
       {/* ============ LIVE HIRING DRIVES ============ */}
-      <section className={cn(surfacePaper, sectionPad)} id="jobs">
-        <div className={wrap}>
-          <SectionHead
-            eyebrow="Newest jobs"
-            title="Campus interviews, happening now."
-            className="mb-4"
-          >
-            Airlines, airports and hotel groups screen at Emporium centres
-            through the year. Message the number on a drive to register.
-          </SectionHead>
-          <JobList items={openDrives().slice(0, 2)} />
-        </div>
-      </section>
+      {latestDrives && latestDrives.length > 0 && (
+        <section className={cn(surfacePaper, sectionPad)} id="jobs">
+          <div className={wrap}>
+            <SectionHead
+              eyebrow="Newest jobs"
+              title="Campus interviews, happening now."
+              className="mb-4"
+            >
+              Airlines, airports and hotel groups screen at Emporium centres
+              through the year. Message the number on a drive to register.
+            </SectionHead>
+            <JobList items={latestDrives} />
+          </div>
+        </section>
+      )}
 
       {/* ============ COURSES ============ */}
       <section
