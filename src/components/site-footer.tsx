@@ -2,6 +2,7 @@ import Link from "next/link";
 
 import { ApplyDialog } from "@/components/apply-dialog";
 import { BrandMark } from "@/components/brand-mark";
+import { ScrollToTop } from "@/components/scroll-to-top";
 import { footerNav, legalNav, site } from "@/lib/site";
 import { wrap } from "@/lib/styles";
 import { cn } from "@/lib/utils";
@@ -138,6 +139,8 @@ export function SiteFooter() {
               {site.copyright}
             </span>
           </div>
+
+          <ScrollToTop className="max-phablet:mt-1.5" />
         </div>
       </div>
     </footer>

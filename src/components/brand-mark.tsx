@@ -33,8 +33,8 @@ export function BrandMark({
   /** Only the header mark is above the fold — the footer's must not preload. */
   preload?: boolean;
   className?: string;
-  /** The header passes its menu-dismiss here — the mark is a nav link too. */
-  onClick?: () => void;
+  /** The header dismisses its menu here, and short-circuits to a scroll home. */
+  onClick?: (event: React.MouseEvent<HTMLAnchorElement>) => void;
 }) {
   return (
     <Link

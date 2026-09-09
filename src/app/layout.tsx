@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 
+import { ContactWidget } from "@/components/contact-widget";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { Toaster } from "@/components/ui/sonner";
@@ -94,16 +95,14 @@ const organizationJsonLd = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html
-      lang="en-IN"
-      className={`${fontVariables} antialiased`}
-    >
+    <html lang="en-IN" className={`${fontVariables} antialiased`}>
       <body className="flex min-h-screen flex-col text-[17px] max-phone:text-[16px]">
         <SiteHeader />
         <main id="top" className="flex-1">
           {children}
         </main>
         <SiteFooter />
+        <ContactWidget />
         <Toaster position="bottom-right" />
         <script
           type="application/ld+json"

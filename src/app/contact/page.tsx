@@ -1,4 +1,4 @@
-import { CentreCard } from "@/components/centre-card";
+import { CentreRail } from "@/components/centre-rail";
 import { EnquiryForm } from "@/components/enquiry-form";
 import { HashScroll } from "@/components/hash-scroll";
 import { PageHero } from "@/components/page-hero";
@@ -110,10 +110,6 @@ export default function ContactPage() {
             </div>
           </Reveal>
 
-          {/* Anchor target for the header's Enquire CTA. The id sits on a
-              plain wrapper, not on the Reveal: the Reveal is translated down
-              until it animates in, so landing on it would stop the glide
-              short. `scroll-padding-top` clears the sticky header. */}
           <div id="enquire">
             <Reveal>
               <EnquiryForm />
@@ -130,11 +126,7 @@ export default function ContactPage() {
             across the North East and West Bengal.
           </SectionHead>
 
-          <div className="grid grid-cols-3 gap-6 max-laptop:grid-cols-2 max-phone:grid-cols-1">
-            {centres.map((centre) => (
-              <CentreCard key={centre.slug} centre={centre} />
-            ))}
-          </div>
+          <CentreRail items={centres} label="Emporium training centres" />
         </div>
       </section>
 
@@ -142,11 +134,10 @@ export default function ContactPage() {
       <section className={cn(surfacePaper, sectionPad)}>
         <div className={wrap}>
           <SectionHead eyebrow="Admission offices" title="Enquire in person." />
-          <div className="grid grid-cols-3 gap-6 max-laptop:grid-cols-2 max-phone:grid-cols-1">
-            {admissionOffices.map((office) => (
-              <CentreCard key={office.slug} centre={office} />
-            ))}
-          </div>
+          <CentreRail
+            items={admissionOffices}
+            label="Emporium admission offices"
+          />
         </div>
       </section>
     </>
