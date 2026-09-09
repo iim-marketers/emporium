@@ -4,9 +4,9 @@ export const wrap = "mx-auto w-[min(1130px,92vw)]";
 export const mono = "font-mono";
 
 export const eyebrow =
-  "font-mono text-[12.5px] font-bold tracking-[0.34em] text-sky uppercase";
+  "font-mono text-[13.5px] font-bold tracking-[0.34em] text-sky uppercase";
 export const eyebrowOnDark =
-  "font-mono text-[12.5px] font-bold tracking-[0.34em] text-haze uppercase";
+  "font-mono text-[13.5px] font-bold tracking-[0.34em] text-haze uppercase";
 
 /** Home + 404 hero. */
 export const heroHeading =

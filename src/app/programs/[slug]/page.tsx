@@ -165,10 +165,7 @@ export default async function ProgramPage({
                 <span className={specKey}>Mode</span>
                 <span className={specValue}>{program.mode}</span>
               </div>
-              <div className={specRow}>
-                <span className={specKey}>Intake</span>
-                <span className={specValue}>{program.intake}</span>
-              </div>
+
               <ScrollLink
                 href="/enquire"
                 to="enquire"
@@ -223,7 +220,7 @@ export default async function ProgramPage({
       </section>
 
       {/* ============ MODULES + JOB ROLES ============ */}
-      <section className={cn(surfaceWhite, sectionPad)}>
+      <section className={cn(surfacePaper, sectionPad)}>
         <div className={cn(wrap, split)}>
           <div>
             <h2 className={columnHeading}>Course Modules</h2>
@@ -269,7 +266,7 @@ export default async function ProgramPage({
       </section>
 
       {/* ============ PAY PACKAGE ============ */}
-      <section className={cn(surfacePaper, sectionPad)}>
+      {/* <section className={cn(surfacePaper, sectionPad)}>
         <div className={wrap}>
           <SectionHead
             eyebrow="Industry pay package"
@@ -310,7 +307,7 @@ export default async function ProgramPage({
             ))}
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* ============ FAQ ============ */}
       <section className={cn(surfaceWhite, sectionPad)}>
@@ -327,24 +324,6 @@ export default async function ProgramPage({
           <AccreditationStrip />
         </div>
       </section>
-
-      {/* ============ OTHER COURSES ============ */}
-      {/* <section className={cn(surfacePaper, sectionPad)}>
-        <div className={wrap}>
-          <SectionHead eyebrow="Also at Emporium" title="Other courses." />
-          <div className="grid grid-cols-2 gap-6.5 max-laptop:grid-cols-1">
-            {others.map((item) => (
-              <BoardingPass key={item.slug} program={item} />
-            ))}
-          </div>
-        </div>
-      </section> */}
-
-      {/* <EnquirySection
-        eyebrow="Book your seat"
-        title={<>Ready to enroll?</>}
-        subject={program.shortTitle}
-      /> */}
     </>
   );
 }

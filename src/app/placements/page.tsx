@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 
+import { CountFlip } from "@/components/count-flip";
 import { EnquirySection } from "@/components/enquiry-section";
 import { ImageWithSkeleton } from "@/components/image-with-skeleton";
 import { Marquee, MarqueeRow } from "@/components/marquee";
@@ -69,7 +70,7 @@ export default function PlacementsPage() {
 
           <Reveal>
             <div className="flex items-end gap-3 font-heading text-[clamp(34px,4.5vw,48px)] leading-none font-bold text-royal">
-              {placementClaim.count}
+              <CountFlip text={placementClaim.count} />
               <h2 className={cn("text-black mb-1", columnHeading)}>
                 {placementClaim.line1}
               </h2>
