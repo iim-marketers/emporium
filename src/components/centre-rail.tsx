@@ -7,11 +7,6 @@ import { CentreCard } from "@/components/centre-card";
 import type { Centre } from "@/lib/centres";
 import { cn } from "@/lib/utils";
 
-/**
- * The centre cards. Three to a row on desktop; below that the column count
- * would stack ten tall cards into a page nobody scrolls to the end of, so the
- * row turns into an edge-to-edge swipe rail instead — same cards, one screen.
- */
 export function CentreRail({
   items,
   label,
@@ -20,10 +15,12 @@ export function CentreRail({
   label: string;
 }) {
   const railRef = React.useRef<HTMLDivElement>(null);
-  /* `at` runs 0 → 1 across the scrollable width; `seen` is the visible share
-     of the rail. A rail that cannot scroll — desktop, or a section short
-     enough to fit — reports a share of 0, which hides the arrows. */
   const [{ at, seen }, setScroll] = React.useState({ at: 0, seen: 0 });
+
+  const goingTo = React.useRef<number | null>(null);
+  const settle = React.useRef<ReturnType<typeof setTimeout> | null>(null);
+  /* Bumped per nudge, so a superseded one cannot clear the live one's state. */
+  const trip = React.useRef(0);
 
   React.useEffect(() => {
     const el = railRef.current;
@@ -31,9 +28,21 @@ export function CentreRail({
 
     const measure = () => {
       const max = el.scrollWidth - el.clientWidth;
+
+      if (
+        goingTo.current !== null &&
+        Math.abs(el.scrollLeft - goingTo.current) < 2
+      ) {
+        goingTo.current = null;
+        el.style.scrollSnapType = "";
+      }
+
       setScroll(
         max > 4
-          ? { at: el.scrollLeft / max, seen: el.clientWidth / el.scrollWidth }
+          ? {
+              at: clamp(el.scrollLeft / max, 0, 1),
+              seen: el.clientWidth / el.scrollWidth,
+            }
           : { at: 0, seen: 0 },
       );
     };
@@ -50,19 +59,56 @@ export function CentreRail({
     };
   }, [items.length]);
 
-  /* One card plus its gap, so a nudge always lands on a snap point. */
+  React.useEffect(
+    () => () => {
+      if (settle.current) clearTimeout(settle.current);
+    },
+    [],
+  );
+
   const nudge = (dir: 1 | -1) => {
     const el = railRef.current;
     if (!el) return;
-    const card = el.firstElementChild as HTMLElement | null;
-    const step = card ? card.offsetWidth + 20 : el.clientWidth * 0.8;
-    el.scrollBy({ left: dir * step, behavior: "smooth" });
+
+    const stops = snapOffsets(el);
+    if (!stops.length) return;
+
+    const max = Math.max(0, el.scrollWidth - el.clientWidth);
+    const from = goingTo.current ?? el.scrollLeft;
+    const next =
+      dir === 1
+        ? stops.find((stop) => stop > from + 1)
+        : [...stops].reverse().find((stop) => stop < from - 1);
+
+    const to = clamp(next ?? (dir === 1 ? max : 0), 0, max);
+    if (Math.abs(to - from) < 1) return;
+
+    goingTo.current = to;
+
+    el.style.scrollSnapType = "none";
+
+    const token = ++trip.current;
+    const done = () => {
+      if (token !== trip.current) return;
+      if (settle.current) clearTimeout(settle.current);
+      settle.current = null;
+      goingTo.current = null;
+      el.style.scrollSnapType = "";
+    };
+
+    /* `scrollend` where it exists, a timer everywhere else. */
+    el.addEventListener("scrollend", done, { once: true });
+    if (settle.current) clearTimeout(settle.current);
+    settle.current = setTimeout(done, 900);
+
+    el.scrollTo({
+      left: to,
+      behavior: prefersReducedMotion() ? "auto" : "smooth",
+    });
   };
 
   const scrollable = seen > 0;
 
-  /* A section with one or two cards already fits every screen — a rail there
-     would only shrink them below the column width for no gain. */
   if (items.length < 3) {
     return (
       <div className="grid grid-cols-3 gap-6 max-laptop:grid-cols-2 max-phone:grid-cols-1">
@@ -82,11 +128,9 @@ export function CentreRail({
         tabIndex={0}
         className={cn(
           "flex snap-x snap-mandatory gap-5 overflow-x-auto overscroll-x-contain",
-          // the rail runs to both viewport edges, inside the page gutter
-          "-mx-[4vw] scroll-px-[4vw] px-[4vw] pb-2",
-          "[scrollbar-width:none] [&::-webkit-scrollbar]:hidden",
+          "mx-[-4vw] scroll-px-[4vw] px-[4vw] pb-2",
+          "scrollbar-none [&::-webkit-scrollbar]:hidden",
           "focus-visible:outline-none",
-          // desktop keeps the original three-column grid
           "laptop:mx-0 laptop:grid laptop:snap-none laptop:grid-cols-3 laptop:gap-6",
           "laptop:overflow-visible laptop:px-0 laptop:pb-0",
         )}
@@ -95,8 +139,6 @@ export function CentreRail({
           <CentreCard
             key={centre.slug}
             centre={centre}
-            /* `h-full` would pin the card to its own content in the rail —
-               a flex item only stretches while its height is auto. */
             className={cn(
               "w-[clamp(255px,72vw,330px)] flex-none snap-start",
               "h-auto self-stretch laptop:h-full laptop:w-auto",
@@ -116,6 +158,29 @@ export function CentreRail({
         </div>
       ) : null}
     </div>
+  );
+}
+
+/* -------------------------------------------------------------------------- */
+
+const clamp = (n: number, lo: number, hi: number) =>
+  Math.min(Math.max(n, lo), hi);
+
+const prefersReducedMotion = () =>
+  typeof window !== "undefined" &&
+  window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+function snapOffsets(el: HTMLElement) {
+  const railLeft = el.getBoundingClientRect().left;
+  const pad = parseFloat(getComputedStyle(el).paddingLeft) || 0;
+  const max = Math.max(0, el.scrollWidth - el.clientWidth);
+
+  return Array.from(el.children).map((child) =>
+    clamp(
+      el.scrollLeft + child.getBoundingClientRect().left - railLeft - pad,
+      0,
+      max,
+    ),
   );
 }
 
