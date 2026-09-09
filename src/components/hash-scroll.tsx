@@ -33,6 +33,12 @@ export function scrollToId(id: string) {
   return true;
 }
 
+/** Sends the page home. Shared by the brand mark and the footer's button. */
+export function scrollToTop() {
+  const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  window.scrollTo({ top: 0, behavior: reduce ? "auto" : "smooth" });
+}
+
 const INTENT_KEY = "scroll-intent";
 
 function setScrollIntent(id: string) {

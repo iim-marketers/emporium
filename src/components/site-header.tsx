@@ -12,7 +12,7 @@ import {
 } from "lucide-react";
 
 import { BrandMark } from "@/components/brand-mark";
-import { ScrollLink } from "@/components/hash-scroll";
+import { ScrollLink, scrollToTop } from "@/components/hash-scroll";
 import { btn } from "@/lib/btn";
 import { primaryNav, site, type NavItem } from "@/lib/site";
 import { wrap } from "@/lib/styles";
@@ -130,6 +130,21 @@ export function SiteHeader() {
     setCourses(false);
   }, []);
 
+  /**
+   * The mark is a link home, but a visitor already on the home page reads it as
+   * "take me back to the top" — so there it scrolls instead of re-navigating.
+   */
+  const onBrandClick = (event: React.MouseEvent<HTMLAnchorElement>) => {
+    close();
+
+    const modified =
+      event.metaKey || event.ctrlKey || event.shiftKey || event.altKey;
+    if (modified || event.button !== 0 || pathname !== "/") return;
+
+    event.preventDefault();
+    scrollToTop();
+  };
+
   const toggleMenu = () => {
     if (!open) setGroup(activeGroup);
     setOpen(!open);
@@ -210,7 +225,7 @@ export function SiteHeader() {
             "flex h-(--header-h) items-center justify-between gap-3",
           )}
         >
-          <BrandMark variant="dark" preload onClick={close} />
+          <BrandMark variant="dark" preload onClick={onBrandClick} />
 
           <nav
             className="flex items-center gap-7.5 max-wide:gap-5 max-laptop:hidden"
