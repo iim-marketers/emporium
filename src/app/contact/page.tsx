@@ -1,16 +1,10 @@
-
+import { CentreCard } from "@/components/centre-card";
 import { EnquiryForm } from "@/components/enquiry-form";
 import { HashScroll } from "@/components/hash-scroll";
-import { ImageWithSkeleton } from "@/components/image-with-skeleton";
 import { PageHero } from "@/components/page-hero";
 import { Reveal } from "@/components/reveal";
 import { SectionHead } from "@/components/sections";
-import {
-  admissionOffices,
-  centres,
-  instagramUrl,
-  type Centre,
-} from "@/lib/centres";
+import { admissionOffices, centres } from "@/lib/centres";
 import { pageMetadata } from "@/lib/seo";
 import { site } from "@/lib/site";
 import {
@@ -40,77 +34,6 @@ export const metadata = pageMetadata({
     "Kolkata aviation institute",
   ],
 });
-
-function CentreCard({ centre }: { centre: Centre }) {
-  return (
-    <Reveal
-      as="article"
-      className="overflow-hidden rounded-(--r) border border-hairline bg-white transition-[transform,box-shadow] duration-250 hover:-translate-y-1 hover:shadow-(--shadow)"
-    >
-      <div className="relative aspect-video bg-cloud">
-        <ImageWithSkeleton
-          src={centre.image}
-          alt=""
-          fill
-          sizes="(max-width: 560px) 92vw, (max-width: 960px) 45vw, 30vw"
-          className="object-cover"
-        />
-      </div>
-
-      <div className="px-6 py-6">
-        <h3 className="text-[19px] font-semibold text-royal">{centre.name}</h3>
-        {centre.venue ? (
-          <p className="mt-2 font-heading text-[15px] font-semibold text-ink">
-            {centre.venue}
-          </p>
-        ) : null}
-        <p className="mt-1.5 text-[15px] text-slate">
-          {centre.address.map((line) => (
-            <span key={line} className="block">
-              {line}
-            </span>
-          ))}
-        </p>
-
-        <div className="mt-4 flex flex-wrap items-center gap-x-4 gap-y-2 border-t border-hairline pt-4">
-          {centre.phones.map((phone) => (
-            <a
-              key={phone.href}
-              href={phone.href}
-              className="font-mono text-[14.5px] text-royal hover:text-crimson-deep"
-            >
-              {phone.label}
-            </a>
-          ))}
-        </div>
-
-        {centre.instagram ? (
-          <a
-            href={instagramUrl(centre.instagram)}
-            target="_blank"
-            rel="noreferrer"
-            className="mt-3 inline-flex items-center gap-2 text-[14px] text-slate transition-colors duration-200 hover:text-royal"
-          >
-            <svg
-              width="15"
-              height="15"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="1.8"
-              aria-hidden="true"
-            >
-              <rect x="3" y="3" width="18" height="18" rx="5" />
-              <circle cx="12" cy="12" r="4" />
-              <circle cx="17" cy="7" r="1" />
-            </svg>
-            @{centre.instagram}
-          </a>
-        ) : null}
-      </div>
-    </Reveal>
-  );
-}
 
 export default function ContactPage() {
   const { address } = site;
