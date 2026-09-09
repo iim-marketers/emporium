@@ -1,6 +1,6 @@
-import Image from "next/image";
 import Link from "next/link";
 
+import { ImageWithSkeleton } from "@/components/image-with-skeleton";
 import { PostTile } from "@/components/news";
 import { PageHero } from "@/components/page-hero";
 import { Reveal } from "@/components/reveal";
@@ -53,7 +53,7 @@ export default function BlogPage() {
             >
               <div className="relative aspect-16/10 overflow-hidden rounded-[14px] bg-cloud">
                 {post.image ? (
-                  <Image
+                  <ImageWithSkeleton
                     src={post.image}
                     alt=""
                     fill

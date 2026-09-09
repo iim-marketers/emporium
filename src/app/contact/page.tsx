@@ -1,7 +1,7 @@
-import Image from "next/image";
 
 import { EnquiryForm } from "@/components/enquiry-form";
 import { HashScroll } from "@/components/hash-scroll";
+import { ImageWithSkeleton } from "@/components/image-with-skeleton";
 import { PageHero } from "@/components/page-hero";
 import { Reveal } from "@/components/reveal";
 import { SectionHead } from "@/components/sections";
@@ -48,7 +48,7 @@ function CentreCard({ centre }: { centre: Centre }) {
       className="overflow-hidden rounded-(--r) border border-hairline bg-white transition-[transform,box-shadow] duration-250 hover:-translate-y-1 hover:shadow-(--shadow)"
     >
       <div className="relative aspect-video bg-cloud">
-        <Image
+        <ImageWithSkeleton
           src={centre.image}
           alt=""
           fill

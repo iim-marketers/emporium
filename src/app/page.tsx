@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import Image from "next/image";
 import Link from "next/link";
 
 import { BoardingPassGrid } from "@/components/boarding-pass";
 import { Hero } from "@/components/hero";
+import { ImageWithSkeleton } from "@/components/image-with-skeleton";
 import { JobList } from "@/components/job-board";
 import { BlogGrid, NewsList } from "@/components/news";
 import { Reveal } from "@/components/reveal";
@@ -105,7 +105,7 @@ export default function HomePage() {
           )}
         >
           <Reveal className="relative aspect-4/3 overflow-hidden rounded-(--r) bg-cloud">
-            <Image
+            <ImageWithSkeleton
               src={headlineClaim.image}
               alt="Emporium students placed with airlines and hotel groups worldwide"
               fill

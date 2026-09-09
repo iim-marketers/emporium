@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import Image from "next/image";
 import Link from "next/link";
 
+import { ImageWithSkeleton } from "@/components/image-with-skeleton";
 import { Reveal } from "@/components/reveal";
 import type { Program } from "@/lib/programs";
 
@@ -20,7 +20,7 @@ export function BoardingPass({ program }: { program: Program }) {
       as="article"
     >
       <div className="relative aspect-27/20 bg-cloud">
-        <Image
+        <ImageWithSkeleton
           src={program.cardImage}
           alt=""
           fill

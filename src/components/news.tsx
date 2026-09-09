@@ -1,6 +1,6 @@
-import Image from "next/image";
 import Link from "next/link";
 
+import { ImageWithSkeleton } from "@/components/image-with-skeleton";
 import { Reveal } from "@/components/reveal";
 import { EmptyState } from "@/components/sections";
 import {
@@ -94,7 +94,7 @@ export function BlogGrid({ posts = blogPosts }: { posts?: BlogPost[] }) {
         >
           <div className="relative aspect-16/10 bg-cloud">
             {post.image ? (
-              <Image
+              <ImageWithSkeleton
                 src={post.image}
                 alt=""
                 fill

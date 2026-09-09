@@ -1,6 +1,6 @@
-import Image from "next/image";
 
 import { EnquirySection } from "@/components/enquiry-section";
+import { ImageWithSkeleton } from "@/components/image-with-skeleton";
 import { PageHero } from "@/components/page-hero";
 import { Reveal } from "@/components/reveal";
 import { achievements, achievementsLede } from "@/lib/content";
@@ -41,7 +41,7 @@ export default function AchievementsPage() {
             >
               {item.image ? (
                 <div className="relative aspect-4/3 overflow-hidden rounded-[14px] bg-cloud">
-                  <Image
+                  <ImageWithSkeleton
                     src={item.image}
                     alt=""
                     fill

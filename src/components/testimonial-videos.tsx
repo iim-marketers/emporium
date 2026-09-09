@@ -1,9 +1,9 @@
 "use client";
 
-import Image from "next/image";
 import { PlayIcon, XIcon } from "lucide-react";
 import * as React from "react";
 
+import { ImageWithSkeleton } from "@/components/image-with-skeleton";
 import { Marquee, MarqueeRow } from "@/components/marquee";
 import {
   Dialog,
@@ -93,7 +93,7 @@ function TestimonialCard({
         onClick={onPlay}
         className="group/still relative block aspect-9/16 w-full cursor-pointer overflow-hidden rounded-[10px] bg-cloud"
       >
-        <Image
+        <ImageWithSkeleton
           src={`https://i.ytimg.com/vi/${video.id}/maxresdefault.jpg`}
           alt=""
           fill
