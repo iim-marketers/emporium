@@ -8,6 +8,8 @@ export type Centre = {
   name: string;
   /** Institution or building the centre sits inside, when the listing names one. */
   venue?: string;
+  /** State the centre sits in — shown as the card's badge. */
+  state: string;
   address: string[];
   phones: { label: string; href: string }[];
   instagram?: string;
@@ -24,6 +26,7 @@ export const centres: Centre[] = [
     slug: "kolkata",
     name: "Kolkata Centre",
     venue: "Emporium Training and Consultancy Pvt. Ltd.",
+    state: "West Bengal",
     address: ["230/B AJC Bose Road, 3rd Floor", "Minto Park, Kolkata, 700020", "West Bengal, INDIA"],
     phones: [tel("98366 08888"), tel("9830 564000")],
     instagram: "emporium_institute",
@@ -33,6 +36,7 @@ export const centres: Centre[] = [
     slug: "imphal",
     name: "Imphal Centre",
     venue: "Emporium Skills Training Institute",
+    state: "Manipur",
     address: [
       "Mantripukhri Bazaar, Imphal East, Opposite",
       "Pukhri or above Kadak Chai Restaurant,",
@@ -46,6 +50,7 @@ export const centres: Centre[] = [
     slug: "senapati",
     name: "Senapati Centre",
     venue: "Mount Everest College",
+    state: "Manipur",
     address: ["Senapati, Manipur, 795106"],
     phones: [tel("7629916575")],
     instagram: "emporium.senapati",
@@ -55,6 +60,7 @@ export const centres: Centre[] = [
     slug: "maram",
     name: "Maram Centre",
     venue: "Emporium Skills Training Institute",
+    state: "Manipur",
     address: [
       "Don Bosco College Autonomous,",
       "Maram Bazar P.O, Senapati District,",
@@ -68,6 +74,7 @@ export const centres: Centre[] = [
     slug: "siliguri",
     name: "Siliguri Centre",
     venue: "Salesian College",
+    state: "West Bengal",
     address: ["Don Bosco Colony, Siliguri, 734010", "West Bengal, INDIA"],
     phones: [tel("7811993646"), tel("74070 07517")],
     instagram: "emporiumsiliguri",
@@ -77,6 +84,7 @@ export const centres: Centre[] = [
     slug: "guwahati",
     name: "Guwahati Centre",
     venue: "Sardar Ji Building",
+    state: "Assam",
     address: [
       "Near Sarusajai Stadium,",
       "Opp Central Jail, NH 37, Lokhra, Guwahati",
@@ -90,6 +98,7 @@ export const centres: Centre[] = [
     slug: "gangtok",
     name: "Gangtok Centre",
     venue: "Emporium Skills Training Institute",
+    state: "Sikkim",
     address: [
       "Nar Bahadur Bhandari Government College,",
       "Tadong, East Sikkim",
@@ -103,6 +112,7 @@ export const centres: Centre[] = [
     slug: "shillong",
     name: "Shillong Centre",
     venue: "Emporium Skills Training Institute",
+    state: "Meghalaya",
     address: [
       "Don Bosco Youth Centre, Don Bosco Square,",
       "Laitumkhrah, Shillong,",
@@ -116,6 +126,7 @@ export const centres: Centre[] = [
     slug: "itanagar",
     name: "Itanagar Centre",
     venue: "Don Bosco Youth Centre",
+    state: "Arunachal Pradesh",
     address: [
       "Vivek Vihar, Itanagar,",
       "Arunachal Pradesh, 791111",
@@ -132,6 +143,7 @@ export const admissionOffices: Centre[] = [
     slug: "jamshedpur",
     name: "Jamshedpur Office",
     venue: "Gaurav Tower",
+    state: "Jharkhand",
     address: ["above Bank of Baroda, Mango Chowk,", "Jamshedpur, 831012, INDIA"],
     phones: [tel("8986618062")],
     image: "/centres/jamshedpur.jpg",
@@ -140,3 +152,13 @@ export const admissionOffices: Centre[] = [
 
 export const instagramUrl = (handle: string) =>
   `https://instagram.com/${handle}`;
+
+/**
+ * Google Maps search for a centre. The venue is included ahead of the street
+ * lines — most of these sit inside a named college, which Maps resolves far
+ * better than the postal address on its own.
+ */
+export const directionsUrl = (centre: Centre) =>
+  `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
+    [centre.venue, ...centre.address].filter(Boolean).join(", "),
+  )}`;
