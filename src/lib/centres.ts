@@ -27,7 +27,11 @@ export const centres: Centre[] = [
     name: "Kolkata Centre",
     venue: "Emporium Training and Consultancy Pvt. Ltd.",
     state: "West Bengal",
-    address: ["230/B AJC Bose Road, 3rd Floor", "Minto Park, Kolkata, 700020", "West Bengal, INDIA"],
+    address: [
+      "230/B AJC Bose Road, 3rd Floor",
+      "Minto Park, Kolkata, 700020",
+      "West Bengal, India",
+    ],
     phones: [tel("98366 08888"), tel("9830 564000")],
     instagram: "emporium_institute",
     image: "/centres/kolkata.jpg",
@@ -49,9 +53,9 @@ export const centres: Centre[] = [
   {
     slug: "senapati",
     name: "Senapati Centre",
-    venue: "Mount Everest College",
+    venue: "Emporium Skills Training Institute",
     state: "Manipur",
-    address: ["Senapati, Manipur, 795106"],
+    address: ["Mount Everest College,", "Senapati, Manipur, 795106"],
     phones: [tel("7629916575")],
     instagram: "emporium.senapati",
     image: "/centres/senapati.jpg",
@@ -73,9 +77,12 @@ export const centres: Centre[] = [
   {
     slug: "siliguri",
     name: "Siliguri Centre",
-    venue: "Salesian College",
+    venue: "Emporium Skills Training Institute",
     state: "West Bengal",
-    address: ["Don Bosco Colony, Siliguri, 734010", "West Bengal, INDIA"],
+    address: [
+      "Salesian College, Don Bosco Colony, Siliguri, 734010",
+      "West Bengal, India",
+    ],
     phones: [tel("7811993646"), tel("74070 07517")],
     instagram: "emporiumsiliguri",
     image: "/centres/siliguri.webp",
@@ -83,12 +90,13 @@ export const centres: Centre[] = [
   {
     slug: "guwahati",
     name: "Guwahati Centre",
-    venue: "Sardar Ji Building",
+    venue: "Emporium Skills Training Institute",
     state: "Assam",
     address: [
+      "Sardar Ji Building,",
       "Near Sarusajai Stadium,",
       "Opp Central Jail, NH 37, Lokhra, Guwahati",
-      "Assam, INDIA",
+      "Assam, India",
     ],
     phones: [tel("8787632386")],
     instagram: "emp0rium.guwahati",
@@ -102,7 +110,7 @@ export const centres: Centre[] = [
     address: [
       "Nar Bahadur Bhandari Government College,",
       "Tadong, East Sikkim",
-      "Gangtok, 737102, INDIA",
+      "Gangtok, 737102, India",
     ],
     phones: [tel("9073983000")],
     instagram: "emporiumsikkim",
@@ -125,9 +133,10 @@ export const centres: Centre[] = [
   {
     slug: "itanagar",
     name: "Itanagar Centre",
-    venue: "Don Bosco Youth Centre",
+    venue: "Emporium Skills Training Institute",
     state: "Arunachal Pradesh",
     address: [
+      "Don Bosco Youth Centre,",
       "Vivek Vihar, Itanagar,",
       "Arunachal Pradesh, 791111",
       "Landmark — Bharatiya Janata Party State office",
@@ -142,9 +151,13 @@ export const admissionOffices: Centre[] = [
   {
     slug: "jamshedpur",
     name: "Jamshedpur Office",
-    venue: "Gaurav Tower",
+    venue: "",
     state: "Jharkhand",
-    address: ["above Bank of Baroda, Mango Chowk,", "Jamshedpur, 831012, INDIA"],
+    address: [
+      "Gaurav Tower,",
+      "above Bank of Baroda, Mango Chowk,",
+      "Jamshedpur, 831012, India",
+    ],
     phones: [tel("8986618062")],
     image: "/centres/jamshedpur.jpg",
   },

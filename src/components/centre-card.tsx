@@ -91,7 +91,7 @@ export function CentreCard({
         </div>
       </div>
 
-      <div className="flex flex-1 flex-col px-5.5 pt-5 pb-5.5">
+      <div className="flex flex-1 flex-col px-4 pt-4 pb-4.5">
         <p className="flex min-h-[4lh] grow gap-2.5 text-[14.5px] leading-[1.55] text-slate">
           <MapPinIcon className="mt-0.75 size-4 flex-none text-sky" />
           <span>
