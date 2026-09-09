@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import Image from "next/image";
 import Link from "next/link";
 
 import { BoardingPassGrid } from "@/components/boarding-pass";
 import { Hero } from "@/components/hero";
+import { ImageWithSkeleton } from "@/components/image-with-skeleton";
 import { JobList } from "@/components/job-board";
 import { BlogGrid, NewsList } from "@/components/news";
 import { Reveal } from "@/components/reveal";
@@ -47,6 +47,8 @@ export const metadata = pageMetadata({
 export const revalidate = 3600;
 
 export default function HomePage() {
+  const latestDrives = openDrives().slice(0, 2);
+
   return (
     <>
       {/* ============ HERO ============ */}
@@ -56,19 +58,21 @@ export default function HomePage() {
       <TrustStrip />
 
       {/* ============ LIVE HIRING DRIVES ============ */}
-      <section className={cn(surfacePaper, sectionPad)} id="jobs">
-        <div className={wrap}>
-          <SectionHead
-            eyebrow="Newest jobs"
-            title="Campus interviews, happening now."
-            className="mb-4"
-          >
-            Airlines, airports and hotel groups screen at Emporium centres
-            through the year. Message the number on a drive to register.
-          </SectionHead>
-          <JobList items={openDrives().slice(0, 2)} />
-        </div>
-      </section>
+      {latestDrives && latestDrives.length > 0 && (
+        <section className={cn(surfacePaper, sectionPad)} id="jobs">
+          <div className={wrap}>
+            <SectionHead
+              eyebrow="Newest jobs"
+              title="Campus interviews, happening now."
+              className="mb-4"
+            >
+              Airlines, airports and hotel groups screen at Emporium centres
+              through the year. Message the number on a drive to register.
+            </SectionHead>
+            <JobList items={latestDrives} />
+          </div>
+        </section>
+      )}
 
       {/* ============ COURSES ============ */}
       <section
@@ -100,7 +104,7 @@ export default function HomePage() {
           )}
         >
           <Reveal className="relative aspect-4/3 overflow-hidden rounded-(--r) bg-cloud">
-            <Image
+            <ImageWithSkeleton
               src={headlineClaim.image}
               alt="Emporium students placed with airlines and hotel groups worldwide"
               fill

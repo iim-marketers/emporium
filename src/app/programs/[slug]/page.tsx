@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
 import { ApplyDialog } from "@/components/apply-dialog";
 import { ScrollLink } from "@/components/hash-scroll";
+import { ImageWithSkeleton } from "@/components/image-with-skeleton";
 import { FaqList } from "@/components/news";
 import { PageHero } from "@/components/page-hero";
 import { Reveal } from "@/components/reveal";
@@ -142,7 +142,7 @@ export default async function ProgramPage({
 
           <Reveal className="grid gap-6">
             <div className="relative aspect-3/2 overflow-hidden rounded-(--r) bg-cloud">
-              <Image
+              <ImageWithSkeleton
                 src={program.image}
                 alt=""
                 fill

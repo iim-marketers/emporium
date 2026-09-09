@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import Image from "next/image";
 import Link from "next/link";
 
+import { ImageWithSkeleton } from "@/components/image-with-skeleton";
 import { PageHero } from "@/components/page-hero";
 import { Reveal } from "@/components/reveal";
 import {
@@ -73,7 +73,7 @@ export default function AboutPage() {
           </Reveal>
 
           <Reveal className="relative aspect-4/3 overflow-hidden rounded-(--r) bg-cloud">
-            <Image
+            <ImageWithSkeleton
               src="/misc/courses-v2.png"
               alt="Emporium students in training"
               fill

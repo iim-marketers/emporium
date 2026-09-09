@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import Image from "next/image";
 
 import { EnquirySection } from "@/components/enquiry-section";
+import { ImageWithSkeleton } from "@/components/image-with-skeleton";
 import { Marquee, MarqueeRow } from "@/components/marquee";
 import { PageHero } from "@/components/page-hero";
 import { Reveal } from "@/components/reveal";
@@ -58,7 +58,7 @@ export default function PlacementsPage() {
           )}
         >
           <Reveal className="relative aspect-436/387 overflow-hidden rounded-(--r) bg-cloud mt-5">
-            <Image
+            <ImageWithSkeleton
               src={placementClaim.image}
               alt="Emporium students placed with leading airlines and hotel brands"
               fill
@@ -119,7 +119,7 @@ export default function PlacementsPage() {
 
                 <div className="mt-auto flex items-center gap-4 border-t border-hairline pt-5.5">
                   <span className="relative size-14 flex-none overflow-hidden rounded-full bg-cloud">
-                    <Image
+                    <ImageWithSkeleton
                       src={person.image}
                       alt={`${person.name}, Emporium alumni at ${person.employer}`}
                       fill
@@ -159,7 +159,7 @@ export default function PlacementsPage() {
                     className="w-[clamp(190px,23vw,248px)] flex-none overflow-hidden rounded-(--r) border border-hairline bg-white"
                   >
                     <div className="relative aspect-square bg-cloud">
-                      <Image
+                      <ImageWithSkeleton
                         src={card.image}
                         alt={`Emporium graduate placed with ${card.brand}`}
                         fill

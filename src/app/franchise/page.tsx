@@ -1,6 +1,6 @@
-import Image from "next/image";
 
 import { EnquirySection } from "@/components/enquiry-section";
+import { ImageWithSkeleton } from "@/components/image-with-skeleton";
 import { PageHero } from "@/components/page-hero";
 import { Reveal } from "@/components/reveal";
 import { SectionHead } from "@/components/sections";
@@ -81,7 +81,7 @@ export default function FranchisePage() {
           </Reveal>
 
           <Reveal className="relative aspect-4/3 overflow-hidden rounded-(--r) bg-cloud">
-            <Image
+            <ImageWithSkeleton
               src={franchise.image}
               alt="Partnering with Emporium as a franchise owner"
               fill

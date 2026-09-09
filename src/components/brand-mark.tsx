@@ -1,6 +1,6 @@
-import Image from "next/image";
 import Link from "next/link";
 
+import { ImageWithSkeleton } from "@/components/image-with-skeleton";
 import { site } from "@/lib/site";
 import { cn } from "@/lib/utils";
 
@@ -9,13 +9,15 @@ const LOCKUP = { w: 660, h: 270 };
 
 export function TailFin({ className }: { className?: string }) {
   return (
-    <Image
+    <ImageWithSkeleton
       src="/images/logo-fin.png"
       alt=""
       width={FIN.w}
       height={FIN.h}
       aria-hidden="true"
-      className={cn("w-auto", className)}
+      /* Sizing lives on the wrapper so the skeleton inherits the same box. */
+      wrapperClassName={cn("w-auto", className)}
+      className="h-full w-auto"
     />
   );
 }
@@ -41,7 +43,7 @@ export function BrandMark({
       aria-label={`${site.name} home`}
       onClick={onClick}
     >
-      <Image
+      <ImageWithSkeleton
         src={
           variant === "light"
             ? "/images/logo-lockup-inverse.png"
@@ -51,7 +53,12 @@ export function BrandMark({
         width={LOCKUP.w}
         height={LOCKUP.h}
         preload={preload}
-        className="h-13 w-auto max-mini:h-10"
+        wrapperClassName="h-13 max-mini:h-10"
+        className="h-full w-auto"
+        /* The inverse lockup sits on navy — a pale placeholder would flare. */
+        skeletonClassName={
+          variant === "light" ? "bg-white/12 text-white/25" : undefined
+        }
       />
     </Link>
   );

@@ -94,9 +94,7 @@ type ScrollLinkProps = Omit<
   React.ComponentProps<typeof Link>,
   "href" | "scroll"
 > & {
-  /** Id of the element to land on. */
   to: string;
-  /** Page holding that element. Omit when it sits on the current page. */
   href?: string;
 };
 

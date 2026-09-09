@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import Image from "next/image";
 import Link from "next/link";
 
 import { CountUp } from "@/components/count-up";
+import { ImageWithSkeleton } from "@/components/image-with-skeleton";
 import { Marquee, MarqueeRow } from "@/components/marquee";
 import { Reveal } from "@/components/reveal";
 import { arrow, btn } from "@/lib/btn";
@@ -175,7 +175,7 @@ function LogoTile({ src }: { src: string }) {
         "max-phone:h-20 max-phone:w-31",
       )}
     >
-      <Image
+      <ImageWithSkeleton
         src={src}
         alt=""
         fill
@@ -228,7 +228,7 @@ export function AccreditationStrip({ note = true }: { note?: boolean }) {
             key={item.src}
             className="relative grid h-36 place-items-center rounded-(--r) border border-hairline bg-white px-5 py-4"
           >
-            <Image
+            <ImageWithSkeleton
               src={item.src}
               alt={item.label}
               fill
@@ -284,7 +284,7 @@ export function CentreGrid() {
           {/* Institution crests, not photographs, and all square — contain,
               never crop. */}
           <div className="relative mx-auto aspect-square w-full max-w-45">
-            <Image
+            <ImageWithSkeleton
               src={centre.image}
               alt=""
               fill
