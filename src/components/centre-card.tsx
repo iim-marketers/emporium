@@ -45,7 +45,13 @@ const iconButton = [
   "hover:border-royal hover:bg-cloud hover:text-royal",
 ].join(" ");
 
-export function CentreCard({ centre }: { centre: Centre }) {
+export function CentreCard({
+  centre,
+  className,
+}: {
+  centre: Centre;
+  className?: string;
+}) {
   return (
     <Reveal
       as="article"
@@ -53,6 +59,7 @@ export function CentreCard({ centre }: { centre: Centre }) {
         "group flex h-full flex-col overflow-hidden rounded-(--r) border border-hairline bg-white",
         "transition-[transform,box-shadow,border-color] duration-250",
         "hover:translate-y-0 hover:border-cloud hover:shadow-(--shadow)",
+        className,
       )}
     >
       <div className="relative aspect-16/10 overflow-hidden bg-cloud">
