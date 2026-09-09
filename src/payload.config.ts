@@ -45,6 +45,10 @@ export default buildConfig({
     user: Users.slug,
     importMap: { baseDir: path.resolve(dirname) },
     components: {
+      afterNavLinks: ["/components/admin/nav-aside#EmporiumNavAside"],
+      beforeNavLinks: [
+        "/components/admin/nav-dashboard-link#EmporiumDashboardLink",
+      ],
       graphics: {
         Icon: "/components/admin/icon#EmporiumIcon",
         Logo: "/components/admin/logo#EmporiumLogo",
