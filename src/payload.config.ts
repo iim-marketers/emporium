@@ -19,10 +19,7 @@ import { seedAdmin } from "./seed-admin";
 
 const dirname = path.dirname(fileURLToPath(import.meta.url));
 
-/** Payload only honours its session cookie when the request's Origin appears
- *  in `csrf`. A URL missing here logs in fine, then fails every save with
- *  "not allowed to perform this action". */
-const origins = [
+const allowedOrigins = [
   process.env.NEXT_PUBLIC_SITE_URL,
   process.env.VERCEL_PROJECT_PRODUCTION_URL &&
     `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`,
@@ -40,8 +37,8 @@ export default buildConfig({
     },
   },
   collections: [Posts, News, Media, Users],
-  cors: origins,
-  csrf: origins,
+  cors: allowedOrigins,
+  csrf: allowedOrigins,
   db: postgresAdapter({
     pool: { connectionString: process.env.DATABASE_URL },
     /** Local development shares the deployed database, so schema changes go
