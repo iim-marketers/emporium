@@ -7,7 +7,6 @@ import { Marquee, MarqueeRow } from "@/components/marquee";
 import { Reveal } from "@/components/reveal";
 import { arrow, btn } from "@/lib/btn";
 import {
-  accreditationNote,
   accreditations,
   centreCards,
   empanelments,
@@ -168,7 +167,6 @@ export function PillarGrid() {
 /*  Recruiter logo wall                                                        */
 /* -------------------------------------------------------------------------- */
 
-/** One logo tile. Fixed width so the marquee rows keep an even rhythm. */
 function LogoTile({ src }: { src: string }) {
   return (
     <div
@@ -177,7 +175,6 @@ function LogoTile({ src }: { src: string }) {
         "max-phone:h-20 max-phone:w-31",
       )}
     >
-      {/* Eager: a lazy tile would slide into the marquee blank and pop in. */}
       <Image
         src={src}
         alt=""
@@ -320,6 +317,32 @@ export function EligibilityBar({ note }: { note: string }) {
       >
         Check your eligibility <span className={arrow}>→</span>
       </Link>
+    </Reveal>
+  );
+}
+
+/* -------------------------------------------------------------------------- */
+/*  Empty state                                                               */
+/* -------------------------------------------------------------------------- */
+
+export function EmptyState({
+  title,
+  body,
+  className,
+}: {
+  title: string;
+  body: string;
+  className?: string;
+}) {
+  return (
+    <Reveal
+      className={cn(
+        "grid place-items-center gap-2 rounded-(--r) border border-dashed border-hairline bg-white px-7 py-14 text-center",
+        className,
+      )}
+    >
+      <p className="font-heading text-[18px] font-semibold text-ink">{title}</p>
+      <p className={cn(cardBody, "max-w-[46ch]")}>{body}</p>
     </Reveal>
   );
 }

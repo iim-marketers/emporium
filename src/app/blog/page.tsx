@@ -4,6 +4,7 @@ import Link from "next/link";
 import { PostTile } from "@/components/news";
 import { PageHero } from "@/components/page-hero";
 import { Reveal } from "@/components/reveal";
+import { EmptyState } from "@/components/sections";
 import { blogPosts } from "@/lib/blog";
 import { arrow } from "@/lib/btn";
 import { pageMetadata } from "@/lib/seo";
@@ -31,6 +32,13 @@ export default function BlogPage() {
 
       <section className={cn(surfaceWhite, sectionPad)}>
         <div className={cn(wrap, "grid gap-6")}>
+          {blogPosts.length === 0 ? (
+            <EmptyState
+              title="No articles yet"
+              body="Interview preparation, industry news and career advice from our trainers will appear here. Check back soon."
+            />
+          ) : null}
+
           {blogPosts.map((post) => (
             <Reveal
               key={post.slug}
@@ -61,10 +69,11 @@ export default function BlogPage() {
                 <span className="font-mono text-[11px] tracking-[0.16em] text-crimson uppercase">
                   {post.date}
                 </span>
-                <h2 className="mt-2.5 text-[22px] leading-[1.25] text-ink max-phablet:text-[19px]">
+                <h2 className="mt-2.5 text-[22px] leading-tight text-ink max-phablet:text-[19px]">
                   <Link
                     href={`/blog/${post.slug}`}
                     className="after:absolute after:inset-0 after:content-['']"
+                    target="_blank"
                   >
                     {post.title}
                   </Link>

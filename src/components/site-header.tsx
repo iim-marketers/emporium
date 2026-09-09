@@ -170,7 +170,6 @@ export function SiteHeader() {
     };
   }, [open]);
 
-  /* The Courses menu closes on Escape and on any click outside it. */
   React.useEffect(() => {
     if (!courses) return;
 
@@ -200,7 +199,10 @@ export function SiteHeader() {
   ].join(" ");
 
   return (
-    <header className="sticky top-0 z-50 [--header-h:72px] max-mini:[--header-h:64px]">
+    <header
+      data-site-header
+      className="sticky top-0 z-50 [--header-h:72px] max-mini:[--header-h:64px]"
+    >
       <div className="relative z-10 border-b border-hairline bg-[rgba(255,255,255,0.86)] backdrop-blur-[14px] backdrop-saturate-[1.4]">
         <div
           className={cn(
@@ -254,7 +256,7 @@ export function SiteHeader() {
 
                   <div
                     className={cn(
-                      "absolute top-full left-1/2 z-20 w-[366px] -translate-x-1/2 pt-3",
+                      "absolute top-full left-1/2 z-20 w-91.5 -translate-x-1/2 pt-3",
                       "transition-[opacity,transform,visibility] duration-200 ease-out",
                       "motion-reduce:transition-none",
                       courses
@@ -262,11 +264,9 @@ export function SiteHeader() {
                         : "invisible -translate-y-1 opacity-0",
                     )}
                   >
-                    {/* Notch pointing back at the trigger; the card paints over
-                        its lower half. */}
                     <span
                       aria-hidden="true"
-                      className="absolute top-[6.5px] left-1/2 size-3 -translate-x-1/2 rotate-45 rounded-[2px] border-t border-l border-hairline bg-white"
+                      className="absolute top-[6.5px] left-1/2 size-3 -translate-x-1/2 rotate-45 rounded-xs border-t border-l border-hairline bg-white"
                     />
                     <div className="relative rounded-[16px] border border-hairline bg-white p-1.5 shadow-(--shadow)">
                       {item.children.map((child: NavItem) => (

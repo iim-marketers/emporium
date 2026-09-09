@@ -2,7 +2,7 @@
 
 import * as React from "react";
 
-import { jobs } from "@/lib/jobs";
+import { isDriveClosed, jobs } from "@/lib/jobs";
 import { cn } from "@/lib/utils";
 
 const gridCols =
@@ -26,15 +26,24 @@ const statusCell = "bg-[linear-gradient(180deg,#3a2a08,#241a05)] text-amber";
 const GLYPHS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789 &-/.".split("");
 const DEST_LEN = 17;
 const STAT_LEN = 9;
-const STATUSES = ["OPEN ALL", "INVITE", "HIRING", "REGISTER", "APPLY NOW"];
+/** Only ever shown on a drive that is still to come. */
+const OPEN_STATUSES = ["OPEN ALL", "INVITE", "HIRING", "REGISTER", "APPLY NOW"];
+const CLOSED = "CLOSED";
 
 const rowsData = jobs.map((job) => ({
   id: job.id,
   flight: job.board.flight,
   destination: job.board.destination,
   gate: job.board.when,
-  status: job.board.status,
+  job,
 }));
+
+/** A drive whose date has gone by reads CLOSED, whatever the data says.
+ *  Resolved when the board flips rather than at module load, so a page left
+ *  open across midnight still closes the row on its next flip. */
+function statusFor(job: (typeof rowsData)[number]["job"]) {
+  return isDriveClosed(job) ? CLOSED : job.board.status;
+}
 
 /** Next intake label — the first of next month, e.g. "NEXT INTAKE · SEP 01". */
 function nextIntakeLabel() {
@@ -123,15 +132,23 @@ export function DepartureBoard() {
 
       rowsData.forEach((row, i) => {
         setText(destRefs.current[i] ?? [], row.destination, 150 + i * 140);
-        setText(statRefs.current[i] ?? [], row.status, 150 + i * 140 + 300);
+        setText(
+          statRefs.current[i] ?? [],
+          statusFor(row.job),
+          150 + i * 140 + 300,
+        );
       });
 
       if (!reduce) {
         const shuffle = window.setInterval(() => {
-          const i = Math.floor(Math.random() * rowsData.length);
+          // Closed rows are left alone — they hold CLOSED.
+          const open = rowsData.filter((row) => !isDriveClosed(row.job));
+          if (!open.length) return;
+          const row = open[Math.floor(Math.random() * open.length)];
+          const i = rowsData.indexOf(row);
           setText(
             statRefs.current[i] ?? [],
-            STATUSES[Math.floor(Math.random() * STATUSES.length)],
+            OPEN_STATUSES[Math.floor(Math.random() * OPEN_STATUSES.length)],
           );
         }, 2600);
         timers.push(shuffle);

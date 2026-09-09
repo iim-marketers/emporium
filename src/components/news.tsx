@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 import { Reveal } from "@/components/reveal";
+import { EmptyState } from "@/components/sections";
 import {
   Accordion,
   AccordionContent,
@@ -20,6 +21,15 @@ import { cn } from "@/lib/utils";
 
 /** Long press releases, collapsed — the first one opens by default. */
 export function NewsList() {
+  if (news.length === 0) {
+    return (
+      <EmptyState
+        title="No news just yet"
+        body="Announcements from Emporium and the wider industry land here. Check back soon."
+      />
+    );
+  }
+
   return (
     <Accordion
       className="border-t border-hairline"
@@ -65,6 +75,15 @@ export function PostTile() {
 
 /** Posts default to the whole list; the home page passes the newest few. */
 export function BlogGrid({ posts = blogPosts }: { posts?: BlogPost[] }) {
+  if (posts.length === 0) {
+    return (
+      <EmptyState
+        title="No articles yet"
+        body="Interview preparation and career advice from our trainers will appear here. Check back soon."
+      />
+    );
+  }
+
   return (
     <div className="grid grid-cols-4 gap-5.5 max-laptop:grid-cols-2 max-phone:grid-cols-1">
       {posts.map((post) => (
@@ -94,6 +113,7 @@ export function BlogGrid({ posts = blogPosts }: { posts?: BlogPost[] }) {
               <Link
                 href={`/blog/${post.slug}`}
                 className="after:absolute after:inset-0 after:content-['']"
+                target="_blank"
               >
                 {post.title}
               </Link>
@@ -110,6 +130,15 @@ export function BlogGrid({ posts = blogPosts }: { posts?: BlogPost[] }) {
 /* -------------------------------------------------------------------------- */
 
 export function FaqList({ items }: { items: readonly Faq[] }) {
+  if (items.length === 0) {
+    return (
+      <EmptyState
+        title="No questions listed yet"
+        body="Ask us anything about this course and our counsellors will get back to you."
+      />
+    );
+  }
+
   return (
     <Accordion className="border-t border-hairline">
       {items.map((item) => (

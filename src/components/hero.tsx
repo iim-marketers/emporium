@@ -14,11 +14,8 @@ import {
 } from "@/lib/styles";
 import { cn } from "@/lib/utils";
 
-/** The route the dotted line traces. The plane rides it, so both read alike. */
 const FLIGHT_PATH = "M-50 640 Q 500 120 1300 260";
 
-/** Airliner from above, nose along +x and centred on (0,0) — the motion path
- *  places it by its origin and turns it into the direction of travel. */
 const AIRLINER = [
   "M21 0C21-1.6 19.4-2.6 17-2.9L6-3.4L-6-14h-5.5L-6.5-3.4L-13-3.2L-17-8h-3",
   "l1.5 5.6C-19.6-2-20.2-1-20.2 0s.6 2 1.7 2.4L-20 8h3l4-4.8l6.5.2L-11.5 14H-6",
@@ -43,8 +40,6 @@ export function Hero() {
         />
         <circle cx="1050" cy="255" r="4" fill="#fff" />
 
-        {/* An airliner runs the route the dotted line traces. Reduced motion
-            parks it partway along rather than at the offscreen start. */}
         <g
           className="animate-fly motion-reduce:animate-none"
           style={{

@@ -4,20 +4,35 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import * as React from "react";
 
-/** Glides the page to `#id`. No-op when the element is not on the page. */
+/** Header height to assume before the sticky bar has been measured. */
+const HEADER_FALLBACK = 72;
+/** Narrowest strip of breathing room to leave under the header. */
+const MIN_AIR = 12;
+/** Widest, so a short target still lands near the top rather than mid-screen. */
+const MAX_AIR = 32;
+
+function headerHeight() {
+  const header = document.querySelector<HTMLElement>("[data-site-header]");
+  return header?.getBoundingClientRect().height ?? HEADER_FALLBACK;
+}
+
 export function scrollToId(id: string) {
   const el = document.getElementById(id);
   if (!el) return false;
 
+  const rect = el.getBoundingClientRect();
+  const header = headerHeight();
+  const spare = (window.innerHeight - header - rect.height) / 2;
+  const air = Math.min(MAX_AIR, Math.max(MIN_AIR, spare));
+
   const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  el.scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "start" });
+  window.scrollTo({
+    top: Math.max(0, window.scrollY + rect.top - header - air),
+    behavior: reduce ? "auto" : "smooth",
+  });
   return true;
 }
 
-/**
- * Where the last click wanted to land. Carrying the id here rather than in a
- * `#hash` keeps the address bar showing the plain page URL.
- */
 const INTENT_KEY = "scroll-intent";
 
 function setScrollIntent(id: string) {
@@ -36,11 +51,6 @@ function peekScrollIntent() {
   }
 }
 
-/**
- * Clearing waits until the glide is actually under way. React remounts effects
- * in development, so anything that erases the request — this note, or the hash
- * in the address bar — has to hold off until the mount that sticks acts on it.
- */
 function clearScrollIntent() {
   try {
     sessionStorage.removeItem(INTENT_KEY);
@@ -51,11 +61,6 @@ function clearScrollIntent() {
 
 /**
  * Turns an arriving landing request into a smooth glide instead of a jump.
- *
- * Next disables smooth scrolling across route transitions, so links that want
- * this pass `scroll={false}` and hand the landing over to this component. The
- * page is pinned to the top first, so the trip looks the same no matter how
- * far down the previous page the visitor was.
  *
  * Requests arrive either from a {@link ScrollLink} or, for links shared from
  * elsewhere, as `#id`. The hash is wiped from the address bar on arrival.

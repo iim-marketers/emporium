@@ -28,6 +28,12 @@ export function Reveal({
       return;
     }
 
+    // Older browsers without the observer would keep every block at opacity 0.
+    if (typeof IntersectionObserver === "undefined") {
+      el.dataset.shown = "true";
+      return;
+    }
+
     const io = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -39,7 +45,10 @@ export function Reveal({
       },
       // A block taller than the viewport can never reach a fractional threshold
       // — its visible share is capped — so trigger on its top edge instead.
-      { rootMargin: "0px 0px -12% 0px" },
+      // The bottom margin grows the root rather than shrinking it: a card that
+      // straddles the fold has to reveal, or the first screen shows a blank
+      // strip under the last visible block.
+      { rootMargin: "0px 0px 8% 0px" },
     );
 
     io.observe(el);

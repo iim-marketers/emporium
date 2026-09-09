@@ -36,7 +36,11 @@ export const metadata = pageMetadata({
   description:
     "Enquire about Emporium's certificate courses in aviation, hospitality and cruise line. Share your details and our admissions team will call you with course options, fees and intake dates.",
   path: "/enquire",
-  keywords: ["aviation course enquiry", "admission enquiry", "contact Emporium"],
+  keywords: [
+    "aviation course enquiry",
+    "admission enquiry",
+    "contact Emporium",
+  ],
 });
 
 const nextSteps = [
@@ -88,8 +92,8 @@ export default function EnquirePage() {
               Call the admissions desk.
             </h2>
             <p className={lede}>
-              Lines are open every day. If you would rather visit, we will set up a
-              walk-through of the training floor at the centre nearest you.
+              Lines are open every day. If you would rather visit, we will set
+              up a walk-through of the training floor at the centre nearest you.
             </p>
 
             <div className="mt-8 grid gap-0">
@@ -139,17 +143,20 @@ export default function EnquirePage() {
             </ul>
           </Reveal>
 
-          {/* Anchor target for the header's Enquire CTA; the offset clears
-              the sticky header the glide would otherwise stop underneath. */}
-          <Reveal id="enquire" className="scroll-mt-24">
-            <EnquiryForm />
-          </Reveal>
+          <div id="enquire">
+            <Reveal>
+              <EnquiryForm />
+            </Reveal>
+          </div>
         </div>
       </section>
 
       <section className={cn(surfaceWhite, sectionPad)}>
         <div className={wrap}>
-          <SectionHead eyebrow="What happens next" title="After you hit submit.">
+          <SectionHead
+            eyebrow="What happens next"
+            title="After you hit submit."
+          >
             No queues, no chasing. Here is the sequence from your side.
           </SectionHead>
 
@@ -165,8 +172,8 @@ export default function EnquirePage() {
 
           <Reveal className="mt-11 flex flex-wrap items-center justify-between gap-4 rounded-(--r) border border-hairline bg-paper px-7 py-6 max-tablet:flex-col max-tablet:items-stretch max-tablet:gap-5">
             <p className="text-[15.5px] text-slate">
-              <b className="text-royal">Already qualified?</b> Send your CV straight
-              to the placement cell for upcoming jobs.
+              <b className="text-royal">Already qualified?</b> Send your CV
+              straight to the placement cell for upcoming jobs.
             </p>
             <ApplyDialog label="Apply Now" variant="dark" block="tablet" />
           </Reveal>
