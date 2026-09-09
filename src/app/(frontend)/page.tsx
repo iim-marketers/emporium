@@ -17,7 +17,7 @@ import {
   TrustStrip,
 } from "@/components/sections";
 import { TestimonialGallery } from "@/components/testimonial-videos";
-import { blogPosts } from "@/lib/blog";
+import { countPosts, getNews, getPosts } from "@/lib/cms";
 import { arrow, btn } from "@/lib/btn";
 import { headlineClaim } from "@/lib/content";
 import { openDrives } from "@/lib/jobs";
@@ -47,7 +47,13 @@ export const metadata = pageMetadata({
 
 export const revalidate = 3600;
 
-export default function HomePage() {
+export default async function HomePage() {
+  const [posts, postCount, news] = await Promise.all([
+    getPosts(4),
+    countPosts(),
+    getNews(),
+  ]);
+
   const latestDrives = openDrives().slice(0, 2);
 
   return (
@@ -197,7 +203,7 @@ export default function HomePage() {
             eyebrow="Latest news"
             title="From Emporium and the industry."
           />
-          <NewsList />
+          <NewsList items={news} />
         </div>
       </section>
 
@@ -205,10 +211,10 @@ export default function HomePage() {
       <section className={cn(surfacePaper, sectionPad)} id="blog">
         <div className={wrap}>
           <SectionHead eyebrow="Latest blog" title="Reading for aspirants." />
-          <BlogGrid posts={blogPosts.slice(0, 4)} />
+          <BlogGrid posts={posts} />
 
-          {/* The grid holds four; everything older lives on the archive page. */}
-          {blogPosts.length > 4 ? (
+          {/* Everything older lives on the archive page. */}
+          {postCount > 4 ? (
             <div className="mt-9 flex justify-center">
               <Link
                 href="/blog"

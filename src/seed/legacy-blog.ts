@@ -1,8 +1,8 @@
 /**
- * Blog posts, migrated from the institute's WordPress site so the articles are
- * served from this site rather than linking away. Slugs match the old post
- * URLs, which keeps inbound links one redirect away. Newest first — the home
- * page shows the head of this list.
+ * The blog posts as they were hard-coded before the admin panel existed, kept
+ * only as the input to `src/seed/index.ts`. The site itself no longer reads
+ * this file; the posts live in Postgres. Slugs match the original WordPress
+ * URLs, which is why the seed matches on them.
  */
 
 /**
@@ -791,7 +791,3 @@ export const blogPosts: BlogPost[] = [
     ],
   },
 ];
-
-export function postBySlug(slug: string) {
-  return blogPosts.find((post) => post.slug === slug);
-}
