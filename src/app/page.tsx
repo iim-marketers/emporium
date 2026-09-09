@@ -48,7 +48,6 @@ export const revalidate = 3600;
 
 export default function HomePage() {
   const latestDrives = openDrives().slice(0, 2);
-  console.log(latestDrives);
 
   return (
     <>

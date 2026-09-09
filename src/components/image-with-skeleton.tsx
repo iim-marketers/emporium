@@ -3,7 +3,6 @@
 import Image, { type ImageProps } from "next/image";
 import * as React from "react";
 
-import { Skeleton } from "@/components/ui/skeleton";
 import { cn } from "@/lib/utils";
 
 type ImageWithSkeletonProps = ImageProps & {
@@ -28,10 +27,16 @@ export function ImageWithSkeleton({
   }, []);
 
   const skeleton = settled ? null : (
-    <Skeleton
+    <span
       aria-hidden="true"
-      className={cn("absolute inset-0 rounded-[inherit]", skeletonClassName)}
-    />
+      className={cn(
+        "absolute inset-0 overflow-hidden rounded-[inherit] bg-skeleton",
+        "text-white/75",
+        skeletonClassName,
+      )}
+    >
+      <span className="absolute inset-0 animate-shimmer bg-linear-to-r from-transparent via-current to-transparent motion-reduce:animate-none" />
+    </span>
   );
 
   const image = (

@@ -56,7 +56,9 @@ export function BrandMark({
         wrapperClassName="h-13 max-mini:h-10"
         className="h-full w-auto"
         /* The inverse lockup sits on navy — a pale placeholder would flare. */
-        skeletonClassName={variant === "light" ? "bg-white/15" : undefined}
+        skeletonClassName={
+          variant === "light" ? "bg-white/12 text-white/25" : undefined
+        }
       />
     </Link>
   );
