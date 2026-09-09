@@ -2,6 +2,7 @@
 import Link from "next/link";
 
 import { BoardingPassGrid } from "@/components/boarding-pass";
+import { CountFlip } from "@/components/count-flip";
 import { Hero } from "@/components/hero";
 import { ImageWithSkeleton } from "@/components/image-with-skeleton";
 import { JobList } from "@/components/job-board";
@@ -67,7 +68,7 @@ export default function HomePage() {
               className="mb-4"
             >
               Airlines, airports and hotel groups screen at Emporium centres
-              through the year. Message the number on a drive to register.
+              throughout the year.
             </SectionHead>
             <JobList items={latestDrives} />
           </div>
@@ -115,7 +116,7 @@ export default function HomePage() {
 
           <Reveal>
             <div className="flex items-end gap-3 font-heading text-[clamp(34px,4.5vw,48px)] leading-none font-bold text-royal">
-              {headlineClaim.count}
+              <CountFlip text={headlineClaim.count} />
               <h2 className={cn("text-black mb-1", columnHeading)}>
                 {headlineClaim.line1}
               </h2>
@@ -144,9 +145,9 @@ export default function HomePage() {
       {/* ============ RECRUITER WALL ============ */}
       <section className={cn(surfacePaper, sectionPad)} id="recruiters">
         <div className={wrap}>
-          <SectionHead eyebrow="Our students" title="get placed in.">
-            {/* A snapshot of the airlines, airports, hotel groups and cruise lines
-            that have taken on Emporium graduates. */}
+          <SectionHead eyebrow="Placements" title="Where our students land.">
+            The airlines, airports, hotel groups and cruise lines that have
+            hired Emporium graduates.
           </SectionHead>
           <RecruiterWall />
 

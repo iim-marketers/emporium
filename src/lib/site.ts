@@ -56,7 +56,7 @@ export const site = {
   disclaimer:
     "100% placements will be provided to students who will successfully complete the training and will pass in all the subjects in the final exam.",
 
-  copyright: "Copyright © Emporium 2026. All rights reserved",
+  copyright: `Copyright © Emporium 2026. All rights reserved`,
 } as const;
 
 /** `blurb` is nav-menu copy — the roles the course trains for, in one line. */
