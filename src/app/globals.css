@@ -147,6 +147,8 @@
   --animate-marquee: marquee 32s linear infinite;
   --animate-flap: flap 0.13s ease-out;
   --animate-fly: fly 30s linear -7.5s infinite;
+  /* The contact button nudges itself every few seconds until it is opened. */
+  --animate-waggle: waggle 5s ease-in-out 4s infinite;
 
   @keyframes shimmer {
     from {
@@ -167,6 +169,23 @@
     }
     to {
       offset-distance: 100%;
+    }
+  }
+  /* The shake occupies the first fifth of the cycle; the rest is a pause. */
+  @keyframes waggle {
+    0%,
+    20%,
+    100% {
+      transform: rotate(0deg);
+    }
+    3%,
+    9%,
+    15% {
+      transform: rotate(-11deg);
+    }
+    6%,
+    12% {
+      transform: rotate(11deg);
     }
   }
   @keyframes flap {

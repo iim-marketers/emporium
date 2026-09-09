@@ -12,6 +12,9 @@ export const site = {
   phoneHref: "tel:+919836608888",
   altPhone: "+91 98305 64000",
   altPhoneHref: "tel:+919830564000",
+  /** wa.me wants the bare international number; the display keeps the spacing. */
+  whatsapp: "+91 98366 08888",
+  whatsappHref: "https://wa.me/919836608888",
   email: "info@emporiumsolutions.com",
   hours: "Monday to Sunday, 10am to 9:00pm",
 
