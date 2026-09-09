@@ -83,7 +83,7 @@ export const programs: Program[] = [
     mode: "Classroom",
     gate: "A1",
     image: "/courses/aviation-hero-new.png",
-    cardImage: "/courses/aviation-card.png",
+    cardImage: "/courses/aviation-card-new.png",
     overview: positionDetails.join("\n\n"),
     whatIs: {
       heading: "What is a course in aviation?",
@@ -194,7 +194,7 @@ export const programs: Program[] = [
     mode: "Classroom",
     gate: "B1",
     image: "/courses/hospitality-hero-new.png",
-    cardImage: "/courses/hospitality-card.png",
+    cardImage: "/courses/hospitality-card-new.png",
     overview: positionDetails.join("\n\n"),
     whatIs: {
       heading: "What is a course in Hospitality?",
@@ -302,7 +302,7 @@ export const programs: Program[] = [
     mode: "Classroom",
     gate: "C1",
     image: "/courses/cruise-hero-new.png",
-    cardImage: "/courses/cruise-card.png",
+    cardImage: "/courses/cruise-card-new.png",
     overview: [
       "The operations of cruise ships offer a wide range of opportunities for people with different backgrounds in hospitality. Each cruise ship operations manager is essential to providing passengers with the highest level of service, from creating delectable meals to locating proper housing. Living in a setting analogous to a five-star hotel for extended periods of time has its advantages, even though their obligations can prohibit them from experiencing every Caribbean atmosphere or Atlantic landscape the ship passes through.",
       positionDetails[1],
