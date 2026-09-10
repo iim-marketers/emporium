@@ -11,6 +11,7 @@ import { vercelBlobStorage } from "@payloadcms/storage-vercel-blob";
 import { buildConfig } from "payload";
 import sharp from "sharp";
 
+import { Jobs } from "./collections/jobs";
 import { Media } from "./collections/media";
 import { News } from "./collections/news";
 import { Posts } from "./collections/posts";
@@ -70,7 +71,7 @@ export default buildConfig({
       },
     },
   },
-  collections: [Posts, News, Media, Users],
+  collections: [Posts, News, Jobs, Media, Users],
   cors: allowedOrigins,
   csrf: allowedOrigins,
   db: postgresAdapter({

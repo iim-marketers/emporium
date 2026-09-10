@@ -2,7 +2,7 @@
 
 import * as React from "react";
 
-import { isDriveClosed, jobs } from "@/lib/jobs";
+import { isDriveClosed, type Job } from "@/lib/jobs";
 import { cn } from "@/lib/utils";
 
 const gridCols =
@@ -29,17 +29,17 @@ const STAT_LEN = 9;
 const OPEN_STATUSES = ["OPEN ALL", "INVITE", "HIRING", "REGISTER", "APPLY NOW"];
 const CLOSED = "CLOSED";
 
-const rowsData = jobs.map((job) => ({
-  id: job.id,
-  flight: job.board.flight,
-  destination: job.board.destination,
-  gate: job.board.when,
-  job,
-}));
+type BoardRow = {
+  id: string;
+  flight: string;
+  destination: string;
+  gate: string;
+  job: Job;
+};
 
-/** Resolved when the board flips rather than at module load, so a page left
- *  open across midnight still closes the row on its next flip. */
-function statusFor(job: (typeof rowsData)[number]["job"]) {
+/** Resolved when the board flips rather than as the rows are built, so a page
+ *  left open across midnight still closes the row on its next flip. */
+function statusFor(job: Job) {
   return isDriveClosed(job) ? CLOSED : job.board.status;
 }
 
@@ -59,7 +59,19 @@ function noopSubscribe() {
   return () => {};
 }
 
-export function DepartureBoard() {
+export function DepartureBoard({ drives }: { drives: Job[] }) {
+  const rows = React.useMemo<BoardRow[]>(
+    () =>
+      drives.map((job) => ({
+        id: job.id,
+        flight: job.board.flight,
+        destination: job.board.destination,
+        gate: job.board.when,
+        job,
+      })),
+    [drives],
+  );
+
   const boardRef = React.useRef<HTMLDivElement>(null);
   const destRefs = React.useRef<(HTMLSpanElement | null)[][]>([]);
   const statRefs = React.useRef<(HTMLSpanElement | null)[][]>([]);
@@ -127,7 +139,7 @@ export function DepartureBoard() {
       if (revealed) return;
       revealed = true;
 
-      rowsData.forEach((row, i) => {
+      rows.forEach((row, i) => {
         setText(destRefs.current[i] ?? [], row.destination, 150 + i * 140);
         setText(
           statRefs.current[i] ?? [],
@@ -139,10 +151,10 @@ export function DepartureBoard() {
       if (!reduce) {
         const shuffle = window.setInterval(() => {
           // Closed rows are left alone — they hold CLOSED.
-          const open = rowsData.filter((row) => !isDriveClosed(row.job));
+          const open = rows.filter((row) => !isDriveClosed(row.job));
           if (!open.length) return;
           const row = open[Math.floor(Math.random() * open.length)];
-          const i = rowsData.indexOf(row);
+          const i = rows.indexOf(row);
           setText(
             statRefs.current[i] ?? [],
             OPEN_STATUSES[Math.floor(Math.random() * OPEN_STATUSES.length)],
@@ -175,7 +187,7 @@ export function DepartureBoard() {
         window.clearInterval(id);
       });
     };
-  }, []);
+  }, [rows]);
 
   return (
     <div className="@container max-laptop:order-2">
@@ -218,7 +230,7 @@ export function DepartureBoard() {
         </div>
 
         <div>
-          {rowsData.map((row, rowIndex) => (
+          {rows.map((row, rowIndex) => (
             <div
               className={cn(
                 gridCols,

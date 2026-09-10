@@ -3,6 +3,7 @@ import Link from "next/link";
 import { DepartureBoard } from "@/components/departure-board";
 import { ScrollLink } from "@/components/hash-scroll";
 import { btn } from "@/lib/btn";
+import type { Job } from "@/lib/jobs";
 import {
   eyebrowOnDark,
   heroCta,
@@ -22,7 +23,7 @@ const AIRLINER = [
   "l12-10.6l11-.5C19.4 2.6 21 1.6 21 0Z",
 ].join("");
 
-export function Hero() {
+export function Hero({ drives }: { drives: Job[] }) {
   return (
     <section className={cn(heroSurface, heroPad)}>
       <svg
@@ -104,7 +105,7 @@ export function Hero() {
           </div>
         </div>
 
-        <DepartureBoard />
+        <DepartureBoard drives={drives} />
       </div>
     </section>
   );

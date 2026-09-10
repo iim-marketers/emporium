@@ -17,7 +17,7 @@ import {
   TrustStrip,
 } from "@/components/sections";
 import { TestimonialGallery } from "@/components/testimonial-videos";
-import { getNews, getPosts } from "@/lib/cms";
+import { getJobs, getNews, getPosts } from "@/lib/cms";
 import { arrow, btn } from "@/lib/btn";
 import { headlineClaim } from "@/lib/content";
 import { openDrives } from "@/lib/jobs";
@@ -48,13 +48,17 @@ export const metadata = pageMetadata({
 export const revalidate = 3600;
 
 export default async function HomePage() {
-  const [latest, news] = await Promise.all([getPosts(5), getNews()]);
+  const [latest, news, drives] = await Promise.all([
+    getPosts(5),
+    getNews(),
+    getJobs(),
+  ]);
 
-  const latestDrives = openDrives().slice(0, 2);
+  const latestDrives = openDrives(drives).slice(0, 2);
 
   return (
     <>
-      <Hero />
+      <Hero drives={drives} />
 
       <TrustStrip />
 

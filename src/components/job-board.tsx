@@ -7,7 +7,7 @@ import { ApplyDialog } from "@/components/apply-dialog";
 import { WhatsAppIcon } from "@/components/icons";
 import { Reveal } from "@/components/reveal";
 import { btn } from "@/lib/btn";
-import { jobs, parseDriveDate, type Job } from "@/lib/jobs";
+import { driveDate, type Job } from "@/lib/jobs";
 import { cn } from "@/lib/utils";
 
 const metaKey =
@@ -36,8 +36,8 @@ function statusOf(job: Job) {
 
 const CLOSED = "Drive closed";
 
-function countdownLabel(date: string) {
-  const when = parseDriveDate(date);
+function countdownLabel(driveOn: string) {
+  const when = driveDate(driveOn);
   if (!when) return "";
 
   const days = differenceInCalendarDays(when, new Date());
@@ -51,10 +51,10 @@ function noopSubscribe() {
   return () => {};
 }
 
-function Countdown({ date }: { date: string }) {
+function Countdown({ driveOn }: { driveOn: string }) {
   const label = React.useSyncExternalStore(
     noopSubscribe,
-    () => countdownLabel(date),
+    () => countdownLabel(driveOn),
     () => "",
   );
   if (!label) return null;
@@ -107,7 +107,7 @@ export function JobCard({
             <i className={cn("size-1.75 rounded-full", status.dot)} />
             NOW HIRING
           </span>
-          <Countdown date={job.date} />
+          <Countdown driveOn={job.driveOn} />
         </div>
         <h3 className="mt-3 text-[18px] leading-[1.3] text-ink max-phablet:text-[16px]">
           {job.title}
@@ -280,7 +280,7 @@ function DriveTab({
   );
 }
 
-export function JobList({ items = jobs }: { items?: Job[] }) {
+export function JobList({ items }: { items: Job[] }) {
   const [selected, setSelected] = React.useState(0);
   const tabs = React.useRef<(HTMLButtonElement | null)[]>([]);
 

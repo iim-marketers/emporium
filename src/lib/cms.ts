@@ -1,6 +1,7 @@
 import config from "@payload-config";
 import { getPayload } from "payload";
 
+import { toJob, type Job } from "@/lib/jobs";
 import type { News, Post } from "@/payload-types";
 
 async function cms() {
@@ -58,6 +59,18 @@ export async function getNews(): Promise<News[]> {
     sort: "_order",
   });
   return result.docs;
+}
+
+export async function getJobs(): Promise<Job[]> {
+  const payload = await cms();
+  const result = await payload.find({
+    collection: "jobs",
+    depth: 0,
+    limit: 0,
+    overrideAccess: false,
+    sort: "-driveOn",
+  });
+  return result.docs.map(toJob);
 }
 
 /** Stored as UTC midnight, so printed in UTC too. Reading them in the server's
