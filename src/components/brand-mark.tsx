@@ -1,5 +1,3 @@
-import Link from "next/link";
-
 import { ImageWithSkeleton } from "@/components/image-with-skeleton";
 import { site } from "@/lib/site";
 import { cn } from "@/lib/utils";
@@ -27,15 +25,14 @@ export function BrandMark({
   className,
   onClick,
 }: {
-  /** `dark` = blue wordmark for light backgrounds, `light` = white for dark ones. */
   variant?: "dark" | "light";
-  /** Only the header mark is above the fold — the footer's must not preload. */
   preload?: boolean;
   className?: string;
   onClick?: (event: React.MouseEvent<HTMLAnchorElement>) => void;
 }) {
   return (
-    <Link
+    // eslint-disable-next-line @next/next/no-html-link-for-pages
+    <a
       href="/"
       className={cn("flex min-w-0 items-center", className)}
       aria-label={`${site.name} home`}
@@ -53,11 +50,10 @@ export function BrandMark({
         preload={preload}
         wrapperClassName="h-13 max-mini:h-10"
         className="h-full w-auto"
-        /* A pale placeholder would flare against the navy lockup. */
         skeletonClassName={
           variant === "light" ? "bg-white/12 text-white/25" : undefined
         }
       />
-    </Link>
+    </a>
   );
 }

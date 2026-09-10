@@ -200,12 +200,13 @@ export default async function HomePage() {
 
           {latest.length > 4 ? (
             <div className="mt-9 flex justify-center">
-              <Link
+              {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
+              <a
                 href="/blog"
                 className={btn({ variant: "outline", block: "phone" })}
               >
                 All posts <span className={arrow}>→</span>
-              </Link>
+              </a>
             </div>
           ) : null}
         </div>
