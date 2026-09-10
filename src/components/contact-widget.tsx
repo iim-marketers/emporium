@@ -17,7 +17,7 @@ type Channel = {
   icon: React.ReactNode;
 };
 
-/** Listed nearest-first: slot 0 sits just above the button. */
+/** Nearest-first: slot 0 sits just above the button. */
 const channels: Channel[] = [
   {
     label: "Call us",
@@ -44,7 +44,6 @@ const LIFT = TOGGLE + 12;
 
 const slot = (index: number) => LIFT + index * (CHANNEL + GAP);
 
-/** The pale pill that names a channel, sitting to the right of its button. */
 const chip = [
   "pointer-events-none flex-none rounded-[999px] bg-white py-1.5 pr-3.5 pl-3",
   "font-heading text-[13px] font-semibold whitespace-nowrap text-ink",
@@ -62,10 +61,6 @@ const iconSwap = [
   "motion-reduce:transition-none",
 ].join(" ");
 
-/**
- * The floating contact button, pinned to the bottom-left corner of every page.
- *
- */
 export function ContactWidget() {
   const [open, setOpen] = React.useState(false);
   const [touched, setTouched] = React.useState(false);
@@ -193,7 +188,6 @@ export function ContactWidget() {
             !open && !touched && "animate-waggle",
           )}
         >
-          {/* A turn and a half out, half a turn in — the mark never just swaps. */}
           <MessageCircleIcon
             size={24}
             strokeWidth={1.9}

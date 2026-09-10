@@ -13,7 +13,6 @@ import {
 } from "@/lib/styles";
 import { cn } from "@/lib/utils";
 
-/** Shared shell for the privacy and cookie policies. */
 export function PolicyPage({
   eyebrow,
   title,

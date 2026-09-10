@@ -22,11 +22,8 @@ function tokenize(text: string): Token[] {
   return tokens;
 }
 
-/**
- * Renders `text` at the size it inherits and rolls every digit up to its value
- * the first time the number scrolls into view. The markup ships with the final
- * number already in place, so no-JS and reduced-motion readers see it as text.
- */
+/** The markup ships with the final number already in place, so no-JS and
+ *  reduced-motion readers still see it as text. */
 export function CountFlip({
   text,
   className,

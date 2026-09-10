@@ -29,7 +29,6 @@ export const site = {
     mapHref: "https://maps.app.goo.gl/sgAQeV6E7fdsyd6V6",
   },
 
-  /** External destinations the old site's chrome pointed at. */
   studentLogin: "https://onlinelms.ebraindigit.com/dashboard",
   brochure: "/emporium-company-profile.pdf",
 
@@ -52,18 +51,16 @@ export const site = {
     },
   ],
 
-  /** The institute's own qualifier on its placement claim. */
   disclaimer:
     "100% placements will be provided to students who will successfully complete the training and will pass in all the subjects in the final exam.",
 
   copyright: `Copyright © Emporium 2026. All rights reserved`,
 } as const;
 
-/** `blurb` is nav-menu copy — the roles the course trains for, in one line. */
 export type NavItem = { label: string; href: string; blurb?: string };
 export type NavGroup = NavItem & { children?: NavItem[] };
 
-/** Course slugs live here so the nav, footer and cards can't drift apart. */
+/** Course slugs live here so nav, footer and cards cannot drift apart. */
 export const courseNav: NavItem[] = [
   {
     label: "Aviation",

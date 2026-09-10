@@ -161,8 +161,6 @@ export function CentreRail({
   );
 }
 
-/* -------------------------------------------------------------------------- */
-
 const clamp = (n: number, lo: number, hi: number) =>
   Math.min(Math.max(n, lo), hi);
 

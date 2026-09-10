@@ -4,11 +4,9 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import * as React from "react";
 
-/** Header height to assume before the sticky bar has been measured. */
 const HEADER_FALLBACK = 72;
-/** Narrowest strip of breathing room to leave under the header. */
 const MIN_AIR = 12;
-/** Widest, so a short target still lands near the top rather than mid-screen. */
+/** Capped so a short target still lands near the top, not mid-screen. */
 const MAX_AIR = 32;
 
 function headerHeight() {
@@ -33,7 +31,6 @@ export function scrollToId(id: string) {
   return true;
 }
 
-/** Sends the page home. Shared by the brand mark and the footer's button. */
 export function scrollToTop() {
   const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   window.scrollTo({ top: 0, behavior: reduce ? "auto" : "smooth" });
@@ -65,12 +62,8 @@ function clearScrollIntent() {
   }
 }
 
-/**
- * Turns an arriving landing request into a smooth glide instead of a jump.
- *
- * Requests arrive either from a {@link ScrollLink} or, for links shared from
- * elsewhere, as `#id`. The hash is wiped from the address bar on arrival.
- */
+/** Requests arrive from a {@link ScrollLink}, or as `#id` for links shared from
+ *  elsewhere. The hash is wiped from the address bar on arrival. */
 export function HashScroll({ id }: { id: string }) {
   React.useEffect(() => {
     const hashed = () => window.location.hash === `#${id}`;
@@ -105,11 +98,9 @@ type ScrollLinkProps = Omit<
 };
 
 /**
- * A link that lands on a section without writing `#id` into the address bar.
- *
  * On the same page it scrolls outright; across pages it leaves a note for the
- * destination's {@link HashScroll} to pick up. Modified clicks and middle
- * clicks fall through to the browser, so opening in a new tab still works.
+ * destination's {@link HashScroll} to pick up. Modified and middle clicks fall
+ * through to the browser, so opening in a new tab still works.
  */
 export function ScrollLink({ to, href, onClick, ...props }: ScrollLinkProps) {
   const pathname = usePathname();

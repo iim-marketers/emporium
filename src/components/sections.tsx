@@ -28,10 +28,6 @@ import { cn } from "@/lib/utils";
 
 const onDarkText = "text-haze";
 
-/* -------------------------------------------------------------------------- */
-/*  Section heading                                                            */
-/* -------------------------------------------------------------------------- */
-
 export function SectionHead({
   eyebrow: eyebrowText,
   title,
@@ -79,10 +75,6 @@ export function SectionHead({
   );
 }
 
-/* -------------------------------------------------------------------------- */
-/*  Recruiter marquee                                                          */
-/* -------------------------------------------------------------------------- */
-
 export function TrustStrip() {
   return (
     <div className="group overflow-hidden bg-navy-2 py-6.5 text-white">
@@ -105,10 +97,6 @@ export function TrustStrip() {
     </div>
   );
 }
-
-/* -------------------------------------------------------------------------- */
-/*  Stats band                                                                 */
-/* -------------------------------------------------------------------------- */
 
 export function StatsBand({
   items = stats,
@@ -137,10 +125,6 @@ export function StatsBand({
   );
 }
 
-/* -------------------------------------------------------------------------- */
-/*  What Emporium offers                                                       */
-/* -------------------------------------------------------------------------- */
-
 export function PillarGrid() {
   return (
     <div className="grid grid-cols-2 gap-5 max-phone:grid-cols-1">
@@ -162,10 +146,6 @@ export function PillarGrid() {
     </div>
   );
 }
-
-/* -------------------------------------------------------------------------- */
-/*  Recruiter logo wall                                                        */
-/* -------------------------------------------------------------------------- */
 
 function LogoTile({ src }: { src: string }) {
   return (
@@ -203,7 +183,6 @@ export function RecruiterWall() {
         <MarqueeRow
           key={i}
           duration={ROW_DURATION[i]}
-          /* every other row drifts the other way */
           reverse={i % 2 === 1}
         >
           {row.map((src) => (
@@ -214,10 +193,6 @@ export function RecruiterWall() {
     </Marquee>
   );
 }
-
-/* -------------------------------------------------------------------------- */
-/*  Accreditation                                                              */
-/* -------------------------------------------------------------------------- */
 
 export function AccreditationStrip({ note = true }: { note?: boolean }) {
   return (
@@ -270,19 +245,11 @@ export function EmpanelmentList() {
   );
 }
 
-/* -------------------------------------------------------------------------- */
-/*  Training centres                                                           */
-/* -------------------------------------------------------------------------- */
-
 export function CentreGrid() {
   return (
-    /* One row of six on desktop, as the institute presents them. No card
-       chrome — the crests sit straight on the section background. */
     <div className="grid grid-cols-6 gap-x-6 gap-y-11 max-laptop:grid-cols-3 max-phone:grid-cols-2">
       {centreCards.map((centre) => (
         <Reveal key={centre.address} as="article" className="text-center">
-          {/* Institution crests, not photographs, and all square — contain,
-              never crop. */}
           <div className="relative mx-auto aspect-square w-full max-w-45">
             <ImageWithSkeleton
               src={centre.image}
@@ -301,10 +268,6 @@ export function CentreGrid() {
   );
 }
 
-/* -------------------------------------------------------------------------- */
-/*  Eligibility call-out                                                       */
-/* -------------------------------------------------------------------------- */
-
 export function EligibilityBar({ note }: { note: string }) {
   return (
     <Reveal className="mt-11 flex flex-wrap items-center justify-between gap-4 rounded-(--r) border border-hairline bg-paper px-7 py-6 max-tablet:flex-col max-tablet:items-stretch max-tablet:gap-5">
@@ -320,10 +283,6 @@ export function EligibilityBar({ note }: { note: string }) {
     </Reveal>
   );
 }
-
-/* -------------------------------------------------------------------------- */
-/*  Empty state                                                               */
-/* -------------------------------------------------------------------------- */
 
 export function EmptyState({
   title,

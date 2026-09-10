@@ -1,5 +1,3 @@
-import Link from "next/link";
-
 import { ImageWithSkeleton } from "@/components/image-with-skeleton";
 import { site } from "@/lib/site";
 import { cn } from "@/lib/utils";
@@ -15,7 +13,6 @@ export function TailFin({ className }: { className?: string }) {
       width={FIN.w}
       height={FIN.h}
       aria-hidden="true"
-      /* Sizing lives on the wrapper so the skeleton inherits the same box. */
       wrapperClassName={cn("w-auto", className)}
       className="h-full w-auto"
     />
@@ -28,16 +25,14 @@ export function BrandMark({
   className,
   onClick,
 }: {
-  /** `dark` = blue wordmark for light backgrounds, `light` = white for dark ones. */
   variant?: "dark" | "light";
-  /** Only the header mark is above the fold — the footer's must not preload. */
   preload?: boolean;
   className?: string;
-  /** The header dismisses its menu here, and short-circuits to a scroll home. */
   onClick?: (event: React.MouseEvent<HTMLAnchorElement>) => void;
 }) {
   return (
-    <Link
+    // eslint-disable-next-line @next/next/no-html-link-for-pages
+    <a
       href="/"
       className={cn("flex min-w-0 items-center", className)}
       aria-label={`${site.name} home`}
@@ -55,11 +50,10 @@ export function BrandMark({
         preload={preload}
         wrapperClassName="h-13 max-mini:h-10"
         className="h-full w-auto"
-        /* The inverse lockup sits on navy — a pale placeholder would flare. */
         skeletonClassName={
           variant === "light" ? "bg-white/12 text-white/25" : undefined
         }
       />
-    </Link>
+    </a>
   );
 }

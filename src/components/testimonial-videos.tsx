@@ -13,9 +13,6 @@ import {
 } from "@/components/ui/dialog";
 import { testimonialVideos, type TestimonialVideo } from "@/lib/content";
 
-/**
- * Student testimonials, as film.
- */
 export function TestimonialGallery() {
   const [playing, setPlaying] = React.useState<TestimonialVideo | null>(null);
 
@@ -46,8 +43,8 @@ export function TestimonialGallery() {
           showCloseButton={false}
           className="w-[min(940px,calc(100%-2rem))] max-w-none gap-0 bg-transparent p-0 ring-0 sm:max-w-none"
         >
-          {/* The film carries its own title on screen, so this only names the
-              dialog for screen readers. */}
+          {/* The film carries its own title on screen, so this names the
+              dialog for screen readers only. */}
           <DialogTitle className="sr-only">
             {playing?.title ?? "Student testimonial"}
           </DialogTitle>

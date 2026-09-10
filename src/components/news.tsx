@@ -2,6 +2,7 @@ import Link from "next/link";
 
 import { ImageWithSkeleton } from "@/components/image-with-skeleton";
 import { Reveal } from "@/components/reveal";
+import { NewsBody } from "@/components/rich-text";
 import { EmptyState } from "@/components/sections";
 import {
   Accordion,
@@ -9,19 +10,14 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import { blogPosts, type BlogPost } from "@/lib/blog";
-import { news } from "@/lib/content";
+import { formatDate, postImage } from "@/lib/cms";
 import type { Faq } from "@/lib/programs";
 import { faqBody, faqItem, faqTrigger, heroSurface } from "@/lib/styles";
 import { cn } from "@/lib/utils";
+import type { News, Post } from "@/payload-types";
 
-/* -------------------------------------------------------------------------- */
-/*  Latest news                                                                */
-/* -------------------------------------------------------------------------- */
-
-/** Long press releases, collapsed — the first one opens by default. */
-export function NewsList() {
-  if (news.length === 0) {
+export function NewsList({ items }: { items: News[] }) {
+  if (items.length === 0) {
     return (
       <EmptyState
         title="No news just yet"
@@ -33,24 +29,21 @@ export function NewsList() {
   return (
     <Accordion
       className="border-t border-hairline"
-      // defaultValue={[news[0].title]}
+      // defaultValue={[String(items[0].id)]}
     >
-      {news.map((item) => (
-        <AccordionItem key={item.title} value={item.title} className={faqItem}>
+      {items.map((item) => (
+        <AccordionItem
+          key={item.id}
+          value={String(item.id)}
+          className={faqItem}
+        >
           <AccordionTrigger
             className={cn(faqTrigger, "gap-6 text-[17px] leading-[1.35]")}
           >
             <span className="pr-4">{item.title}</span>
           </AccordionTrigger>
           <AccordionContent className={cn(faqBody)}>
-            {item.body.map((paragraph) => (
-              <p
-                key={paragraph.slice(0, 40)}
-                className="text-justify font-medium"
-              >
-                {paragraph}
-              </p>
-            ))}
+            <NewsBody data={item.body} />
           </AccordionContent>
         </AccordionItem>
       ))}
@@ -58,11 +51,6 @@ export function NewsList() {
   );
 }
 
-/* -------------------------------------------------------------------------- */
-/*  Latest blog                                                                */
-/* -------------------------------------------------------------------------- */
-
-/** Stands in for the artwork on posts that were published without an image. */
 export function PostTile() {
   return (
     <div className={cn("grid h-full place-items-center", heroSurface)}>
@@ -73,8 +61,7 @@ export function PostTile() {
   );
 }
 
-/** Posts default to the whole list; the home page passes the newest few. */
-export function BlogGrid({ posts = blogPosts }: { posts?: BlogPost[] }) {
+export function BlogGrid({ posts }: { posts: Post[] }) {
   if (posts.length === 0) {
     return (
       <EmptyState
@@ -86,48 +73,48 @@ export function BlogGrid({ posts = blogPosts }: { posts?: BlogPost[] }) {
 
   return (
     <div className="grid grid-cols-4 gap-5.5 max-laptop:grid-cols-2 max-phone:grid-cols-1">
-      {posts.map((post) => (
-        <Reveal
-          key={post.slug}
-          as="article"
-          className="group max-h-150 flex flex-col overflow-hidden rounded-(--r) border border-hairline bg-white transition-[transform,box-shadow] duration-250 hover:-translate-y-1 hover:shadow-(--shadow)"
-        >
-          <div className="relative aspect-16/10 bg-cloud">
-            {post.image ? (
-              <ImageWithSkeleton
-                src={post.image}
-                alt=""
-                fill
-                sizes="(max-width: 560px) 92vw, (max-width: 960px) 45vw, 23vw"
-                className="object-cover"
-              />
-            ) : (
-              <PostTile />
-            )}
-          </div>
-          <div className="flex flex-1 flex-col px-5.5 py-5">
-            <span className="font-mono text-[11px] tracking-[0.16em] text-crimson uppercase">
-              {post.date}
-            </span>
-            <h3 className="mt-2.5 text-[17px] leading-[1.3] text-ink">
-              <Link
-                href={`/blog/${post.slug}`}
-                className="after:absolute after:inset-0 after:content-['']"
-                target="_blank"
-              >
-                {post.title}
-              </Link>
-            </h3>
-          </div>
-        </Reveal>
-      ))}
+      {posts.map((post) => {
+        const image = postImage(post);
+
+        return (
+          <Reveal
+            key={post.slug}
+            as="article"
+            className="group max-h-150 flex flex-col overflow-hidden rounded-(--r) border border-hairline bg-white transition-[transform,box-shadow] duration-250 hover:-translate-y-1 hover:shadow-(--shadow)"
+          >
+            <div className="relative aspect-16/10 bg-cloud">
+              {image ? (
+                <ImageWithSkeleton
+                  src={image.src}
+                  alt=""
+                  fill
+                  sizes="(max-width: 560px) 92vw, (max-width: 960px) 45vw, 23vw"
+                  className="object-cover"
+                />
+              ) : (
+                <PostTile />
+              )}
+            </div>
+            <div className="flex flex-1 flex-col px-5.5 py-5">
+              <span className="font-mono text-[11px] tracking-[0.16em] text-crimson uppercase">
+                {formatDate(post.publishedAt)}
+              </span>
+              <h3 className="mt-2.5 text-[17px] leading-[1.3] text-ink">
+                <Link
+                  href={`/blog/${post.slug}`}
+                  className="after:absolute after:inset-0 after:content-['']"
+                  target="_blank"
+                >
+                  {post.title}
+                </Link>
+              </h3>
+            </div>
+          </Reveal>
+        );
+      })}
     </div>
   );
 }
-
-/* -------------------------------------------------------------------------- */
-/*  FAQ accordion — shared by the three course pages                           */
-/* -------------------------------------------------------------------------- */
 
 export function FaqList({ items }: { items: readonly Faq[] }) {
   if (items.length === 0) {

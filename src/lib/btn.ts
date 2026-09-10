@@ -1,15 +1,9 @@
 import { cva, type VariantProps } from "class-variance-authority";
 
 /**
- * The site's pill button, as Tailwind utilities.
- *
  * Applied to <Link>, <a> and <button> alike, so this hands back a class string
- * rather than wrapping a component. Mark the arrow inside with `arrow` — the
- * button is a `group`, so it slides on hover.
- *
- * Sizing is deliberately explicit at each breakpoint: buttons grow to a 44px
- * minimum tap target from 768px down, and the compact `sm` size shrinks again
- * on the narrowest phones.
+ * rather than wrapping a component. Sizing is spelled out at each breakpoint to
+ * hold a 44px minimum tap target from 768px down.
  */
 export const btn = cva(
   [
@@ -17,7 +11,6 @@ export const btn = cva(
     "font-heading font-semibold",
     "transition-[transform,box-shadow,background,color] duration-200",
     "disabled:cursor-not-allowed disabled:opacity-[0.65] disabled:transform-none",
-    // phones get centred, wrapped labels and a full tap target
     "max-tablet:min-h-11 max-tablet:text-center max-tablet:leading-[1.25]",
   ],
   {
@@ -45,7 +38,6 @@ export const btn = cva(
           "max-mini:px-[15px] max-mini:py-[10px] max-mini:text-[13.5px]",
         ],
       },
-      /** Spans its container below the given width. */
       block: {
         phone: "max-phablet:w-full max-phablet:justify-center",
         tablet: "max-tablet:w-full max-tablet:justify-center",
@@ -58,5 +50,4 @@ export const btn = cva(
 
 export type BtnProps = VariantProps<typeof btn>;
 
-/** The `→` inside a button; slides right on hover. */
 export const arrow = "transition-transform duration-200 group-hover:translate-x-[3px]";

@@ -11,7 +11,6 @@ const headRow =
   "overflow-hidden px-1.5 pt-3 pb-2 font-mono text-[clamp(8px,calc(var(--cell-fs)*0.82),10.5px)] tracking-[0.22em] text-[#5c6aa0] max-phone:px-1 max-phone:pt-3 max-phone:pb-2";
 const headCell = "overflow-hidden text-clip whitespace-nowrap";
 const cells = "flex flex-nowrap gap-[var(--cell-gap)] overflow-hidden";
-/** One split-flap tile. `flip` is toggled from JS as each glyph lands. */
 const cell = [
   "relative inline-flex flex-none items-center justify-center rounded-[3px] origin-center",
   "h-[var(--cell-h)] w-[var(--cell-w)]",
@@ -38,14 +37,12 @@ const rowsData = jobs.map((job) => ({
   job,
 }));
 
-/** A drive whose date has gone by reads CLOSED, whatever the data says.
- *  Resolved when the board flips rather than at module load, so a page left
+/** Resolved when the board flips rather than at module load, so a page left
  *  open across midnight still closes the row on its next flip. */
 function statusFor(job: (typeof rowsData)[number]["job"]) {
   return isDriveClosed(job) ? CLOSED : job.board.status;
 }
 
-/** Next intake label — the first of next month, e.g. "NEXT INTAKE · SEP 01". */
 function nextIntakeLabel() {
   const now = new Date();
   const next = new Date(now.getFullYear(), now.getMonth() + 1, 1);

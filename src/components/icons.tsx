@@ -1,6 +1,4 @@
-/** Brand glyphs that more than one component needs. */
-
-/** WhatsApp's own mark — no Lucide equivalent reads as the app. */
+/** No Lucide equivalent reads as the app. */
 export function WhatsAppIcon({
   size = 17,
   className = "flex-none",

@@ -26,8 +26,6 @@ import { Textarea } from "@/components/ui/textarea";
 import { arrow, btn } from "@/lib/btn";
 import { cn } from "@/lib/utils";
 
-/* The padding steps down twice: on a phone the whole form is barely a
-   screenful, so the frame gives back what it can. */
 const cardSurface =
   "rounded-[20px] border border-hairline bg-ticket p-7 text-ink shadow-[var(--shadow)] max-phablet:p-5 max-phone:p-4";
 
@@ -36,7 +34,6 @@ const control =
 const inputCls = cn(control, "h-11 px-3.5");
 const textareaCls = cn(control, "px-3.5 py-3");
 const labelCls = "gap-1 text-[13.5px] font-medium text-ink";
-/** Label-to-control spacing, tightened from shadcn's default `gap-2`. */
 const fieldCls = "gap-1.5";
 
 /** What the institute's own upload field accepts. */
@@ -73,7 +70,6 @@ const empty: Values = {
   message: "",
 };
 
-/** Every field on the institute's form is required; formats are checked too. */
 function validate(
   values: Values,
   variant: FormVariant,
@@ -103,7 +99,6 @@ function validate(
   return errors;
 }
 
-/** Reference shown back to the candidate, e.g. EMP4K2QZ. */
 function makeRef() {
   return `EMP${Math.random().toString(36).slice(2, 7).toUpperCase()}`;
 }
@@ -115,7 +110,6 @@ function formatSize(bytes: number) {
     : `${Math.max(1, Math.round(bytes / 1024))} KB`;
 }
 
-/** Marks a required field without repeating "required" on every label. */
 function Req() {
   return (
     <span className="text-crimson" title="Required">
@@ -198,7 +192,6 @@ export function EnquiryForm({
     onDone?.();
   }
 
-  /** Wires a text field's label, control and error message together. */
   const fieldProps = (key: keyof Values) => ({
     id: id(key),
     name: key,

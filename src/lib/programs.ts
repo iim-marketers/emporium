@@ -16,12 +16,9 @@ export type Program = {
   slug: string;
   code: string;
   tag: string;
-  /** Name as it appears on the home page course card. */
   title: string;
   shortTitle: string;
-  /** The course page's own H1. */
   heading: string;
-  /** Card blurb, verbatim from the home page. */
   description: string;
   duration: string;
   level: ProgramLevel;
@@ -29,7 +26,6 @@ export type Program = {
   gate: string;
   image: string;
   cardImage: string;
-  /** Long-form sections, in the order the course page runs them. */
   overview: string;
   whatIs: { heading: string; body: string[] };
   about: { heading: string; body: string[] };
@@ -44,7 +40,7 @@ export type Program = {
   faqs: Faq[];
 };
 
-/** Shared across all three courses — the institute quotes it on every page. */
+/** Quoted on all three course pages. */
 const positionDetails = [
   "With practically all of the top regional and international airlines, prestigious 5-star hotel chains, and well-known businesses in the travel, hospitality, and customer service industries, Emporium has successfully built reputable and lasting connections. These businesses then hold private on-campus interviews for Emporium students at different training facilities across the country.",
   "Today, the most popular career in aviation is that it has flexible educational requirements and offers rich prospects. The aviation business provides several work prospects, regardless of a candidate's 10+2 certificate or degree in aviation, hospitality, cruise lines, tourism, or similar fields. Starting salaries in aviation typically range from INR 2 to INR 5 lakhs annually. The remuneration may increase to INR 15 to 35 lakhs annually after five or more years of experience.",
@@ -66,7 +62,6 @@ export const requiredDocuments = [
 ];
 
 export const programs: Program[] = [
-  /* ---------------------------------------------------------------- aviation */
   {
     slug: "aviation",
     code: "AVN-12",
@@ -179,7 +174,6 @@ export const programs: Program[] = [
     ],
   },
 
-  /* ------------------------------------------------------------- hospitality */
   {
     slug: "hospitality",
     code: "HOS-12",
@@ -287,7 +281,6 @@ export const programs: Program[] = [
     ],
   },
 
-  /* ------------------------------------------------------------------ cruise */
   {
     slug: "cruise",
     code: "CRU-12",

@@ -54,7 +54,6 @@ export function BoardingPass({ program }: { program: Program }) {
         </dl> */}
       </div>
 
-      {/* The stub: perforated off the body, with the card's main action on it. */}
       <div
         className={[
           "relative flex items-center gap-4 bg-royal px-6 py-4 text-white",
@@ -79,7 +78,6 @@ export function BoardingPass({ program }: { program: Program }) {
           aria-hidden="true"
         />
 
-        {/* full tap target: this is the card's main action, not just a text link */}
         <Link
           className="ml-auto flex min-h-11 flex-none items-center gap-1.5 font-heading text-[13.5px] font-semibold whitespace-nowrap hover:underline"
           href={href}
