@@ -1,4 +1,5 @@
-import { ImageWithSkeleton } from "@/components/image-with-skeleton";
+import Image from "next/image";
+
 import { site } from "@/lib/site";
 import { cn } from "@/lib/utils";
 
@@ -7,14 +8,13 @@ const LOCKUP = { w: 660, h: 270 };
 
 export function TailFin({ className }: { className?: string }) {
   return (
-    <ImageWithSkeleton
+    <Image
       src="/images/logo-fin.png"
       alt=""
       width={FIN.w}
       height={FIN.h}
       aria-hidden="true"
-      wrapperClassName={cn("w-auto", className)}
-      className="h-full w-auto"
+      className={cn("w-auto", className)}
     />
   );
 }
@@ -38,7 +38,7 @@ export function BrandMark({
       aria-label={`${site.name} home`}
       onClick={onClick}
     >
-      <ImageWithSkeleton
+      <Image
         src={
           variant === "light"
             ? "/images/logo-lockup-inverse.png"
@@ -48,11 +48,8 @@ export function BrandMark({
         width={LOCKUP.w}
         height={LOCKUP.h}
         preload={preload}
-        wrapperClassName="h-13 max-mini:h-10"
-        className="h-full w-auto"
-        skeletonClassName={
-          variant === "light" ? "bg-white/12 text-white/25" : undefined
-        }
+        loading={preload ? "eager" : undefined}
+        className="h-13 w-auto max-mini:h-10"
       />
     </a>
   );
