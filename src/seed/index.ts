@@ -3,8 +3,8 @@
  *
  *   pnpm payload run src/seed/index.ts
  *
- * Matches on slug for posts, title for news and filename for artwork, updating
- * what is already there, so it is safe to run again.
+ * Matches on slug for posts, title for news and drives, and filename for
+ * artwork, updating what is already there, so it is safe to run again.
  */
 import path from "path";
 import { fileURLToPath } from "url";
@@ -13,6 +13,7 @@ import config from "@payload-config";
 import { getPayload } from "payload";
 
 import { blogPosts } from "./legacy-blog";
+import { jobs } from "./legacy-jobs";
 import { blocksToLexical, paragraphsToLexical } from "./lexical";
 import { news } from "./legacy-news";
 
@@ -131,8 +132,50 @@ for (const item of news) {
   payload.logger.info(`News ready: ${item.title.slice(0, 60)}…`);
 }
 
+let jobsCreated = 0;
+let jobsUpdated = 0;
+
+for (const job of jobs) {
+  const data = {
+    _status: "published" as const,
+    board: job.board,
+    driveOn: toISODate(job.date),
+    employer: job.employer,
+    location: job.location,
+    position: job.position,
+    registerWith: job.registerWith,
+    time: job.time,
+    title: job.title,
+    venue: job.venue,
+    whatsapp: job.whatsapp,
+  };
+
+  const existing = await payload.find({
+    collection: "jobs",
+    limit: 1,
+    overrideAccess: true,
+    where: { title: { equals: job.title } },
+  });
+
+  if (existing.docs[0]) {
+    await payload.update({
+      collection: "jobs",
+      id: existing.docs[0].id,
+      data,
+      overrideAccess: true,
+    });
+    jobsUpdated += 1;
+  } else {
+    await payload.create({ collection: "jobs", data, overrideAccess: true });
+    jobsCreated += 1;
+  }
+
+  payload.logger.info(`Drive ready: ${job.title.slice(0, 60)}…`);
+}
+
 payload.logger.info(
   `Done. Posts: ${postsCreated} created, ${postsUpdated} updated. ` +
-    `News: ${newsCreated} created, ${newsUpdated} updated.`,
+    `News: ${newsCreated} created, ${newsUpdated} updated. ` +
+    `Jobs: ${jobsCreated} created, ${jobsUpdated} updated.`,
 );
 process.exit(0);

@@ -1,9 +1,9 @@
 import { ApplyDialog } from "@/components/apply-dialog";
-import { EnquirySection } from "@/components/enquiry-section";
 import { JobList } from "@/components/job-board";
 import { PageHero } from "@/components/page-hero";
 import { Reveal } from "@/components/reveal";
 import { SectionHead } from "@/components/sections";
+import { getJobs } from "@/lib/cms";
 import { jobsIntro, openDrives } from "@/lib/jobs";
 import { pageMetadata } from "@/lib/seo";
 import { heroCta, sectionPad, surfacePaper, wrap } from "@/lib/styles";
@@ -19,7 +19,9 @@ export const metadata = pageMetadata({
 
 export const revalidate = 3600;
 
-export default function JobsPage() {
+export default async function JobsPage() {
+  const drives = openDrives(await getJobs());
+
   return (
     <>
       <PageHero
@@ -45,7 +47,7 @@ export default function JobsPage() {
             candidates.
           </SectionHead>
 
-          <JobList items={openDrives()} />
+          <JobList items={drives} />
 
           <Reveal className="mt-11 flex flex-wrap items-center justify-between gap-4 rounded-(--r) border border-hairline bg-white px-7 py-6 max-tablet:flex-col max-tablet:items-stretch max-tablet:gap-5">
             <p className="text-[15.5px] text-slate">

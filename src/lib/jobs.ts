@@ -1,13 +1,17 @@
-import { differenceInCalendarDays, isValid, parse } from "date-fns";
+import { differenceInCalendarDays } from "date-fns";
+
+import type { Job as JobDoc } from "@/payload-types";
 
 export type Job = {
   id: string;
   title: string;
   location: string;
   position: string;
-  /** Named only on the ground-staff drive. */
   employer?: string;
+  /** The drive date as printed on the card: "16 September 2026". */
   date: string;
+  /** The same day as stored, for the countdown and the closing cut-off. */
+  driveOn: string;
   time: string;
   venue: string;
   registerWith: string;
@@ -22,104 +26,68 @@ function whatsapp(display: string) {
   return { display, href: `https://wa.me/${intl}` };
 }
 
-export const jobs: Job[] = [
-  {
-    id: "guwahati-ground-staff",
-    title:
-      "HIRING GROUND STAFF (MALE/ FEMALE) — OPEN TO ALL | CAMPUS INTERVIEW | GUWAHATI, ASSAM",
-    location: "Guwahati, Assam",
-    position: "RAMP, Security, Customer Service & Cabin Appearance",
-    employer: "Hyderabad International Airport",
-    date: "16th September 2026",
-    time: "8:00 am onwards",
-    venue:
-      "Emporium Skills Training Institute, Sardar Ji Building, Near Sarusajai Stadium, Opp. Central Jail, NH 37, Lokhra, Guwahati",
-    registerWith: "Apply via WhatsApp your Name, Age, Qualification",
-    whatsapp: whatsapp("7086617388"),
+/** Dates are stored as UTC midnight, so both are printed in UTC. Reading them
+ *  in the server's timezone shows the previous day west of Greenwich. */
+const printedDate = new Intl.DateTimeFormat("en-GB", {
+  day: "numeric",
+  month: "long",
+  timeZone: "UTC",
+  year: "numeric",
+});
+const boardDate = new Intl.DateTimeFormat("en-GB", {
+  day: "2-digit",
+  month: "2-digit",
+  timeZone: "UTC",
+});
+
+/** The stored day as a local date, so the timezone cannot move it. */
+export function driveDate(driveOn: string): Date | null {
+  const stored = new Date(driveOn);
+  if (Number.isNaN(stored.getTime())) return null;
+  return new Date(
+    stored.getUTCFullYear(),
+    stored.getUTCMonth(),
+    stored.getUTCDate(),
+  );
+}
+
+export function toJob(doc: JobDoc): Job {
+  const stored = new Date(doc.driveOn);
+
+  return {
+    id: String(doc.id),
+    title: doc.title,
+    location: doc.location,
+    position: doc.position,
+    employer: doc.employer ?? undefined,
+    date: printedDate.format(stored),
+    driveOn: doc.driveOn,
+    time: doc.time,
+    venue: doc.venue,
+    registerWith: doc.registerWith,
+    whatsapp: whatsapp(doc.whatsapp),
     board: {
-      flight: "GAU",
-      destination: "GUWAHATI ASSAM",
-      when: "16/09",
-      status: "OPEN ALL",
+      flight: doc.board.flight,
+      destination: doc.board.destination,
+      when: boardDate.format(stored),
+      status: doc.board.status,
     },
-  },
-  {
-    id: "darjeeling-cabin-crew",
-    title:
-      "HIRING CABIN CREW (FEMALE) | CAMPUS INTERVIEW — ONLY BY INVITATION | DARJEELING WEST BENGAL",
-    location: "Darjeeling, West Bengal",
-    position: "Cabin Crew",
-    date: "23 May 2026",
-    time: "8:00 am onwards",
-    venue: "Southfield College",
-    registerWith: "Apply via WhatsApp your Name, Age, Qualification",
-    whatsapp: whatsapp("74070 07517"),
-    board: {
-      flight: "DAJ",
-      destination: "DARJEELING W.B.",
-      when: "23/05",
-      status: "INVITE",
-    },
-  },
-  {
-    id: "imphal-cabin-crew-female",
-    title:
-      "HIRING CABIN CREW (FEMALE) | CAMPUS INTERVIEW — ONLY BY INVITATION | IMPHAL MANIPUR",
-    location: "Imphal, Manipur",
-    position: "Cabin Crew",
-    date: "29 May 2026",
-    time: "8:00 am onwards",
-    venue:
-      "Emporium Skills Training Institute, Mantripukhri Bazaar, Imphal East, Above Kadak Chai Restaurant, Imphal, Manipur",
-    registerWith: "Apply via WhatsApp your Name, Age, Qualification",
-    whatsapp: whatsapp("98638 17991"),
-    board: {
-      flight: "IMF",
-      destination: "IMPHAL MANIPUR",
-      when: "29/05",
-      status: "INVITE",
-    },
-  },
-  {
-    id: "imphal-cabin-crew-all",
-    title:
-      "HIRING CABIN CREW (MALE & FEMALE) | CAMPUS INTERVIEW — ONLY BY INVITATION | IMPHAL MANIPUR",
-    location: "Imphal, Manipur",
-    position: "Cabin Crew",
-    date: "11 June 2026",
-    time: "8:00 am onwards",
-    venue:
-      "Emporium Skills Training Institute, Mantripukhri Bazaar, Imphal East, Above Kadak Chai Restaurant, Imphal, Manipur",
-    registerWith: "Register via WhatsApp your Name, e-mail, Contact No.",
-    whatsapp: whatsapp("88091 01202"),
-    board: {
-      flight: "IMF",
-      destination: "IMPHAL MANIPUR",
-      when: "11/06",
-      status: "INVITE",
-    },
-  },
-];
+  };
+}
 
 export const jobsIntro =
   "Since we are working very closely with the industry for the last 9 years in India and we follow all the guidelines given by the airlines, hotels and tourism companies, we do not take open admissions to maintain the quality policy and to ensure that every student gets suitable jobs according to the profile.";
 
-/** Dates are authored for people to read ("16th September 2026"). Returns null
- *  for anything it cannot parse; callers fall back to the written date. */
-export function parseDriveDate(date: string): Date | null {
-  const cleaned = date.replace(/(\d+)(st|nd|rd|th)/i, "$1").trim();
-  const parsed = parse(cleaned, "d MMMM yyyy", new Date());
-  return isValid(parsed) ? parsed : null;
-}
-
-/** Today counts as still open, and an unparsable date is treated as open too:
+/** Today counts as still open, and an unreadable date is treated as open too:
  *  a stale card beats a drive that silently vanishes. */
 export function isDriveClosed(job: Job, today: Date = new Date()): boolean {
-  const when = parseDriveDate(job.date);
+  const when = driveDate(job.driveOn);
   return !!when && differenceInCalendarDays(when, today) < 0;
 }
 
-export function openDrives(list: Job[] = jobs): Job[] {
+export function openDrives(list: Job[]): Job[] {
   const today = new Date();
-  return list.filter((job) => !isDriveClosed(job, today));
+  return list
+    .filter((job) => !isDriveClosed(job, today))
+    .sort((a, b) => Number(new Date(a.driveOn)) - Number(new Date(b.driveOn)));
 }

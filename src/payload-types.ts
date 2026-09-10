@@ -69,6 +69,7 @@ export interface Config {
   collections: {
     posts: Post;
     news: News;
+    jobs: Job;
     media: Media;
     users: User;
     'payload-kv': PayloadKv;
@@ -80,6 +81,7 @@ export interface Config {
   collectionsSelect: {
     posts: PostsSelect<false> | PostsSelect<true>;
     news: NewsSelect<false> | NewsSelect<true>;
+    jobs: JobsSelect<false> | JobsSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
@@ -235,6 +237,68 @@ export interface News {
   _status?: ('draft' | 'published') | null;
 }
 /**
+ * Campus recruitment drives. A drive drops off the site the day after it runs, so past ones can be left in place.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "jobs".
+ */
+export interface Job {
+  id: number;
+  /**
+   * Printed as the card heading. The existing drives are set in capitals.
+   */
+  title: string;
+  /**
+   * City and state, as "Guwahati, Assam". Drives sharing a location are grouped under one city tab, so spell it the same way each time.
+   */
+  location: string;
+  /**
+   * The roles being interviewed for, e.g. Cabin Crew.
+   */
+  position: string;
+  /**
+   * Optional. The airline, airport or hotel group hiring, printed only when it is named.
+   */
+  employer?: string | null;
+  /**
+   * Drives the countdown and the drive-closed cut-off.
+   */
+  driveOn: string;
+  time: string;
+  /**
+   * The full address candidates should turn up to.
+   */
+  venue: string;
+  /**
+   * Printed just before the WhatsApp number, so write it as the lead-in to it.
+   */
+  registerWith: string;
+  /**
+   * Printed exactly as typed. The link strips the spacing, and a 10-digit number gets the 91 country code.
+   */
+  whatsapp: string;
+  /**
+   * The split-flap row on the home page. It has room for a few characters only, hence the limits.
+   */
+  board: {
+    /**
+     * The airport code, e.g. GAU.
+     */
+    flight: string;
+    /**
+     * Shown in capitals, e.g. GUWAHATI ASSAM.
+     */
+    destination: string;
+    /**
+     * Also sets the dot on the card and the city tab.
+     */
+    status: 'OPEN ALL' | 'INVITE';
+  };
+  updatedAt: string;
+  createdAt: string;
+  _status?: ('draft' | 'published') | null;
+}
+/**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "users".
  */
@@ -291,6 +355,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'news';
         value: number | News;
+      } | null)
+    | ({
+        relationTo: 'jobs';
+        value: number | Job;
       } | null)
     | ({
         relationTo: 'media';
@@ -366,6 +434,31 @@ export interface NewsSelect<T extends boolean = true> {
   title?: T;
   publishedAt?: T;
   body?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  _status?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "jobs_select".
+ */
+export interface JobsSelect<T extends boolean = true> {
+  title?: T;
+  location?: T;
+  position?: T;
+  employer?: T;
+  driveOn?: T;
+  time?: T;
+  venue?: T;
+  registerWith?: T;
+  whatsapp?: T;
+  board?:
+    | T
+    | {
+        flight?: T;
+        destination?: T;
+        status?: T;
+      };
   updatedAt?: T;
   createdAt?: T;
   _status?: T;
