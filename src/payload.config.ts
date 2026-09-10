@@ -58,7 +58,7 @@ export default buildConfig({
     theme: "light",
     meta: {
       titleSuffix: " · Emporium",
-      description: "Publish blog posts and news for the Emporium website.",
+      description: "Publish content for the Emporium website.",
       icons: [
         { rel: "icon", type: "image/png", sizes: "32x32", url: "/icon.png" },
         { rel: "apple-touch-icon", type: "image/png", url: "/apple-icon.png" },
@@ -67,7 +67,7 @@ export default buildConfig({
       openGraph: {
         siteName: "Emporium",
         title: "Content Studio",
-        description: "Publish blog posts and news for the Emporium website.",
+        description: "Publish content for the Emporium website.",
       },
     },
   },
