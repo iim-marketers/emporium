@@ -266,7 +266,7 @@ export type Achievement = { image?: string; title: string; body: string };
 
 export const achievements: Achievement[] = [
   {
-    image: "/achievements/temsuinla.jpg",
+    image: "/achievements/temsuinla-new.png",
     title:
       "Meet Temsuinla — Emporium alumni | Completed her Cabin Crew graduation.",
     body: "Family is proud of you and we wish you all the very best for your future endeavors. Fly High.",
@@ -277,7 +277,7 @@ export const achievements: Achievement[] = [
     body: "Linseshi Lamlui — Cabin Crew, Go Air & Nitumoni Gogoi — The Oberoi Hotels, Dubai got featured in this video. Both of them completed their training from Emporium Nagaland.",
   },
   {
-    image: "/achievements/lika-zhimomi.jpg",
+    image: "/achievements/lika-zhimomi-new.png",
     title: "Lika Zhimomi at SALT Kite Beach Dubai",
     body: "Emporium Alumni Lika Zhimomi posing for the lens with famous Bollywood Singer Daler Mehndi at SALT Kite Beach Dubai.",
   },

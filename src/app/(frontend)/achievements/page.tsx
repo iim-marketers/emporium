@@ -1,4 +1,3 @@
-
 import { EnquirySection } from "@/components/enquiry-section";
 import { ImageWithSkeleton } from "@/components/image-with-skeleton";
 import { PageHero } from "@/components/page-hero";
@@ -52,7 +51,7 @@ export default function AchievementsPage() {
               ) : null}
 
               <div>
-                <h2 className="text-[22px] leading-[1.25] text-ink max-phablet:text-[19px]">
+                <h2 className="text-[22px] leading-tight text-ink max-phablet:text-[19px]">
                   {item.title}
                 </h2>
                 <p className="mt-4 max-w-[70ch] text-[16px] text-slate">
