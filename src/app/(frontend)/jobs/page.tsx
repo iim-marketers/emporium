@@ -1,5 +1,4 @@
 import { ApplyDialog } from "@/components/apply-dialog";
-import { EnquirySection } from "@/components/enquiry-section";
 import { JobList } from "@/components/job-board";
 import { PageHero } from "@/components/page-hero";
 import { Reveal } from "@/components/reveal";
