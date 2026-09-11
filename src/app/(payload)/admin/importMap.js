@@ -24,6 +24,7 @@ import { BoldFeatureClient as BoldFeatureClient_e70f5e05f09f93e00b997edb1ef0c864
 import { ItalicFeatureClient as ItalicFeatureClient_e70f5e05f09f93e00b997edb1ef0c864 } from '@payloadcms/richtext-lexical/client'
 import { EmporiumIcon as EmporiumIcon_cac68a8c0a729bb34700c8ff6528a0de } from '../../../components/admin/icon'
 import { EmporiumLogo as EmporiumLogo_78cd0b14279b85aa0b253c7d344f5855 } from '../../../components/admin/logo'
+import { EmporiumPasswordEye as EmporiumPasswordEye_1fe62e0b08ac3c81c23f5b7397233670 } from '../../../components/admin/password-eye'
 import { EmporiumNavAside as EmporiumNavAside_8cc41772a7b33ac408a867e0240d543d } from '../../../components/admin/nav-aside'
 import { EmporiumDashboardLink as EmporiumDashboardLink_7d2f18325c5b5a27676b14bc4ae47897 } from '../../../components/admin/nav-dashboard-link'
 import { VercelBlobClientUploadHandler as VercelBlobClientUploadHandler_16c82c5e25f430251a3e3ba57219ff4e } from '@payloadcms/storage-vercel-blob/client'
@@ -57,6 +58,7 @@ export const importMap = {
   "@payloadcms/richtext-lexical/client#ItalicFeatureClient": ItalicFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
   "/components/admin/icon#EmporiumIcon": EmporiumIcon_cac68a8c0a729bb34700c8ff6528a0de,
   "/components/admin/logo#EmporiumLogo": EmporiumLogo_78cd0b14279b85aa0b253c7d344f5855,
+  "/components/admin/password-eye#EmporiumPasswordEye": EmporiumPasswordEye_1fe62e0b08ac3c81c23f5b7397233670,
   "/components/admin/nav-aside#EmporiumNavAside": EmporiumNavAside_8cc41772a7b33ac408a867e0240d543d,
   "/components/admin/nav-dashboard-link#EmporiumDashboardLink": EmporiumDashboardLink_7d2f18325c5b5a27676b14bc4ae47897,
   "@payloadcms/storage-vercel-blob/client#VercelBlobClientUploadHandler": VercelBlobClientUploadHandler_16c82c5e25f430251a3e3ba57219ff4e,
