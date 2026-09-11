@@ -46,6 +46,7 @@ export default buildConfig({
     user: Users.slug,
     importMap: { baseDir: path.resolve(dirname) },
     components: {
+      afterLogin: ["/components/admin/password-eye#EmporiumPasswordEye"],
       afterNavLinks: ["/components/admin/nav-aside#EmporiumNavAside"],
       beforeNavLinks: [
         "/components/admin/nav-dashboard-link#EmporiumDashboardLink",
