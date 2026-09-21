@@ -1,5 +1,6 @@
 export const site = {
   name: "Emporium",
+  searchName: "Emporium Skills Training Institute",
   legalName: "Emporium Training & Consultancy Pvt. Ltd.",
   tagline: "Certificate course in Aviation, Hospitality & Cruise line",
   heroLine: "With a fantastic career, you may live your passion every day",

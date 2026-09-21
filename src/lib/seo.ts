@@ -33,7 +33,7 @@ export function pageMetadata({
     alternates: { canonical: url },
     openGraph: {
       type: "website",
-      siteName: site.name,
+      siteName: site.searchName,
       locale: site.locale,
       url,
       title: path === "/" ? title : `${title} · ${site.name}`,

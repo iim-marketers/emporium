@@ -34,7 +34,7 @@ export const metadata: Metadata = {
   alternates: { canonical: "/" },
   openGraph: {
     type: "website",
-    siteName: site.name,
+    siteName: site.searchName,
     locale: site.locale,
     url: "/",
     title: `${site.name} — Aviation, Hospitality & Cruise Line Training`,
@@ -93,6 +93,14 @@ const organizationJsonLd = {
   sameAs: site.social.map((item) => item.href),
 };
 
+const websiteJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  name: site.searchName,
+  alternateName: [site.name, site.legalName],
+  url: `${site.url}/`,
+};
+
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="en-IN" className={`${fontVariables} antialiased`}>
@@ -107,7 +115,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
-            __html: JSON.stringify(organizationJsonLd),
+            __html: JSON.stringify([organizationJsonLd, websiteJsonLd]),
           }}
         />
       </body>
