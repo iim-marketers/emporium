@@ -1,17 +1,17 @@
 # Emporium — Frontend
 
 Marketing site for Emporium, an aviation, hospitality and travel training institute.
-Next.js 16 (App Router) · React 19 · TypeScript · Tailwind v4 · shadcn/ui · pnpm.
+Next.js 16 (App Router) · React 19 · TypeScript · Tailwind v4 · shadcn/ui · npm.
 
 Frontend only — all content is served from typed modules in `src/lib/`. No API calls yet.
 
 ## Getting started
 
 ```bash
-pnpm install
-pnpm dev        # http://localhost:3000
-pnpm build      # production build
-pnpm lint
+npm install
+npm run dev    # http://localhost:3000
+npm run build  # production build
+npm run lint
 ```
 
 Copy `.env.example` to `.env.local` and set `NEXT_PUBLIC_SITE_URL` before deploying —
