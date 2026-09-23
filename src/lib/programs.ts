@@ -1,7 +1,5 @@
 export type ProgramLevel =
-  | "Certificate"
-  | "Advanced Certificate"
-  | "Fast Track";
+  "Certificate" | "Advanced Certificate" | "Fast Track";
 
 export type PayBand = {
   /** Role the band applies to — omitted when the course quotes a single band. */
@@ -72,7 +70,7 @@ export const programs: Program[] = [
     heading:
       "Aviation Courses After 12th: Become an Air Hostess, Cabin Crew, and More",
     description:
-      "This 1 Year Certificate Course is designed for trainees who want flying careers in Airlines & Hotel Industry…",
+      "This Certificate Course is designed for trainees who want flying careers in Airlines & Hotel Industry…",
     duration: "12 months",
     level: "Advanced Certificate",
     mode: "Classroom",
@@ -182,7 +180,7 @@ export const programs: Program[] = [
     shortTitle: "Advanced Hospitality Management",
     heading: "Get Advanced Certification in Hospitality Management",
     description:
-      "This 06 Months Certificate Course is a fast track course for aspirants willing to become part of Hotel Industry…",
+      "This Certificate Course is a fast track course for aspirants willing to become part of Hotel Industry…",
     duration: "12 months",
     level: "Advanced Certificate",
     mode: "Classroom",
@@ -289,7 +287,7 @@ export const programs: Program[] = [
     shortTitle: "Cruise Line Careers",
     heading: "Get Your Cruise Careers with a Cruise Ship Management Course",
     description:
-      "This 03 Months fast track course is designed for aspirants willing to become part of Luxurious Cruise Lines…",
+      "This fast track course is designed for aspirants willing to become part of Luxurious Cruise Lines…",
     duration: "12 months",
     level: "Fast Track",
     mode: "Classroom",

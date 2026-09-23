@@ -69,14 +69,14 @@ export default async function HomePage() {
             Three certificate courses, each a boarding pass into a specific
             industry. Pick the one that matches where you want to land.
           </HomeHead>
-          <p className="mt-6 text-center">
+          {/* <p className="mt-6 text-center">
             <Link
               href="/programs"
               className="border-b border-white/50 pb-1 font-mono text-[11px] tracking-[0.24em] text-white/85 uppercase transition-colors hover:border-white hover:text-white"
             >
               View all courses →
             </Link>
-          </p>
+          </p> */}
         </div>
       </CourseCarousel>
       <FacesStrip />

@@ -48,7 +48,7 @@ export function HomeHead({
           onDark ? "text-haze" : "text-crimson",
         )}
       >
-        <span className="h-px w-7 bg-current" aria-hidden="true" />
+        {/* <span className="h-px w-7 bg-current" aria-hidden="true" /> */}
         {eyebrow}
       </span>
       <h2
