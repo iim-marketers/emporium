@@ -14,11 +14,9 @@ export type SubmitResult =
   | { ok: true; reference: string }
   | { ok: false; message: string; errors?: Errors };
 
-/** What the institute's own upload field accepts. */
 export const CV_ACCEPT = ".avif,.heif,.heics,.heifs,.doc,.docx,.pdf";
 
-/** Vercel rejects function request bodies over 4.5 MB, so the CV has to fit
- *  under that with the rest of the form. */
+// Vercel caps function request bodies at 4.5 MB, including the rest of the form.
 export const CV_MAX_BYTES = 4 * 1024 * 1024;
 
 export const CV_MAX_LABEL = "4 MB";

@@ -14,6 +14,7 @@ export const Enquiries: CollectionConfig = {
   slug: "enquiries",
   labels: { singular: "Enquiry", plural: "Enquiries" },
   admin: {
+    hideAPIURL: true,
     group: "Submissions",
     useAsTitle: "name",
     defaultColumns: ["name", "phone", "location", "status", "createdAt"],

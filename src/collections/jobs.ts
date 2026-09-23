@@ -1,5 +1,6 @@
 import type { CollectionConfig } from "payload";
 
+import { hideVersionsTab } from "./admin-views";
 import { isSignedIn, publishedOrSignedIn } from "./access";
 import { revalidate } from "./revalidate";
 
@@ -9,6 +10,8 @@ export const Jobs: CollectionConfig = {
   slug: "jobs",
   labels: { singular: "Drive", plural: "Jobs" },
   admin: {
+    hideAPIURL: true,
+    components: hideVersionsTab,
     group: "Content",
     useAsTitle: "title",
     defaultColumns: ["title", "location", "driveOn", "_status"],

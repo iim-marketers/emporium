@@ -53,7 +53,6 @@ const textareaCls = cn(control, "px-3.5 py-3");
 const labelCls = "gap-1 text-[13.5px] font-medium text-ink";
 const fieldCls = "gap-1.5";
 
-/** Submit walks this in order to focus the first field that failed. */
 const fieldOrder = [
   "name",
   "email",
@@ -192,7 +191,9 @@ export function EnquiryForm({
     }
 
     setRef(result.reference);
-    toast.success("Application received — our placement cell will be in touch.");
+    toast.success(
+      "Application received — our placement cell will be in touch.",
+    );
     onDone?.();
   }
 
@@ -225,7 +226,7 @@ export function EnquiryForm({
           </div>
 
           <p className="flex items-center gap-2 rounded-full border border-hairline bg-white px-3.5 py-1.5">
-            <span className="font-mono text-[11px] font-bold tracking-[0.2em] text-slate uppercase">
+            <span className="mt-0.5 font-mono text-[11px] font-bold tracking-[0.2em] text-slate uppercase">
               Ref
             </span>
             <span className="font-mono text-[13px] font-bold tracking-widest text-ink">

@@ -677,8 +677,6 @@ html[data-theme="dark"] .emporium-logo__caption {
   height: 18px;
 }
 
-/* ---------------------------------------------------------- excel export */
-
 .em-export {
   display: flex;
   justify-content: flex-end;
@@ -698,11 +696,7 @@ html[data-theme="dark"] .emporium-logo__caption {
   height: 16px;
 }
 
-/* ------------------------------------------------------------ submissions */
-
-/* Submitted details are locked, and Payload's disabled styling greys the
-   values out until they read as placeholders. They are the content here, so
-   they keep full-strength text on a quiet fill. */
+/* Undo Payload's greyed-out disabled look so locked submissions stay readable. */
 :is(.collection-edit--enquiries, .collection-edit--applications) :is(
     .field-type input:disabled,
     .read-only .textarea-outer

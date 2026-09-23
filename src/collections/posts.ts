@@ -1,5 +1,6 @@
 import type { CollectionConfig } from "payload";
 
+import { hideVersionsTab } from "./admin-views";
 import { isSignedIn, publishedOrSignedIn } from "./access";
 import { revalidate } from "./revalidate";
 
@@ -20,6 +21,8 @@ export const Posts: CollectionConfig = {
   slug: "posts",
   labels: { singular: "Blog post", plural: "Blog posts" },
   admin: {
+    hideAPIURL: true,
+    components: hideVersionsTab,
     group: "Content",
     useAsTitle: "title",
     defaultColumns: ["title", "publishedAt", "_status"],

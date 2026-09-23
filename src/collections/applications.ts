@@ -14,6 +14,7 @@ export const Applications: CollectionConfig = {
   slug: "applications",
   labels: { singular: "Job application", plural: "Job applications" },
   admin: {
+    hideAPIURL: true,
     group: "Submissions",
     useAsTitle: "name",
     defaultColumns: ["name", "phone", "subject", "cv", "status", "createdAt"],

@@ -4,7 +4,7 @@ import { isSignedIn } from "./access";
 
 export const Media: CollectionConfig = {
   slug: "media",
-  admin: { group: "Content" },
+  admin: { group: "Content", hideAPIURL: true },
   access: {
     create: isSignedIn,
     delete: isSignedIn,

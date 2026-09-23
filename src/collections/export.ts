@@ -9,12 +9,9 @@ type Column<T> = {
   link?: string;
 };
 
-/** Excel dates carry no time zone, so they are written as India wall-clock
- *  time rather than UTC. */
+// Excel dates carry no time zone, so write India wall-clock time.
 const IST_OFFSET_MS = 5.5 * 60 * 60 * 1000;
 
-/** Mounted at `/api/<collection>/export`. Honours the list view's filters and
- *  search, which the admin button forwards in the query string. */
 export function excelExport<T>({
   collection,
   sheet,

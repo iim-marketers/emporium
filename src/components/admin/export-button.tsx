@@ -3,9 +3,6 @@ import type { CollectionConfig, Payload } from "payload";
 
 type SearchParams = Record<string, string | string[] | undefined>;
 
-/** Rendered by `beforeListTable`. The list view re-renders on the server each
- *  time its filters change, so forwarding the search params here exports the
- *  rows the admin is looking at rather than the whole collection. */
 export function ExportButton({
   collectionConfig,
   payload,

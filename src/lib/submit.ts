@@ -34,8 +34,7 @@ export async function submitForm(formData: FormData): Promise<SubmitResult> {
   const variant: FormVariant =
     formData.get("variant") === "apply" ? "apply" : "enquire";
 
-  /** Hidden from people, so only bots fill it. They get a normal-looking
-   *  success and nothing is stored. */
+  // Honeypot: bots get a fake success and nothing is stored.
   if (text(formData, "website")) return { ok: true, reference: makeRef() };
 
   const values: Values = {
@@ -70,9 +69,7 @@ export async function submitForm(formData: FormData): Promise<SubmitResult> {
     }
 
     const extension = cv!.name.toLowerCase().match(/\.[a-z0-9]+$/)![0];
-    /** The blob store is public, so the random tail keeps the file's URL
-     *  from being guessed from the reference and name. */
-    const filename = `${reference}-${slug(values.name)}-${randomBytes(8).toString("hex")}${extension}`;
+    const filename = `${reference}-${slug(values.name) || "cv"}${extension}`;
     const upload = await payload.create({
       collection: "cvs",
       data: {},
