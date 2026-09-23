@@ -215,7 +215,7 @@ export function DepartureBoard({ drives }: { drives: Job[] }) {
       >
         <div className="flex items-center justify-between border-b border-(--line-d) px-1.5 pt-1 pb-3.5">
           <span className="font-mono text-[13px] font-bold tracking-[0.3em] text-amber">
-            ✈ DEPARTURES
+            DEPARTURES
           </span>
           <span className="font-mono text-[14px] tracking-[0.12em] text-[#7f8dc4]">
             {clock}
@@ -282,8 +282,8 @@ export function DepartureBoard({ drives }: { drives: Job[] }) {
         </div>
 
         <div className="mt-3 flex flex-wrap items-center justify-between gap-3 border-t border-(--line-d) pt-3 font-mono text-[clamp(9px,2.2cqi,11px)] tracking-[0.16em] text-[#5c6aa0]">
-          <span>EMPORIUM · CAMPUS DRIVES</span>
-          <span>{intake}</span>
+          <span className="text-amber">EMPORIUM · CAMPUS DRIVES</span>
+          {/* <span>{intake}</span> */}
         </div>
       </div>
     </div>

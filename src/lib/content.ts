@@ -79,9 +79,9 @@ export const recruiterNames = [
   "Carnival Cruise",
   "Air Asia",
   "The Oberoi",
-  "Go First",
+  // "Go First",
   "Leela Palace",
-  "GoAir International",
+  // "GoAir International",
   "The Hyatt Group",
 ];
 

@@ -68,18 +68,26 @@ export function Hero({ drives }: { drives: Job[] }) {
         )}
       >
         <div>
-          <span className={eyebrowOnDark}>Aviation · Hospitality · Cruise</span>
-          <h1 className={cn("mt-5.5", heroHeading)}>
+          <span className={cn(eyebrowOnDark, "text-amber")}>
+            Aviation · Hospitality · Cruise
+          </span>
+          <h1
+            className={cn(
+              "mt-5.5",
+              heroHeading,
+              "text-[clamp(38px,5.2vw,68px)] leading-[1.05] max-phablet:text-[clamp(36px,10.5vw,54px)]",
+            )}
+          >
             Train for the skies.
             <br />
             <em className="text-haze not-italic">Build a new nation.</em>
           </h1>
-          <p className={lede}>
+          {/* <p className={lede}>
             Emporium Certification Courses on Aviation, Hospitality Management
             and Cruise Lines — with grooming, communication and 100% placement
             assistance through our dedicated Placement Cell.
-          </p>
-          <div className={heroCta}>
+          </p> */}
+          {/* <div className={heroCta}>
             <ScrollLink
               href="/enquire"
               to="enquire"
@@ -93,7 +101,7 @@ export function Hero({ drives }: { drives: Job[] }) {
             >
               Read More
             </Link>
-          </div>
+          </div> */}
           <div className="hidden mt-6.5 md:flex flex-wrap gap-5.5 font-mono text-[13.5px] text-[#93a2d6] max-phablet:gap-x-4.5 max-phablet:gap-y-2.5 max-phablet:text-[12.5px]">
             <span className="flex items-center gap-2">
               <i className="size-1.75 rounded-full bg-green shadow-[0_0_0_4px_rgba(62,207,142,0.18)]" />{" "}
