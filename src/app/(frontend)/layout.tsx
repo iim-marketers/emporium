@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from "next";
+import NextTopLoader from "nextjs-toploader";
 
 import { ContactWidget } from "@/components/contact-widget";
 import { SiteFooter } from "@/components/site-footer";
@@ -105,6 +106,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="en-IN" className={`${fontVariables} antialiased`}>
       <body className="flex min-h-screen flex-col text-[17px] max-phone:text-[16px]">
+        <NextTopLoader color="#d91f2a" height={3} showSpinner={false} />
         <SiteHeader />
         <main id="top" className="flex-1">
           {children}

@@ -11,6 +11,9 @@ import { vercelBlobStorage } from "@payloadcms/storage-vercel-blob";
 import { buildConfig } from "payload";
 import sharp from "sharp";
 
+import { Applications } from "./collections/applications";
+import { Cvs } from "./collections/cvs";
+import { Enquiries } from "./collections/enquiries";
 import { Jobs } from "./collections/jobs";
 import { Media } from "./collections/media";
 import { News } from "./collections/news";
@@ -72,7 +75,7 @@ export default buildConfig({
       },
     },
   },
-  collections: [Posts, News, Jobs, Media, Users],
+  collections: [Posts, News, Jobs, Media, Enquiries, Applications, Cvs, Users],
   cors: allowedOrigins,
   csrf: allowedOrigins,
   db: postgresAdapter({
@@ -94,6 +97,8 @@ export default buildConfig({
         /** The store is public, so serving from the CDN directly drops a
          *  serverless hop without changing who can see the files. */
         media: { disablePayloadAccessControl: true },
+        // CVs are personal data: served through Payload so only admins can read them.
+        cvs: { prefix: "cvs" },
       },
       /** Keeps the database schema identical whether or not the token is set. */
       alwaysInsertFields: true,

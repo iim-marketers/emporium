@@ -14,6 +14,13 @@ import { toast } from "sonner";
 
 import { Badge } from "@/components/ui/badge";
 import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogDescription,
+  DialogTitle,
+} from "@/components/ui/dialog";
+import {
   Field,
   FieldDescription,
   FieldError,
@@ -24,6 +31,16 @@ import {
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { arrow, btn } from "@/lib/btn";
+import { submitForm } from "@/lib/submit";
+import {
+  CV_ACCEPT,
+  CV_MAX_LABEL,
+  type Errors,
+  type FormVariant,
+  type SubmitResult,
+  type Values,
+  validate,
+} from "@/lib/submissions";
 import { cn } from "@/lib/utils";
 
 const cardSurface =
@@ -36,23 +53,6 @@ const textareaCls = cn(control, "px-3.5 py-3");
 const labelCls = "gap-1 text-[13.5px] font-medium text-ink";
 const fieldCls = "gap-1.5";
 
-/** What the institute's own upload field accepts. */
-export const CV_ACCEPT = ".avif,.heif,.heics,.heifs,.doc,.docx,.pdf";
-const CV_MAX_BYTES = 8 * 1024 * 1024;
-
-export type FormVariant = "enquire" | "apply";
-
-type Values = {
-  name: string;
-  email: string;
-  phone: string;
-  location: string;
-  message: string;
-};
-
-type Errors = Partial<Record<keyof Values | "cv", string>>;
-
-/** Submit walks this in order to focus the first field that failed. */
 const fieldOrder = [
   "name",
   "email",
@@ -69,39 +69,6 @@ const empty: Values = {
   location: "",
   message: "",
 };
-
-function validate(
-  values: Values,
-  variant: FormVariant,
-  cv: File | null,
-): Errors {
-  const errors: Errors = {};
-
-  if (!values.name.trim()) errors.name = "Please enter your full name";
-
-  if (!values.email.trim()) errors.email = "Please enter your email";
-  else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(values.email))
-    errors.email = "Enter a valid email address";
-
-  if (!values.phone.trim()) errors.phone = "Please enter your phone number";
-  else if (!/^[6-9]\d{9}$/.test(values.phone.replace(/\D/g, "")))
-    errors.phone = "Enter a valid 10-digit mobile number";
-
-  if (!values.location.trim())
-    errors.location = "Please enter your district and state";
-  if (!values.message.trim()) errors.message = "Please enter a message";
-
-  if (variant === "apply") {
-    if (!cv) errors.cv = "Please attach your CV";
-    else if (cv.size > CV_MAX_BYTES) errors.cv = "File must be 8 MB or smaller";
-  }
-
-  return errors;
-}
-
-function makeRef() {
-  return `EMP${Math.random().toString(36).slice(2, 7).toUpperCase()}`;
-}
 
 function formatSize(bytes: number) {
   const mb = bytes / (1024 * 1024);
@@ -136,6 +103,8 @@ export function EnquiryForm({
   const [cv, setCv] = React.useState<File | null>(null);
   const [errors, setErrors] = React.useState<Errors>({});
   const [ref, setRef] = React.useState<string | null>(null);
+  const [thanks, setThanks] = React.useState({ firstName: "", reference: "" });
+  const [thanksOpen, setThanksOpen] = React.useState(false);
   const [submitting, setSubmitting] = React.useState(false);
   const fileInput = React.useRef<HTMLInputElement>(null);
 
@@ -180,14 +149,50 @@ export function EnquiryForm({
 
     setSubmitting(true);
 
-    await new Promise((resolve) => setTimeout(resolve, 600));
+    const formData = new FormData(event.currentTarget);
+    formData.set("variant", variant);
+    formData.set("source", window.location.pathname);
+    if (subject) formData.set("subject", subject);
+    if (cv) formData.set("cv", cv);
+    else formData.delete("cv");
 
+    let result: SubmitResult;
+    try {
+      result = await submitForm(formData);
+    } catch {
+      result = {
+        ok: false,
+        message:
+          "Couldn't reach the server. Check your connection and try again.",
+      };
+    }
     setSubmitting(false);
-    setRef(makeRef());
+
+    if (!result.ok) {
+      toast.error(result.message);
+      if (result.errors) {
+        setErrors(result.errors);
+        const first = fieldOrder.find((key) => result.errors?.[key]);
+        if (first) document.getElementById(id(first))?.focus();
+      }
+      return;
+    }
+
+    if (!isApply) {
+      setThanks({
+        firstName: values.name.trim().split(" ")[0],
+        reference: result.reference,
+      });
+      setThanksOpen(true);
+      setValues(empty);
+      setErrors({});
+      onDone?.();
+      return;
+    }
+
+    setRef(result.reference);
     toast.success(
-      isApply
-        ? "Application received — our placement cell will be in touch."
-        : "Enquiry received — our admissions team will call you shortly.",
+      "Application received — our placement cell will be in touch.",
     );
     onDone?.();
   }
@@ -211,19 +216,17 @@ export function EnquiryForm({
 
           <div>
             <h3 className="font-heading text-[22px] font-semibold text-ink max-phablet:text-[20px]">
-              {isApply ? "Application received" : "Enquiry received"}
+              Application received
             </h3>
             <p className="mx-auto mt-2 max-w-[42ch] text-[14.5px] text-slate">
-              Thanks, {values.name.trim().split(" ")[0]}! Your{" "}
-              {isApply ? "application" : "enquiry"}
-              {subject ? ` for ${subject}` : ""} is logged. Our{" "}
-              {isApply ? "placement cell" : "admissions team"} will be in touch
-              shortly.
+              Thanks, {values.name.trim().split(" ")[0]}! Your application
+              {subject ? ` for ${subject}` : ""} is logged. Our placement cell
+              will be in touch shortly.
             </p>
           </div>
 
           <p className="flex items-center gap-2 rounded-full border border-hairline bg-white px-3.5 py-1.5">
-            <span className="font-mono text-[11px] font-bold tracking-[0.2em] text-slate uppercase">
+            <span className="mt-0.5 font-mono text-[11px] font-bold tracking-[0.2em] text-slate uppercase">
               Ref
             </span>
             <span className="font-mono text-[13px] font-bold tracking-widest text-ink">
@@ -241,7 +244,7 @@ export function EnquiryForm({
             })}
             onClick={reset}
           >
-            Send another {isApply ? "application" : "enquiry"}
+            Send another application
           </button>
         </div>
       </div>
@@ -250,6 +253,39 @@ export function EnquiryForm({
 
   return (
     <div className={cn(framed && cardSurface)}>
+      <Dialog open={thanksOpen} onOpenChange={setThanksOpen}>
+        <DialogContent className="w-[min(420px,calc(100%-2rem))] max-w-none gap-0 bg-white p-7 sm:max-w-none max-phone:p-5">
+          <div className="flex flex-col items-center gap-4 text-center">
+            <span className="grid size-14 place-items-center rounded-full bg-green/15 text-green">
+              <CircleCheckBigIcon className="size-7" />
+            </span>
+
+            <div>
+              <DialogTitle className="font-heading text-[22px] leading-tight font-semibold text-ink max-phablet:text-[20px]">
+                Thank you, {thanks.firstName}!
+              </DialogTitle>
+              <DialogDescription className="mx-auto mt-2 max-w-[36ch] text-[14.5px] text-slate">
+                Your enquiry has been received. Our admissions team will call
+                you shortly.
+              </DialogDescription>
+            </div>
+
+            <p className="flex items-center gap-2 rounded-full border border-hairline bg-cloud/60 px-3.5 py-1.5">
+              <span className="font-mono text-[11px] font-bold tracking-[0.2em] text-slate uppercase">
+                Ref
+              </span>
+              <span className="font-mono text-[13px] font-bold tracking-widest text-ink">
+                {thanks.reference}
+              </span>
+            </p>
+
+            <DialogClose className={btn({ block: "always", class: "mt-1" })}>
+              Done
+            </DialogClose>
+          </div>
+        </DialogContent>
+      </Dialog>
+
       {framed ? (
         <header className="mb-6 flex items-start gap-3.5 border-b border-hairline pb-5 max-phone:mb-4 max-phone:pb-4">
           <span className="grid size-10 flex-none place-items-center rounded-xl bg-royal/8 text-royal">
@@ -273,6 +309,14 @@ export function EnquiryForm({
       ) : null}
 
       <form onSubmit={handleSubmit} noValidate>
+        <input
+          type="text"
+          name="website"
+          tabIndex={-1}
+          autoComplete="off"
+          aria-hidden="true"
+          className="absolute left-[-9999px] size-px opacity-0"
+        />
         <FieldGroup className="gap-4 max-phone:gap-3.5">
           {subject && framed ? (
             <Badge
@@ -297,9 +341,6 @@ export function EnquiryForm({
             <FieldError id={id("name-err")}>{errors.name}</FieldError>
           </Field>
 
-          {/* Container queries, not media queries: this form renders in a wide
-              page column and in a 560px dialog, so the pairing has to follow
-              the form's own width rather than the viewport's. */}
           <div className="grid gap-4 max-phone:gap-3.5 @md/field-group:grid-cols-2">
             <Field className={fieldCls} data-invalid={Boolean(errors.email)}>
               <FieldLabel htmlFor={id("email")} className={labelCls}>
@@ -339,7 +380,7 @@ export function EnquiryForm({
               {...fieldProps("location")}
               type="text"
               autoComplete="address-level2"
-              placeholder="District, State"
+              placeholder="Location (city, state)"
               className={inputCls}
             />
             <FieldError id={id("location-err")}>{errors.location}</FieldError>
@@ -391,8 +432,6 @@ export function EnquiryForm({
                     </button>
                   </div>
                 ) : (
-                  /* The input is visually hidden but still focusable, so the ring
-                       is mirrored onto this box via `peer-focus-visible`. */
                   <label
                     htmlFor={id("cv")}
                     className={cn(
@@ -410,13 +449,13 @@ export function EnquiryForm({
                         Choose a file
                       </span>
                       <span className="block text-[12px] text-slate">
-                        PDF or Word, up to 8 MB
+                        PDF or Word, up to {CV_MAX_LABEL}
                       </span>
                     </span>
                   </label>
                 )}
                 <FieldDescription id={id("cv-hint")} className="sr-only">
-                  PDF or Word document, up to 8 MB.
+                  PDF or Word document, up to {CV_MAX_LABEL}.
                 </FieldDescription>
               </div>
 

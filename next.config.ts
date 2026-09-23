@@ -28,7 +28,11 @@ const legacyRedirects: [string, string][] = [
 ];
 
 const nextConfig: NextConfig = {
-  experimental: { globalNotFound: true },
+  experimental: {
+    globalNotFound: true,
+    // Must fit a CV at CV_MAX_BYTES plus the rest of the form.
+    serverActions: { bodySizeLimit: "4.5mb" },
+  },
   redirects: async () =>
     legacyRedirects.map(([source, destination]) => ({
       source,

@@ -148,7 +148,7 @@ export const centreCards: CentreCard[] = [
       "Don Bosco College Autonomous, Maram Bazar P.O, Senapati District, Manipur, India - 795015",
   },
   {
-    image: "/centres/crests/itanagar.png",
+    image: "/centres/crests/itanagar.jpeg",
     address:
       "Don Bosco Youth Centre, Vivek Vihar, Itanagar, Arunachal Pradesh, 791111 Landmark- Bharatiya Janata Party State office.",
   },

@@ -49,7 +49,7 @@ export function ApplyDialog({
             surface="bare"
             subject={subject}
             onDone={() => {
-              /* leave the confirmation on screen; the visitor closes it */
+              // Keep the confirmation open; the visitor closes it.
             }}
           />
         </div>
