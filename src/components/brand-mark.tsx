@@ -22,11 +22,14 @@ export function TailFin({ className }: { className?: string }) {
 export function BrandMark({
   variant = "dark",
   preload = false,
+  inverse = false,
   className,
   onClick,
 }: {
   variant?: "dark" | "light";
   preload?: boolean;
+  /** Crossfades a dark mark to the light one, for a header sitting over a photo. */
+  inverse?: boolean;
   className?: string;
   onClick?: (event: React.MouseEvent<HTMLAnchorElement>) => void;
 }) {
@@ -34,7 +37,7 @@ export function BrandMark({
     // eslint-disable-next-line @next/next/no-html-link-for-pages
     <a
       href="/"
-      className={cn("flex min-w-0 items-center", className)}
+      className={cn("relative flex min-w-0 items-center", className)}
       aria-label={`${site.name} home`}
       onClick={onClick}
     >
@@ -49,8 +52,24 @@ export function BrandMark({
         height={LOCKUP.h}
         preload={preload}
         loading={preload ? "eager" : undefined}
-        className="h-13 w-auto max-mini:h-10"
+        className={cn(
+          "h-13 w-auto transition-opacity duration-300 max-mini:h-10",
+          inverse && "opacity-0",
+        )}
       />
+      {variant === "dark" ? (
+        <Image
+          src="/images/logo-lockup-inverse.png"
+          alt=""
+          aria-hidden="true"
+          width={LOCKUP.w}
+          height={LOCKUP.h}
+          className={cn(
+            "absolute top-1/2 left-0 h-13 w-auto -translate-y-1/2 transition-opacity duration-300 max-mini:h-10",
+            inverse ? "opacity-100" : "opacity-0",
+          )}
+        />
+      ) : null}
     </a>
   );
 }

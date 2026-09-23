@@ -1,0 +1,132 @@
+export type Clip = { src: string; poster: string; caption: string };
+
+const clip = (name: string, caption: string): Clip => ({
+  src: `/home/video/${name}.mp4`,
+  poster: `/home/video/${name}.webp`,
+  caption,
+});
+
+const photo = (name: string) => `/home/photos/${name}.webp`;
+
+export const heroStill = {
+  wide: "/home/video/guest-welcome-end-wide.webp",
+  tall: "/home/video/guest-welcome-end-tall.webp",
+};
+
+export const ctaFilm = clip("banquet-wide", "");
+
+export type Face = { src: string; track: "Aviation" | "Hospitality" };
+
+const face = (name: string, track: Face["track"]): Face => ({
+  src: `/home/faces/${name}.webp`,
+  track,
+});
+
+export const faces: Face[] = [
+  face("aviation-1", "Aviation"),
+  face("hospitality-1", "Hospitality"),
+  face("aviation-4", "Aviation"),
+  face("hospitality-2", "Hospitality"),
+  face("aviation-3", "Aviation"),
+  face("hospitality-3", "Hospitality"),
+  face("aviation-2", "Aviation"),
+  face("hospitality-6", "Hospitality"),
+  face("hospitality-4", "Hospitality"),
+  face("hospitality-5", "Hospitality"),
+];
+
+export const lifeClips: Clip[] = [
+  clip("welcome-dance", "A traditional welcome"),
+  clip("hotel-arrival", "Arriving for an industry visit"),
+  clip("hotel-lobby", "Five-star lobby walkthrough"),
+  clip("suite-tour", "Inside a luxury suite"),
+  clip("saree-welcome", "Guest welcome, the Indian way"),
+  clip("spa-visit", "Spa and wellness walkthrough"),
+  clip("auditorium", "Orientation day"),
+  clip("students-wave", "Hello from the batch"),
+  clip("seminar", "Industry seminar"),
+  clip("classroom", "In the classroom"),
+  clip("batch-photo", "Batch photo day"),
+  clip("school-outreach", "School outreach"),
+  clip("orientation", "A full house"),
+];
+
+export const editorialPhoto = photo("ballroom-batch");
+
+/** `card` is the photo on the course's own card; `scene` fills the section
+ *  behind it while that course is selected. */
+export const courseArt: Record<string, { card: string; scene: string }> = {
+  aviation: {
+    card: photo("aircraft-door"),
+    scene: "/courses/aviation-hero-new.png",
+  },
+  hospitality: {
+    card: photo("restaurant-namaste"),
+    scene: "/courses/hospitality-hero-new.png",
+  },
+  cruise: {
+    card: "/courses/cruise-card-new.png",
+    scene: "/courses/cruise-hero-new.png",
+  },
+};
+
+export const pillarPhotos = [
+  {
+    src: photo("cabin-crew-batch"),
+    alt: "A cabin crew batch in uniform during grooming training",
+  },
+  {
+    src: photo("bartender"),
+    alt: "A student at the Emporium training bar",
+  },
+  {
+    src: photo("jobs-board-team"),
+    alt: "Students in hotel uniform at an on-campus placement drive",
+  },
+  {
+    src: photo("recruiters-visit"),
+    alt: "Industry professionals with students at an Emporium centre",
+  },
+];
+
+export type Moment = { src: string; alt: string; span?: "tall" | "wide" };
+
+export const moments: Moment[] = [
+  {
+    src: photo("saree-namaste"),
+    alt: "Students in red-bordered sarees greeting with a namaste",
+    span: "tall",
+  },
+  {
+    src: photo("recruiters-visit-2"),
+    alt: "A recruiter visit at an Emporium centre",
+    span: "wide",
+  },
+  { src: photo("lakeside-uniform"), alt: "A graduate in uniform by a lake" },
+  {
+    src: photo("aircraft-apron"),
+    alt: "A cabin crew trainee with her trolley bag on the apron",
+  },
+  {
+    src: photo("auditorium-salute"),
+    alt: "A batch saluting in the auditorium",
+    span: "tall",
+  },
+  {
+    src: photo("campus-group"),
+    alt: "Students and trainers gathered on campus",
+    span: "wide",
+  },
+  { src: photo("palace-steps-her"), alt: "A graduate on palace steps" },
+  { src: photo("pavilion"), alt: "A graduate in uniform at a hotel pavilion" },
+  { src: photo("bar-service"), alt: "Tray service at the training bar" },
+  {
+    src: photo("mascot-welcome"),
+    alt: "A trainee welcoming guests beside a mascot in a hotel lobby",
+  },
+  {
+    src: photo("shillong-centre-batch"),
+    alt: "A batch in formal wear outside the Shillong centre",
+    span: "wide",
+  },
+];

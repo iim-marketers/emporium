@@ -68,6 +68,7 @@
   /* Helvetica is a system face, not a webfont — Arial covers Windows/Android,
      where no Helvetica is installed. */
   --font-heading: Helvetica, "Helvetica Neue", Arial, sans-serif;
+  --font-hero: var(--font-saol), Georgia, "Times New Roman", serif;
 
   /* brand scale, available as Tailwind utilities (bg-navy, text-slate, …) */
   --color-navy: var(--navy);
@@ -142,6 +143,48 @@
      is a shade deeper and a highlight sweeps across to read as "working". */
   --skeleton: #dbe2f4;
   --color-skeleton: var(--skeleton);
+
+  --animate-drift: drift 2.4s ease-in-out infinite;
+  --animate-rise: rise 1.1s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  --animate-draw: draw 1s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+
+  @keyframes rise {
+    from {
+      transform: translateY(105%);
+    }
+    to {
+      transform: translateY(0);
+    }
+  }
+  @keyframes draw {
+    from {
+      transform: scaleX(0);
+    }
+    to {
+      transform: scaleX(1);
+    }
+  }
+  --animate-kenburns: kenburns 22s ease-out both;
+
+  @keyframes drift {
+    0%,
+    100% {
+      transform: translateY(0);
+      opacity: 0.4;
+    }
+    50% {
+      transform: translateY(8px);
+      opacity: 1;
+    }
+  }
+  @keyframes kenburns {
+    from {
+      transform: scale(1.12);
+    }
+    to {
+      transform: scale(1);
+    }
+  }
 
   --animate-shimmer: shimmer 1.5s ease-in-out infinite;
   --animate-marquee: marquee 32s linear infinite;

@@ -16,7 +16,7 @@ export const placementClaim = {
 };
 
 export const headlineClaim = {
-  count: "Over 50,000+",
+  count: "Over 100,000+",
   line1: "students",
   line2: "placed",
   line3: "in 29 different countries",

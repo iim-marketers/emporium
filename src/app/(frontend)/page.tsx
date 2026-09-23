@@ -1,36 +1,32 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import Link from "next/link";
 
-import { BoardingPassGrid } from "@/components/boarding-pass";
-import { CountFlip } from "@/components/count-flip";
-import { Hero } from "@/components/hero";
-import { ImageWithSkeleton } from "@/components/image-with-skeleton";
-import { JobList } from "@/components/job-board";
-import { BlogGrid, NewsList } from "@/components/news";
+import { DepartureBoard } from "@/components/departure-board";
+import { CourseCarousel } from "@/components/home/course-carousel";
+import { HomeHero } from "@/components/home/home-hero";
+import { LifeReel } from "@/components/home/life-reel";
+import { PillarPanels } from "@/components/home/pillar-panels";
+import {
+  ClosingCta,
+  EditorialBand,
+  FacesStrip,
+  HomeHead,
+  homePad,
+  MomentsMosaic,
+} from "@/components/home/sections";
+import { BlogGrid } from "@/components/news";
 import { Reveal } from "@/components/reveal";
 import {
   AccreditationStrip,
-  CentreGrid,
   RecruiterWall,
-  SectionHead,
-  StatsBand,
   TrustStrip,
 } from "@/components/sections";
 import { TestimonialGallery } from "@/components/testimonial-videos";
-import { getJobs, getNews, getPosts } from "@/lib/cms";
+import { getJobs, getPosts } from "@/lib/cms";
 import { arrow, btn } from "@/lib/btn";
-import { headlineClaim } from "@/lib/content";
-import { openDrives } from "@/lib/jobs";
 import { programs } from "@/lib/programs";
 import { pageMetadata } from "@/lib/seo";
 import { site } from "@/lib/site";
-import {
-  columnHeading,
-  sectionPad,
-  surfacePaper,
-  surfaceWhite,
-  wrap,
-} from "@/lib/styles";
+import { heroSurface, wrap } from "@/lib/styles";
 import { cn } from "@/lib/utils";
 
 export const metadata = pageMetadata({
@@ -48,111 +44,128 @@ export const metadata = pageMetadata({
 export const revalidate = 3600;
 
 export default async function HomePage() {
-  const [latest, news, drives] = await Promise.all([
-    getPosts(5),
-    getNews(),
-    getJobs(),
-  ]);
-
-  const latestDrives = openDrives(drives).slice(0, 2);
+  const [latest, drives] = await Promise.all([getPosts(5), getJobs()]);
 
   return (
     <>
-      <Hero drives={drives} />
+      <HomeHero />
 
       <TrustStrip />
 
-      {latestDrives && latestDrives.length > 0 && (
-        <section className={cn(surfacePaper, sectionPad)} id="jobs">
-          <div className={wrap}>
-            <SectionHead
-              eyebrow="Newest jobs"
-              title="Campus interviews, happening now."
-              className="mb-4"
-            >
-              Airlines, airports and hotel groups screen at Emporium centres
-              throughout the year.
-            </SectionHead>
-            <JobList items={latestDrives} />
-          </div>
-        </section>
-      )}
+      <EditorialBand />
 
-      <section
-        className={cn(
-          "bg-[linear-gradient(180deg,#fff,var(--paper))]",
-          sectionPad,
-        )}
-        id="courses"
-      >
+      <CourseCarousel items={programs}>
         <div className={wrap}>
-          <SectionHead
+          <HomeHead
             eyebrow="Our placement linked courses"
-            title="Offered by Emporium."
+            title={
+              <>
+                Offered by <em className="text-haze not-italic">Emporium.</em>
+              </>
+            }
+            onDark
+            center
           >
             Three certificate courses, each a boarding pass into a specific
             industry. Pick the one that matches where you want to land.
-          </SectionHead>
-          <BoardingPassGrid items={programs} />
+          </HomeHead>
+          <p className="mt-6 text-center">
+            <Link
+              href="/programs"
+              className="border-b border-white/50 pb-1 font-mono text-[11px] tracking-[0.24em] text-white/85 uppercase transition-colors hover:border-white hover:text-white"
+            >
+              View all courses →
+            </Link>
+          </p>
+        </div>
+      </CourseCarousel>
+      <FacesStrip />
+
+      <section className={cn("bg-white", homePad)}>
+        <div className={wrap}>
+          <HomeHead
+            eyebrow="Why Emporium"
+            title={
+              <>
+                Trained the way{" "}
+                <em className="text-crimson not-italic">the industry works.</em>
+              </>
+            }
+            className="mb-16 max-phablet:mb-10"
+          />
+          <PillarPanels />
         </div>
       </section>
 
-      <section className={cn(surfaceWhite, sectionPad)}>
+      <section className={cn("overflow-hidden bg-navy text-white", homePad)}>
+        <LifeReel>
+          <HomeHead
+            eyebrow="Life at Emporium"
+            title={
+              <>
+                Where training{" "}
+                <em className="text-haze not-italic">looks like the job.</em>
+              </>
+            }
+            onDark
+          >
+            Industry visits, orientation days and everyday moments from our
+            centres and the hotels we train in.
+          </HomeHead>
+        </LifeReel>
+      </section>
+
+      <section className={cn(heroSurface, homePad)} id="jobs">
         <div
           className={cn(
             wrap,
-            "grid grid-cols-[0.95fr_1.05fr] items-start gap-14",
-            "max-laptop:grid-cols-1 max-laptop:gap-10",
+            "relative grid grid-cols-[0.85fr_1.15fr] items-center gap-14",
+            "max-laptop:grid-cols-1 max-laptop:gap-11",
           )}
         >
-          <Reveal className="relative aspect-4/3 overflow-hidden rounded-(--r) bg-cloud">
-            <ImageWithSkeleton
-              src={headlineClaim.image}
-              alt="Emporium students placed with airlines and hotel groups worldwide"
-              fill
-              sizes="(max-width: 960px) 92vw, 45vw"
-              className="object-cover"
-            />
-          </Reveal>
-
-          <Reveal>
-            <div className="flex items-end gap-3 font-heading text-[clamp(34px,4.5vw,48px)] leading-none font-bold text-royal">
-              <CountFlip text={headlineClaim.count} />
-              <h2 className={cn("text-black mb-1", columnHeading)}>
-                {headlineClaim.line1}
-              </h2>
-            </div>
-            <h2 className={cn("", columnHeading)}>
-              {headlineClaim.line2}{" "}
-              <span className="text-crimson">{headlineClaim.line3}</span>
-            </h2>
-            <p className="mt-5 max-w-[56ch] text-[15px] text-slate">
-              {headlineClaim.body}
-            </p>
-            <Link
-              href="/about"
-              className={btn({
-                variant: "dark",
-                block: "phone",
-                class: "mt-7.5",
-              })}
+          <div>
+            <HomeHead
+              eyebrow="Now boarding"
+              title={
+                <>
+                  Campus interviews,{" "}
+                  <em className="text-haze not-italic">happening now.</em>
+                </>
+              }
+              onDark
             >
-              View More <span className={arrow}>→</span>
-            </Link>
-          </Reveal>
+              Airlines, airports and hotel groups screen at Emporium centres
+              throughout the year.
+            </HomeHead>
+            <Reveal className="mt-9 flex flex-wrap gap-3.5 max-phablet:flex-col">
+              <Link href="/jobs" className={btn({ block: "phone" })}>
+                See all jobs <span className={arrow}>→</span>
+              </Link>
+            </Reveal>
+          </div>
+          <DepartureBoard drives={drives} />
         </div>
       </section>
 
-      <section className={cn(surfacePaper, sectionPad)} id="recruiters">
+      <section className={cn("bg-white", homePad)} id="recruiters">
         <div className={wrap}>
-          <SectionHead eyebrow="Placements" title="Where our students land.">
+          <HomeHead
+            eyebrow="Placements"
+            title={
+              <>
+                Where our{" "}
+                <em className="text-crimson not-italic">students land.</em>
+              </>
+            }
+            className="mb-12"
+          >
             The airlines, airports, hotel groups and cruise lines that have
             hired Emporium graduates.
-          </SectionHead>
+          </HomeHead>
           <RecruiterWall />
 
-          <div className="mt-14">
-            <h3 className="mb-6 font-mono text-[12.5px] font-bold tracking-[0.34em] text-sky uppercase">
+          <div className="mt-16">
+            <h3 className="mb-6 font-mono text-[12px] font-bold tracking-[0.32em] text-sky uppercase">
               Approved and accredited by
             </h3>
             <AccreditationStrip />
@@ -160,46 +173,47 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* <StatsBand /> */}
-
-      <section className={cn(surfaceWhite, sectionPad)} id="centres">
+      <section className={cn("bg-paper", homePad)} id="moments">
         <div className={wrap}>
-          <SectionHead
-            eyebrow="Our centres"
-            title="Training floors across the North East and beyond."
-            center
+          <HomeHead
+            eyebrow="Moments"
+            title={
+              <>
+                A year at Emporium,{" "}
+                <em className="text-crimson not-italic">in pictures.</em>
+              </>
+            }
+            className="mb-12"
           />
-
-          <CentreGrid />
+          <MomentsMosaic />
         </div>
       </section>
 
-      <section className={cn(surfacePaper, sectionPad)} id="testimonials">
+      <section className={cn("bg-paper", homePad)} id="testimonials">
         <div className={wrap}>
-          <SectionHead
+          <HomeHead
             eyebrow="Student testimonial"
-            title="In their own words."
+            title={
+              <>
+                In their <em className="text-crimson not-italic">own words.</em>
+              </>
+            }
+            className="mb-12"
           >
             Films from students who trained at Emporium and went on to fly,
             serve and sail with brands around the world. Pick one to play it.
-          </SectionHead>
+          </HomeHead>
           <TestimonialGallery />
         </div>
       </section>
 
-      <section className={cn(surfaceWhite, sectionPad)} id="news">
+      <section className={cn("bg-paper", homePad)} id="blog">
         <div className={wrap}>
-          <SectionHead
-            eyebrow="Latest news"
-            title="From Emporium and the industry."
+          <HomeHead
+            eyebrow="Latest blog"
+            title="Reading for aspirants."
+            className="mb-12"
           />
-          <NewsList items={news} />
-        </div>
-      </section>
-
-      <section className={cn(surfacePaper, sectionPad)} id="blog">
-        <div className={wrap}>
-          <SectionHead eyebrow="Latest blog" title="Reading for aspirants." />
           <BlogGrid posts={latest.slice(0, 4)} />
 
           {latest.length > 4 ? (
@@ -215,6 +229,8 @@ export default async function HomePage() {
           ) : null}
         </div>
       </section>
+
+      {/* <ClosingCta />ß */}
     </>
   );
 }
