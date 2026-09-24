@@ -38,7 +38,6 @@ export function HomeHero() {
         aria-hidden="true"
         className="absolute inset-0 -z-10 bg-[linear-gradient(90deg,rgba(8,12,36,0.72)_0%,rgba(8,12,36,0.25)_45%,transparent_70%)] max-tablet:bg-none"
       />
-      <div aria-hidden="true" className="seam-b -z-10 [--seam-size:clamp(56px,8vh,96px)]" />
 
       <div
         className={cn(

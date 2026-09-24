@@ -2,9 +2,11 @@
 import Link from "next/link";
 
 import { CountUp } from "@/components/count-up";
+import { FixedBackdrop, fixedSection } from "@/components/fixed-backdrop";
 import { ImageWithSkeleton } from "@/components/image-with-skeleton";
 import { Marquee, MarqueeRow } from "@/components/marquee";
 import { Reveal } from "@/components/reveal";
+import { backgrounds } from "@/lib/backgrounds";
 import { arrow, btn } from "@/lib/btn";
 import {
   accreditations,
@@ -77,8 +79,11 @@ export function SectionHead({
 
 export function TrustStrip() {
   return (
-    <div className="group overflow-hidden bg-navy py-6.5 text-white">
-      <p className="mb-4 text-center font-mono text-[11px] tracking-[0.3em] text-haze">
+    <div
+      className={cn(fixedSection, "group overflow-hidden py-6.5 text-white")}
+    >
+      <FixedBackdrop src={backgrounds.airline} tone="dim" focus="50% 70%" />
+      <p className="mb-4 text-center font-mono text-[11px] tracking-[0.3em] text-white/80">
         OUR STUDENTS GET PLACED IN
       </p>
       <div
@@ -89,7 +94,7 @@ export function TrustStrip() {
         {[...recruiterNames, ...recruiterNames].map((name, i) => (
           <span
             key={`${name}-${i}`}
-            className="font-heading text-[22px] font-semibold tracking-[0.02em] text-white/50 max-phablet:text-[19px]"
+            className="font-heading text-[22px] font-semibold tracking-[0.02em] text-white/85 [text-shadow:0_2px_12px_rgba(0,0,0,0.45)] max-phablet:text-[19px]"
           >
             {name}
           </span>

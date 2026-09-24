@@ -9,8 +9,10 @@ import {
   pageBand,
   pageLabel,
 } from "@/components/page/kit";
+import { FixedBackdrop, fixedSection } from "@/components/fixed-backdrop";
 import { PageHero } from "@/components/page-hero";
 import { Reveal } from "@/components/reveal";
+import { backgrounds as bg } from "@/lib/backgrounds";
 import { pageMetadata } from "@/lib/seo";
 import { site } from "@/lib/site";
 import { wrap } from "@/lib/styles";
@@ -69,11 +71,8 @@ export default function EnquirePage() {
         image="/home/photos/saree-line.webp"
       />
 
-      <section className={cn(pageBand, "bg-navy text-white")}>
-        <div
-          aria-hidden="true"
-          className="absolute inset-0 -z-10 bg-[radial-gradient(760px_460px_at_10%_100%,rgba(217,31,42,0.16),transparent_65%),radial-gradient(900px_520px_at_90%_0%,rgba(63,91,214,0.35),transparent_65%)]"
-        />
+      <section className={cn(pageBand, fixedSection, "text-white")}>
+        <FixedBackdrop src={bg.enquire} />
         <div
           className={cn(
             wrap,

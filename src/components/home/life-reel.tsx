@@ -9,6 +9,8 @@ import {
 import Image from "next/image";
 import * as React from "react";
 
+import { FixedBackdrop } from "@/components/fixed-backdrop";
+import { backgrounds } from "@/lib/backgrounds";
 import { lifeClips } from "@/lib/home-media";
 import { cn } from "@/lib/utils";
 
@@ -108,27 +110,13 @@ export function LifeReel({ children }: { children: React.ReactNode }) {
     else el.pause();
   }, [active, inView, still, muted]);
 
-  const clip = lifeClips[active];
   const ease = dragging
     ? "none"
     : "transform 750ms cubic-bezier(0.2,0.7,0.2,1), opacity 750ms, filter 750ms";
 
   return (
     <>
-      <div aria-hidden="true" className="absolute inset-0 -z-20 bg-navy">
-        <Image
-          key={clip.poster}
-          src={clip.poster}
-          alt=""
-          fill
-          sizes="40vw"
-          className="scale-125 animate-in object-cover blur-3xl saturate-150 duration-1000 fade-in"
-        />
-      </div>
-      <div
-        aria-hidden="true"
-        className="absolute inset-0 -z-10 bg-[radial-gradient(700px_520px_at_50%_62%,transparent,rgba(13,22,66,0.6)_75%),linear-gradient(180deg,rgba(13,22,66,0.75),rgba(13,22,66,0.45)_55%,rgba(13,22,66,0.8))]"
-      />
+      <FixedBackdrop src={backgrounds.life} />
 
       <div
         ref={root}

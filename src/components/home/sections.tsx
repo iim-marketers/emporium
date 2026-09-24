@@ -185,10 +185,6 @@ export function EditorialBand() {
         aria-hidden="true"
         className="absolute inset-0 -z-10 bg-[linear-gradient(180deg,rgba(8,12,36,0.55)_0%,transparent_45%),linear-gradient(90deg,rgba(8,12,36,0.92)_0%,rgba(8,12,36,0.75)_38%,rgba(8,12,36,0.15)_75%)] max-laptop:hidden"
       />
-      <div
-        aria-hidden="true"
-        className="seam-y -z-10 [--seam-size:clamp(48px,7vh,84px)] max-laptop:hidden"
-      />
       {/* <div
         aria-hidden="true"
         className="pointer-events-none absolute inset-6 border border-white/25 max-tablet:inset-3"

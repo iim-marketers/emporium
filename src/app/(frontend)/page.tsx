@@ -1,6 +1,7 @@
 import Link from "next/link";
 
 import { DepartureBoard } from "@/components/departure-board";
+import { FixedBackdrop, fixedSection } from "@/components/fixed-backdrop";
 import { CourseCarousel } from "@/components/home/course-carousel";
 import { HomeHero } from "@/components/home/home-hero";
 import { LifeReel } from "@/components/home/life-reel";
@@ -11,7 +12,6 @@ import {
   HomeHead,
   homePad,
   MomentsMosaic,
-  PhotoBackdrop,
 } from "@/components/home/sections";
 import { BlogGrid } from "@/components/news";
 import { Reveal } from "@/components/reveal";
@@ -22,12 +22,12 @@ import {
 } from "@/components/sections";
 import { TestimonialGallery } from "@/components/testimonial-videos";
 import { getJobs, getPosts } from "@/lib/cms";
-import { backdrops } from "@/lib/home-media";
 import { arrow, btn } from "@/lib/btn";
 import { programs } from "@/lib/programs";
 import { pageMetadata } from "@/lib/seo";
+import { backgrounds as bg } from "@/lib/backgrounds";
 import { site } from "@/lib/site";
-import { bandSurface, wrap } from "@/lib/styles";
+import { wrap } from "@/lib/styles";
 import { cn } from "@/lib/utils";
 
 export const metadata = pageMetadata({
@@ -51,8 +51,15 @@ export default async function HomePage() {
     <>
       <HomeHero />
 
-      <section className={cn(bandSurface, homePad)} id="jobs">
-        <div aria-hidden="true" className="seam-y -z-10" />
+      <section
+        className={cn(
+          fixedSection,
+          "flex min-h-[clamp(560px,78vh,760px)] items-center overflow-hidden py-24 text-white",
+          "max-laptop:min-h-0 max-laptop:py-20 max-phablet:py-16",
+        )}
+        id="jobs"
+      >
+        <FixedBackdrop src={bg.boarding} />
         <div
           className={cn(
             wrap,
@@ -83,7 +90,7 @@ export default async function HomePage() {
 
       <EditorialBand />
 
-      <TrustStrip />
+      {/* <TrustStrip /> */}
 
       <CourseCarousel items={programs}>
         <div className={wrap}>
@@ -102,9 +109,7 @@ export default async function HomePage() {
 
       <FacesStrip />
 
-      <section
-        className={cn("relative isolate overflow-hidden bg-paper", homePad)}
-      >
+      <section className={cn("relative bg-white", homePad)}>
         <div className={wrap}>
           <HomeHead
             eyebrow="Why Emporium"
@@ -122,7 +127,8 @@ export default async function HomePage() {
 
       <section
         className={cn(
-          "relative isolate overflow-hidden text-white",
+          fixedSection,
+          "overflow-hidden text-white",
           homePad,
           "pb-8 max-laptop:pb-10 max-phablet:pb-5",
         )}
@@ -143,11 +149,7 @@ export default async function HomePage() {
         </LifeReel>
       </section>
 
-      <section
-        className={cn("relative isolate overflow-hidden bg-paper", homePad)}
-        id="recruiters"
-      >
-        <PhotoBackdrop src={backdrops.recruiters} tone="light" />
+      <section className={cn("relative bg-paper", homePad)} id="recruiters">
         <div className={wrap}>
           <HomeHead
             eyebrow="Placements"
@@ -170,7 +172,7 @@ export default async function HomePage() {
         </div>
       </section>
 
-      <section className={cn("bg-paper pt-8!", homePad)} id="moments">
+      <section className={cn("relative bg-white", homePad)} id="moments">
         <div className={wrap}>
           <HomeHead
             eyebrow="Moments"
@@ -187,13 +189,10 @@ export default async function HomePage() {
       </section>
 
       <section
-        className={cn(
-          "relative isolate overflow-hidden bg-navy text-white pt-8!",
-          homePad,
-        )}
+        className={cn(fixedSection, "overflow-hidden", homePad)}
         id="testimonials"
       >
-        <PhotoBackdrop src={backdrops.testimonials} tone="light" />
+        <FixedBackdrop src={bg.testimonials} tone="soft" />
         <div className={wrap}>
           <HomeHead
             eyebrow="Student testimonial"
@@ -209,14 +208,7 @@ export default async function HomePage() {
         </div>
       </section>
 
-      <section
-        className={cn(
-          "relative  isolate overflow-hidden bg-paper pt-8!",
-          homePad,
-        )}
-        id="blog"
-      >
-        <PhotoBackdrop src={backdrops.blog} tone="light" />
+      <section className={cn("relative bg-white", homePad)} id="blog">
         <div className={wrap}>
           <HomeHead
             eyebrow="Latest blog"

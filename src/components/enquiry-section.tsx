@@ -1,6 +1,5 @@
-import Image from "next/image";
-
 import { EnquiryForm } from "@/components/enquiry-form";
+import { FixedBackdrop, fixedSection } from "@/components/fixed-backdrop";
 import { IndexList, pageLabel } from "@/components/page/kit";
 import { Reveal } from "@/components/reveal";
 import { wrap } from "@/lib/styles";
@@ -32,22 +31,13 @@ export function EnquirySection({
 }) {
   return (
     <section
-      className="relative isolate overflow-hidden bg-navy py-20 text-white max-laptop:py-16 max-phablet:py-12"
+      className={cn(
+        fixedSection,
+        "overflow-hidden py-20 text-white max-laptop:py-16 max-phablet:py-12",
+      )}
       id="enquire"
     >
-      <Image
-        src={image}
-        alt=""
-        aria-hidden="true"
-        fill
-        sizes="100vw"
-        className="-z-20 object-cover grayscale"
-      />
-      <span
-        aria-hidden="true"
-        className="absolute inset-0 -z-10 bg-[linear-gradient(90deg,rgba(13,22,66,0.96)_0%,rgba(13,22,66,0.88)_45%,rgba(13,22,66,0.7)_100%)] max-laptop:bg-navy/90"
-      />
-      <div aria-hidden="true" className="seam-y -z-10" />
+      <FixedBackdrop src={image} />
 
       <div
         className={cn(

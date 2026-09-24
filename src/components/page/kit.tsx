@@ -1,5 +1,4 @@
-import Image from "next/image";
-
+import { FixedBackdrop, fixedSection } from "@/components/fixed-backdrop";
 import { ImageWithSkeleton } from "@/components/image-with-skeleton";
 import { Reveal } from "@/components/reveal";
 import { wrap } from "@/lib/styles";
@@ -227,19 +226,13 @@ export function CtaBand({
   actions: React.ReactNode;
 }) {
   return (
-    <section className="relative isolate overflow-hidden bg-navy py-24 text-white max-laptop:py-20 max-phablet:py-16">
-      <Image
-        src={image}
-        alt=""
-        aria-hidden="true"
-        fill
-        sizes="100vw"
-        className="-z-20 object-cover grayscale"
-      />
-      <span
-        aria-hidden="true"
-        className="absolute inset-0 -z-10 bg-[linear-gradient(180deg,rgba(13,22,66,0.9),rgba(13,22,66,0.72)_50%,rgba(13,22,66,0.92))]"
-      />
+    <section
+      className={cn(
+        fixedSection,
+        "overflow-hidden py-24 text-white max-laptop:py-20 max-phablet:py-16",
+      )}
+    >
+      <FixedBackdrop src={image} />
 
       <Reveal className={cn(wrap, "relative text-center")}>
         <p className={cn(pageLabel, "text-haze")}>{eyebrow}</p>

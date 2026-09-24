@@ -12,6 +12,7 @@ import {
   pageLabel,
   pageProse,
 } from "@/components/page/kit";
+import { FixedBackdrop, fixedSection } from "@/components/fixed-backdrop";
 import { PageHero } from "@/components/page-hero";
 import { Reveal } from "@/components/reveal";
 import { AccreditationStrip } from "@/components/sections";
@@ -21,6 +22,7 @@ import {
   programs,
   requiredDocuments,
 } from "@/lib/programs";
+import { backgrounds as bg } from "@/lib/backgrounds";
 import { pageMetadata } from "@/lib/seo";
 import { wrap } from "@/lib/styles";
 import { cn } from "@/lib/utils";
@@ -48,11 +50,8 @@ export default function ProgramsPage() {
         image="/home/photos/aircraft-stairs.webp"
       />
 
-      <section className={cn(pageBand, "bg-navy text-white")}>
-        <div
-          aria-hidden="true"
-          className="absolute inset-0 -z-10 bg-[radial-gradient(900px_520px_at_50%_110%,rgba(63,91,214,0.4),transparent_70%)]"
-        />
+      <section className={cn(pageBand, fixedSection, "text-white")}>
+        <FixedBackdrop src={bg.courses} />
         <div className={cn(wrap, "[--notch:var(--navy)]")}>
           <PageHead
             eyebrow="Pick your gate"
