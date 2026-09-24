@@ -6,12 +6,10 @@ import { HomeHero } from "@/components/home/home-hero";
 import { LifeReel } from "@/components/home/life-reel";
 import { PillarPanels } from "@/components/home/pillar-panels";
 import {
-  ClosingCta,
   EditorialBand,
   FacesStrip,
   HomeHead,
   homePad,
-  homePadFollow,
   MomentsMosaic,
   PhotoBackdrop,
 } from "@/components/home/sections";
@@ -52,6 +50,7 @@ export default async function HomePage() {
   return (
     <>
       <HomeHero />
+
       <section className={cn(bandSurface, homePad)} id="jobs">
         <div aria-hidden="true" className="seam-y -z-10" />
         <div
@@ -71,10 +70,7 @@ export default async function HomePage() {
                 </>
               }
               onDark
-            >
-              Airlines, airports and hotel groups screen at Emporium centres
-              throughout the year.
-            </HomeHead>
+            />
             <Reveal className="mt-9 flex flex-wrap gap-3.5 max-phablet:flex-col">
               <Link href="/jobs" className={btn({ block: "phone" })}>
                 See all jobs <span className={arrow}>→</span>
@@ -86,6 +82,7 @@ export default async function HomePage() {
       </section>
 
       <EditorialBand />
+
       <TrustStrip />
 
       <CourseCarousel items={programs}>

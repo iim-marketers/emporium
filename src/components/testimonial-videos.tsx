@@ -93,7 +93,7 @@ export function TestimonialGallery() {
                 aria-pressed={on}
                 onClick={() => setCity(c)}
                 className={cn(
-                  "flex flex-none cursor-pointer items-center gap-2 rounded-full border px-4 py-2.5 text-[14px] font-medium transition-colors",
+                  "flex flex-none cursor-pointer items-center gap-1 rounded-full border px-4 py-2.5 text-[14px] font-medium transition-colors",
                   on
                     ? "border-crimson bg-white text-ink"
                     : "border-hairline bg-white text-slate hover:border-navy/30 hover:text-ink",

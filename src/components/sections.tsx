@@ -82,6 +82,7 @@ export function TrustStrip() {
         OUR STUDENTS GET PLACED IN
       </p>
       <div
+        style={{ animationDuration: "100s" }}
         className="flex w-max animate-marquee gap-14 whitespace-nowrap group-hover:paused motion-reduce:animate-none max-phablet:gap-10"
         aria-hidden="true"
       >
@@ -180,11 +181,7 @@ export function RecruiterWall() {
   return (
     <Marquee label="Airlines, hotel groups and cruise lines that recruit Emporium students">
       {rows.map((row, i) => (
-        <MarqueeRow
-          key={i}
-          duration={ROW_DURATION[i]}
-          reverse={i % 2 === 1}
-        >
+        <MarqueeRow key={i} duration={ROW_DURATION[i]} reverse={i % 2 === 1}>
           {row.map((src) => (
             <LogoTile key={src} src={src} />
           ))}
