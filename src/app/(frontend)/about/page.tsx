@@ -3,22 +3,23 @@ import Link from "next/link";
 import {
   Accent,
   CtaBand,
-  FactStrip,
   IndexList,
   PageHead,
-  pageBand,
-  pageLabel,
   pageProse,
   Photo,
 } from "@/components/page/kit";
-import { PageHero } from "@/components/page-hero";
+import {
+  CoverHero,
+  Sheet,
+  SheetNote,
+  Stage,
+} from "@/components/page/immersive";
 import { Reveal } from "@/components/reveal";
 import { AccreditationStrip } from "@/components/sections";
 import { arrow, btn } from "@/lib/btn";
-import { aboutBody, aboutIntro, empanelments, pillars } from "@/lib/content";
+import { aboutBody, aboutIntro, empanelments } from "@/lib/content";
+import { pageImages } from "@/lib/page-images";
 import { pageMetadata } from "@/lib/seo";
-import { wrap } from "@/lib/styles";
-import { cn } from "@/lib/utils";
 
 export const metadata = pageMetadata({
   title: "About Us",
@@ -28,28 +29,32 @@ export const metadata = pageMetadata({
   keywords: ["about Emporium", "vocational training provider", "VTP India"],
 });
 
+const img = pageImages.about;
+
 export default function AboutPage() {
   return (
     <>
-      <PageHero
-        eyebrow="About Us"
-        title={
-          <>
-            Certificate courses in{" "}
-            <Accent onDark>Aviation, Hospitality &amp; Cruise line.</Accent>
-          </>
-        }
-        lede={aboutIntro}
-        image="/home/photos/cabin-crew-batch-2.webp"
-      />
+      <Stage image={img.stage} focus={img.stageFocus}>
+        <CoverHero
+          label="About Us"
+          title={
+            <>
+              Certificate courses in{" "}
+              <Accent onDark>Aviation, Hospitality &amp; Cruise line.</Accent>
+            </>
+          }
+          lede={aboutIntro}
+          image={img.hero}
+          focus={img.heroFocus}
+        >
+          <Link href="/programs" className={btn({ block: "phone" })}>
+            Explore courses <span className={arrow}>→</span>
+          </Link>
+        </CoverHero>
 
-      <section className={cn(pageBand, "bg-white")}>
-        <div
-          className={cn(
-            wrap,
-            "grid grid-cols-[1fr_1fr] items-center gap-16",
-            "max-laptop:grid-cols-1 max-laptop:gap-12",
-          )}
+        <Sheet
+          first
+          className="grid grid-cols-[1fr_1fr] items-center gap-16 max-laptop:grid-cols-1 max-laptop:gap-12"
         >
           <div>
             <PageHead
@@ -85,16 +90,14 @@ export default function AboutPage() {
               className="absolute bottom-0 left-0 aspect-3/4 w-[36%] border-[5px] border-white shadow-(--shadow)"
             />
           </Reveal>
-        </div>
-      </section>
+        </Sheet>
 
-      <section className={cn(pageBand, "bg-paper")}>
-        <div
-          className={cn(
-            wrap,
-            "grid grid-cols-[0.9fr_1.1fr] items-start gap-16",
-            "max-laptop:grid-cols-1 max-laptop:gap-14",
-          )}
+        <SheetNote lead="Trained for" line="the real world." />
+
+        <Sheet
+          side="right"
+          last
+          className="grid grid-cols-[0.9fr_1.1fr] items-start gap-16 max-laptop:grid-cols-1 max-laptop:gap-14"
         >
           <div>
             <PageHead
@@ -128,8 +131,8 @@ export default function AboutPage() {
             />
             <AccreditationStrip />
           </div>
-        </div>
-      </section>
+        </Sheet>
+      </Stage>
 
       <CtaBand
         image="/home/photos/garden-batch.webp"

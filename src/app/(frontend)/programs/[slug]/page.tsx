@@ -27,7 +27,8 @@ import {
   pageLabel,
   pageProse,
 } from "@/components/page/kit";
-import { CourseFacts, CourseHero } from "@/components/course/course-hero";
+
+import { FactsCard, ImmersiveHero } from "@/components/page/immersive";
 import { Reveal } from "@/components/reveal";
 import { AccreditationStrip } from "@/components/sections";
 import { arrow, btn } from "@/lib/btn";
@@ -122,7 +123,7 @@ export default async function ProgramPage({
 
   return (
     <>
-      <div className="relative isolate">
+      <div className="relative isolate [overflow:clip]">
         <div
           aria-hidden="true"
           className="sticky top-0 -z-10 -mb-[100svh] h-svh overflow-hidden bg-navy"
@@ -137,8 +138,7 @@ export default async function ProgramPage({
           <span className="absolute inset-0 bg-[linear-gradient(180deg,rgba(13,22,66,0.55)_0%,rgba(13,22,66,0.25)_40%,rgba(13,22,66,0.55)_100%)]" />
         </div>
 
-        <CourseHero
-          eyebrow={program.tag}
+        <ImmersiveHero
           title={program.heading}
           image={hero?.image ?? program.image}
           focus={hero?.focus}
@@ -151,9 +151,9 @@ export default async function ProgramPage({
               block="phone"
             />
           </div>
-        </CourseHero>
+        </ImmersiveHero>
 
-        <CourseFacts
+        <FactsCard
           fields={[
             { label: "Duration", value: program.duration, icon: Clock },
             { label: "Level", value: program.level, icon: Award },
@@ -434,13 +434,13 @@ export default async function ProgramPage({
         title="Ready to start?"
         actions={
           <>
-            <ScrollLink
+            {/* <ScrollLink
               href="/enquire"
               to="enquire"
               className={btn({ block: "phone" })}
             >
               Enroll Now <span className={arrow}>→</span>
-            </ScrollLink>
+            </ScrollLink> */}
             <ApplyDialog
               label="Apply Now"
               subject={program.shortTitle}

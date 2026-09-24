@@ -1,10 +1,16 @@
+import { Fragment } from "react";
+
 import { EnquirySection } from "@/components/enquiry-section";
-import { Accent, pageBand, pageLabel, Photo } from "@/components/page/kit";
-import { PageHero } from "@/components/page-hero";
-import { Reveal } from "@/components/reveal";
+import { Accent, pageLabel, Photo } from "@/components/page/kit";
+import {
+  CoverHero,
+  Sheet,
+  SheetNote,
+  Stage,
+} from "@/components/page/immersive";
 import { achievements, achievementsLede } from "@/lib/content";
+import { pageImages } from "@/lib/page-images";
 import { pageMetadata } from "@/lib/seo";
-import { wrap } from "@/lib/styles";
 import { cn } from "@/lib/utils";
 
 export const metadata = pageMetadata({
@@ -15,31 +21,34 @@ export const metadata = pageMetadata({
   keywords: ["Emporium alumni", "cabin crew success stories"],
 });
 
+const img = pageImages.achievements;
+
 export default function AchievementsPage() {
   return (
     <>
-      <PageHero
-        eyebrow="Achievements"
-        title={
-          <>
-            Stories from <Accent onDark>our alumni.</Accent>
-          </>
-        }
-        lede={achievementsLede}
-        image="/home/photos/palace-steps-her.webp"
-        focus="50% 88%"
-      />
+      <Stage image={img.stage} focus={img.stageFocus}>
+        <CoverHero
+          label="Achievements"
+          title={
+            <>
+              Stories from <Accent onDark>our alumni.</Accent>
+            </>
+          }
+          lede={achievementsLede}
+          image={img.hero}
+          focus={img.heroFocus}
+        />
 
-      <section className={cn(pageBand, "bg-white")}>
-        <div className={cn(wrap, "grid gap-20 max-laptop:gap-14")}>
-          {achievements.map((item, i) => {
-            const flip = i % 2 === 1;
-            const no = String(i + 1).padStart(2, "0");
+        {achievements.map((item, i) => {
+          const flip = i % 2 === 1;
+          const no = String(i + 1).padStart(2, "0");
 
-            return (
-              <Reveal
-                key={item.title}
-                as="article"
+          return (
+            <Fragment key={item.title}>
+              <Sheet
+                side={i % 2 ? "right" : "left"}
+                first={i === 0}
+                last={i === achievements.length - 1}
                 className={cn(
                   "grid items-center gap-14",
                   item.image
@@ -104,11 +113,15 @@ export default function AchievementsPage() {
                     {item.body}
                   </p>
                 </div>
-              </Reveal>
-            );
-          })}
-        </div>
-      </section>
+              </Sheet>
+
+              {i === 0 ? (
+                <SheetNote lead="Our alumni" line="fly high." />
+              ) : null}
+            </Fragment>
+          );
+        })}
+      </Stage>
 
       <EnquirySection />
     </>

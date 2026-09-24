@@ -6,7 +6,4 @@ export const backgrounds = {
   airline: photo("golden-runway"),
   testimonials: photo("auditorium"),
   life: photo("terminal-walk"),
-  courses: photo("runway-dusk"),
-  contact: photo("howrah"),
-  enquire: photo("planes-night"),
 };

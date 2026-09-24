@@ -306,7 +306,11 @@
   inset: 0;
   pointer-events: none;
   background:
-    linear-gradient(180deg, var(--seam, var(--navy)), transparent var(--seam-h)),
+    linear-gradient(
+      180deg,
+      var(--seam, var(--navy)),
+      transparent var(--seam-h)
+    ),
     linear-gradient(0deg, var(--seam, var(--navy)), transparent var(--seam-h));
 }
 @utility seam-t {
@@ -314,12 +318,20 @@
   position: absolute;
   inset: 0;
   pointer-events: none;
-  background: linear-gradient(180deg, var(--seam, var(--navy)), transparent var(--seam-h));
+  background: linear-gradient(
+    180deg,
+    var(--seam, var(--navy)),
+    transparent var(--seam-h)
+  );
 }
 @utility seam-b {
   --seam-h: var(--seam-size, clamp(90px, 14vh, 170px));
   position: absolute;
   inset: 0;
   pointer-events: none;
-  background: linear-gradient(0deg, var(--seam, var(--navy)), transparent var(--seam-h));
+  background: linear-gradient(
+    0deg,
+    var(--seam, var(--navy)),
+    transparent var(--seam-h)
+  );
 }

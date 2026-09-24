@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 import { FixedBackdrop, fixedSection } from "@/components/fixed-backdrop";
 import { ImageWithSkeleton } from "@/components/image-with-skeleton";
 import { Reveal } from "@/components/reveal";
@@ -304,5 +306,83 @@ export function ContactGrid({ items }: { items: ContactItem[] }) {
         );
       })}
     </ul>
+  );
+}
+
+/** A plain navy title band for text-first pages (legal, blog). */
+export function PlainHero({
+  label,
+  title,
+  lede,
+  children,
+  narrow = false,
+  image,
+}: {
+  label: React.ReactNode;
+  title: React.ReactNode;
+  lede?: React.ReactNode;
+  children?: React.ReactNode;
+  narrow?: boolean;
+  /** Optional photo behind the band, under a navy veil. */
+  image?: string;
+}) {
+  const copy = (
+    <>
+      <p className={cn(pageLabel, "text-haze")}>{label}</p>
+      <h1 className="mt-4 font-hero text-[clamp(34px,4vw,54px)] leading-[1.05] font-normal tracking-[-0.015em] text-balance">
+        {title}
+      </h1>
+      {lede ? (
+        <p className="mt-4 max-w-[60ch] text-[16px] leading-relaxed text-white/75">
+          {lede}
+        </p>
+      ) : null}
+      {children}
+    </>
+  );
+
+  if (!image) {
+    return (
+      <section className="bg-navy py-20 text-white max-phablet:py-14">
+        <div className={cn(wrap, narrow)}>{copy}</div>
+      </section>
+    );
+  }
+
+  /** Cover images come in any shape, so the photo is shown whole (never
+   *  cropped) beside the copy, over a blurred copy of itself. */
+  return (
+    <section className="relative isolate overflow-hidden bg-navy py-16 text-white max-phablet:py-10">
+      <Image
+        src={image}
+        alt=""
+        aria-hidden="true"
+        fill
+        sizes="40vw"
+        className="-z-20 scale-110 object-cover blur-2xl"
+      />
+      <span
+        aria-hidden="true"
+        className="absolute inset-0 -z-10 bg-[linear-gradient(90deg,rgba(8,12,36,0.88)_0%,rgba(8,12,36,0.7)_55%,rgba(8,12,36,0.55)_100%)]"
+      />
+      <div
+        className={cn(
+          wrap,
+          "grid grid-cols-[1fr_1fr] items-center gap-12 max-laptop:grid-cols-1 max-laptop:gap-8",
+        )}
+      >
+        <div className="max-laptop:order-2">{copy}</div>
+        <div className="relative h-[clamp(240px,34vw,420px)] max-laptop:order-1 max-phablet:h-60">
+          <Image
+            src={image}
+            alt=""
+            fill
+            priority
+            sizes="(max-width: 960px) 92vw, 46vw"
+            className="object-contain drop-shadow-[0_24px_40px_rgba(0,0,0,0.45)]"
+          />
+        </div>
+      </div>
+    </section>
   );
 }

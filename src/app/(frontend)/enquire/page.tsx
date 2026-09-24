@@ -1,21 +1,21 @@
+import { Clock, Mail, MapPin, Phone } from "lucide-react";
+import Image from "next/image";
+
 import { ApplyDialog } from "@/components/apply-dialog";
 import { EnquiryForm } from "@/components/enquiry-form";
 import { HashScroll } from "@/components/hash-scroll";
 import {
-  Accent,
-  ContactGrid,
-  IndexList,
-  PageHead,
-  pageBand,
-  pageLabel,
-} from "@/components/page/kit";
-import { FixedBackdrop, fixedSection } from "@/components/fixed-backdrop";
-import { PageHero } from "@/components/page-hero";
+  CoverHero,
+  Sheet,
+  SheetNote,
+  sheetSurface,
+  Stage,
+} from "@/components/page/immersive";
+import { Accent, IndexList, PageHead, pageLabel } from "@/components/page/kit";
 import { Reveal } from "@/components/reveal";
-import { backgrounds as bg } from "@/lib/backgrounds";
+import { pageImages } from "@/lib/page-images";
 import { pageMetadata } from "@/lib/seo";
 import { site } from "@/lib/site";
-import { wrap } from "@/lib/styles";
 import { cn } from "@/lib/utils";
 
 export const metadata = pageMetadata({
@@ -53,88 +53,106 @@ const benefits = [
   "Personalised course & career guidance",
 ];
 
-export default function EnquirePage() {
-  const { address } = site;
+const img = pageImages.enquire;
 
+export default function EnquirePage() {
   return (
     <>
       <HashScroll id="enquire" />
 
-      <PageHero
-        eyebrow="Book your seat"
-        title={
-          <>
-            Your future <Accent onDark>is boarding.</Accent>
-          </>
-        }
-        lede="Tell us a little about yourself and our admissions team will reach out with course details, fees and the next intake dates."
-        image="/home/photos/saree-line.webp"
-      />
+      <Stage image={img.stage} focus={img.stageFocus}>
+        <CoverHero
+          label="Book your seat"
+          title={
+            <>
+              Your future <Accent onDark>is boarding.</Accent>
+            </>
+          }
+          lede="Tell us a little about yourself and our admissions team will reach out with course details, fees and the next intake dates."
+          image={img.hero}
+          focus={img.heroFocus}
+        />
 
-      <section className={cn(pageBand, fixedSection, "text-white")}>
-        <FixedBackdrop src={bg.enquire} />
-        <div
+        <Sheet
+          first
+          bare
+          full
+          id="enquire"
           className={cn(
-            wrap,
-            "grid grid-cols-[1fr_1.05fr] items-start gap-16",
-            "max-laptop:grid-cols-1 max-laptop:gap-11",
+            sheetSurface,
+            "grid grid-cols-[0.9fr_1.1fr] overflow-hidden max-laptop:grid-cols-1",
           )}
         >
-          <div>
-            <PageHead
-              eyebrow="Reach us directly"
-              title={
-                <>
-                  Prefer to talk?{" "}
-                  <Accent onDark>Call the admissions desk.</Accent>
-                </>
-              }
-              onDark
-              className="mb-8"
-            >
-              Lines are open every day. If you would rather visit, we will set
-              up a walk-through of the training floor at the centre nearest you.
-            </PageHead>
-            <Reveal>
-              <ContactGrid
-                items={[
-                  {
-                    label: "Admissions",
-                    value: site.phone,
-                    href: site.phoneHref,
-                  },
-                  { label: "Hours", value: site.hours },
-                  {
-                    label: "Email",
-                    value: site.email,
-                    href: `mailto:${site.email}`,
-                    wide: true,
-                  },
-                  {
-                    label: "Corporate office",
-                    value: `${address.line2}, ${address.city}`,
-                    href: address.mapHref,
-                    external: true,
-                    wide: true,
-                  },
-                ]}
-              />
-            </Reveal>
-            <Reveal className="mt-4">
-              <IndexList items={benefits} onDark />
-            </Reveal>
+          <div className="relative isolate flex min-h-105 flex-col justify-end overflow-hidden bg-navy p-10 text-white max-laptop:min-h-80 max-phablet:p-6">
+            <Image
+              src="/home/photos/saree-line.webp"
+              alt=""
+              fill
+              sizes="(max-width: 960px) 92vw, 42vw"
+              className="-z-20 object-cover object-[50%_30%]"
+            />
+            <span
+              aria-hidden="true"
+              className="absolute inset-0 -z-10 bg-[linear-gradient(180deg,rgba(13,22,66,0.15)_0%,rgba(13,22,66,0.55)_45%,rgba(13,22,66,0.95)_100%)]"
+            />
+            <p className={cn(pageLabel, "flex items-center gap-3 text-haze")}>
+              <span aria-hidden="true" className="size-1.5 bg-crimson" />
+              Reach us directly
+            </p>
+            <h2 className="mt-4 font-hero text-[clamp(32px,3.4vw,48px)] leading-[1.04] font-normal tracking-[-0.015em]">
+              Prefer to talk?{" "}
+              <em className="text-haze not-italic">
+                Call the admissions desk.
+              </em>
+            </h2>
+            <IndexList items={benefits} onDark className="mt-5" />
+            <ul className="mt-6 grid gap-2.5 border-t border-white/20 pt-5 text-[14.5px]">
+              <li>
+                <a
+                  href={site.phoneHref}
+                  className="flex items-center gap-3 hover:text-haze"
+                >
+                  <Phone className="size-4 text-haze" strokeWidth={1.8} />
+                  {site.phone}
+                </a>
+              </li>
+              <li>
+                <a
+                  href={`mailto:${site.email}`}
+                  className="flex items-center gap-3 hover:text-haze"
+                >
+                  <Mail className="size-4 text-haze" strokeWidth={1.8} />
+                  {site.email}
+                </a>
+              </li>
+              <li className="flex items-center gap-3">
+                <Clock className="size-4 text-haze" strokeWidth={1.8} />
+                {site.hours}
+              </li>
+              <li>
+                <a
+                  href={site.address.mapHref}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="flex items-start gap-3 hover:text-haze"
+                >
+                  <MapPin
+                    className="mt-1 size-4 flex-none text-haze"
+                    strokeWidth={1.8}
+                  />
+                  {site.address.line1}, {site.address.line2},{" "}
+                  {site.address.city}
+                </a>
+              </li>
+            </ul>
           </div>
 
-          <div id="enquire">
-            <Reveal>
-              <EnquiryForm />
-            </Reveal>
+          <div className="px-10 py-9 max-phablet:px-5 max-phablet:py-7">
+            <EnquiryForm surface="bare" />
           </div>
-        </div>
-      </section>
+        </Sheet>
 
-      <section className={cn(pageBand, "bg-white")}>
-        <div className={wrap}>
+        <Sheet side="right" last>
           <PageHead
             eyebrow="What happens next"
             title={
@@ -180,8 +198,8 @@ export default function EnquirePage() {
             </div>
             <ApplyDialog label="Apply Now" variant="primary" block="tablet" />
           </Reveal>
-        </div>
-      </section>
+        </Sheet>
+      </Stage>
     </>
   );
 }

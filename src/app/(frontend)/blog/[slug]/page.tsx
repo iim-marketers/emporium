@@ -1,11 +1,16 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
-import { pageBand, pageLabel } from "@/components/page/kit";
-import { PageHero } from "@/components/page-hero";
-import { Reveal } from "@/components/reveal";
+import { PlainHero } from "@/components/page/kit";
+import { PostCard } from "@/components/post-card";
 import { ArticleBody } from "@/components/rich-text";
-import { formatDate, getPostBySlug, getPostSlugs, postImage } from "@/lib/cms";
+import {
+  formatDate,
+  getPostBySlug,
+  getPostSlugs,
+  getPosts,
+  postImage,
+} from "@/lib/cms";
 import { pageMetadata } from "@/lib/seo";
 import { wrap } from "@/lib/styles";
 import { cn } from "@/lib/utils";
@@ -38,50 +43,35 @@ export default async function BlogPostPage({
   params,
 }: PageProps<"/blog/[slug]">) {
   const { slug } = await params;
-  const post = await getPostBySlug(slug);
+  const [post, posts] = await Promise.all([getPostBySlug(slug), getPosts(4)]);
 
   if (!post) notFound();
 
-  const date = formatDate(post.publishedAt);
+  const image = postImage(post);
+  const more = posts.filter((item) => item.slug !== post.slug).slice(0, 3);
 
   return (
     <>
-      <PageHero
-        eyebrow={`Blog · ${date}`}
+      <PlainHero
+        narrow
+        label={
+          <Link href="/blog" className="transition-colors hover:text-white">
+            ← Blog
+          </Link>
+        }
         title={post.title}
-        crumbs={[{ label: "Blog", href: "/blog" }, { label: "Article" }]}
-        image={postImage(post)?.src}
-        compact
-      />
+        image={image?.src}
+      >
+        <p className="mt-5 font-mono text-[12px] tracking-[0.16em] text-white/60 uppercase">
+          {formatDate(post.publishedAt)}
+        </p>
+      </PlainHero>
 
-      <section className={cn(pageBand, "bg-white")}>
-        <div
-          className={cn(
-            wrap,
-            "grid grid-cols-[200px_minmax(0,1fr)] items-start gap-16",
-            "max-laptop:grid-cols-1 max-laptop:gap-8",
-          )}
-        >
-          <aside className="grid gap-6 border-t border-ink/80 pt-5 laptop:sticky laptop:top-28 max-laptop:flex max-laptop:flex-wrap max-laptop:items-center max-laptop:justify-between">
-            <div>
-              <p className={cn(pageLabel, "text-[10px] text-slate/70")}>
-                Published
-              </p>
-              <p className="mt-1.5 text-[15px] font-semibold text-ink">
-                {date}
-              </p>
-            </div>
-            <Link
-              href="/blog"
-              className="inline-flex items-center gap-2 text-[14.5px] font-semibold text-royal hover:text-crimson"
-            >
-              <span aria-hidden="true">←</span> All posts
-            </Link>
-          </aside>
-
-          <Reveal as="article" className="max-w-190">
+      <section className="bg-white pb-20 max-phablet:pb-12">
+        <div className={cn(wrap)}>
+          <article className="pt-12">
             <ArticleBody data={post.content} />
-          </Reveal>
+          </article>
         </div>
       </section>
     </>

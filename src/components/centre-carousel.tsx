@@ -1,0 +1,234 @@
+"use client";
+
+import { ChevronLeftIcon, ChevronRightIcon, MapPin, Phone } from "lucide-react";
+import Image from "next/image";
+import * as React from "react";
+
+import { frameBtn } from "@/components/home/frame-btn";
+import { directionsUrl, type Centre } from "@/lib/centres";
+import { cn } from "@/lib/utils";
+
+const sideCard = [
+  "relative flex h-110 w-72 flex-none cursor-pointer flex-col items-center justify-center border border-white/35 p-7 text-center",
+  "transition-[border-color,background-color] duration-300 hover:border-white/80 hover:bg-white/5",
+  "max-wide:w-60 max-laptop:hidden",
+].join(" ");
+
+/** The home course carousel's layout, for centres: the chosen centre's photo
+ *  fills the section behind its card. */
+export function CentreCarousel({
+  items,
+  children,
+}: {
+  items: Centre[];
+  children: React.ReactNode;
+}) {
+  const [{ active, dir, moves }, setSlide] = React.useState({
+    active: 0,
+    dir: 0,
+    moves: 0,
+  });
+  const touchX = React.useRef<number | null>(null);
+  const row = React.useRef<HTMLDivElement>(null);
+
+  const at = (offset: number) =>
+    (active + offset + items.length) % items.length;
+  const go = (offset: number) =>
+    setSlide({ active: at(offset), dir: Math.sign(offset), moves: moves + 1 });
+
+  React.useLayoutEffect(() => {
+    const el = row.current;
+    if (!moves || !el) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+    const [prev, centre, next] = Array.from(el.children) as HTMLElement[];
+    const mid = (node: HTMLElement) => {
+      const r = node.getBoundingClientRect();
+      return r.left + r.width / 2;
+    };
+    const step = prev.offsetParent ? mid(centre) - mid(prev) : 60;
+    const timing = { duration: 650, easing: "cubic-bezier(0.22, 0.8, 0.2, 1)" };
+    const from = (
+      node: HTMLElement,
+      x: number,
+      scale: number,
+      opacity: number,
+    ) =>
+      node.animate(
+        [
+          { transform: `translateX(${x}px) scale(${scale})`, opacity },
+          { transform: "none", opacity: 1 },
+        ],
+        timing,
+      );
+
+    from(centre, dir * step, 0.88, 0.35);
+    if (!prev.offsetParent) return;
+    if (dir > 0) {
+      from(prev, step, 1.1, 0.3);
+      from(next, step / 2, 1, 0);
+    } else {
+      from(prev, -step / 2, 1, 0);
+      from(next, -step, 1.1, 0.3);
+    }
+  }, [moves, dir]);
+
+  const centre = items[active];
+
+  return (
+    <section
+      aria-roledescription="carousel"
+      aria-label="Emporium training centres"
+      className="relative isolate overflow-hidden bg-navy pt-20 pb-10 text-white max-phablet:pt-16"
+      onKeyDown={(event) => {
+        if (event.key === "ArrowLeft") go(-1);
+        if (event.key === "ArrowRight") go(1);
+      }}
+    >
+      {items.map((item, i) => (
+        <Image
+          key={item.slug}
+          src={item.image}
+          alt=""
+          fill
+          sizes="100vw"
+          className={cn(
+            "-z-20 scale-105 object-cover transition-opacity duration-1000",
+            i === active ? "opacity-100" : "opacity-0",
+          )}
+        />
+      ))}
+      <div
+        aria-hidden="true"
+        className="absolute inset-0 -z-10 bg-[linear-gradient(180deg,rgba(8,12,36,0.85)_0%,rgba(8,12,36,0.6)_40%,rgba(8,12,36,0.8)_100%)]"
+      />
+
+      {children}
+
+      <div
+        ref={row}
+        className="mt-14 flex items-center justify-center gap-8 max-wide:gap-5 max-laptop:mt-10"
+        onTouchStart={(e) => (touchX.current = e.touches[0].clientX)}
+        onTouchEnd={(e) => {
+          if (touchX.current === null) return;
+          const dx = e.changedTouches[0].clientX - touchX.current;
+          if (Math.abs(dx) > 40) go(dx < 0 ? 1 : -1);
+          touchX.current = null;
+        }}
+      >
+        <button
+          type="button"
+          className={sideCard}
+          onClick={() => go(-1)}
+          aria-label={`Show ${items[at(-1)].name}`}
+        >
+          <SideLabel centre={items[at(-1)]} />
+        </button>
+
+        <article
+          aria-live="polite"
+          className="flex w-105 flex-none flex-col bg-white text-ink shadow-[0_40px_80px_-30px_rgba(0,0,0,0.6)] max-laptop:w-[min(460px,92vw)]"
+        >
+          <div className="relative aspect-16/10 bg-cloud">
+            <Image
+              src={centre.image}
+              alt={centre.name}
+              fill
+              sizes="(max-width: 960px) 92vw, 420px"
+              className="object-cover"
+            />
+            <span className="absolute top-3.5 left-3.5 bg-navy/80 px-3 py-1.5 font-mono text-[10px] font-bold tracking-[0.2em] text-white uppercase backdrop-blur-sm">
+              {centre.state}
+            </span>
+          </div>
+          <div className="flex flex-1 flex-col items-center px-8 pt-6 pb-8 text-center max-phablet:px-6">
+            <h3 className="text-[22px] leading-[1.2] font-semibold tracking-[-0.02em]">
+              {centre.name}
+            </h3>
+            {centre.venue ? (
+              <p className="mt-1 text-[13.5px] text-slate">{centre.venue}</p>
+            ) : null}
+            <p className="mt-3 flex min-h-[calc(3lh)] items-start justify-center gap-2 text-[14px] leading-relaxed text-slate">
+              <MapPin
+                className="mt-1 size-4 flex-none text-crimson"
+                strokeWidth={1.8}
+              />
+              <span>{centre.address.join(" ")}</span>
+            </p>
+            <div className="mt-6 flex flex-wrap justify-center gap-2.5">
+              {centre.phones.slice(0, 1).map((phone) => (
+                <a
+                  key={phone.href}
+                  href={phone.href}
+                  className={cn(
+                    frameBtn({ tone: "dark" }),
+                    "gap-2 max-phablet:w-auto",
+                  )}
+                >
+                  <Phone className="size-3.5" strokeWidth={2} />
+                  {phone.label}
+                </a>
+              ))}
+              <a
+                href={directionsUrl(centre)}
+                target="_blank"
+                rel="noreferrer"
+                className={cn(
+                  frameBtn(),
+                  "border border-ink/20 max-phablet:w-auto",
+                )}
+              >
+                Directions
+              </a>
+            </div>
+          </div>
+        </article>
+
+        <button
+          type="button"
+          className={sideCard}
+          onClick={() => go(1)}
+          aria-label={`Show ${items[at(1)].name}`}
+        >
+          <SideLabel centre={items[at(1)]} />
+        </button>
+      </div>
+
+      <div className="mt-10 flex items-center justify-center gap-1 font-mono text-[13px] tracking-[0.2em]">
+        <button
+          type="button"
+          onClick={() => go(-1)}
+          aria-label="Previous centre"
+          className="grid size-11 cursor-pointer place-items-center text-white/80 transition-colors hover:text-white"
+        >
+          <ChevronLeftIcon className="size-5" />
+        </button>
+        <span aria-hidden="true">
+          {String(active + 1).padStart(2, "0")} /{" "}
+          {String(items.length).padStart(2, "0")}
+        </span>
+        <button
+          type="button"
+          onClick={() => go(1)}
+          aria-label="Next centre"
+          className="grid size-11 cursor-pointer place-items-center text-white/80 transition-colors hover:text-white"
+        >
+          <ChevronRightIcon className="size-5" />
+        </button>
+      </div>
+    </section>
+  );
+}
+
+function SideLabel({ centre }: { centre: Centre }) {
+  return (
+    <>
+      <span className="font-mono text-[10px] tracking-[0.24em] text-haze uppercase">
+        {centre.state}
+      </span>
+      <span className="mt-3 text-[14px] leading-snug font-semibold tracking-[0.18em] uppercase">
+        {centre.name.replace(/ Centre$/, "")}
+      </span>
+    </>
+  );
+}

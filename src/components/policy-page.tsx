@@ -1,5 +1,10 @@
-import { IndexList, pageBand, pageLabel, pageProse } from "@/components/page/kit";
-import { PageHero } from "@/components/page-hero";
+import {
+  IndexList,
+  pageLabel,
+  pageProse,
+  PlainHero,
+} from "@/components/page/kit";
+import { PolicyToc } from "@/components/policy-toc";
 import { Reveal } from "@/components/reveal";
 import type { PolicySection } from "@/lib/policies";
 import { site } from "@/lib/site";
@@ -13,12 +18,10 @@ const anchor = (heading: string) =>
     .replace(/(^-|-$)/g, "");
 
 export function PolicyPage({
-  eyebrow,
   title,
   lede,
   sections,
 }: {
-  eyebrow: string;
   title: string;
   lede?: string;
   sections: PolicySection[];
@@ -27,43 +30,28 @@ export function PolicyPage({
 
   return (
     <>
-      <PageHero
-        eyebrow={eyebrow}
-        title={title}
-        lede={lede}
-        crumbs={[{ label: title }]}
-      />
+      <PlainHero label="Legal" title={title} lede={lede} />
 
-      <section className={cn(pageBand, "bg-white")}>
+      <section className="bg-white py-12">
         <div
           className={cn(
             wrap,
-            "grid grid-cols-[240px_minmax(0,1fr)] items-start gap-16",
-            "max-laptop:grid-cols-1 max-laptop:gap-10",
+            "grid grid-cols-[240px_minmax(0,1fr)] items-start gap-16 max-laptop:grid-cols-1 max-laptop:gap-10",
           )}
         >
           <nav
             aria-label="On this page"
-            className="border-t border-ink/80 pt-5 laptop:sticky laptop:top-28 max-laptop:hidden"
+            className="laptop:sticky laptop:top-28 laptop:max-h-[calc(100svh-8rem)] laptop:overflow-y-auto max-laptop:hidden"
           >
             <p className={cn(pageLabel, "text-[10px] text-slate/70")}>
               On this page
             </p>
-            <ol className="mt-4 grid gap-2.5 p-0">
-              {headed.map((section, i) => (
-                <li key={section.heading} className="list-none">
-                  <a
-                    href={`#${anchor(section.heading!)}`}
-                    className="grid grid-cols-[26px_1fr] text-[14px] leading-snug text-slate transition-colors hover:text-royal"
-                  >
-                    <span className="font-mono text-[11px] text-crimson">
-                      {String(i + 1).padStart(2, "0")}
-                    </span>
-                    {section.heading}
-                  </a>
-                </li>
-              ))}
-            </ol>
+            <PolicyToc
+              items={headed.map((section) => ({
+                id: anchor(section.heading!),
+                label: section.heading!,
+              }))}
+            />
           </nav>
 
           <div className="grid max-w-190 gap-12">
@@ -93,7 +81,10 @@ export function PolicyPage({
                 ) : null}
 
                 {section.after?.map((paragraph) => (
-                  <p key={paragraph.slice(0, 40)} className={cn(pageProse, "mt-4")}>
+                  <p
+                    key={paragraph.slice(0, 40)}
+                    className={cn(pageProse, "mt-4")}
+                  >
                     {paragraph}
                   </p>
                 ))}

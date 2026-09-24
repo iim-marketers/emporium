@@ -1,13 +1,18 @@
 import { ApplyDialog } from "@/components/apply-dialog";
 import { CountFlip } from "@/components/count-flip";
 import { ImageWithSkeleton } from "@/components/image-with-skeleton";
-
 import { Accent, CtaBand, PageHead, pageBand } from "@/components/page/kit";
-import { PageHero } from "@/components/page-hero";
+import {
+  CoverHero,
+  Sheet,
+  SheetNote,
+  Stage,
+} from "@/components/page/immersive";
 import { Reveal } from "@/components/reveal";
 import { AccreditationStrip, RecruiterWall } from "@/components/sections";
 
 import { placementClaim, placementsIntro } from "@/lib/content";
+import { pageImages } from "@/lib/page-images";
 import { pageMetadata } from "@/lib/seo";
 import { wrap } from "@/lib/styles";
 import { cn } from "@/lib/utils";
@@ -38,22 +43,27 @@ const recordPhotos = [
   },
 ];
 
+const img = pageImages.placements;
+
 export default function PlacementsPage() {
   return (
     <>
-      <PageHero
-        eyebrow="Placements"
-        title={
-          <>
-            From the classroom <Accent onDark>to the cabin.</Accent>
-          </>
-        }
-        lede={placementsIntro}
-        image="/home/photos/jobs-board-team-2.webp"
-      />
+      <Stage image={img.stage} focus={img.stageFocus}>
+        <CoverHero
+          label="Placements"
+          title={
+            <>
+              From the classroom <Accent onDark>to the cabin.</Accent>
+            </>
+          }
+          lede={placementsIntro}
+          image={img.hero}
+          focus={img.heroFocus}
+        >
+          <ApplyDialog label="Send your CV" variant="primary" block="phone" />
+        </CoverHero>
 
-      <section className={cn(pageBand, "bg-paper")}>
-        <div className={wrap}>
+        <Sheet first>
           <PageHead
             eyebrow="Our recruiters"
             title={
@@ -66,8 +76,10 @@ export default function PlacementsPage() {
             Emporium.
           </PageHead>
           <RecruiterWall />
-        </div>
-      </section>
+        </Sheet>
+
+        <SheetNote lead="Trained here," line="hired worldwide." />
+      </Stage>
 
       <section className="relative isolate overflow-hidden bg-navy text-white">
         <div className="relative grid h-[clamp(380px,58vh,560px)] grid-cols-3 gap-px bg-white/10 max-phablet:h-[340px]">

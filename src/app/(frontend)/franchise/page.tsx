@@ -3,22 +3,25 @@ import Link from "next/link";
 import {
   Accent,
   CtaBand,
-  FactStrip,
   IndexList,
   PageHead,
-  pageBand,
   pageCard,
   pageLabel,
   pageProse,
   Photo,
 } from "@/components/page/kit";
-import { PageHero } from "@/components/page-hero";
+import {
+  CoverHero,
+  Sheet,
+  SheetNote,
+  Stage,
+} from "@/components/page/immersive";
 import { Reveal } from "@/components/reveal";
 import { arrow, btn } from "@/lib/btn";
 import { franchise } from "@/lib/content";
+import { pageImages } from "@/lib/page-images";
 import { pageMetadata } from "@/lib/seo";
 import { site } from "@/lib/site";
-import { wrap } from "@/lib/styles";
 import { cn } from "@/lib/utils";
 
 export const metadata = pageMetadata({
@@ -29,28 +32,32 @@ export const metadata = pageMetadata({
   keywords: ["training institute franchise", "aviation franchise India"],
 });
 
+const img = pageImages.franchise;
+
 export default function FranchisePage() {
   return (
     <>
-      <PageHero
-        eyebrow={franchise.eyebrow}
-        title={
-          <>
-            Join hands with the{" "}
-            <Accent onDark>fastest growing industry.</Accent>
-          </>
-        }
-        lede={franchise.returns}
-        image="/home/photos/pavilion.webp"
-      />
+      <Stage image={img.stage} focus={img.stageFocus}>
+        <CoverHero
+          label="Franchise"
+          title={
+            <>
+              Join hands with the{" "}
+              <Accent onDark>fastest growing industry.</Accent>
+            </>
+          }
+          lede={franchise.eyebrow}
+          image={img.hero}
+          focus={img.heroFocus}
+        >
+          <Link href="/contact" className={btn({ block: "phone" })}>
+            Talk to our team <span className={arrow}>→</span>
+          </Link>
+        </CoverHero>
 
-      <section className={cn(pageBand, "bg-white")}>
-        <div
-          className={cn(
-            wrap,
-            "grid grid-cols-[1.05fr_0.95fr] items-center gap-16",
-            "max-laptop:grid-cols-1 max-laptop:gap-12",
-          )}
+        <Sheet
+          first
+          className="grid grid-cols-[1.05fr_0.95fr] items-center gap-16 max-laptop:grid-cols-1 max-laptop:gap-12"
         >
           <div>
             <PageHead
@@ -69,9 +76,6 @@ export default function FranchisePage() {
                 </p>
               ))}
             </Reveal>
-            <Reveal className="mt-9">
-              <FactStrip items={franchise.specs} />
-            </Reveal>
           </div>
 
           <Reveal>
@@ -82,11 +86,11 @@ export default function FranchisePage() {
               className="aspect-4/3"
             />
           </Reveal>
-        </div>
-      </section>
+        </Sheet>
 
-      <section className={cn(pageBand, "bg-paper")}>
-        <div className={wrap}>
+        <SheetNote lead="Returns in" line="12 to 18 months." />
+
+        <Sheet side="right" last>
           <PageHead
             eyebrow="Why partner with us"
             title={
@@ -110,8 +114,8 @@ export default function FranchisePage() {
               <IndexList items={franchise.support} onDark />
             </Reveal>
           </div>
-        </div>
-      </section>
+        </Sheet>
+      </Stage>
 
       <CtaBand
         image="/home/photos/shillong-centre-batch.webp"

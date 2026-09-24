@@ -12,7 +12,6 @@ export const metadata = pageMetadata({
 export default function CookiePolicyPage() {
   return (
     <PolicyPage
-      eyebrow="Legal"
       title="Cookie Policy"
       lede="What cookies we set, what they do, and how to turn them off."
       sections={cookiePolicy}

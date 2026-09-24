@@ -2,9 +2,14 @@ import Link from "next/link";
 
 import { BoardingPassGrid } from "@/components/boarding-pass";
 import {
+  CoverHero,
+  Sheet,
+  SheetNote,
+  Stage,
+} from "@/components/page/immersive";
+import {
   Accent,
   CtaBand,
-  FactStrip,
   IndexList,
   PageHead,
   pageBand,
@@ -12,17 +17,15 @@ import {
   pageLabel,
   pageProse,
 } from "@/components/page/kit";
-import { FixedBackdrop, fixedSection } from "@/components/fixed-backdrop";
-import { PageHero } from "@/components/page-hero";
 import { Reveal } from "@/components/reveal";
 import { AccreditationStrip } from "@/components/sections";
 import { arrow, btn } from "@/lib/btn";
+import { pageImages } from "@/lib/page-images";
 import {
   eligibilityCriteria,
   programs,
   requiredDocuments,
 } from "@/lib/programs";
-import { backgrounds as bg } from "@/lib/backgrounds";
 import { pageMetadata } from "@/lib/seo";
 import { wrap } from "@/lib/styles";
 import { cn } from "@/lib/utils";
@@ -35,45 +38,47 @@ export const metadata = pageMetadata({
   keywords: ["aviation course", "hospitality course", "cruise line course"],
 });
 
+const img = pageImages.programs;
+
 export default function ProgramsPage() {
   return (
     <>
-      <PageHero
-        eyebrow="Our placement linked courses"
-        title={
-          <>
-            Offered by <Accent onDark>Emporium.</Accent>
-          </>
-        }
-        lede="Three certificate courses covering aviation, hospitality, cruise lines and travel & tourism — each built around what recruiters actually screen for."
-        crumbs={[{ label: "Courses" }]}
-        image="/home/photos/aircraft-stairs.webp"
-      />
+      <Stage image={img.stage} focus={img.stageFocus}>
+        <CoverHero
+          label="Our courses"
+          title={
+            <>
+              Placement linked courses,{" "}
+              <Accent onDark>offered by Emporium.</Accent>
+            </>
+          }
+          lede="Three certificate courses covering aviation, hospitality, cruise lines and travel & tourism — each built around what recruiters actually screen for."
+          image={img.hero}
+          focus={img.heroFocus}
+        >
+          <Link href="/enquire" className={btn({ block: "phone" })}>
+            Book free counselling <span className={arrow}>→</span>
+          </Link>
+        </CoverHero>
 
-      <section className={cn(pageBand, fixedSection, "text-white")}>
-        <FixedBackdrop src={bg.courses} />
-        <div className={cn(wrap, "[--notch:var(--navy)]")}>
+        <Sheet first className="[--notch:#fff]">
           <PageHead
             eyebrow="Pick your gate"
             title={
               <>
-                Choose the course that{" "}
-                <Accent onDark>fits your flight path.</Accent>
+                Choose the course that <Accent>fits your flight path.</Accent>
               </>
             }
-            onDark
           />
           <BoardingPassGrid items={programs} />
-        </div>
-      </section>
+        </Sheet>
 
-      <section className={cn(pageBand, "bg-white")}>
-        <div
-          className={cn(
-            wrap,
-            "grid grid-cols-[1.1fr_0.9fr] items-start gap-16",
-            "max-laptop:grid-cols-1 max-laptop:gap-12",
-          )}
+        <SheetNote lead="Your career" line="cleared for take-off." />
+
+        <Sheet
+          side="right"
+          last
+          className="grid grid-cols-[1.1fr_0.9fr] items-start gap-16 max-laptop:grid-cols-1 max-laptop:gap-12"
         >
           <div>
             <PageHead
@@ -93,15 +98,6 @@ export default function ProgramsPage() {
                 of the airlines, hotels and cruise lines currently hiring.
               </p>
             </Reveal>
-            <Reveal className="mt-9">
-              <FactStrip
-                items={[
-                  { label: "Qualification", value: "10+2, any board" },
-                  { label: "Counselling", value: "Free, in person or video" },
-                  { label: "Placement", value: "100% assistance" },
-                ]}
-              />
-            </Reveal>
           </div>
 
           <Reveal className={cn(pageCard, "overflow-hidden")}>
@@ -115,8 +111,8 @@ export default function ProgramsPage() {
               <IndexList items={requiredDocuments} />
             </div>
           </Reveal>
-        </div>
-      </section>
+        </Sheet>
+      </Stage>
 
       <section className={cn(pageBand, "bg-paper")}>
         <div className={wrap}>
