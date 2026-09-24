@@ -47,7 +47,7 @@ export const metadata = pageMetadata({
 export const revalidate = 3600;
 
 export default async function HomePage() {
-  const [latest, drives] = await Promise.all([getPosts(5), getJobs()]);
+  const [latest, drives] = await Promise.all([getPosts(6), getJobs()]);
 
   return (
     <>
@@ -160,7 +160,7 @@ export default async function HomePage() {
                 <em className="text-crimson not-italic">students land.</em>
               </>
             }
-            className="mb-12"
+            className="mb-8"
           />
           <RecruiterWall />
 
@@ -183,7 +183,7 @@ export default async function HomePage() {
                 <em className="text-crimson not-italic">in pictures.</em>
               </>
             }
-            className="mb-12"
+            className="mb-8"
           />
           <MomentsMosaic />
         </div>
@@ -206,7 +206,7 @@ export default async function HomePage() {
                 In their <em className="text-crimson not-italic">own words.</em>
               </>
             }
-            className="mb-6"
+            className="mb-8"
           />
           <TestimonialGallery />
         </div>
@@ -223,13 +223,18 @@ export default async function HomePage() {
         <div className={wrap}>
           <HomeHead
             eyebrow="Latest blog"
-            title="Reading for aspirants."
-            className="mb-12"
+            title={
+              <>
+                Reading for{" "}
+                <em className="text-crimson not-italic">aspirants.</em>
+              </>
+            }
+            className="mb-8"
           />
-          <BlogGrid posts={latest.slice(0, 4)} />
+          <BlogGrid posts={latest} />
 
-          {latest.length > 4 ? (
-            <div className="mt-9 flex justify-center">
+          {latest.length > 5 ? (
+            <div className="mt-9 flex justify-center max-phablet:hidden">
               {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
               <a
                 href="/blog"
