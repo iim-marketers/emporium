@@ -9,8 +9,8 @@ const clip = (name: string, caption: string): Clip => ({
 const photo = (name: string) => `/home/photos/${name}.webp`;
 
 export const heroStill = {
-  wide: "/home/video/guest-welcome-end-wide.webp",
-  tall: "/home/video/guest-welcome-end-tall.webp",
+  wide: "/home/welcome-guest-new.webp",
+  tall: "/home/welcome-guest-tall.webp",
 };
 
 export const ctaFilm = clip("banquet-wide", "");

@@ -7,13 +7,8 @@ import { heroStill } from "@/lib/home-media";
 import { wrap } from "@/lib/styles";
 import { cn } from "@/lib/utils";
 
-/** Saol sets "Train for the skies." about 3.7em wide, and the first face
- *  starts 28.5% into the photo, so the photo grows just enough to put that
- *  face past the headline. Capped so the fifth woman stays in frame. */
 const heroVars = {
   "--hero-font": "clamp(48px, min(7.2vw, 12vh), 96px)",
-  "--hero-photo-w":
-    "clamp(100%, calc((max(4vw, (100vw - 1230px) / 2) + 3.7 * var(--hero-font) + 80px) / 0.285), 134vw)",
 } as React.CSSProperties;
 
 export function HomeHero() {
@@ -25,10 +20,7 @@ export function HomeHero() {
         "-mt-18.25 h-svh min-h-140 max-mini:-mt-16.25",
       )}
     >
-      {/* Portrait screens get a cut with sky above, so all five stay in frame.
-          From laptop width the photo is drawn wider than the screen and pinned
-          left, which nudges the group right, clear of the headline. */}
-      <picture className="absolute inset-y-0 left-0 -z-20 w-full laptop:landscape:w-(--hero-photo-w)">
+      <picture className="absolute inset-0 -z-20 portrait:bg-[rgb(70,130,188)]">
         <source
           media="(max-width: 1024px) and (orientation: portrait)"
           srcSet={heroStill.tall}
@@ -37,13 +29,13 @@ export function HomeHero() {
           src={heroStill.wide}
           alt=""
           fetchPriority="high"
-          className="size-full object-cover"
+          className="size-full object-cover object-[84%_center] portrait:absolute portrait:bottom-0 portrait:h-auto max-phablet:portrait:left-1/2 max-phablet:portrait:w-[130%] max-phablet:portrait:max-w-none max-phablet:portrait:-translate-x-1/2 portrait:[mask-image:linear-gradient(to_bottom,transparent,black_20%)]"
         />
       </picture>
 
       <div
         aria-hidden="true"
-        className="absolute inset-0 -z-10 bg-[linear-gradient(180deg,rgba(8,12,36,0.72)_0%,rgba(8,12,36,0.2)_26%,rgba(8,12,36,0.3)_55%,rgba(8,12,36,0.9)_100%)]"
+        className="absolute inset-0 -z-10 bg-[linear-gradient(180deg,rgba(8,12,36,0.72)_0%,rgba(8,12,36,0.2)_26%,rgba(8,12,36,0.3)_55%,rgba(8,12,36,0.9)_100%)] portrait:bg-[linear-gradient(180deg,rgba(8,12,36,0.72)_0%,rgba(8,12,36,0.2)_26%,transparent_55%)]"
       />
       <div
         aria-hidden="true"
@@ -55,7 +47,7 @@ export function HomeHero() {
           wrap,
           "flex flex-1 flex-col justify-center pt-[calc(73px+3vh)] pb-[13vh]",
           "max-laptop:justify-start max-laptop:pt-[calc(73px+1vh)] max-laptop:pb-8",
-          "portrait:justify-start portrait:pt-[calc(73px+1vh)] portrait:pb-8",
+          "portrait:justify-start portrait:pt-[calc(73px+1vh)] portrait:pb-8 max-phablet:portrait:pt-[calc(73px+6vh)]",
           "max-laptop:items-center max-laptop:text-center portrait:items-center portrait:text-center",
         )}
       >
@@ -105,25 +97,6 @@ export function HomeHero() {
             />
           </span>
         </h1>
-
-        {/* <p className="mt-[3.2vh] max-w-[46ch] text-[clamp(14px,1.9vh,16px)] leading-relaxed text-white/80 max-phablet:mt-5 max-phablet:text-[14.5px]">
-          Certificate courses in Aviation, Hospitality Management and Cruise
-          Lines, with grooming, communication and 100% placement assistance
-          through our dedicated Placement Cell.
-        </p>
-
-        <div className="mt-[4vh] flex flex-wrap gap-3 max-phablet:mt-6 max-phablet:flex-col">
-          <ScrollLink
-            href="/enquire"
-            to="enquire"
-            className={frameBtn({ tone: "light" })}
-          >
-            Enquire now
-          </ScrollLink>
-          <Link href="/programs" className={frameBtn({ tone: "outline" })}>
-            Explore courses
-          </Link>
-        </div> */}
       </div>
     </section>
   );
