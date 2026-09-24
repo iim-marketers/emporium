@@ -114,7 +114,7 @@ export default async function HomePage() {
                 <em className="text-crimson not-italic">the industry works.</em>
               </>
             }
-            className="mb-16 max-phablet:mb-10"
+            className="mb-6"
           />
           <PillarPanels />
         </div>

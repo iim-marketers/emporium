@@ -8,7 +8,7 @@ import { pillarPhotos } from "@/lib/home-media";
 import { cn } from "@/lib/utils";
 
 /** Wide screens: panels share a row and the chosen one opens out.
- *  Below 961px every panel is open, stacked as cards. The chosen panel's
+ *  Below 961px every panel is open, as a 2×2 grid of cards. The chosen panel's
  *  photo also fills the parent section, which must be positioned. */
 export function PillarPanels() {
   const [open, setOpen] = React.useState(0);
@@ -32,7 +32,7 @@ export function PillarPanels() {
       <span aria-hidden="true" className="absolute inset-0 -z-10 bg-paper/50" />
       <span aria-hidden="true" className="seam-y -z-10 [--seam:var(--paper)]" />
 
-      <div className="flex h-[min(620px,78vh)] min-h-130 gap-3 max-laptop:grid max-laptop:h-auto max-laptop:min-h-0 max-laptop:grid-cols-2 max-laptop:gap-4 max-phone:grid-cols-1">
+      <div className="flex h-[min(620px,78vh)] min-h-130 gap-3 max-laptop:grid max-laptop:h-auto max-laptop:min-h-0 max-laptop:grid-cols-2 max-laptop:gap-4 max-phone:gap-2.5">
         {pillars.map((pillar, i) => {
           const isOpen = open === i;
           return (
@@ -47,14 +47,14 @@ export function PillarPanels() {
                 "group relative min-w-0 cursor-pointer overflow-hidden rounded-[4px] bg-navy text-white outline-offset-4",
                 "transition-[flex-grow] duration-700 ease-[cubic-bezier(0.2,0.7,0.2,1)]",
                 isOpen ? "grow-[3.2]" : "grow",
-                "basis-0 max-laptop:aspect-4/5 max-laptop:cursor-default max-phone:aspect-4/5",
+                "basis-0 max-laptop:aspect-4/5 max-laptop:cursor-default max-phone:aspect-3/4",
               )}
             >
               <Image
                 src={pillarPhotos[i].src}
                 alt={pillarPhotos[i].alt}
                 fill
-                sizes="(max-width: 560px) 92vw, (max-width: 960px) 46vw, 50vw"
+                sizes="(max-width: 960px) 46vw, 50vw"
                 className={cn(
                   "object-cover transition-[transform,filter] duration-1000",
                   isOpen ? "scale-100" : "scale-110 brightness-75",
@@ -66,12 +66,12 @@ export function PillarPanels() {
                 className="absolute inset-0 bg-[linear-gradient(180deg,rgba(8,12,36,0.35)_0%,transparent_30%,rgba(8,12,36,0.55)_60%,rgba(8,12,36,0.95)_100%)]"
               />
 
-              <div className="absolute inset-x-0 bottom-0 p-7 max-phablet:p-5">
+              <div className="absolute inset-x-0 bottom-0 p-7 max-phablet:p-5 max-phone:p-3.5">
                 <h3
                   className={cn(
                     "font-sans leading-[1.15] font-medium tracking-[-0.02em] transition-[font-size] duration-500",
                     isOpen ? "text-[18px]" : "text-[14px] laptop:truncate",
-                    "max-laptop:text-[18px]",
+                    "max-laptop:text-[18px] max-phone:text-[14px] max-phone:leading-tight",
                   )}
                 >
                   {isOpen
