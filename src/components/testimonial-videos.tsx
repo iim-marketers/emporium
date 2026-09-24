@@ -88,7 +88,7 @@ export function TestimonialGallery() {
             const on = city === c;
             return (
               <button
-                key={c}
+                key={"city-filter-" + c}
                 type="button"
                 aria-pressed={on}
                 onClick={() => setCity(c)}
@@ -175,14 +175,6 @@ export function TestimonialGallery() {
               <span className="absolute inset-0 bg-[linear-gradient(180deg,rgba(13,22,66,0.45)_0%,transparent_24%,transparent_58%,rgba(13,22,66,0.88)_100%)]" />
 
               <span className="absolute inset-x-3 bottom-3 flex items-end justify-end text-white">
-                {/* <span className="text-left leading-tight">
-                  <span className="block font-mono text-[10.5px] tracking-[0.22em] text-white/70 uppercase">
-                    Story
-                  </span>
-                  <span className="block font-mono text-[26px] font-bold">
-                    {pad(i + 1)}
-                  </span>
-                </span> */}
                 <span className="grid size-10 place-items-center rounded-full bg-crimson shadow-[0_8px_20px_-8px_rgba(217,31,42,0.9)] transition-transform duration-300 group-hover/story:scale-110">
                   <PlayIcon className="size-4 translate-x-px fill-white text-white" />
                 </span>

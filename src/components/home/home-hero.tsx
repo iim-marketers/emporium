@@ -44,6 +44,7 @@ export function HomeHero() {
         className={cn(
           wrap,
           "flex flex-1 flex-col justify-center pt-[calc(73px+3vh)] pb-[13vh]",
+          "wide:-translate-x-[clamp(0px,calc(50vw_-_615px_-_4vw),3vw)]",
           "max-laptop:justify-start max-laptop:pt-[calc(73px+1vh)] max-laptop:pb-8",
           "portrait:justify-start portrait:pt-[calc(73px+1vh)] portrait:pb-8 max-phablet:portrait:pt-[calc(73px+6vh)]",
           "max-laptop:items-center max-laptop:text-center portrait:items-center portrait:text-center",
