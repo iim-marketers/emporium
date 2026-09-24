@@ -24,12 +24,13 @@ export function PillarPanels() {
           fill
           sizes="100vw"
           className={cn(
-            "-z-20 object-cover blur-[2px] transition-opacity duration-1000",
+            "-z-20 object-cover blur-md transition-opacity duration-1000",
             open === i ? "opacity-100" : "opacity-0",
           )}
         />
       ))}
-      <span aria-hidden="true" className="absolute inset-0 -z-10 bg-white/55" />
+      <span aria-hidden="true" className="absolute inset-0 -z-10 bg-paper/50" />
+      <span aria-hidden="true" className="seam-y -z-10 [--seam:var(--paper)]" />
 
       <div className="flex h-[min(620px,78vh)] min-h-130 gap-3 max-laptop:grid max-laptop:h-auto max-laptop:min-h-0 max-laptop:grid-cols-2 max-laptop:gap-4 max-phone:grid-cols-1">
         {pillars.map((pillar, i) => {

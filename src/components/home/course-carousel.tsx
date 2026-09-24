@@ -106,6 +106,7 @@ export function CourseCarousel({
         aria-hidden="true"
         className="absolute inset-0 -z-10 bg-[linear-gradient(180deg,rgba(8,12,36,0.88)_0%,rgba(8,12,36,0.72)_40%,rgba(8,12,36,0.82)_100%)]"
       />
+      <div aria-hidden="true" className="seam-t -z-10 [--seam-size:clamp(48px,7vh,84px)]" />
 
       {children}
 

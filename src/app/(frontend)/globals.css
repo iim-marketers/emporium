@@ -290,3 +290,30 @@
     border-radius: 6px;
   }
 }
+
+/* Bands feather into one shared tone at their edges (navy by default, set
+   --seam for light bands), so any photo placed in a band meets its
+   neighbours without a visible line. */
+@utility seam-y {
+  --seam-h: var(--seam-size, clamp(90px, 14vh, 170px));
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(180deg, var(--seam, var(--navy)), transparent var(--seam-h)),
+    linear-gradient(0deg, var(--seam, var(--navy)), transparent var(--seam-h));
+}
+@utility seam-t {
+  --seam-h: var(--seam-size, clamp(90px, 14vh, 170px));
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(180deg, var(--seam, var(--navy)), transparent var(--seam-h));
+}
+@utility seam-b {
+  --seam-h: var(--seam-size, clamp(90px, 14vh, 170px));
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(0deg, var(--seam, var(--navy)), transparent var(--seam-h));
+}

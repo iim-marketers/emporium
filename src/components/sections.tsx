@@ -77,7 +77,7 @@ export function SectionHead({
 
 export function TrustStrip() {
   return (
-    <div className="group overflow-hidden bg-navy-2 py-6.5 text-white">
+    <div className="group overflow-hidden bg-navy py-6.5 text-white">
       <p className="mb-4 text-center font-mono text-[11px] tracking-[0.3em] text-haze">
         OUR STUDENTS GET PLACED IN
       </p>

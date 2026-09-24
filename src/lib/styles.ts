@@ -26,6 +26,11 @@ export const heroSurface = [
   "bg-[radial-gradient(1100px_520px_at_78%_-8%,rgba(63,91,214,0.55),transparent_60%),radial-gradient(760px_420px_at_10%_108%,rgba(217,31,42,0.14),transparent_60%),linear-gradient(180deg,var(--navy)_0%,var(--navy-2)_60%,#0c1440_100%)]",
 ].join(" ");
 
+export const bandSurface = [
+  "relative isolate overflow-hidden bg-navy text-white",
+  "bg-[radial-gradient(900px_520px_at_72%_50%,rgba(63,91,214,0.38),transparent_70%),radial-gradient(640px_380px_at_8%_60%,rgba(217,31,42,0.10),transparent_70%)]",
+].join(" ");
+
 export const heroPad =
   "pt-[78px] pb-24 max-laptop:pt-[60px] max-laptop:pb-[76px] max-phablet:pt-6 max-phablet:pb-16";
 

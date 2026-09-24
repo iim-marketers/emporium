@@ -17,6 +17,9 @@ export const displayTitle =
   "font-sans font-semibold tracking-[-0.025em] leading-[1.1]";
 
 export const homePad = "py-18 max-laptop:py-20 max-phablet:py-18";
+/** A section that continues the same background as the one above it. */
+export const homePadFollow =
+  "pt-0 pb-18 max-laptop:pb-20 max-phablet:pb-18";
 
 const kicker =
   "font-mono text-[12px] font-bold tracking-[0.32em] uppercase max-phablet:text-[11px]";
@@ -85,7 +88,7 @@ const faceVisibility = (i: number) =>
 
 export function FacesStrip() {
   return (
-    <section aria-label="Emporium students" className="bg-ink">
+    <section aria-label="Emporium students" className="bg-navy">
       <ul className="grid grid-cols-8 2xl:grid-cols-10 max-laptop:grid-cols-6 max-phone:grid-cols-4">
         {faces.map((face, i) => (
           <li
@@ -133,13 +136,14 @@ export function EditorialBand() {
         />
         <div
           aria-hidden="true"
-          className="absolute inset-0 hidden bg-linear-to-b from-transparent from-60% to-navy max-laptop:block"
+          className="absolute inset-0 hidden bg-[linear-gradient(180deg,var(--navy),transparent_22%,transparent_60%,var(--navy))] max-laptop:block"
         />
       </div>
       <div
         aria-hidden="true"
         className="absolute inset-0 -z-10 bg-[linear-gradient(180deg,rgba(8,12,36,0.55)_0%,transparent_45%),linear-gradient(90deg,rgba(8,12,36,0.92)_0%,rgba(8,12,36,0.75)_38%,rgba(8,12,36,0.15)_75%)] max-laptop:hidden"
       />
+      <div aria-hidden="true" className="seam-y -z-10 [--seam-size:clamp(48px,7vh,84px)] max-laptop:hidden" />
       {/* <div
         aria-hidden="true"
         className="pointer-events-none absolute inset-6 border border-white/25 max-tablet:inset-3"

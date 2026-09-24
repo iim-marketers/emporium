@@ -32,12 +32,13 @@ export function HomeHero() {
 
       <div
         aria-hidden="true"
-        className="absolute inset-0 -z-10 bg-[linear-gradient(180deg,rgba(8,12,36,0.72)_0%,rgba(8,12,36,0.2)_26%,rgba(8,12,36,0.3)_55%,rgba(8,12,36,0.9)_100%)] portrait:bg-[linear-gradient(180deg,rgba(8,12,36,0.72)_0%,rgba(8,12,36,0.2)_26%,transparent_55%)]"
+        className="absolute inset-0 -z-10 bg-[linear-gradient(180deg,rgba(8,12,36,0.72)_0%,rgba(8,12,36,0.2)_26%,rgba(8,12,36,0.25)_60%,rgba(8,12,36,0.45)_100%)] portrait:bg-[linear-gradient(180deg,rgba(8,12,36,0.72)_0%,rgba(8,12,36,0.2)_26%,transparent_55%)]"
       />
       <div
         aria-hidden="true"
         className="absolute inset-0 -z-10 bg-[linear-gradient(90deg,rgba(8,12,36,0.72)_0%,rgba(8,12,36,0.25)_45%,transparent_70%)] max-tablet:bg-none"
       />
+      <div aria-hidden="true" className="seam-b -z-10 [--seam-size:clamp(56px,8vh,96px)]" />
 
       <div
         className={cn(

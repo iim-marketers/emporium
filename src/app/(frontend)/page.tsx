@@ -11,6 +11,7 @@ import {
   FacesStrip,
   HomeHead,
   homePad,
+  homePadFollow,
   MomentsMosaic,
 } from "@/components/home/sections";
 import { BlogGrid } from "@/components/news";
@@ -26,7 +27,7 @@ import { arrow, btn } from "@/lib/btn";
 import { programs } from "@/lib/programs";
 import { pageMetadata } from "@/lib/seo";
 import { site } from "@/lib/site";
-import { heroSurface, wrap } from "@/lib/styles";
+import { bandSurface, wrap } from "@/lib/styles";
 import { cn } from "@/lib/utils";
 
 export const metadata = pageMetadata({
@@ -49,7 +50,8 @@ export default async function HomePage() {
   return (
     <>
       <HomeHero />
-      <section className={cn(heroSurface, homePad)} id="jobs">
+      <section className={cn(bandSurface, homePad)} id="jobs">
+        <div aria-hidden="true" className="seam-y -z-10" />
         <div
           className={cn(
             wrap,
@@ -104,11 +106,11 @@ export default async function HomePage() {
       <FacesStrip />
 
       <section
-        className={cn("relative isolate overflow-hidden bg-white", homePad)}
+        className={cn("relative isolate overflow-hidden bg-paper", homePad)}
       >
         <div className={wrap}>
           <HomeHead
-            // eyebrow="Why Emporium"
+            eyebrow="Why Emporium"
             title={
               <>
                 Trained the way{" "}
@@ -139,7 +141,7 @@ export default async function HomePage() {
         </LifeReel>
       </section>
 
-      <section className={cn("bg-white", homePad)} id="recruiters">
+      <section className={cn("bg-paper", homePad)} id="recruiters">
         <div className={wrap}>
           <HomeHead
             eyebrow="Placements"
@@ -165,7 +167,7 @@ export default async function HomePage() {
         </div>
       </section>
 
-      <section className={cn("bg-paper", homePad)} id="moments">
+      <section className={cn("bg-paper", homePadFollow)} id="moments">
         <div className={wrap}>
           <HomeHead
             eyebrow="Moments"
@@ -181,7 +183,7 @@ export default async function HomePage() {
         </div>
       </section>
 
-      <section className={cn("bg-paper", homePad)} id="testimonials">
+      <section className={cn("bg-paper", homePadFollow)} id="testimonials">
         <div className={wrap}>
           <HomeHead
             eyebrow="Student testimonial"
@@ -199,7 +201,7 @@ export default async function HomePage() {
         </div>
       </section>
 
-      <section className={cn("bg-paper", homePad)} id="blog">
+      <section className={cn("bg-paper", homePadFollow)} id="blog">
         <div className={wrap}>
           <HomeHead
             eyebrow="Latest blog"
@@ -221,8 +223,6 @@ export default async function HomePage() {
           ) : null}
         </div>
       </section>
-
-      {/* <ClosingCta />ß */}
     </>
   );
 }
