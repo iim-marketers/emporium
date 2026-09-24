@@ -53,6 +53,12 @@ export const lifeClips: Clip[] = [
 
 export const editorialPhoto = photo("ballroom-batch");
 
+export const backdrops = {
+  recruiters: photo("aircraft-apron"),
+  testimonials: photo("auditorium-seated"),
+  blog: photo("lakeside-uniform"),
+};
+
 /** `card` is the photo on the course's own card; `scene` fills the section
  *  behind it while that course is selected. */
 export const courseArt: Record<string, { card: string; scene: string }> = {
@@ -89,44 +95,43 @@ export const pillarPhotos = [
   },
 ];
 
-export type Moment = { src: string; alt: string; span?: "tall" | "wide" };
+/** `area` places each photo in the mosaic's fixed grid template. */
+export type Moment = { src: string; alt: string; area: string };
 
 export const moments: Moment[] = [
   {
     src: photo("saree-namaste"),
     alt: "Students in red-bordered sarees greeting with a namaste",
-    span: "tall",
+    area: "a",
   },
   {
     src: photo("recruiters-visit-2"),
     alt: "A recruiter visit at an Emporium centre",
-    span: "wide",
-  },
-  { src: photo("lakeside-uniform"), alt: "A graduate in uniform by a lake" },
-  {
-    src: photo("aircraft-apron"),
-    alt: "A cabin crew trainee with her trolley bag on the apron",
+    area: "b",
   },
   {
     src: photo("auditorium-salute"),
     alt: "A batch saluting in the auditorium",
-    span: "tall",
+    area: "c",
+  },
+  {
+    src: photo("aircraft-apron"),
+    alt: "A cabin crew trainee with her trolley bag on the apron",
+    area: "d",
+  },
+  {
+    src: photo("palace-steps-her"),
+    alt: "A graduate on palace steps",
+    area: "e",
   },
   {
     src: photo("campus-group"),
     alt: "Students and trainers gathered on campus",
-    span: "wide",
-  },
-  { src: photo("palace-steps-her"), alt: "A graduate on palace steps" },
-  { src: photo("pavilion"), alt: "A graduate in uniform at a hotel pavilion" },
-  { src: photo("bar-service"), alt: "Tray service at the training bar" },
-  {
-    src: photo("mascot-welcome"),
-    alt: "A trainee welcoming guests beside a mascot in a hotel lobby",
+    area: "f",
   },
   {
-    src: photo("shillong-centre-batch"),
-    alt: "A batch in formal wear outside the Shillong centre",
-    span: "wide",
+    src: photo("lakeside-uniform"),
+    alt: "A graduate in uniform by a lake",
+    area: "g",
   },
 ];

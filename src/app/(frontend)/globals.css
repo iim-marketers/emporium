@@ -247,6 +247,12 @@
 }
 
 @layer base {
+  /* Bands often end on a fractional pixel; on scaled phone screens that
+     leaves a hairline of the page colour between two dark bands. Overlapping
+     each band by a pixel hides it. */
+  #top > * + * {
+    margin-top: -1px;
+  }
   * {
     box-sizing: border-box;
   }

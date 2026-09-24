@@ -16,10 +16,9 @@ import { cn } from "@/lib/utils";
 export const displayTitle =
   "font-sans font-semibold tracking-[-0.025em] leading-[1.1]";
 
-export const homePad = "py-18 max-laptop:py-20 max-phablet:py-18";
+export const homePad = "py-14 max-laptop:py-14 max-phablet:py-12";
 /** A section that continues the same background as the one above it. */
-export const homePadFollow =
-  "pt-0 pb-18 max-laptop:pb-20 max-phablet:pb-18";
+export const homePadFollow = "pt-0 pb-14 max-laptop:pb-14 max-phablet:pb-12";
 
 const kicker =
   "font-mono text-[12px] font-bold tracking-[0.32em] uppercase max-phablet:text-[11px]";
@@ -31,6 +30,7 @@ export function HomeHead({
   onDark = false,
   center = false,
   className,
+  eyebrowClassName,
 }: {
   eyebrow?: string;
   title: React.ReactNode;
@@ -38,6 +38,7 @@ export function HomeHead({
   onDark?: boolean;
   center?: boolean;
   className?: string;
+  eyebrowClassName?: string;
 }) {
   return (
     <Reveal
@@ -49,6 +50,7 @@ export function HomeHead({
           "flex items-center gap-3",
           center && "justify-center",
           onDark ? "text-haze" : "text-crimson",
+          eyebrowClassName,
         )}
       >
         {/* <span className="h-px w-7 bg-current" aria-hidden="true" /> */}
@@ -76,6 +78,46 @@ export function HomeHead({
         </p>
       ) : null}
     </Reveal>
+  );
+}
+
+/** Dark: the photo stays sharp under a navy veil. Light: blurred under a
+ *  paper wash. Dark photos go greyscale so the navy tint reads the same
+ *  whatever the photo's own colours. The parent section must be `relative isolate`. */
+export function PhotoBackdrop({
+  src,
+  tone = "dark",
+}: {
+  src: string;
+  tone?: "dark" | "light";
+}) {
+  const dark = tone === "dark";
+  return (
+    <>
+      <Image
+        src={src}
+        alt=""
+        aria-hidden="true"
+        fill
+        sizes="100vw"
+        className={cn("-z-20 object-cover", dark ? "grayscale" : "blur-md")}
+      />
+      <span
+        aria-hidden="true"
+        className={cn(
+          "absolute inset-0 -z-10",
+          dark
+            ? "bg-[linear-gradient(180deg,rgba(13,22,66,0.70)_0%,rgba(13,22,66,0.40)_45%,rgba(13,22,66,0.60)_100%)]"
+            : "bg-paper/82",
+        )}
+      />
+      {dark ? null : (
+        <span
+          aria-hidden="true"
+          className="seam-y -z-10 [--seam:var(--paper)]"
+        />
+      )}
+    </>
   );
 }
 
@@ -126,7 +168,7 @@ export function EditorialBand() {
       id="intro"
       className="relative isolate flex min-h-[max(640px,88vh)] items-start overflow-hidden bg-navy pt-[clamp(72px,12vh,140px)] pb-24 text-white max-laptop:min-h-0 max-laptop:flex-col max-laptop:items-stretch max-laptop:pt-0 max-laptop:pb-12"
     >
-      <div className="absolute inset-0 -z-20 max-laptop:relative max-laptop:inset-auto max-laptop:z-0 max-laptop:aspect-4/3">
+      <div className="absolute inset-0 -z-20 max-laptop:relative max-laptop:inset-auto max-laptop:z-0 max-laptop:aspect-4/3 max-laptop:-mb-px">
         <Image
           src={editorialPhoto}
           alt="A full Emporium batch seated in a hotel ballroom"
@@ -143,7 +185,10 @@ export function EditorialBand() {
         aria-hidden="true"
         className="absolute inset-0 -z-10 bg-[linear-gradient(180deg,rgba(8,12,36,0.55)_0%,transparent_45%),linear-gradient(90deg,rgba(8,12,36,0.92)_0%,rgba(8,12,36,0.75)_38%,rgba(8,12,36,0.15)_75%)] max-laptop:hidden"
       />
-      <div aria-hidden="true" className="seam-y -z-10 [--seam-size:clamp(48px,7vh,84px)] max-laptop:hidden" />
+      <div
+        aria-hidden="true"
+        className="seam-y -z-10 [--seam-size:clamp(48px,7vh,84px)] max-laptop:hidden"
+      />
       {/* <div
         aria-hidden="true"
         className="pointer-events-none absolute inset-6 border border-white/25 max-tablet:inset-3"
@@ -166,28 +211,31 @@ export function EditorialBand() {
   );
 }
 
-const spanClass = {
-  tall: "row-span-2",
-  wide: "col-span-2",
-} as const;
+const wideAreas = new Set(["b", "f"]);
 
+/** Seven photos locked into one frame sized to the viewport, so the whole
+ *  mosaic is seen at once with no ragged last row. */
 export function MomentsMosaic() {
   return (
-    <div className="grid grid-flow-dense auto-rows-[230px] grid-cols-4 gap-3 max-laptop:auto-rows-[240px] max-laptop:grid-cols-2 max-phone:auto-rows-[150px] max-phone:gap-2">
+    <div
+      className={cn(
+        "grid h-[clamp(480px,calc(100svh-150px),800px)] gap-3 max-phone:gap-2",
+        "grid-cols-4 grid-rows-3 [grid-template-areas:'a_b_b_c'_'a_d_e_c'_'f_f_e_g']",
+        "max-laptop:grid-cols-2 max-laptop:grid-rows-[2.5fr_1fr_1fr_1fr_1fr_2.45fr] max-laptop:[grid-template-areas:'b_b'_'a_c'_'a_c'_'d_e'_'g_e'_'f_f']",
+      )}
+    >
       {moments.map((moment) => (
         <Reveal
           key={moment.src}
-          className={cn(
-            "group relative overflow-hidden rounded-[4px] bg-cloud",
-            moment.span && spanClass[moment.span],
-          )}
+          className="group relative overflow-hidden rounded-[4px] bg-cloud"
+          style={{ gridArea: moment.area }}
         >
           <ImageWithSkeleton
             src={moment.src}
             alt={moment.alt}
             fill
             sizes={
-              moment.span === "wide"
+              wideAreas.has(moment.area)
                 ? "(max-width: 960px) 92vw, 46vw"
                 : "(max-width: 960px) 46vw, 23vw"
             }
@@ -195,7 +243,7 @@ export function MomentsMosaic() {
           />
           <span
             aria-hidden="true"
-            className="absolute inset-x-0 bottom-0 bg-linear-to-t from-ink/85 via-ink/30 to-transparent px-5 pt-14 pb-4 text-[14px] leading-snug font-medium text-white max-phone:hidden"
+            className="absolute inset-x-0 bottom-0 translate-y-2 bg-linear-to-t from-ink/85 via-ink/30 to-transparent px-5 pt-14 pb-4 text-[14px] leading-snug font-medium text-white opacity-0 transition-[opacity,transform] duration-500 group-hover:translate-y-0 group-hover:opacity-100 max-phone:hidden"
           >
             {moment.alt}
           </span>

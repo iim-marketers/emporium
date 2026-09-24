@@ -13,6 +13,7 @@ import {
   homePad,
   homePadFollow,
   MomentsMosaic,
+  PhotoBackdrop,
 } from "@/components/home/sections";
 import { BlogGrid } from "@/components/news";
 import { Reveal } from "@/components/reveal";
@@ -23,6 +24,7 @@ import {
 } from "@/components/sections";
 import { TestimonialGallery } from "@/components/testimonial-videos";
 import { getJobs, getPosts } from "@/lib/cms";
+import { backdrops } from "@/lib/home-media";
 import { arrow, btn } from "@/lib/btn";
 import { programs } from "@/lib/programs";
 import { pageMetadata } from "@/lib/seo";
@@ -97,10 +99,7 @@ export default async function HomePage() {
             }
             onDark
             center
-          >
-            Three certificate courses, each a boarding pass into a specific
-            industry. Pick the one that matches where you want to land.
-          </HomeHead>
+          />
         </div>
       </CourseCarousel>
       <FacesStrip />
@@ -123,7 +122,14 @@ export default async function HomePage() {
         </div>
       </section>
 
-      <section className={cn("overflow-hidden bg-navy text-white", homePad)}>
+      <section
+        className={cn(
+          "relative isolate overflow-hidden text-white",
+          homePad,
+          "pb-8 max-laptop:pb-10 max-phablet:pb-5",
+        )}
+        id="life"
+      >
         <LifeReel>
           <HomeHead
             eyebrow="Life at Emporium"
@@ -134,14 +140,16 @@ export default async function HomePage() {
               </>
             }
             onDark
-          >
-            Industry visits, orientation days and everyday moments from our
-            centres and the hotels we train in.
-          </HomeHead>
+            center
+          />
         </LifeReel>
       </section>
 
-      <section className={cn("bg-paper", homePad)} id="recruiters">
+      <section
+        className={cn("relative isolate overflow-hidden bg-paper", homePad)}
+        id="recruiters"
+      >
+        <PhotoBackdrop src={backdrops.recruiters} tone="light" />
         <div className={wrap}>
           <HomeHead
             eyebrow="Placements"
@@ -152,10 +160,7 @@ export default async function HomePage() {
               </>
             }
             className="mb-12"
-          >
-            The airlines, airports, hotel groups and cruise lines that have
-            hired Emporium graduates.
-          </HomeHead>
+          />
           <RecruiterWall />
 
           <div className="mt-16">
@@ -167,7 +172,7 @@ export default async function HomePage() {
         </div>
       </section>
 
-      <section className={cn("bg-paper", homePadFollow)} id="moments">
+      <section className={cn("bg-paper pt-8!", homePad)} id="moments">
         <div className={wrap}>
           <HomeHead
             eyebrow="Moments"
@@ -183,25 +188,37 @@ export default async function HomePage() {
         </div>
       </section>
 
-      <section className={cn("bg-paper", homePadFollow)} id="testimonials">
+      <section
+        className={cn(
+          "relative isolate overflow-hidden bg-navy text-white pt-8!",
+          homePad,
+        )}
+        id="testimonials"
+      >
+        <PhotoBackdrop src={backdrops.testimonials} tone="light" />
         <div className={wrap}>
           <HomeHead
             eyebrow="Student testimonial"
+            eyebrowClassName="text-crimson"
             title={
               <>
                 In their <em className="text-crimson not-italic">own words.</em>
               </>
             }
             className="mb-12"
-          >
-            Films from students who trained at Emporium and went on to fly,
-            serve and sail with brands around the world. Pick one to play it.
-          </HomeHead>
+          />
           <TestimonialGallery />
         </div>
       </section>
 
-      <section className={cn("bg-paper", homePadFollow)} id="blog">
+      <section
+        className={cn(
+          "relative  isolate overflow-hidden bg-paper pt-8!",
+          homePad,
+        )}
+        id="blog"
+      >
+        <PhotoBackdrop src={backdrops.blog} tone="light" />
         <div className={wrap}>
           <HomeHead
             eyebrow="Latest blog"
