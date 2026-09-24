@@ -206,7 +206,7 @@ export default async function HomePage() {
                 In their <em className="text-crimson not-italic">own words.</em>
               </>
             }
-            className="mb-12"
+            className="mb-6"
           />
           <TestimonialGallery />
         </div>

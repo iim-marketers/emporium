@@ -1,118 +1,344 @@
 "use client";
 
-import { PlayIcon, XIcon } from "lucide-react";
+import {
+  ChevronLeftIcon,
+  ChevronRightIcon,
+  MapPinIcon,
+  PlayIcon,
+  Volume2Icon,
+  VolumeXIcon,
+  XIcon,
+} from "lucide-react";
+import Image from "next/image";
 import * as React from "react";
 
-import { ImageWithSkeleton } from "@/components/image-with-skeleton";
-import { Marquee, MarqueeRow } from "@/components/marquee";
 import {
   Dialog,
   DialogClose,
   DialogContent,
   DialogTitle,
 } from "@/components/ui/dialog";
-import { testimonialVideos, type TestimonialVideo } from "@/lib/content";
+import { testimonialStories, type TestimonialStory } from "@/lib/content";
+import { cn } from "@/lib/utils";
+
+const pad = (n: number) => String(n).padStart(2, "0");
+
+const cities = Array.from(
+  testimonialStories.reduce(
+    (m, s) => m.set(s.city, (m.get(s.city) ?? 0) + 1),
+    new Map<string, number>(),
+  ),
+);
+
+const railBtn =
+  "grid size-11 cursor-pointer place-items-center rounded-full border border-hairline bg-white text-ink transition-[background-color,color,opacity] hover:bg-navy hover:text-white disabled:pointer-events-none disabled:opacity-35";
+
+const viewerBtn =
+  "grid size-11 cursor-pointer place-items-center rounded-full bg-white/12 text-white backdrop-blur-md transition-colors hover:bg-white/25";
+
+const sideBtn =
+  "absolute top-1/2 grid size-11 -translate-y-1/2 cursor-pointer place-items-center rounded-full bg-white text-ink shadow-[0_10px_30px_-12px_rgba(13,22,66,0.8)] transition-transform hover:scale-105 max-tablet:hidden";
 
 export function TestimonialGallery() {
-  const [playing, setPlaying] = React.useState<TestimonialVideo | null>(null);
+  const rail = React.useRef<HTMLUListElement>(null);
+  const [city, setCity] = React.useState(cities[0][0]);
+  const [scroll, setScroll] = React.useState({ at: 0, span: 1 });
+  const [preview, setPreview] = React.useState<string | null>(null);
+  const [open, setOpen] = React.useState<number | null>(null);
+
+  const stories = React.useMemo(
+    () => testimonialStories.filter((s) => s.city === city),
+    [city],
+  );
+
+  const measure = React.useCallback(() => {
+    const el = rail.current;
+    if (!el) return;
+    const max = el.scrollWidth - el.clientWidth;
+    setScroll({
+      at: max > 0 ? el.scrollLeft / max : 0,
+      span: el.scrollWidth ? el.clientWidth / el.scrollWidth : 1,
+    });
+  }, []);
+
+  React.useEffect(() => {
+    const el = rail.current;
+    if (!el) return;
+    el.scrollTo({ left: 0 });
+    const ro = new ResizeObserver(measure);
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, [stories, measure]);
+
+  const nudge = (d: 1 | -1) =>
+    rail.current?.scrollBy({
+      left: d * rail.current.clientWidth * 0.8,
+      behavior: "smooth",
+    });
 
   return (
     <>
-      <Marquee
-        label="Films from students who trained at Emporium"
-        className="gap-0"
-      >
-        <MarqueeRow duration="46s" gap="gap-5">
-          {testimonialVideos.map((video) => (
-            <TestimonialCard
-              key={video.id}
-              video={video}
-              onPlay={() => setPlaying(video)}
-            />
-          ))}
-        </MarqueeRow>
-      </Marquee>
-
-      <Dialog
-        open={playing !== null}
-        onOpenChange={(open) => {
-          if (!open) setPlaying(null);
-        }}
-      >
-        <DialogContent
-          showCloseButton={false}
-          className="w-[min(940px,calc(100%-2rem))] max-w-none gap-0 bg-transparent p-0 ring-0 sm:max-w-none"
+      <div className="mb-7 flex items-center justify-between gap-6">
+        <div
+          role="group"
+          aria-label="Filter stories by city"
+          className="-mx-1 flex min-w-0 gap-2 overflow-x-auto px-1 py-1 [scrollbar-width:none]"
         >
-          {/* The film carries its own title on screen, so this names the
-              dialog for screen readers only. */}
-          <DialogTitle className="sr-only">
-            {playing?.title ?? "Student testimonial"}
-          </DialogTitle>
+          {cities.map(([c, count]) => {
+            const on = city === c;
+            return (
+              <button
+                key={c}
+                type="button"
+                aria-pressed={on}
+                onClick={() => setCity(c)}
+                className={cn(
+                  "flex flex-none cursor-pointer items-center gap-2 rounded-full border px-4 py-2.5 text-[14px] font-medium transition-colors",
+                  on
+                    ? "border-crimson bg-white text-ink"
+                    : "border-hairline bg-white text-slate hover:border-navy/30 hover:text-ink",
+                )}
+              >
+                <MapPinIcon
+                  className={cn(
+                    "size-4",
+                    on ? "text-crimson" : "text-slate/50",
+                  )}
+                />
+                {c}
+              </button>
+            );
+          })}
+        </div>
 
-          <DialogClose
-            className="ml-auto mb-3 grid size-9 place-items-center rounded-full bg-white/90 text-ink shadow-[0_10px_30px_-15px_rgba(13,22,66,0.8)] transition-colors hover:bg-white"
-            aria-label="Close video"
+        <div className="flex flex-none gap-2 max-phablet:hidden">
+          <button
+            type="button"
+            className={railBtn}
+            onClick={() => nudge(-1)}
+            disabled={scroll.at <= 0.001}
+            aria-label="Scroll stories back"
           >
-            <XIcon className="size-4.5" />
-          </DialogClose>
+            <ChevronLeftIcon className="size-4.5" />
+          </button>
+          <button
+            type="button"
+            className={railBtn}
+            onClick={() => nudge(1)}
+            disabled={scroll.at >= 0.999 || scroll.span >= 1}
+            aria-label="Scroll stories forward"
+          >
+            <ChevronRightIcon className="size-4.5" />
+          </button>
+        </div>
+      </div>
 
-          {playing && (
-            <div className="aspect-video overflow-hidden rounded-(--r) bg-black">
-              <iframe
-                /* Keyed so switching films remounts the player rather than
-                   leaving the previous one to autoplay on. */
-                key={playing.id}
-                src={`https://www.youtube-nocookie.com/embed/${playing.id}?autoplay=1&rel=0&playsinline=1`}
-                title={playing.title}
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                allowFullScreen
-                className="size-full border-0"
+      <ul
+        ref={rail}
+        onScroll={measure}
+        className="m-0 -mx-2 flex snap-x snap-mandatory scroll-px-2 gap-4 overflow-x-auto px-2 pt-2 pb-3 [scrollbar-width:none] max-phablet:gap-3"
+      >
+        {stories.map((story, i) => (
+          <li
+            key={story.src}
+            className="w-[clamp(168px,21vw,248px)] flex-none snap-start list-none animate-in fill-mode-both duration-500 fade-in slide-in-from-right-4"
+            style={{ animationDelay: `${Math.min(i, 6) * 60}ms` }}
+          >
+            <button
+              type="button"
+              onClick={() => setOpen(i)}
+              onPointerEnter={(e) => {
+                if (e.pointerType === "mouse") setPreview(story.src);
+              }}
+              onPointerLeave={() => setPreview(null)}
+              aria-label={`Play student story ${pad(i + 1)} from ${story.city}`}
+              className="group/story relative block aspect-9/16 w-full cursor-pointer overflow-hidden rounded-[18px] bg-cloud shadow-[0_18px_40px_-28px_rgba(13,22,66,0.8)] transition-transform duration-300 hover:-translate-y-1.5"
+            >
+              <Image
+                src={story.poster}
+                alt=""
+                fill
+                sizes="(max-width: 640px) 170px, 250px"
+                className="object-cover transition-transform duration-700 group-hover/story:scale-105"
               />
-            </div>
-          )}
-        </DialogContent>
-      </Dialog>
+              {preview === story.src && (
+                <video
+                  src={story.src}
+                  muted
+                  autoPlay
+                  loop
+                  playsInline
+                  aria-hidden="true"
+                  className="absolute inset-0 size-full animate-in object-cover duration-500 fade-in motion-reduce:hidden"
+                />
+              )}
+              <span className="absolute inset-0 bg-[linear-gradient(180deg,rgba(13,22,66,0.45)_0%,transparent_24%,transparent_58%,rgba(13,22,66,0.88)_100%)]" />
+
+              <span className="absolute inset-x-3 bottom-3 flex items-end justify-end text-white">
+                {/* <span className="text-left leading-tight">
+                  <span className="block font-mono text-[10.5px] tracking-[0.22em] text-white/70 uppercase">
+                    Story
+                  </span>
+                  <span className="block font-mono text-[26px] font-bold">
+                    {pad(i + 1)}
+                  </span>
+                </span> */}
+                <span className="grid size-10 place-items-center rounded-full bg-crimson shadow-[0_8px_20px_-8px_rgba(217,31,42,0.9)] transition-transform duration-300 group-hover/story:scale-110">
+                  <PlayIcon className="size-4 translate-x-px fill-white text-white" />
+                </span>
+              </span>
+            </button>
+          </li>
+        ))}
+      </ul>
+
+      <StoryViewer stories={stories} index={open} onIndex={setOpen} />
     </>
   );
 }
 
-function TestimonialCard({
-  video,
-  onPlay,
+function StoryViewer({
+  stories,
+  index,
+  onIndex,
 }: {
-  video: TestimonialVideo;
-  onPlay: () => void;
+  stories: TestimonialStory[];
+  index: number | null;
+  onIndex: (i: number | null) => void;
 }) {
+  const [progress, setProgress] = React.useState(0);
+  const [muted, setMuted] = React.useState(false);
+  const swipe = React.useRef<number | null>(null);
+
+  const story = index === null ? null : stories[index];
+  const total = stories.length;
+
+  const go = (d: 1 | -1) => {
+    if (index === null) return;
+    const next = index + d;
+    setProgress(0);
+    onIndex(next >= total ? null : Math.max(0, next));
+  };
+
   return (
-    <figure className="w-[clamp(190px,20vw,240px)] flex-none overflow-hidden rounded-(--r) border border-hairline bg-white p-2.5 shadow-[0_10px_30px_-20px_rgba(13,22,66,0.5)]">
-      <button
-        type="button"
-        onClick={onPlay}
-        className="group/still relative block aspect-9/16 w-full cursor-pointer overflow-hidden rounded-[10px] bg-cloud"
+    <Dialog
+      open={story !== null}
+      onOpenChange={(o) => {
+        if (o) return;
+        onIndex(null);
+        setProgress(0);
+      }}
+    >
+      <DialogContent
+        showCloseButton={false}
+        onKeyDown={(e) => {
+          if (e.key === "ArrowRight") go(1);
+          if (e.key === "ArrowLeft") go(-1);
+        }}
+        className="w-[min(440px,calc(100%-1.5rem))] max-w-none gap-0 bg-transparent p-0 ring-0 sm:max-w-none"
       >
-        <ImageWithSkeleton
-          src={`https://i.ytimg.com/vi/${video.id}/maxresdefault.jpg`}
-          alt=""
-          fill
-          sizes="240px"
-          className="object-cover object-center transition-transform duration-500 group-hover/still:scale-105"
-        />
-        <span className="absolute inset-x-0 bottom-0 h-1/2 bg-linear-to-t from-ink/85 via-ink/35 to-transparent" />
+        <DialogTitle className="sr-only">
+          {story ? `Student story from ${story.city}` : "Student story"}
+        </DialogTitle>
 
-        <span className="absolute top-1/2 left-1/2 grid size-11 -translate-x-1/2 -translate-y-1/2 scale-90 place-items-center rounded-full bg-white/90 opacity-0 shadow-[0_8px_24px_-10px_rgba(13,22,66,0.9)] backdrop-blur-xs transition duration-300 group-hover/still:scale-100 group-hover/still:opacity-100 group-focus-visible/still:scale-100 group-focus-visible/still:opacity-100 pointer-coarse:scale-100 pointer-coarse:opacity-100">
-          <PlayIcon className="size-4 translate-x-px fill-royal text-royal" />
-        </span>
+        {story && index !== null && (
+          <div className="relative">
+            <div
+              className="relative mx-auto aspect-9/16 max-h-[86svh] overflow-hidden rounded-[22px] bg-black shadow-[0_40px_100px_-30px_rgba(0,0,0,0.9)]"
+              onPointerDown={(e) => {
+                swipe.current = e.clientX;
+              }}
+              onPointerUp={(e) => {
+                if (swipe.current === null) return;
+                const dx = e.clientX - swipe.current;
+                swipe.current = null;
+                if (Math.abs(dx) > 50) go(dx < 0 ? 1 : -1);
+              }}
+            >
+              <video
+                key={story.src}
+                src={story.src}
+                poster={story.poster}
+                autoPlay
+                playsInline
+                muted={muted}
+                onTimeUpdate={(e) => {
+                  const el = e.currentTarget;
+                  if (el.duration) setProgress(el.currentTime / el.duration);
+                }}
+                onEnded={() => go(1)}
+                onClick={(e) => {
+                  const el = e.currentTarget;
+                  if (el.paused) el.play().catch(() => {});
+                  else el.pause();
+                }}
+                className="size-full cursor-pointer object-cover"
+              />
 
-        <span
-          aria-hidden="true"
-          className="absolute inset-x-0 bottom-2 block p-3"
-        >
-          <span className="line-clamp-2 text-[0.8125rem] leading-snug font-medium text-white">
-            {video.title}
-          </span>
-        </span>
-        <span className="sr-only">Play “{video.title}”</span>
-      </button>
-    </figure>
+              <span
+                aria-hidden="true"
+                className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(0,0,0,0.55)_0%,transparent_20%,transparent_75%,rgba(0,0,0,0.6)_100%)]"
+              />
+
+              <div className="absolute inset-x-0 top-0 px-4 pt-4">
+                <div
+                  aria-hidden="true"
+                  className="h-[3px] overflow-hidden rounded-full bg-white/30"
+                >
+                  <span
+                    className="block h-full bg-white transition-[width] duration-300 ease-linear"
+                    style={{ width: `${progress * 100}%` }}
+                  />
+                </div>
+                <div className="mt-3 flex items-center justify-between text-white">
+                  <span className="flex items-center gap-2 text-[14px] font-semibold">
+                    {/* <MapPinIcon className="size-4 text-crimson" /> */}
+                    {story.city}
+                  </span>
+                  <span className="flex items-center gap-2">
+                    <button
+                      type="button"
+                      onClick={() => setMuted((m) => !m)}
+                      aria-label={muted ? "Unmute" : "Mute"}
+                      className={cn(viewerBtn, "size-9")}
+                    >
+                      {muted ? (
+                        <VolumeXIcon className="size-4" />
+                      ) : (
+                        <Volume2Icon className="size-4" />
+                      )}
+                    </button>
+                    <DialogClose
+                      aria-label="Close story"
+                      className={cn(viewerBtn, "size-9")}
+                    >
+                      <XIcon className="size-4" />
+                    </DialogClose>
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <button
+              type="button"
+              onClick={() => go(-1)}
+              disabled={index === 0}
+              aria-label="Previous story"
+              className={cn(sideBtn, "-left-16 disabled:opacity-30")}
+            >
+              <ChevronLeftIcon className="size-5" />
+            </button>
+            <button
+              type="button"
+              onClick={() => go(1)}
+              aria-label="Next story"
+              className={cn(sideBtn, "-right-16")}
+            >
+              <ChevronRightIcon className="size-5" />
+            </button>
+          </div>
+        )}
+      </DialogContent>
+    </Dialog>
   );
 }

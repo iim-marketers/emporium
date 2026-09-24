@@ -154,48 +154,28 @@ export const centreCards: CentreCard[] = [
   },
 ];
 
-export type TestimonialVideo = {
-  id: string;
-  title: string;
+export type TestimonialStory = {
+  city: string;
+  src: string;
+  poster: string;
 };
 
-/** Landscape only — the row is 16:9, and the channel's vertical Shorts would
- *  have to be cropped past the point of keeping their subject. */
-export const testimonialVideos: TestimonialVideo[] = [
-  { id: "0ek6Q1XbsH0", title: "A dream I didn't know was this close" },
-  {
-    id: "W5rjm9aEL4c",
-    title: "Dreams that took flight, careers that began here",
-  },
-  { id: "n62u4t4Wnhs", title: "From training to takeoff in just 60 days" },
-  { id: "X8cC0DivyLk", title: "Where dreams come true" },
-  {
-    id: "1aojZBio8OM",
-    title: "Found us on social media, found my career in 60 days",
-  },
-  { id: "7MzXSGsoldA", title: "One scroll. One decision. One new life." },
-  {
-    id: "9MOnUG8LD_E",
-    title: "Placed in 40 days at ITC Grand Chola",
-  },
-  {
-    id: "NsogEH67ZqI",
-    title: "Placed at ITC Grand Chola and Jio World Centre, Mumbai",
-  },
-  {
-    id: "wsYgzdmCpqs",
-    title: "Placed at Jio World Centre, Mumbai",
-  },
-  {
-    id: "WBG9qzZr-dI",
-    title: "The Emporium placement policy, explained",
-  },
-  {
-    id: "6RFs-MCQ8U4",
-    title: "60 days to your dream career in hospitality, aviation and cruise",
-  },
-  { id: "c_n6w_oqGvg", title: "Unlock your career potential today" },
+/** Files live at /testimonials/<slug>-<n>.mp4 with a matching .jpg poster;
+ *  adding a city is one more entry here. */
+const testimonialCities = [
+  { slug: "siliguri", city: "Siliguri", count: 5 },
+  { slug: "guwahati", city: "Guwahati", count: 8 },
+  { slug: "sikkim", city: "Sikkim", count: 5 },
 ];
+
+export const testimonialStories: TestimonialStory[] = testimonialCities.flatMap(
+  ({ slug, city, count }) =>
+    Array.from({ length: count }, (_, i) => ({
+      city,
+      src: `/testimonials/${slug}-${i + 1}.mp4`,
+      poster: `/testimonials/${slug}-${i + 1}.jpg`,
+    })),
+);
 
 export const placementsIntro =
   "Since we are working very closely with the industry for the last 9 years in India and we follow all the guidelines given by the airlines, hotels and tourism companies, we do not take open admissions to maintain the quality policy and to ensure that every student gets suitable jobs according to the profile.";
