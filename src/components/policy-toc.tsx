@@ -4,8 +4,6 @@ import * as React from "react";
 
 import { cn } from "@/lib/utils";
 
-/** How far below the viewport top a heading counts as "being read" — clears
- *  the sticky site header. */
 const READ_LINE = 140;
 
 export function PolicyToc({

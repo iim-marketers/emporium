@@ -4,13 +4,11 @@ import * as React from "react";
 
 import { cn } from "@/lib/utils";
 
-/** Full 0-9 turns a digit rolls through before it lands on its value. */
 const TURNS = 2;
 const REEL = Array.from({ length: TURNS * 10 + 10 }, (_, i) => i % 10);
 
 type Token = { text: string; digits: boolean };
 
-/** "Over 50,000+" -> [Over ][5][,][0][0][0][0][+], digits kept as single chars. */
 function tokenize(text: string): Token[] {
   const tokens: Token[] = [];
   for (const char of text) {
@@ -42,7 +40,6 @@ export function CountFlip({
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     if (typeof IntersectionObserver === "undefined") return;
 
-    // Rewind to zero before the reels are ever on screen.
     reels.forEach((reel) => {
       reel.style.transition = "none";
       reel.style.transform = "translateY(0)";

@@ -59,11 +59,12 @@ export default function PlacementsPage() {
           lede={placementsIntro}
           image={img.hero}
           focus={img.heroFocus}
+          dim
         >
           <ApplyDialog label="Send your CV" variant="primary" block="phone" />
         </CoverHero>
 
-        <Sheet first>
+        <Sheet first full>
           <PageHead
             eyebrow="Our recruiters"
             title={

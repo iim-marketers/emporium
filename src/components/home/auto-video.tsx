@@ -5,8 +5,6 @@ import * as React from "react";
 import type { Clip } from "@/lib/home-media";
 import { cn } from "@/lib/utils";
 
-/** Muted, looping and silent to assistive tech — these clips are scenery.
- *  Each one only decodes while it is on screen. */
 export function AutoVideo({
   clip,
   eager = false,

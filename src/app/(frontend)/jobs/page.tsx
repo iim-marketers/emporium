@@ -38,7 +38,7 @@ export default async function JobsPage() {
             Campus interviews, <Accent onDark>happening now.</Accent>
           </>
         }
-        lede={jobsIntro}
+        // lede={jobsIntro}
         image={img.hero}
         focus={img.heroFocus}
       >

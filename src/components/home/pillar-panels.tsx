@@ -7,14 +7,11 @@ import { pillars } from "@/lib/content";
 import { pillarPhotos } from "@/lib/home-media";
 import { cn } from "@/lib/utils";
 
-/** Wide screens: panels share a row and the chosen one opens out.
- *  Below 961px every panel is open, as a 2×2 grid of cards. */
 export function PillarPanels() {
   const [open, setOpen] = React.useState(0);
 
   return (
     <>
-
       <div className="flex h-[min(620px,78vh)] min-h-130 gap-3 max-laptop:grid max-laptop:h-auto max-laptop:min-h-0 max-laptop:grid-cols-2 max-laptop:gap-4 max-phone:gap-2.5">
         {pillars.map((pillar, i) => {
           const isOpen = open === i;

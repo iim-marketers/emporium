@@ -28,7 +28,6 @@ export function BrandMark({
 }: {
   variant?: "dark" | "light";
   preload?: boolean;
-  /** Crossfades a dark mark to the light one, for a header sitting over a photo. */
   inverse?: boolean;
   className?: string;
   onClick?: (event: React.MouseEvent<HTMLAnchorElement>) => void;

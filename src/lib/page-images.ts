@@ -8,7 +8,6 @@ type PageImages = {
   stageFocus?: string;
 };
 
-/** Hero photo and the still photo the page's panels scroll over. */
 const images = {
   about: { hero: page("cabin-aisle"), stage: page("lecture-hall") },
   programs: {
@@ -16,7 +15,11 @@ const images = {
     heroFocus: "50% 40%",
     stage: bg("runway-dusk"),
   },
-  placements: { hero: page("busy-terminal"), stage: bg("gate-window") },
+  placements: {
+    hero: page("crew-cabin"),
+    heroFocus: "50% 35%",
+    stage: bg("gate-window"),
+  },
   achievements: { hero: page("wing-sunset"), stage: bg("auditorium") },
   contact: {
     hero: page("help-desk"),

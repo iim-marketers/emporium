@@ -23,12 +23,9 @@ const arrowBtn = [
 const pad = (n: number) => String(n).padStart(2, "0");
 
 const total = lifeClips.length;
-/** Signed distance from the front, wrapped so the ring has no ends. */
 const wrapIndex = (x: number) =>
   ((((x + total / 2) % total) + total) % total) - total / 2;
 
-/** Card size, spacing and depth all follow the viewport, so the ring spans
- *  the screen on desktop and shows one clip with peeking neighbours on phones. */
 function ringGeometry(w: number, h: number) {
   const phone = w < 641;
   const cardW = Math.round(
@@ -48,8 +45,6 @@ function ringGeometry(w: number, h: number) {
   };
 }
 
-/** A ring of clips: drag, swipe, click a side card or use the arrows to spin
- *  it; whichever clip faces front plays. */
 export function LifeReel({ children }: { children: React.ReactNode }) {
   const root = React.useRef<HTMLDivElement>(null);
   const video = React.useRef<HTMLVideoElement>(null);

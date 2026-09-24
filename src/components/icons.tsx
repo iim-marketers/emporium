@@ -1,4 +1,3 @@
-/** No Lucide equivalent reads as the app. */
 export function WhatsAppIcon({
   size = 17,
   className = "flex-none",

@@ -7,7 +7,6 @@ import { cn } from "@/lib/utils";
 
 type ImageWithSkeletonProps = ImageProps & {
   skeletonClassName?: string;
-  /** Only read for non-`fill` images, where we supply the sizing wrapper. */
   wrapperClassName?: string;
 };
 

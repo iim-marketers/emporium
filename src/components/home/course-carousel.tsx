@@ -36,8 +36,6 @@ export function CourseCarousel({
   const go = (offset: number) =>
     setSlide({ active: at(offset), dir: Math.sign(offset), moves: moves + 1 });
 
-  /** The centre card slides in from the side slot it came from; the side
-   *  cards follow, one out of the centre and one in from the far edge. */
   React.useLayoutEffect(() => {
     const el = row.current;
     if (!moves || !el) return;

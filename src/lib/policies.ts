@@ -1,6 +1,3 @@
-/** A section is running paragraphs, a bulleted list, or both. The policy page
- *  renders whichever keys are present. */
-
 export type PolicySection = {
   heading?: string;
   body?: string[];
@@ -72,7 +69,9 @@ export const privacyPolicy: PolicySection[] = [
   },
   {
     heading: "CCPA Privacy Rights (Do Not Sell My Personal Information)",
-    body: ["Under the CCPA, among other rights, California consumers have the right to:"],
+    body: [
+      "Under the CCPA, among other rights, California consumers have the right to:",
+    ],
     list: [
       "Request that a business that collects a consumer's personal data disclose the categories and specific pieces of personal data that a business has collected about consumers.",
       "Request that a business delete any personal data about the consumer that a business has collected.",

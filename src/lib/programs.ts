@@ -2,7 +2,6 @@ export type ProgramLevel =
   "Certificate" | "Advanced Certificate" | "Fast Track";
 
 export type PayBand = {
-  /** Role the band applies to — omitted when the course quotes a single band. */
   role?: string;
   domestic: string;
   international: string;
@@ -38,7 +37,6 @@ export type Program = {
   faqs: Faq[];
 };
 
-/** Quoted on all three course pages. */
 const positionDetails = [
   "With practically all of the top regional and international airlines, prestigious 5-star hotel chains, and well-known businesses in the travel, hospitality, and customer service industries, Emporium has successfully built reputable and lasting connections. These businesses then hold private on-campus interviews for Emporium students at different training facilities across the country.",
   "Today, the most popular career in aviation is that it has flexible educational requirements and offers rich prospects. The aviation business provides several work prospects, regardless of a candidate's 10+2 certificate or degree in aviation, hospitality, cruise lines, tourism, or similar fields. Starting salaries in aviation typically range from INR 2 to INR 5 lakhs annually. The remuneration may increase to INR 15 to 35 lakhs annually after five or more years of experience.",

@@ -25,7 +25,6 @@ const statusCell = "bg-[linear-gradient(180deg,#3a2a08,#241a05)] text-amber";
 const GLYPHS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789 &-/.".split("");
 const DEST_LEN = 17;
 const STAT_LEN = 9;
-/** Only ever shown on a drive that is still to come. */
 const OPEN_STATUSES = ["OPEN ALL", "INVITE", "HIRING", "REGISTER", "APPLY NOW"];
 const CLOSED = "CLOSED";
 
@@ -150,7 +149,6 @@ export function DepartureBoard({ drives }: { drives: Job[] }) {
 
       if (!reduce) {
         const shuffle = window.setInterval(() => {
-          // Closed rows are left alone — they hold CLOSED.
           const open = rows.filter((row) => !isDriveClosed(row.job));
           if (!open.length) return;
           const row = open[Math.floor(Math.random() * open.length)];
@@ -174,7 +172,6 @@ export function DepartureBoard({ drives }: { drives: Job[] }) {
     );
     io.observe(board);
 
-    // Ensure the board flips even if it is already in view on load.
     const failsafe = window.setTimeout(() => {
       if (board.getBoundingClientRect().top < window.innerHeight) reveal();
     }, 200);

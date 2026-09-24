@@ -19,7 +19,6 @@ import {
 const role = (name: string) => `/courses/roles/${name}.jpg`;
 const photo = (name: string) => `/home/photos/${name}.webp`;
 
-/** One photo per job role, keyed by the role name in `programs.ts`. */
 export const roleImages: Record<string, string> = {
   "Cabin Crew": photo("aircraft-door"),
   "Flight Steward": role("cabin-aisle"),
@@ -48,8 +47,6 @@ export const roleImages: Record<string, string> = {
 export const roleLabel = (name: string) =>
   name.replace(/\s*\(F&B\)/, "").replace(/ services$/i, "");
 
-/** Full-bleed backdrop behind the course title; `focus` keeps the subject
- *  clear of the copy on the left. */
 export const courseHeroes: Record<string, { image: string; focus: string }> = {
   aviation: { image: role("hero-aviation"), focus: "62% 60%" },
   hospitality: { image: role("hero-hospitality"), focus: "60% 45%" },

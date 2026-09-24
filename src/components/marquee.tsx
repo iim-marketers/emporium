@@ -40,7 +40,6 @@ export function MarqueeRow({
   gap = "gap-3.5",
   children,
 }: {
-  /** Set from the row's content width, so every row travels at a similar speed. */
   duration: string;
   reverse?: boolean;
   gap?: string;
@@ -60,10 +59,7 @@ export function MarqueeRow({
       )}
     >
       {children}
-      {/* The loop's second half — decorative, and dropped when motion is off.
-          `contents` keeps these as flex items of the row rather than one box.
-          `inert` matters once a row holds controls: the copy is hidden from
-          assistive tech, so it must not be reachable by tab or click either. */}
+      {}
       <div aria-hidden="true" inert className="contents motion-reduce:hidden">
         {children}
       </div>

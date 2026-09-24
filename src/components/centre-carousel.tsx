@@ -14,8 +14,6 @@ const sideCard = [
   "max-wide:w-60 max-laptop:hidden",
 ].join(" ");
 
-/** The home course carousel's layout, for centres: the chosen centre's photo
- *  fills the section behind its card. */
 export function CentreCarousel({
   items,
   children,

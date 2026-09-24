@@ -9,7 +9,6 @@ export const eyebrowOnDark =
 
 export const heroHeading =
   "text-[clamp(30px,4vw,52px)] font-medium max-phablet:text-[clamp(31px,8.4vw,46px)]";
-/** Titles run longer on inner pages, so the ramp is a touch lower. */
 export const pageHeading =
   "text-[clamp(28px,4.6vw,50px)] font-medium max-phablet:text-[clamp(22px,7.6vw,34px)]";
 export const sectionHeading = "text-[clamp(20px,3.2vw,38px)] font-medium";
@@ -37,7 +36,6 @@ export const heroPad =
 export const pageHeroPad =
   "pt-16 pb-[76px] max-laptop:pt-12 max-laptop:pb-[62px] max-phablet:pt-[38px] max-phablet:pb-[52px]";
 
-/** The measure widens on inner pages; both collapse once the hero stacks. */
 export const lede =
   "mt-5.5 text-[16px] text-[#c8d2f4] max-w-[50ch] max-laptop:max-w-[52ch] max-phablet:text-[14px]";
 export const ledeWide =
@@ -69,7 +67,6 @@ export const split =
 export const moduleList = "m-0 grid gap-0 p-0";
 export const moduleItem =
   "grid list-none grid-cols-[18px_1fr] gap-3 border-t border-hairline py-4.5 first:border-t-0";
-/** Wider gutter, for word labels ("Mon – Tue") rather than "01". */
 export const moduleItemWide =
   "grid list-none grid-cols-[92px_1fr] gap-4 border-t border-hairline py-4.5 first:border-t-0 max-phone:grid-cols-1 max-phone:gap-1.5";
 export const moduleNo =

@@ -62,8 +62,6 @@ export function PostTile() {
   );
 }
 
-/** Desktop spans by post count: the lead always takes the left half, and the
- *  rest share the right half so the block stays a clean rectangle. */
 function span(i: number, n: number) {
   const rest = n - 1;
   if (i === 0)

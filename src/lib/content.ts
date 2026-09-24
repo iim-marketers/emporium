@@ -11,7 +11,7 @@ export const placementClaim = {
   count: "Over 100,000+",
   line1: "students",
   line2: "placed",
-  line3: "in 14 different countries",
+  line3: "in 29 different countries",
   image: "/placements/hero-v2.png",
 };
 

@@ -85,7 +85,6 @@ export function PageHead({
   );
 }
 
-/** A photo in a squared frame with an optional mono caption across its foot. */
 export function Photo({
   src,
   alt = "",
@@ -184,7 +183,6 @@ export function FactStrip({
   );
 }
 
-/** Rows with hairline dividers, in place of tick-mark lists. */
 export function IndexList({
   items,
   onDark = false,
@@ -213,7 +211,6 @@ export function IndexList({
   );
 }
 
-/** Closing band on a photograph: navy veil, framed hairline, centred copy. */
 export function CtaBand({
   image,
   eyebrow,
@@ -309,7 +306,6 @@ export function ContactGrid({ items }: { items: ContactItem[] }) {
   );
 }
 
-/** A plain navy title band for text-first pages (legal, blog). */
 export function PlainHero({
   label,
   title,
@@ -323,7 +319,6 @@ export function PlainHero({
   lede?: React.ReactNode;
   children?: React.ReactNode;
   narrow?: boolean;
-  /** Optional photo behind the band, under a navy veil. */
   image?: string;
 }) {
   const copy = (
@@ -349,8 +344,6 @@ export function PlainHero({
     );
   }
 
-  /** Cover images come in any shape, so the photo is shown whole (never
-   *  cropped) beside the copy, over a blurred copy of itself. */
   return (
     <section className="relative isolate overflow-hidden bg-navy py-16 text-white max-phablet:py-10">
       <Image

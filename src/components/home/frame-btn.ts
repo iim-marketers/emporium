@@ -1,6 +1,5 @@
 import { cva } from "class-variance-authority";
 
-/** Square, letter-spaced buttons for copy that sits on a photograph. */
 export const frameBtn = cva(
   [
     "inline-flex min-h-12 cursor-pointer items-center justify-center gap-3 px-7",

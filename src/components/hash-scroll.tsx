@@ -6,7 +6,6 @@ import * as React from "react";
 
 const HEADER_FALLBACK = 72;
 const MIN_AIR = 12;
-/** Capped so a short target still lands near the top, not mid-screen. */
 const MAX_AIR = 32;
 
 function headerHeight() {
@@ -41,9 +40,7 @@ const INTENT_KEY = "scroll-intent";
 function setScrollIntent(id: string) {
   try {
     sessionStorage.setItem(INTENT_KEY, id);
-  } catch {
-    /* Private modes can refuse storage; the visitor just lands at the top. */
-  }
+  } catch {}
 }
 
 function peekScrollIntent() {
@@ -57,13 +54,9 @@ function peekScrollIntent() {
 function clearScrollIntent() {
   try {
     sessionStorage.removeItem(INTENT_KEY);
-  } catch {
-    /* Nothing was stored in the first place. */
-  }
+  } catch {}
 }
 
-/** Requests arrive from a {@link ScrollLink}, or as `#id` for links shared from
- *  elsewhere. The hash is wiped from the address bar on arrival. */
 export function HashScroll({ id }: { id: string }) {
   React.useEffect(() => {
     const hashed = () => window.location.hash === `#${id}`;
@@ -97,11 +90,6 @@ type ScrollLinkProps = Omit<
   href?: string;
 };
 
-/**
- * On the same page it scrolls outright; across pages it leaves a note for the
- * destination's {@link HashScroll} to pick up. Modified and middle clicks fall
- * through to the browser, so opening in a new tab still works.
- */
 export function ScrollLink({ to, href, onClick, ...props }: ScrollLinkProps) {
   const pathname = usePathname();
   const target = href ?? pathname;

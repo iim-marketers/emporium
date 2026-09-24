@@ -61,7 +61,6 @@ export function Hero({ drives }: { drives: Job[] }) {
       <div
         className={cn(
           wrap,
-          /* Above the flight path, so the plane passes behind the copy. */
           "relative grid grid-cols-[1.05fr_0.95fr] items-center gap-14",
           "xl:grid-cols-[1fr_1.15fr]",
           "max-laptop:grid-cols-1 max-laptop:gap-11",

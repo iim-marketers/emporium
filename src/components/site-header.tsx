@@ -31,7 +31,6 @@ const navLink = [
   "group-data-[overlay=true]/header:data-[active=true]:text-white",
 ].join(" ");
 
-/** Over the home hero the bar is just the mark; the rest arrives on scroll. */
 const revealOnScroll =
   "transition-[opacity,visibility,translate] duration-500 ease-out motion-reduce:transition-none";
 const hiddenUntilScroll = "invisible -translate-y-1.5 opacity-0";
@@ -103,7 +102,6 @@ const gateSubLink = [
   "hover:text-white data-[active=true]:font-semibold data-[active=true]:text-white",
 ].join(" ");
 
-/** Gate codes read like a real board — 01, 02, … — not list indices. */
 const gateNo = (index: number) => String(index + 1).padStart(2, "0");
 
 export function SiteHeader() {
@@ -119,7 +117,6 @@ export function SiteHeader() {
     return pathname === path || pathname.startsWith(`${path}/`);
   };
 
-  /** Holds the current page, so the panel opens already unfolded. */
   const activeGroup =
     primaryNav.find((item) => item.children && isActive(item.href))?.href ??
     null;
@@ -129,8 +126,6 @@ export function SiteHeader() {
     setCourses(false);
   }, []);
 
-  /** A visitor already on the home page reads the mark as "back to the top",
-   *  so there it scrolls instead of re-navigating. */
   const onBrandClick = (event: React.MouseEvent<HTMLAnchorElement>) => {
     close();
 
@@ -150,7 +145,6 @@ export function SiteHeader() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  /** The home hero is a full-bleed film, so the bar sits on it until scrolled. */
   const overlay = pathname === "/" && atTop && !open;
 
   const toggleMenu = () => {
@@ -212,7 +206,6 @@ export function SiteHeader() {
     };
   }, [courses]);
 
-  /** Rows fan in one after another once the panel lands. */
   const stagger = (index: number) => ({
     transitionDelay: open ? `${110 + index * 45}ms` : "0ms",
   });
@@ -403,7 +396,7 @@ export function SiteHeader() {
             >
               Student Login
             </a>
-            {/* The form sits partway down /enquire, so the CTA aims at it. */}
+            {}
             <ScrollLink
               href="/enquire"
               to="enquire"

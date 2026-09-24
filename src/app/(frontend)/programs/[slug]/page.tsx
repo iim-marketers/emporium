@@ -71,8 +71,6 @@ export async function generateMetadata({
   });
 }
 
-/** Wrapping rows with the last one centred, so an odd count never strands a
- *  tile at the left edge. */
 const tileRow =
   "m-0 flex list-none flex-wrap justify-center gap-3 p-0 [&>li]:basis-[calc((100%-(var(--cols)-1)*0.75rem)/var(--cols))]";
 const rowOf: Record<number, string> = {
@@ -94,8 +92,6 @@ function documentIcon(doc: string): LucideIcon {
   return documentIcons.find(([test]) => test.test(doc))?.[1] ?? FileText;
 }
 
-/** Career mosaic: the first role takes a 2×2 tile, and `wide` tiles close any
- *  gap the count would leave in the last row. */
 function bentoFor(count: number) {
   const filled = 4 + (count - 1);
   for (const cols of [4, 5]) {
@@ -321,7 +317,7 @@ export default async function ProgramPage({
               "rounded-[16px] bg-white px-10 py-12 shadow-[0_40px_90px_-40px_rgba(8,12,36,0.6)] max-laptop:px-7 max-phablet:rounded-[12px] max-phablet:px-5 max-phablet:py-9",
             )}
           >
-            <div className="mx-auto max-w-200">
+            <div className="mx-auto max-w-250">
               <PageHead
                 eyebrow="FAQs"
                 title={

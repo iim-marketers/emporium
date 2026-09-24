@@ -19,7 +19,6 @@ export function ImmersiveHero({
   lede?: React.ReactNode;
   image: string;
   focus?: string;
-  /** Extra shade for busy photos, so the title stays legible. */
   dim?: boolean;
   children?: React.ReactNode;
 }) {
@@ -76,7 +75,6 @@ export type Fact = {
   external?: boolean;
 };
 
-/** Key facts on a floating card that overlaps the hero's foot. */
 export function FactsCard({ fields }: { fields: Fact[] }) {
   return (
     <div className="relative z-10">
@@ -162,8 +160,6 @@ export function Stage({
   );
 }
 
-/** Centred cover for inner pages: label between rules, title, lede, then a
- *  scroll cue at the foot. */
 export function CoverHero({
   label,
   title,
@@ -178,7 +174,6 @@ export function CoverHero({
   lede?: React.ReactNode;
   image: string;
   focus?: string;
-  /** Extra shade for busy photos. */
   dim?: boolean;
   children?: React.ReactNode;
 }) {
@@ -236,8 +231,6 @@ export function CoverHero({
   );
 }
 
-/** A white sheet over the stage photo. Sheets sit to one side on wide
- *  screens and carry a small tab on their top edge. */
 export function Sheet({
   children,
   tab,
@@ -255,7 +248,6 @@ export function Sheet({
   first?: boolean;
   last?: boolean;
   bare?: boolean;
-  /** Span the full width, for layouts that need the room. */
   full?: boolean;
   className?: string;
   id?: string;
@@ -303,8 +295,6 @@ export function Sheet({
 export const sheetSurface =
   "rounded-[6px] bg-white shadow-[0_30px_70px_-30px_rgba(8,12,36,0.55)]";
 
-/** A short line set on the stage photo between sheets, left aligned against
- *  a red rule. */
 export function SheetNote({
   lead,
   line,

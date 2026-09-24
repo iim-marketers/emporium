@@ -59,8 +59,6 @@ export const backdrops = {
   blog: photo("lakeside-uniform"),
 };
 
-/** `card` is the photo on the course's own card; `scene` fills the section
- *  behind it while that course is selected. */
 export const courseArt: Record<string, { card: string; scene: string }> = {
   aviation: {
     card: photo("aircraft-door"),
@@ -95,7 +93,6 @@ export const pillarPhotos = [
   },
 ];
 
-/** `area` places each photo in the mosaic's fixed grid template. */
 export type Moment = { src: string; alt: string; area: string };
 
 export const moments: Moment[] = [

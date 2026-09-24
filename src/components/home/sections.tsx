@@ -17,7 +17,6 @@ export const displayTitle =
   "font-sans font-semibold tracking-[-0.025em] leading-[1.1]";
 
 export const homePad = "py-14 max-laptop:py-14 max-phablet:py-12";
-/** A section that continues the same background as the one above it. */
 export const homePadFollow = "pt-0 pb-14 max-laptop:pb-14 max-phablet:pb-12";
 
 const kicker =
@@ -81,9 +80,6 @@ export function HomeHead({
   );
 }
 
-/** Dark: the photo stays sharp under a navy veil. Light: blurred under a
- *  paper wash. Dark photos go greyscale so the navy tint reads the same
- *  whatever the photo's own colours. The parent section must be `relative isolate`. */
 export function PhotoBackdrop({
   src,
   tone = "dark",
@@ -160,8 +156,6 @@ export function FacesStrip() {
   );
 }
 
-/** Copy set on the photograph itself, inside a hairline frame. Phones get
- *  the photo above the copy, since the text would otherwise cover the batch. */
 export function EditorialBand() {
   return (
     <section
@@ -185,22 +179,19 @@ export function EditorialBand() {
         aria-hidden="true"
         className="absolute inset-0 -z-10 bg-[linear-gradient(180deg,rgba(8,12,36,0.55)_0%,transparent_45%),linear-gradient(90deg,rgba(8,12,36,0.92)_0%,rgba(8,12,36,0.75)_38%,rgba(8,12,36,0.15)_75%)] max-laptop:hidden"
       />
-      {/* <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-6 border border-white/25 max-tablet:inset-3"
-      /> */}
 
       <Reveal className={cn(wrap, "relative max-laptop:pt-2")}>
         <div className="max-w-150 max-laptop:max-w-none">
           <span className={cn(kicker, "text-haze")}>Placements</span>
           <h2 className={cn(displayTitle, "text-[clamp(30px,3.6vw,50px)]")}>
-            <CountFlip text={headlineClaim.count} className="text-white" />{" "}
+            {headlineClaim.count.replace(/\s*[\d,+]+$/, "")}{" "}
+            <CountFlip
+              text={headlineClaim.count.match(/[\d,+]+$/)?.[0] ?? ""}
+              className="text-crimson"
+            />{" "}
             {headlineClaim.line1} {headlineClaim.line2}{" "}
             <em className="text-haze not-italic">{headlineClaim.line3}.</em>
           </h2>
-          {/* <p className="mt-7 max-w-[54ch] text-[15.5px] leading-relaxed text-white/80 max-phablet:text-[14.5px]">
-            {headlineClaim.body}
-          </p> */}
         </div>
       </Reveal>
     </section>
@@ -209,8 +200,6 @@ export function EditorialBand() {
 
 const wideAreas = new Set(["b", "f"]);
 
-/** Seven photos locked into one frame sized to the viewport, so the whole
- *  mosaic is seen at once with no ragged last row. */
 export function MomentsMosaic() {
   return (
     <div

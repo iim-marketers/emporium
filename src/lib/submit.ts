@@ -49,7 +49,11 @@ export async function submitForm(formData: FormData): Promise<SubmitResult> {
 
   const errors = validate(values, variant, cv);
   if (Object.keys(errors).length > 0) {
-    return { ok: false, message: "Please check the highlighted fields.", errors };
+    return {
+      ok: false,
+      message: "Please check the highlighted fields.",
+      errors,
+    };
   }
 
   const payload = await getPayload({ config });
@@ -64,7 +68,11 @@ export async function submitForm(formData: FormData): Promise<SubmitResult> {
 
   try {
     if (variant === "enquire") {
-      await payload.create({ collection: "enquiries", data, overrideAccess: true });
+      await payload.create({
+        collection: "enquiries",
+        data,
+        overrideAccess: true,
+      });
       return { ok: true, reference };
     }
 
@@ -93,7 +101,11 @@ export async function submitForm(formData: FormData): Promise<SubmitResult> {
         overrideAccess: true,
       });
     } catch (error) {
-      await payload.delete({ collection: "cvs", id: upload.id, overrideAccess: true });
+      await payload.delete({
+        collection: "cvs",
+        id: upload.id,
+        overrideAccess: true,
+      });
       throw error;
     }
     return { ok: true, reference };
@@ -105,9 +117,13 @@ export async function submitForm(formData: FormData): Promise<SubmitResult> {
     return fileRejected
       ? {
           ok: false,
-          message: "We couldn't read that file. Please attach a PDF or Word document.",
+          message:
+            "We couldn't read that file. Please attach a PDF or Word document.",
           errors: { cv: "Attach a valid PDF or Word document" },
         }
-      : { ok: false, message: "Something went wrong. Please try again in a moment." };
+      : {
+          ok: false,
+          message: "Something went wrong. Please try again in a moment.",
+        };
   }
 }

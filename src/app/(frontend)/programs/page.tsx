@@ -56,9 +56,9 @@ export default function ProgramsPage() {
           image={img.hero}
           focus={img.heroFocus}
         >
-          <Link href="/enquire" className={btn({ block: "phone" })}>
+          {/* <Link href="/enquire" className={btn({ block: "phone" })}>
             Book free counselling <span className={arrow}>→</span>
-          </Link>
+          </Link> */}
         </CoverHero>
 
         <Sheet first className="[--notch:#fff]">
