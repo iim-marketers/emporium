@@ -36,11 +36,11 @@ export const faces: Face[] = [
 ];
 
 export const lifeClips: Clip[] = [
-  clip("welcome-dance", "A traditional welcome"),
+  // clip("welcome-dance", "A traditional welcome"),
+  clip("saree-welcome", "Guest welcome, the Indian way"),
   clip("hotel-arrival", "Arriving for an industry visit"),
   clip("hotel-lobby", "Five-star lobby walkthrough"),
   clip("suite-tour", "Inside a luxury suite"),
-  clip("saree-welcome", "Guest welcome, the Indian way"),
   clip("spa-visit", "Spa and wellness walkthrough"),
   clip("auditorium", "Orientation day"),
   clip("students-wave", "Hello from the batch"),

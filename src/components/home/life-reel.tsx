@@ -35,7 +35,10 @@ export function LifeReel({ children }: { children: React.ReactNode }) {
   const step = (direction: 1 | -1) => {
     const el = track.current;
     if (!el) return;
-    el.scrollBy({ left: direction * el.clientWidth * 0.75, behavior: "smooth" });
+    el.scrollBy({
+      left: direction * el.clientWidth * 0.75,
+      behavior: "smooth",
+    });
   };
 
   return (
@@ -87,12 +90,7 @@ export function LifeReel({ children }: { children: React.ReactNode }) {
               aria-hidden="true"
               className="absolute inset-0 bg-[linear-gradient(180deg,rgba(13,22,66,0.45)_0%,transparent_22%,transparent_58%,rgba(13,22,66,0.88)_100%)]"
             />
-            <span
-              aria-hidden="true"
-              className="absolute top-4 left-4 font-mono text-[11px] tracking-[0.2em] text-white/75"
-            >
-              {String(i + 1).padStart(2, "0")} / {lifeClips.length}
-            </span>
+
             <figcaption className="absolute inset-x-0 bottom-0 p-5 text-[15.5px] leading-snug font-medium text-white max-phablet:p-4 max-phablet:text-[14.5px]">
               {clip.caption}
             </figcaption>

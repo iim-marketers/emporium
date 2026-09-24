@@ -49,72 +49,6 @@ export default async function HomePage() {
   return (
     <>
       <HomeHero />
-
-      <TrustStrip />
-
-      <EditorialBand />
-
-      <CourseCarousel items={programs}>
-        <div className={wrap}>
-          <HomeHead
-            eyebrow="Our placement linked courses"
-            title={
-              <>
-                Offered by <em className="text-haze not-italic">Emporium.</em>
-              </>
-            }
-            onDark
-            center
-          >
-            Three certificate courses, each a boarding pass into a specific
-            industry. Pick the one that matches where you want to land.
-          </HomeHead>
-          {/* <p className="mt-6 text-center">
-            <Link
-              href="/programs"
-              className="border-b border-white/50 pb-1 font-mono text-[11px] tracking-[0.24em] text-white/85 uppercase transition-colors hover:border-white hover:text-white"
-            >
-              View all courses →
-            </Link>
-          </p> */}
-        </div>
-      </CourseCarousel>
-      <FacesStrip />
-
-      <section className={cn("bg-white", homePad)}>
-        <div className={wrap}>
-          <HomeHead
-            eyebrow="Why Emporium"
-            title={
-              <>
-                Trained the way{" "}
-                <em className="text-crimson not-italic">the industry works.</em>
-              </>
-            }
-            className="mb-16 max-phablet:mb-10"
-          />
-          <PillarPanels />
-        </div>
-      </section>
-
-      <section className={cn("overflow-hidden bg-navy text-white", homePad)}>
-        <LifeReel>
-          <HomeHead
-            eyebrow="Life at Emporium"
-            title={
-              <>
-                Where training{" "}
-                <em className="text-haze not-italic">looks like the job.</em>
-              </>
-            }
-            onDark
-          >
-            Industry visits, orientation days and everyday moments from our
-            centres and the hotels we train in.
-          </HomeHead>
-        </LifeReel>
-      </section>
-
       <section className={cn(heroSurface, homePad)} id="jobs">
         <div
           className={cn(
@@ -145,6 +79,64 @@ export default async function HomePage() {
           </div>
           <DepartureBoard drives={drives} />
         </div>
+      </section>
+
+      <EditorialBand />
+      <TrustStrip />
+
+      <CourseCarousel items={programs}>
+        <div className={wrap}>
+          <HomeHead
+            eyebrow="Our placement linked courses"
+            title={
+              <>
+                Offered by <em className="text-haze not-italic">Emporium.</em>
+              </>
+            }
+            onDark
+            center
+          >
+            Three certificate courses, each a boarding pass into a specific
+            industry. Pick the one that matches where you want to land.
+          </HomeHead>
+        </div>
+      </CourseCarousel>
+      <FacesStrip />
+
+      <section
+        className={cn("relative isolate overflow-hidden bg-white", homePad)}
+      >
+        <div className={wrap}>
+          <HomeHead
+            // eyebrow="Why Emporium"
+            title={
+              <>
+                Trained the way{" "}
+                <em className="text-crimson not-italic">the industry works.</em>
+              </>
+            }
+            className="mb-16 max-phablet:mb-10"
+          />
+          <PillarPanels />
+        </div>
+      </section>
+
+      <section className={cn("overflow-hidden bg-navy text-white", homePad)}>
+        <LifeReel>
+          <HomeHead
+            eyebrow="Life at Emporium"
+            title={
+              <>
+                Where training{" "}
+                <em className="text-haze not-italic">looks like the job.</em>
+              </>
+            }
+            onDark
+          >
+            Industry visits, orientation days and everyday moments from our
+            centres and the hotels we train in.
+          </HomeHead>
+        </LifeReel>
       </section>
 
       <section className={cn("bg-white", homePad)} id="recruiters">

@@ -1,8 +1,5 @@
-import Link from "next/link";
 import type * as React from "react";
 
-import { ScrollLink } from "@/components/hash-scroll";
-import { frameBtn } from "@/components/home/frame-btn";
 import { heroStill } from "@/lib/home-media";
 import { wrap } from "@/lib/styles";
 import { cn } from "@/lib/utils";
@@ -51,7 +48,7 @@ export function HomeHero() {
           "max-laptop:items-center max-laptop:text-center portrait:items-center portrait:text-center",
         )}
       >
-        <p className="flex items-center gap-4 font-mono text-[11.5px] tracking-[0.34em] text-white/75 uppercase max-phablet:text-[10px] max-phablet:tracking-[0.26em]">
+        <p className="flex items-center gap-4 font-mono font-extrabold text-[11.5px] tracking-[0.34em] text-white/75 uppercase max-phablet:text-[10px] max-phablet:tracking-[0.26em]">
           Aviation · Hospitality · Cruise
         </p>
 

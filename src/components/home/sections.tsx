@@ -16,7 +16,7 @@ import { cn } from "@/lib/utils";
 export const displayTitle =
   "font-sans font-semibold tracking-[-0.025em] leading-[1.1]";
 
-export const homePad = "py-20 max-laptop:py-20 max-phablet:py-16";
+export const homePad = "py-18 max-laptop:py-20 max-phablet:py-18";
 
 const kicker =
   "font-mono text-[12px] font-bold tracking-[0.32em] uppercase max-phablet:text-[11px]";
@@ -29,7 +29,7 @@ export function HomeHead({
   center = false,
   className,
 }: {
-  eyebrow: string;
+  eyebrow?: string;
   title: React.ReactNode;
   children?: React.ReactNode;
   onDark?: boolean;
