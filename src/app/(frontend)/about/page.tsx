@@ -1,27 +1,23 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import Link from "next/link";
 
-import { ImageWithSkeleton } from "@/components/image-with-skeleton";
+import {
+  Accent,
+  CtaBand,
+  FactStrip,
+  IndexList,
+  PageHead,
+  pageBand,
+  pageLabel,
+  pageProse,
+  Photo,
+} from "@/components/page/kit";
 import { PageHero } from "@/components/page-hero";
 import { Reveal } from "@/components/reveal";
-import {
-  AccreditationStrip,
-  EmpanelmentList,
-  PillarGrid,
-  SectionHead,
-  StatsBand,
-} from "@/components/sections";
+import { AccreditationStrip } from "@/components/sections";
 import { arrow, btn } from "@/lib/btn";
-import { aboutBody, aboutIntro } from "@/lib/content";
+import { aboutBody, aboutIntro, empanelments, pillars } from "@/lib/content";
 import { pageMetadata } from "@/lib/seo";
-import {
-  columnHeading,
-  proseBody,
-  sectionPad,
-  surfacePaper,
-  surfaceWhite,
-  wrap,
-} from "@/lib/styles";
+import { wrap } from "@/lib/styles";
 import { cn } from "@/lib/utils";
 
 export const metadata = pageMetadata({
@@ -38,95 +34,121 @@ export default function AboutPage() {
       <PageHero
         eyebrow="About Us"
         title={
-          <>Certificate course in Aviation, Hospitality &amp; Cruise line</>
+          <>
+            Certificate courses in{" "}
+            <Accent onDark>Aviation, Hospitality &amp; Cruise line.</Accent>
+          </>
         }
         lede={aboutIntro}
-        crumbs={[{ label: "About Us" }]}
+        image="/home/photos/cabin-crew-batch-2.webp"
       />
 
-      <section className={cn(surfaceWhite, sectionPad)}>
+      <section className={cn(pageBand, "bg-white")}>
         <div
           className={cn(
             wrap,
-            "grid grid-cols-[1.05fr_0.95fr] items-start gap-14",
-            "max-laptop:grid-cols-1 max-laptop:gap-10",
+            "grid grid-cols-[1fr_1fr] items-center gap-16",
+            "max-laptop:grid-cols-1 max-laptop:gap-12",
           )}
         >
-          <Reveal>
-            <h2 className={columnHeading}>
-              We Provide Our Best Courses of{" "}
-              <span className="text-crimson">
-                Aviation, Hospitality &amp; Cruise Line
-              </span>
-            </h2>
-            <div className="mt-4 grid gap-5">
+          <div>
+            <PageHead
+              eyebrow="Who we are"
+              title={
+                <>
+                  We provide our best courses of{" "}
+                  <Accent>Aviation, Hospitality &amp; Cruise Line.</Accent>
+                </>
+              }
+              className="mb-6"
+            />
+            <Reveal className="grid gap-4">
               {aboutBody.map((paragraph) => (
-                <p
-                  key={paragraph.slice(0, 40)}
-                  className={cn(proseBody, "text-[15px] text-justify")}
-                >
+                <p key={paragraph.slice(0, 40)} className={pageProse}>
                   {paragraph}
                 </p>
               ))}
-            </div>
-          </Reveal>
+            </Reveal>
+          </div>
 
-          <Reveal className="relative aspect-4/3 overflow-hidden rounded-(--r) bg-cloud">
-            <ImageWithSkeleton
+          <Reveal className="relative pb-14 pl-14 max-phablet:pb-10 max-phablet:pl-8">
+            <Photo
               src="/misc/courses-v2.png"
               alt="Emporium students in training"
-              fill
               sizes="(max-width: 960px) 92vw, 45vw"
-              className="object-cover"
+              className="aspect-4/3"
+            />
+            <Photo
+              src="/home/photos/saree-namaste.webp"
+              alt="Students greeting with a namaste"
+              sizes="(max-width: 960px) 40vw, 18vw"
+              className="absolute bottom-0 left-0 aspect-3/4 w-[36%] border-[5px] border-white shadow-(--shadow)"
             />
           </Reveal>
         </div>
       </section>
 
-      {/* <StatsBand className={surfacePaper} /> */}
-
-      <section className={cn(surfacePaper, sectionPad)}>
-        <div className={wrap}>
-          <SectionHead
-            eyebrow="Unlock your potential"
-            title="With our certified courses."
-          >
-            Every course covers communication, grooming, English enhancement and
-            personality development alongside detailed industry knowledge.
-          </SectionHead>
-          <PillarGrid />
-        </div>
-      </section>
-
-      <section className={cn(surfaceWhite, sectionPad)}>
+      <section className={cn(pageBand, "bg-paper")}>
         <div
           className={cn(
             wrap,
-            "grid grid-cols-2 items-start gap-14",
-            "max-laptop:grid-cols-1 max-laptop:gap-11",
+            "grid grid-cols-[0.9fr_1.1fr] items-start gap-16",
+            "max-laptop:grid-cols-1 max-laptop:gap-14",
           )}
         >
-          <Reveal>
-            <span className="font-mono text-[12.5px] font-bold tracking-[0.34em] text-sky uppercase">
-              We are empaneled with
-            </span>
-            <h2 className={cn("mt-4 mb-7", columnHeading)}>
-              State skill missions across India.
-            </h2>
-            <EmpanelmentList />
-          </Reveal>
+          <div>
+            <PageHead
+              eyebrow="We are empaneled with"
+              title={
+                <>
+                  State skill missions <Accent>across India.</Accent>
+                </>
+              }
+              className="mb-6"
+            >
+              {empanelments.intro}
+            </PageHead>
+            <Reveal>
+              <IndexList
+                items={empanelments.items}
+                className="grid grid-cols-2 gap-x-8 max-phone:grid-cols-1 [&>li:nth-child(2)]:border-t-0 max-phone:[&>li:nth-child(2)]:border-t"
+              />
+            </Reveal>
+          </div>
 
-          <Reveal>
-            <span className="font-mono text-[12.5px] font-bold tracking-[0.34em] text-sky uppercase">
-              Approved and accredited by
-            </span>
-            <h2 className={cn("mt-4 mb-7", columnHeading)}>
-              National skilling bodies.
-            </h2>
+          <div>
+            <PageHead
+              eyebrow="Approved and accredited by"
+              title={
+                <>
+                  National <Accent>skilling bodies.</Accent>
+                </>
+              }
+              className="mb-7"
+            />
             <AccreditationStrip />
-          </Reveal>
+          </div>
         </div>
       </section>
+
+      <CtaBand
+        image="/home/photos/garden-batch.webp"
+        eyebrow="Start your journey"
+        title="Find the course that fits where you want to land."
+        actions={
+          <>
+            <Link href="/programs" className={btn({ block: "phone" })}>
+              Explore courses <span className={arrow}>→</span>
+            </Link>
+            <Link
+              href="/enquire"
+              className={btn({ variant: "ghost", block: "phone" })}
+            >
+              Enquire now
+            </Link>
+          </>
+        }
+      />
     </>
   );
 }

@@ -58,8 +58,8 @@ export function BoardingPass({ program }: { program: Program }) {
         className={[
           "relative flex items-center gap-4 bg-royal px-6 py-4 text-white",
           "border-t-2 border-dashed border-ticket",
-          "before:absolute before:size-4 before:rounded-full before:bg-paper before:content-['']",
-          "after:absolute after:size-4 after:rounded-full after:bg-paper after:content-['']",
+          "before:absolute before:size-4 before:rounded-full before:bg-(--notch,var(--paper)) before:content-['']",
+          "after:absolute after:size-4 after:rounded-full after:bg-(--notch,var(--paper)) after:content-['']",
           "before:-left-2 before:-top-2 after:-right-2 after:-top-2",
           "max-phablet:px-5",
         ].join(" ")}

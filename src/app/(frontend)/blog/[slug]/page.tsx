@@ -1,12 +1,13 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
+import { pageBand, pageLabel } from "@/components/page/kit";
 import { PageHero } from "@/components/page-hero";
 import { Reveal } from "@/components/reveal";
 import { ArticleBody } from "@/components/rich-text";
-import { formatDate, getPostBySlug, getPostSlugs } from "@/lib/cms";
+import { formatDate, getPostBySlug, getPostSlugs, postImage } from "@/lib/cms";
 import { pageMetadata } from "@/lib/seo";
-import { sectionPad, surfaceWhite, wrap } from "@/lib/styles";
+import { wrap } from "@/lib/styles";
 import { cn } from "@/lib/utils";
 
 export async function generateStaticParams() {
@@ -41,25 +42,45 @@ export default async function BlogPostPage({
 
   if (!post) notFound();
 
+  const date = formatDate(post.publishedAt);
+
   return (
     <>
-      <PageHero eyebrow="Blog" title={post.title} crumbs={[{ label: "Blog" }]}>
-        <p className="mt-5 font-mono text-[12px] tracking-[0.16em] text-haze uppercase">
-          {formatDate(post.publishedAt)}
-        </p>
-      </PageHero>
+      <PageHero
+        eyebrow={`Blog · ${date}`}
+        title={post.title}
+        crumbs={[{ label: "Blog", href: "/blog" }, { label: "Article" }]}
+        image={postImage(post)?.src}
+        compact
+      />
 
-      <section className={cn(surfaceWhite, sectionPad, "pt-8!")}>
-        <div className={wrap}>
-          <Reveal as="article" className="mx-auto">
-            <ArticleBody data={post.content} />
-
+      <section className={cn(pageBand, "bg-white")}>
+        <div
+          className={cn(
+            wrap,
+            "grid grid-cols-[200px_minmax(0,1fr)] items-start gap-16",
+            "max-laptop:grid-cols-1 max-laptop:gap-8",
+          )}
+        >
+          <aside className="grid gap-6 border-t border-ink/80 pt-5 laptop:sticky laptop:top-28 max-laptop:flex max-laptop:flex-wrap max-laptop:items-center max-laptop:justify-between">
+            <div>
+              <p className={cn(pageLabel, "text-[10px] text-slate/70")}>
+                Published
+              </p>
+              <p className="mt-1.5 text-[15px] font-semibold text-ink">
+                {date}
+              </p>
+            </div>
             <Link
               href="/blog"
-              className="mt-12 inline-flex items-center gap-2 font-heading text-[15px] font-semibold text-royal hover:text-crimson"
+              className="inline-flex items-center gap-2 text-[14.5px] font-semibold text-royal hover:text-crimson"
             >
               <span aria-hidden="true">←</span> All posts
             </Link>
+          </aside>
+
+          <Reveal as="article" className="max-w-190">
+            <ArticleBody data={post.content} />
           </Reveal>
         </div>
       </section>

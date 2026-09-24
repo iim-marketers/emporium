@@ -8,7 +8,7 @@ export const stats: Stat[] = [
 ];
 
 export const placementClaim = {
-  count: "Over 15,100+",
+  count: "Over 100,000+",
   line1: "students",
   line2: "placed",
   line3: "in 14 different countries",

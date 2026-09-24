@@ -1,44 +1,27 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
 import { ApplyDialog } from "@/components/apply-dialog";
 import { ScrollLink } from "@/components/hash-scroll";
-import { ImageWithSkeleton } from "@/components/image-with-skeleton";
 import { FaqList } from "@/components/news";
+import {
+  Accent,
+  FactStrip,
+  IndexList,
+  PageHead,
+  pageBand,
+  pageCard,
+  pageLabel,
+  pageProse,
+  Photo,
+} from "@/components/page/kit";
 import { PageHero } from "@/components/page-hero";
 import { Reveal } from "@/components/reveal";
-import { AccreditationStrip, SectionHead } from "@/components/sections";
+import { AccreditationStrip } from "@/components/sections";
 import { arrow, btn } from "@/lib/btn";
 import { programBySlug, programs } from "@/lib/programs";
 import { pageMetadata } from "@/lib/seo";
-import {
-  cardBody,
-  checklist,
-  checklistItem,
-  checklistTick,
-  chip,
-  chips,
-  columnHeading,
-  heroCta,
-  moduleItem,
-  moduleList,
-  moduleNo,
-  moduleTitle,
-  panel,
-  panelHeading,
-  proseBody,
-  sectionPad,
-  specKey,
-  specRow,
-  specValue,
-  split,
-  surfacePaper,
-  surfaceProgram,
-  surfaceWhite,
-  trainSurface,
-  wrap,
-} from "@/lib/styles";
+import { heroCta, wrap } from "@/lib/styles";
 import { cn } from "@/lib/utils";
 
 export function generateStaticParams() {
@@ -70,19 +53,20 @@ export async function generateMetadata({
 function Prose({
   heading,
   body,
+  className,
 }: {
   heading: string;
   body: readonly string[];
+  className?: string;
 }) {
   return (
     <Reveal>
-      <h2 className={columnHeading}>{heading}</h2>
-      <div className="mt-3 grid gap-3">
+      <h2 className="font-sans text-[clamp(22px,2.4vw,30px)] leading-[1.2] font-semibold tracking-[-0.02em] text-ink">
+        {heading}
+      </h2>
+      <div className={cn("mt-4 grid gap-4", className)}>
         {body.map((paragraph) => (
-          <p
-            key={paragraph.slice(0, 40)}
-            className={cn(proseBody, "text-[15px] text-justify")}
-          >
+          <p key={paragraph.slice(0, 40)} className={pageProse}>
             {paragraph}
           </p>
         ))}
@@ -105,11 +89,13 @@ export default async function ProgramPage({
       <PageHero
         eyebrow={program.tag}
         title={program.heading}
-        lede={program.description.replace(/…$/, "")}
+        lede={program.description.replace(/…$/, ".")}
         crumbs={[
           { label: "Courses", href: "/programs" },
           { label: program.shortTitle },
         ]}
+        image={program.image}
+        compact
       >
         <div className={heroCta}>
           <ScrollLink
@@ -128,192 +114,261 @@ export default async function ProgramPage({
         </div>
       </PageHero>
 
-      <section className={cn(surfaceWhite, sectionPad)}>
-        <div className={cn(wrap, split)}>
-          <div className="grid gap-12">
-            <Prose
-              heading={program.whatIs.heading}
-              body={program.whatIs.body}
+      <section className={cn(pageBand, "bg-white")}>
+        <div className={wrap}>
+          <Reveal>
+            <FactStrip
+              items={[
+                { label: "Duration", value: program.duration },
+                { label: "Level", value: program.level },
+                { label: "Mode", value: program.mode },
+                { label: "Course code", value: program.code },
+              ]}
             />
-            <Prose heading={program.about.heading} body={program.about.body} />
-          </div>
+          </Reveal>
 
-          <Reveal className="grid gap-6">
-            <div className="relative aspect-3/2 overflow-hidden rounded-(--r) bg-cloud">
-              <ImageWithSkeleton
-                src={program.image}
-                alt=""
-                fill
-                sizes="(max-width: 960px) 92vw, 40vw"
-                className="object-cover"
+          <div
+            className={cn(
+              "mt-16 grid grid-cols-[1.2fr_0.8fr] items-start gap-16",
+              "max-laptop:mt-12 max-laptop:grid-cols-1 max-laptop:gap-12",
+            )}
+          >
+            <div className="grid gap-12">
+              <Prose
+                heading={program.whatIs.heading}
+                body={program.whatIs.body}
+              />
+              <Prose
+                heading={program.about.heading}
+                body={program.about.body}
               />
             </div>
 
-            <div className={panel}>
-              <h3 className={panelHeading}>Course at a glance</h3>
-              <div className={specRow}>
-                <span className={specKey}>Course Duration</span>
-                <span className={specValue}>{program.duration}</span>
+            <Reveal className="grid gap-5 laptop:sticky laptop:top-28">
+              <Photo
+                src={program.cardImage}
+                sizes="(max-width: 960px) 92vw, 34vw"
+                className="aspect-4/3"
+                imgClassName="object-top"
+                caption={program.shortTitle}
+              />
+              <div className={cn(pageCard, "px-6.5 py-6")}>
+                <p className={cn(pageLabel, "text-crimson")}>Next intake</p>
+                <p className="mt-2 text-[15px] text-slate">
+                  Seats are filled batch by batch. Talk to admissions for the
+                  next intake date and fees.
+                </p>
+                <ScrollLink
+                  href="/enquire"
+                  to="enquire"
+                  className={btn({
+                    variant: "dark",
+                    block: "always",
+                    class: "mt-5",
+                  })}
+                >
+                  Enquire about this course <span className={arrow}>→</span>
+                </ScrollLink>
               </div>
-              <div className={specRow}>
-                <span className={specKey}>Level</span>
-                <span className={specValue}>{program.level}</span>
-              </div>
-              <div className={specRow}>
-                <span className={specKey}>Mode</span>
-                <span className={specValue}>{program.mode}</span>
-              </div>
+            </Reveal>
+          </div>
+        </div>
+      </section>
 
-              <ScrollLink
-                href="/enquire"
-                to="enquire"
-                className={btn({
-                  variant: "dark",
-                  block: "always",
-                  class: "mt-6",
-                })}
-              >
-                Enquire about this course <span className={arrow}>→</span>
-              </ScrollLink>
-            </div>
+      <section className={cn(pageBand, "bg-paper")}>
+        <div className={wrap}>
+          <PageHead
+            eyebrow="Why this course"
+            title={program.why.heading}
+            className="mb-6"
+          />
+          <Reveal className="columns-2 gap-14 max-laptop:columns-1 [&>p]:mb-4 [&>p]:break-inside-avoid">
+            {program.why.body.map((paragraph) => (
+              <p key={paragraph.slice(0, 40)} className={pageProse}>
+                {paragraph}
+              </p>
+            ))}
           </Reveal>
         </div>
       </section>
 
-      <section className={cn(surfacePaper, sectionPad)}>
-        <div className={cn(wrap, "")}>
-          <Prose heading={program.why.heading} body={program.why.body} />
-        </div>
-      </section>
-
-      <section className={cn(trainSurface, sectionPad)}>
-        <div className={cn(wrap, "relative")}>
-          <SectionHead
+      <section className={cn(pageBand, "bg-navy text-white")}>
+        <div
+          aria-hidden="true"
+          className="absolute inset-0 -z-10 bg-[radial-gradient(900px_480px_at_90%_0%,rgba(63,91,214,0.4),transparent_65%)]"
+        />
+        <div className={wrap}>
+          <PageHead
             eyebrow="Position details"
-            title="Where this course places you."
+            title={
+              <>
+                Where this course <Accent onDark>places you.</Accent>
+              </>
+            }
             onDark
           />
-          <div className="grid  gap-4.5">
-            {program.overview.split("\n\n").map((paragraph) => (
-              <p
-                key={paragraph.slice(0, 40)}
-                className="text-[15px] text-[#c1cbee]"
-              >
-                {paragraph}
+          <div className="grid grid-cols-[1.25fr_0.75fr] items-start gap-14 max-laptop:grid-cols-1 max-laptop:gap-10">
+            <Reveal className="grid gap-4.5">
+              {program.overview.split("\n\n").map((paragraph) => (
+                <p
+                  key={paragraph.slice(0, 40)}
+                  className="text-[15px] leading-[1.75] text-white/70"
+                >
+                  {paragraph}
+                </p>
+              ))}
+            </Reveal>
+
+            <Reveal className="rounded-[6px] border border-white/15 bg-white/4 px-6.5 py-5">
+              <p className={cn(pageLabel, "pt-1 pb-2 text-haze")}>
+                Job positions
               </p>
-            ))}
+              <IndexList items={program.careers} onDark />
+            </Reveal>
           </div>
 
-          <Reveal className="mt-12 rounded-(--r) border border-(--line-d) bg-white/4 px-7 py-7">
-            <h3 className="mb-3.5 text-[20px] font-semibold text-white">
-              Training Methodology
-            </h3>
-            <p className=" text-[14.5px] text-[#aebbe6]">
+          <Reveal className="mt-12 grid grid-cols-[200px_1fr] gap-8 border-t border-white/15 pt-8 max-tablet:grid-cols-1 max-tablet:gap-3">
+            <p className={cn(pageLabel, "text-haze")}>Training methodology</p>
+            <p className="text-[15px] leading-[1.75] text-white/70">
               {program.trainingMethodology}
             </p>
           </Reveal>
         </div>
       </section>
 
-      <section className={cn(surfacePaper, sectionPad)}>
-        <div className={cn(wrap, split)}>
-          <div>
-            <h2 className={columnHeading}>Course Modules</h2>
-            <ul className={cn(moduleList, "mt-6")}>
-              {program.modules.map((module, i) => (
-                <li key={module} className={moduleItem}>
-                  <span className={moduleNo}>
-                    {String(i + 1).padStart(2, "0")}
-                  </span>
-                  <span className={moduleTitle}>{module}</span>
-                </li>
-              ))}
-            </ul>
+      <section className={cn(pageBand, "bg-white")}>
+        <div className={wrap}>
+          <PageHead
+            eyebrow="Curriculum"
+            title={
+              <>
+                Course <Accent>modules.</Accent>
+              </>
+            }
+          />
+          <ol className="m-0 grid grid-cols-3 gap-4 p-0 max-laptop:grid-cols-2 max-phone:grid-cols-1">
+            {program.modules.map((module, i) => (
+              <Reveal
+                as="li"
+                key={module}
+                className={cn(
+                  pageCard,
+                  "group flex list-none items-start gap-5 px-6 py-5.5 transition-colors duration-300 hover:border-royal/40 hover:bg-paper",
+                )}
+              >
+                <span className="font-hero text-[34px] leading-none text-crimson/85">
+                  {String(i + 1).padStart(2, "0")}
+                </span>
+                <span className="pt-1 text-[15.5px] leading-snug font-medium text-ink">
+                  {module}
+                </span>
+              </Reveal>
+            ))}
+          </ol>
+        </div>
+      </section>
+
+      <section className={cn(pageBand, "bg-paper")}>
+        <div
+          className={cn(
+            wrap,
+            "grid grid-cols-[0.85fr_1.15fr] items-start gap-16",
+            "max-laptop:grid-cols-1 max-laptop:gap-12",
+          )}
+        >
+          <div className="laptop:sticky laptop:top-28">
+            <PageHead
+              eyebrow="Eligibility"
+              title={
+                <>
+                  Who can <Accent>apply.</Accent>
+                </>
+              }
+              className="mb-6"
+            >
+              {program.eligibility}
+            </PageHead>
+            <Reveal className={cn(pageCard, "px-6.5 py-4")}>
+              <p className={cn(pageLabel, "pt-2 pb-1 text-crimson")}>
+                Documents to bring
+              </p>
+              <IndexList items={program.documents} />
+            </Reveal>
           </div>
 
-          <div className="grid gap-6">
-            <div className={panel}>
-              <h3 className={panelHeading}>Job positions</h3>
-              <ul className={checklist}>
-                {program.careers.map((role) => (
-                  <li key={role} className={checklistItem}>
-                    <span className={checklistTick}>✓</span> {role}
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            <div className={panel}>
-              <h3 className={panelHeading}>
-                Eligibility Criteria &amp; Documents
-              </h3>
-              <p className={cardBody}>{program.eligibility}</p>
-              <ul className={cn(checklist, "mt-4.5")}>
-                {program.documents.map((doc) => (
-                  <li key={doc} className={checklistItem}>
-                    <span className={checklistTick}>✓</span> {doc}
-                  </li>
-                ))}
-              </ul>
-            </div>
+          <div>
+            <PageHead
+              eyebrow="FAQs"
+              title={
+                <>
+                  Asked <Accent>and answered.</Accent>
+                </>
+              }
+            />
+            <Reveal>
+              <FaqList items={program.faqs} />
+            </Reveal>
           </div>
         </div>
       </section>
 
-      {/* <section className={cn(surfacePaper, sectionPad)}>
+      <section className={cn(pageBand, "bg-white")}>
         <div className={wrap}>
-          <SectionHead
-            eyebrow="Industry pay package"
-            title="What the roles pay."
-          >
-            Indicative bands published by the institute. Actual offers depend on
-            the recruiter, the role and your performance at interview.
-          </SectionHead>
+          <PageHead
+            eyebrow="Approved and accredited by"
+            title={
+              <>
+                Recognised <Accent>where it counts.</Accent>
+              </>
+            }
+          />
+          <AccreditationStrip />
+        </div>
+      </section>
 
-          <div
-            className={cn(
-              "grid gap-6",
-              program.pay.length > 1 ? "grid-cols-2 max-phone:grid-cols-1" : "",
-            )}
-          >
-            {program.pay.map((band, i) => (
-              <Reveal key={band.role ?? i} className={panel}>
-                {band.role ? (
-                  <div className={chips}>
-                    <span className={chip}>{band.role}</span>
-                  </div>
-                ) : null}
-                <div className={cn(band.role && "mt-5")}>
-                  <div className="font-mono text-[10.5px] tracking-[0.16em] text-[#9098b4] uppercase">
-                    Domestic job
-                  </div>
-                  <p className="mt-1.5 text-[16px] text-ink">{band.domestic}</p>
-                </div>
-                <div className="mt-5 border-t border-hairline pt-5">
-                  <div className="font-mono text-[10.5px] tracking-[0.16em] text-[#9098b4] uppercase">
-                    International job
-                  </div>
-                  <p className="mt-1.5 text-[16px] text-ink">
-                    {band.international}
-                  </p>
-                </div>
+      <section className={cn(pageBand, "bg-navy text-white")}>
+        <div className={wrap}>
+          <PageHead
+            eyebrow="Other departures"
+            title={
+              <>
+                Explore our <Accent onDark>other courses.</Accent>
+              </>
+            }
+            onDark
+          />
+          <div className="grid grid-cols-2 gap-5 max-tablet:grid-cols-1">
+            {others.map((item) => (
+              <Reveal key={item.slug}>
+                <Link
+                  href={`/programs/${item.slug}`}
+                  className="group relative isolate flex aspect-video flex-col justify-end overflow-hidden rounded-[6px] p-7 max-phablet:p-5"
+                >
+                  <Photo
+                    src={item.image}
+                    sizes="(max-width: 768px) 92vw, 46vw"
+                    className="absolute! inset-0 -z-10 rounded-none"
+                  />
+                  <span
+                    aria-hidden="true"
+                    className="absolute inset-0 -z-10 bg-[linear-gradient(180deg,transparent_30%,rgba(13,22,66,0.92))]"
+                  />
+                  <span className={cn(pageLabel, "text-[10px] text-haze")}>
+                    {item.tag}
+                  </span>
+                  <span className="mt-2 flex items-end justify-between gap-4 text-[clamp(19px,2vw,24px)] leading-tight font-semibold tracking-[-0.015em]">
+                    {item.shortTitle}
+                    <span
+                      aria-hidden="true"
+                      className="grid size-10 flex-none place-items-center rounded-full border border-white/40 text-[16px] transition-colors duration-300 group-hover:border-crimson group-hover:bg-crimson"
+                    >
+                      →
+                    </span>
+                  </span>
+                </Link>
               </Reveal>
             ))}
           </div>
-        </div>
-      </section> */}
-
-      <section className={cn(surfaceWhite, sectionPad)}>
-        <div className={cn(wrap, "")}>
-          <SectionHead eyebrow="FAQs" title="Asked and answered." />
-          <FaqList items={program.faqs} />
-        </div>
-      </section>
-
-      <section className={cn(surfacePaper, sectionPad)}>
-        <div className={wrap}>
-          <SectionHead eyebrow="Approved and" title="Accredited by." />
-          <AccreditationStrip />
         </div>
       </section>
     </>
