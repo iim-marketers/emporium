@@ -1,6 +1,6 @@
 "use client";
 
-import { ChevronLeftIcon, ChevronRightIcon, MapPin, Phone } from "lucide-react";
+import { ChevronLeftIcon, ChevronRightIcon, Phone } from "lucide-react";
 import Image from "next/image";
 import * as React from "react";
 
@@ -137,9 +137,6 @@ export function CentreCarousel({
               sizes="(max-width: 960px) 92vw, 420px"
               className="object-cover"
             />
-            <span className="absolute top-3.5 left-3.5 bg-navy/80 px-3 py-1.5 font-mono text-[10px] font-bold tracking-[0.2em] text-white uppercase backdrop-blur-sm">
-              {centre.state}
-            </span>
           </div>
           <div className="flex flex-1 flex-col items-center px-8 pt-6 pb-8 text-center max-phablet:px-6">
             <h3 className="text-[22px] leading-[1.2] font-semibold tracking-[-0.02em]">
@@ -148,11 +145,7 @@ export function CentreCarousel({
             {centre.venue ? (
               <p className="mt-1 text-[13.5px] text-slate">{centre.venue}</p>
             ) : null}
-            <p className="mt-3 flex min-h-[calc(3lh)] items-start justify-center gap-2 text-[14px] leading-relaxed text-slate">
-              <MapPin
-                className="mt-1 size-4 flex-none text-crimson"
-                strokeWidth={1.8}
-              />
+            <p className="mt-3 flex min-h-[calc(3lh)] items-start justify-center text-[14px] leading-relaxed text-slate">
               <span>{centre.address.join(" ")}</span>
             </p>
             <div className="mt-6 flex flex-wrap justify-center gap-2.5">

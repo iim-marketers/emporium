@@ -8,12 +8,11 @@ import { HashScroll } from "@/components/hash-scroll";
 import {
   CoverHero,
   Sheet,
-  SheetNote,
   sheetSurface,
   Stage,
 } from "@/components/page/immersive";
 import { Accent, PageHead, pageLabel } from "@/components/page/kit";
-import { admissionOffices, centres } from "@/lib/centres";
+import { centres } from "@/lib/centres";
 import { pageImages } from "@/lib/page-images";
 import { pageMetadata } from "@/lib/seo";
 import { site } from "@/lib/site";

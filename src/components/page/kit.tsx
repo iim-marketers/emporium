@@ -359,7 +359,7 @@ export function PlainHero({
         aria-hidden="true"
         fill
         sizes="40vw"
-        className="-z-20 scale-110 object-cover blur-2xl"
+        className="-z-20 scale-110 object-cover blur-md"
       />
       <span
         aria-hidden="true"
