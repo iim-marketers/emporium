@@ -83,7 +83,7 @@ export function CourseCarousel({
       id="courses"
       aria-roledescription="carousel"
       aria-label="Courses"
-      className="relative isolate overflow-hidden bg-navy py-20 text-white max-laptop:py-20 max-phablet:py-16"
+      className="relative isolate overflow-hidden bg-navy pt-20 pb-10 text-white max-laptop:pt-20 max-laptop:pb-12 max-phablet:pt-16 max-phablet:pb-10"
       onKeyDown={(event) => {
         if (event.key === "ArrowLeft") go(-1);
         if (event.key === "ArrowRight") go(1);

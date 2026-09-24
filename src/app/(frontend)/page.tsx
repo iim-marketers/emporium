@@ -102,6 +102,7 @@ export default async function HomePage() {
           />
         </div>
       </CourseCarousel>
+
       <FacesStrip />
 
       <section
