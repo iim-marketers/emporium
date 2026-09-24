@@ -21,7 +21,7 @@ export function CourseHero({
   children?: React.ReactNode;
 }) {
   return (
-    <section className="relative isolate flex min-h-[clamp(560px,86vh,820px)] items-end overflow-hidden bg-navy text-white max-tablet:min-h-[620px]">
+    <section className="relative isolate flex min-h-[clamp(560px,86vh,820px)] items-end overflow-hidden bg-navy text-white max-tablet:min-h-[620px] max-tablet:items-stretch">
       <Image
         src={image}
         alt=""
@@ -33,16 +33,16 @@ export function CourseHero({
       />
       <span
         aria-hidden="true"
-        className="absolute inset-0 -z-10 bg-[linear-gradient(90deg,rgba(13,22,66,0.92)_0%,rgba(13,22,66,0.6)_38%,rgba(13,22,66,0.08)_72%),linear-gradient(180deg,rgba(13,22,66,0.45)_0%,transparent_30%,transparent_55%,var(--navy)_100%)] max-tablet:bg-[linear-gradient(180deg,rgba(13,22,66,0.35)_0%,rgba(13,22,66,0.25)_35%,rgba(13,22,66,0.92)_75%,var(--navy)_100%)]"
+        className="absolute inset-0 -z-10 bg-[linear-gradient(90deg,rgba(13,22,66,0.92)_0%,rgba(13,22,66,0.6)_38%,rgba(13,22,66,0.08)_72%),linear-gradient(180deg,rgba(13,22,66,0.45)_0%,transparent_30%,transparent_55%,var(--navy)_100%)] max-tablet:bg-[linear-gradient(180deg,rgba(13,22,66,0.88)_0%,rgba(13,22,66,0.45)_38%,rgba(13,22,66,0.25)_58%,rgba(13,22,66,0.85)_86%,var(--navy)_100%)]"
       />
 
       <div
         className={cn(
           wrap,
-          "pt-24 pb-[clamp(150px,19vh,200px)] laptop:pb-[clamp(170px,24vh,260px)] max-tablet:pb-36",
+          "pt-24 pb-[clamp(150px,19vh,200px)] laptop:pb-[clamp(170px,24vh,260px)] max-tablet:flex max-tablet:flex-col max-tablet:pt-10 max-tablet:pb-24",
         )}
       >
-        <Reveal className="max-w-190">
+        <Reveal className="max-w-190 max-tablet:flex max-tablet:flex-1 max-tablet:flex-col">
           {/* <p className={cn(label, "flex items-center gap-3 text-[11px] text-haze")}>
             <span aria-hidden="true" className="size-1.5 bg-crimson" />
             {eyebrow}
@@ -50,7 +50,7 @@ export function CourseHero({
           <h1 className="mt-5 max-w-[17ch] font-hero text-[clamp(38px,4vw,58px)] leading-[1.02] font-normal tracking-[-0.02em] text-balance max-phablet:text-[clamp(34px,10vw,46px)]">
             {title}
           </h1>
-          {children}
+          <div className="max-tablet:mt-auto">{children}</div>
         </Reveal>
       </div>
     </section>
