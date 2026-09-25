@@ -39,19 +39,6 @@ export function BoardingPass({ program }: { program: Program }) {
           </Link>
         </h3>
         <p className="mt-2.5 text-[14px] text-slate">{program.description}</p>
-
-        {/* <dl className="mt-auto grid grid-cols-3 gap-x-4 gap-y-3 border-t border-hairline pt-4.5 max-mini:grid-cols-2">
-          {specs.map(([label, value]) => (
-            <div key={label} className="min-w-0">
-              <dt className="font-mono text-[9.5px] tracking-[0.16em] text-[#9098b4] uppercase">
-                {label}
-              </dt>
-              <dd className="mt-0.75 font-heading text-[14.5px] leading-tight font-semibold text-royal">
-                {value}
-              </dd>
-            </div>
-          ))}
-        </dl> */}
       </div>
 
       <div

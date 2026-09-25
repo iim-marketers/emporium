@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-import { BoardingPassGrid } from "@/components/boarding-pass";
+import { CoursePanels } from "@/components/page/course-panels";
 import {
   CoverHero,
   Sheet,
@@ -68,7 +68,7 @@ export default function ProgramsPage() {
               </>
             }
           />
-          <BoardingPassGrid items={programs} />
+          <CoursePanels items={programs} />
         </Sheet>
 
         <SheetNote lead="Your career" line="cleared for take-off." />

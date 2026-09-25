@@ -14,7 +14,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
-import { ApplyDialog } from "@/components/apply-dialog";
+import { EnquireDialog } from "@/components/apply-dialog";
 import { ScrollLink } from "@/components/hash-scroll";
 import { ImageWithSkeleton } from "@/components/image-with-skeleton";
 import { FaqList } from "@/components/news";
@@ -28,6 +28,7 @@ import {
   pageProse,
 } from "@/components/page/kit";
 
+import { CourseDurations } from "@/components/page/course-durations";
 import { FactsCard, ImmersiveHero } from "@/components/page/immersive";
 import { Reveal } from "@/components/reveal";
 import { AccreditationStrip } from "@/components/sections";
@@ -140,8 +141,8 @@ export default async function ProgramPage({
           focus={hero?.focus}
         >
           <div className={heroCta}>
-            <ApplyDialog
-              label="Apply Now"
+            <EnquireDialog
+              label="Enquire Now"
               subject={program.shortTitle}
               variant="ghost"
               block="phone"
@@ -151,14 +152,21 @@ export default async function ProgramPage({
 
         <FactsCard
           fields={[
-            { label: "Duration", value: program.duration, icon: Clock },
+            {
+              label: "Duration",
+              value: program.duration,
+              icon: Clock,
+              href: "#durations",
+            },
             { label: "Level", value: program.level, icon: Award },
             { label: "Mode", value: program.mode, icon: School },
             { label: "Eligibility", value: "10+2 pass", icon: GraduationCap },
           ]}
         />
 
-        <section className="relative pt-16 pb-6 max-phablet:pt-10">
+        <CourseDurations program={program} />
+
+        <section className="relative pt-6 pb-6">
           <div
             className={cn(
               wrap,
@@ -330,34 +338,6 @@ export default async function ProgramPage({
               <Reveal>
                 <FaqList items={program.faqs} />
               </Reveal>
-
-              {/* <details className="group mt-10 border-t border-hairline pt-6">
-            <summary className="flex cursor-pointer list-none items-center justify-between gap-4 text-[14.5px] font-semibold text-royal [&::-webkit-details-marker]:hidden">
-              Read the full course description
-              <span
-                aria-hidden="true"
-                className="text-[20px] leading-none transition-transform duration-300 group-open:rotate-45"
-              >
-                +
-              </span>
-            </summary>
-            <div className="mt-6 grid gap-8">
-              {[program.whatIs, program.about, program.why].map((block) => (
-                <div key={block.heading}>
-                  <h2 className="text-[19px] leading-snug font-semibold text-ink">
-                    {block.heading}
-                  </h2>
-                  <div className="mt-3 grid gap-3">
-                    {block.body.map((paragraph) => (
-                      <p key={paragraph.slice(0, 40)} className={pageProse}>
-                        {paragraph}
-                      </p>
-                    ))}
-                  </div>
-                </div>
-              ))}
-            </div>
-          </details> */}
             </div>
           </div>
         </section>
@@ -437,8 +417,8 @@ export default async function ProgramPage({
             >
               Enroll Now <span className={arrow}>→</span>
             </ScrollLink> */}
-            <ApplyDialog
-              label="Apply Now"
+            <EnquireDialog
+              label="Enquire Now"
               subject={program.shortTitle}
               variant="ghost"
               block="phone"

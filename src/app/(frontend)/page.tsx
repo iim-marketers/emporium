@@ -185,7 +185,12 @@ export default async function HomePage() {
       </section>
 
       <section
-        className={cn(fixedSection, "overflow-hidden", homePad)}
+        className={cn(
+          fixedSection,
+          "overflow-hidden",
+          homePad,
+          "pb-9 max-laptop:pb-9",
+        )}
         id="testimonials"
       >
         <FixedBackdrop src={bg.testimonials} tone="soft" />
