@@ -1,4 +1,4 @@
-export const wrap = "mx-auto w-[min(1130px,92vw)]";
+export const wrap = "mx-auto w-[min(1230px,92vw)]";
 
 export const mono = "font-mono";
 
@@ -9,7 +9,6 @@ export const eyebrowOnDark =
 
 export const heroHeading =
   "text-[clamp(30px,4vw,52px)] font-medium max-phablet:text-[clamp(31px,8.4vw,46px)]";
-/** Titles run longer on inner pages, so the ramp is a touch lower. */
 export const pageHeading =
   "text-[clamp(28px,4.6vw,50px)] font-medium max-phablet:text-[clamp(22px,7.6vw,34px)]";
 export const sectionHeading = "text-[clamp(20px,3.2vw,38px)] font-medium";
@@ -26,13 +25,17 @@ export const heroSurface = [
   "bg-[radial-gradient(1100px_520px_at_78%_-8%,rgba(63,91,214,0.55),transparent_60%),radial-gradient(760px_420px_at_10%_108%,rgba(217,31,42,0.14),transparent_60%),linear-gradient(180deg,var(--navy)_0%,var(--navy-2)_60%,#0c1440_100%)]",
 ].join(" ");
 
+export const bandSurface = [
+  "relative isolate overflow-hidden bg-navy text-white",
+  "bg-[radial-gradient(900px_520px_at_72%_50%,rgba(63,91,214,0.38),transparent_70%),radial-gradient(640px_380px_at_8%_60%,rgba(217,31,42,0.10),transparent_70%)]",
+].join(" ");
+
 export const heroPad =
   "pt-[78px] pb-24 max-laptop:pt-[60px] max-laptop:pb-[76px] max-phablet:pt-6 max-phablet:pb-16";
 
 export const pageHeroPad =
   "pt-16 pb-[76px] max-laptop:pt-12 max-laptop:pb-[62px] max-phablet:pt-[38px] max-phablet:pb-[52px]";
 
-/** The measure widens on inner pages; both collapse once the hero stacks. */
 export const lede =
   "mt-5.5 text-[16px] text-[#c8d2f4] max-w-[50ch] max-laptop:max-w-[52ch] max-phablet:text-[14px]";
 export const ledeWide =
@@ -64,7 +67,6 @@ export const split =
 export const moduleList = "m-0 grid gap-0 p-0";
 export const moduleItem =
   "grid list-none grid-cols-[18px_1fr] gap-3 border-t border-hairline py-4.5 first:border-t-0";
-/** Wider gutter, for word labels ("Mon – Tue") rather than "01". */
 export const moduleItemWide =
   "grid list-none grid-cols-[92px_1fr] gap-4 border-t border-hairline py-4.5 first:border-t-0 max-phone:grid-cols-1 max-phone:gap-1.5";
 export const moduleNo =

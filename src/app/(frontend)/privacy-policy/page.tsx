@@ -12,7 +12,6 @@ export const metadata = pageMetadata({
 export default function PrivacyPolicyPage() {
   return (
     <PolicyPage
-      eyebrow="Legal"
       title="Privacy Policy"
       lede="The information we collect, why we collect it, and the rights you have over it."
       sections={privacyPolicy}

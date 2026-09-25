@@ -17,7 +17,6 @@ type Channel = {
   icon: React.ReactNode;
 };
 
-/** Nearest-first: slot 0 sits just above the button. */
 const channels: Channel[] = [
   {
     label: "Call us",
@@ -105,7 +104,6 @@ export function ContactWidget() {
       <ul
         id="contact-channels"
         className="pointer-events-none absolute inset-0 m-0 p-0"
-        /* Hidden from the reader as well as the eye while it is folded away. */
         aria-hidden={!open}
       >
         {channels.map((channel, index) => (
@@ -210,7 +208,7 @@ export function ContactWidget() {
           />
         </span>
 
-        {/* Hover-only, so it never sits permanently over the page on touch. */}
+        {}
         <span
           className={cn(
             chip,

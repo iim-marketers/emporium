@@ -1,10 +1,5 @@
 import { cva, type VariantProps } from "class-variance-authority";
 
-/**
- * Applied to <Link>, <a> and <button> alike, so this hands back a class string
- * rather than wrapping a component. Sizing is spelled out at each breakpoint to
- * hold a 44px minimum tap target from 768px down.
- */
 export const btn = cva(
   [
     "group inline-flex cursor-pointer items-center gap-[0.55em] rounded-[999px] border-0",
@@ -50,4 +45,5 @@ export const btn = cva(
 
 export type BtnProps = VariantProps<typeof btn>;
 
-export const arrow = "transition-transform duration-200 group-hover:translate-x-[3px]";
+export const arrow =
+  "transition-transform duration-200 group-hover:translate-x-[3px]";

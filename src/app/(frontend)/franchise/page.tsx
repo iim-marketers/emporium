@@ -1,26 +1,27 @@
+import Link from "next/link";
 
-import { EnquirySection } from "@/components/enquiry-section";
-import { ImageWithSkeleton } from "@/components/image-with-skeleton";
-import { PageHero } from "@/components/page-hero";
-import { Reveal } from "@/components/reveal";
-import { SectionHead } from "@/components/sections";
-import { franchise } from "@/lib/content";
-import { pageMetadata } from "@/lib/seo";
 import {
-  checklist,
-  checklistItem,
-  checklistTick,
-  columnHeading,
-  panel,
-  panelHeading,
-  proseBody,
-  sectionPad,
-  split,
-  surfacePaper,
-  surfaceWhite,
-  trainSurface,
-  wrap,
-} from "@/lib/styles";
+  Accent,
+  CtaBand,
+  IndexList,
+  PageHead,
+  pageCard,
+  pageLabel,
+  pageProse,
+  Photo,
+} from "@/components/page/kit";
+import {
+  CoverHero,
+  Sheet,
+  SheetNote,
+  Stage,
+} from "@/components/page/immersive";
+import { Reveal } from "@/components/reveal";
+import { arrow, btn } from "@/lib/btn";
+import { franchise } from "@/lib/content";
+import { pageImages } from "@/lib/page-images";
+import { pageMetadata } from "@/lib/seo";
+import { site } from "@/lib/site";
 import { cn } from "@/lib/utils";
 
 export const metadata = pageMetadata({
@@ -31,112 +32,110 @@ export const metadata = pageMetadata({
   keywords: ["training institute franchise", "aviation franchise India"],
 });
 
+const img = pageImages.franchise;
+
 export default function FranchisePage() {
   return (
     <>
-      <PageHero
-        eyebrow={franchise.eyebrow}
-        title={franchise.title}
-        lede={franchise.returns}
-        crumbs={[{ label: "Franchise" }]}
-      />
-
-      <section className={cn(surfaceWhite, sectionPad)}>
-        <div
-          className={cn(
-            wrap,
-            "grid grid-cols-[1.05fr_0.95fr] items-center gap-14",
-            "max-laptop:grid-cols-1 max-laptop:gap-10",
-          )}
+      <Stage image={img.hero} focus={img.heroFocus} priority>
+        <CoverHero
+          label="Franchise"
+          title={
+            <>
+              Join hands with the{" "}
+              <Accent onDark>fastest growing industry.</Accent>
+            </>
+          }
+          lede={franchise.eyebrow}
         >
-          <Reveal>
-            <span className="font-mono text-[12.5px] font-bold tracking-[0.34em] text-sky uppercase">
-              {franchise.invest}
-            </span>
-            <h2 className={cn("mt-4", columnHeading)}>{franchise.intro}</h2>
-            <div className="mt-6 grid gap-5">
+          <Link href="/contact" className={btn({ block: "phone" })}>
+            Talk to our team <span className={arrow}>→</span>
+          </Link>
+        </CoverHero>
+
+        <Sheet
+          first
+          className="grid grid-cols-[1.05fr_0.95fr] items-center gap-16 max-laptop:grid-cols-1 max-laptop:gap-12"
+        >
+          <div>
+            <PageHead
+              eyebrow={franchise.invest}
+              title={
+                <>
+                  Own your franchise <Accent>today.</Accent>
+                </>
+              }
+              className="mb-6"
+            />
+            <Reveal className="grid gap-4">
               {franchise.body.map((paragraph) => (
-                <p key={paragraph.slice(0, 40)} className={proseBody}>
+                <p key={paragraph.slice(0, 40)} className={pageProse}>
                   {paragraph}
                 </p>
               ))}
-            </div>
+            </Reveal>
+          </div>
 
-            <div className="mt-8 grid grid-cols-2 gap-5 max-phone:grid-cols-1">
-              {franchise.specs.map((spec) => (
-                <div
-                  key={spec.label}
-                  className="rounded-(--r) border border-hairline bg-paper px-5.5 py-5"
-                >
-                  <div className="font-mono text-[10.5px] tracking-[0.16em] text-[#9098b4] uppercase">
-                    {spec.label}
-                  </div>
-                  <div className="mt-1.5 font-heading text-[20px] font-semibold text-royal">
-                    {spec.value}
-                  </div>
-                </div>
-              ))}
-            </div>
-          </Reveal>
-
-          <Reveal className="relative aspect-4/3 overflow-hidden rounded-(--r) bg-cloud">
-            <ImageWithSkeleton
+          <Reveal>
+            <Photo
               src={franchise.image}
               alt="Partnering with Emporium as a franchise owner"
-              fill
               sizes="(max-width: 960px) 92vw, 45vw"
-              className="object-cover"
+              className="aspect-4/3"
             />
           </Reveal>
-        </div>
-      </section>
+        </Sheet>
 
-      <section className={cn(surfacePaper, sectionPad)}>
-        <div className={cn(wrap, split)}>
-          <div className={panel}>
-            <h2 className={cn(panelHeading, "text-[24px]")}>
-              Exclusive Business Benefits
-            </h2>
-            <ul className={cn(checklist, "mt-5")}>
-              {franchise.benefits.map((item) => (
-                <li key={item} className={checklistItem}>
-                  <span className={checklistTick}>✓</span> {item}
-                </li>
-              ))}
-            </ul>
+        <SheetNote lead="Returns in" line="12 to 18 months." />
+
+        <Sheet side="right" last>
+          <PageHead
+            eyebrow="Why partner with us"
+            title={
+              <>
+                Benefits <Accent>and backing.</Accent>
+              </>
+            }
+          />
+          <div className="grid grid-cols-[1.2fr_0.8fr] items-start gap-6 max-laptop:grid-cols-1">
+            <Reveal className={cn(pageCard, "px-7 py-6 max-phablet:px-5")}>
+              <p className={cn(pageLabel, "pb-2 text-crimson")}>
+                Exclusive business benefits
+              </p>
+              <IndexList items={franchise.benefits} />
+            </Reveal>
+
+            <Reveal className="rounded-[6px] bg-navy px-7 py-6 text-white max-phablet:px-5">
+              <p className={cn(pageLabel, "pb-2 text-haze")}>
+                Emporium&apos;s strong support
+              </p>
+              <IndexList items={franchise.support} onDark />
+            </Reveal>
           </div>
+        </Sheet>
+      </Stage>
 
-          <div className={panel}>
-            <h2 className={cn(panelHeading, "text-[24px]")}>
-              Emporium&apos;s Strong Support
-            </h2>
-            <ul className={cn(checklist, "mt-5")}>
-              {franchise.support.map((item) => (
-                <li key={item} className={checklistItem}>
-                  <span className={checklistTick}>✓</span> {item}
-                </li>
-              ))}
-            </ul>
-          </div>
-        </div>
-      </section>
-
-      <section className={cn(trainSurface, sectionPad)}>
-        <div className={cn(wrap, "relative")}>
-          <SectionHead eyebrow="Join hands" title={franchise.returns} onDark>
-            Emporium has run skills development for over 15 years, placing
-            30,000+ candidates worldwide through more than 10 centres across
-            India.
-          </SectionHead>
-        </div>
-      </section>
-
-      {/* <EnquirySection
-        eyebrow="Franchise enquiry"
-        title={<>Own your franchise today.</>}
-        lede="Tell us about yourself and the city you have in mind. Our franchise team will walk you through investment, site selection and the support that comes with it."
-        subject="Franchise enquiry"
-      /> */}
+      <CtaBand
+        image="/home/photos/shillong-centre-batch.webp"
+        eyebrow="Join hands"
+        title={franchise.returns}
+        actions={
+          <>
+            <Link href="/contact" className={btn({ block: "phone" })}>
+              Talk to our team <span className={arrow}>→</span>
+            </Link>
+            <a
+              href={site.phoneHref}
+              className={btn({ variant: "ghost", block: "phone" })}
+            >
+              Call {site.phone}
+            </a>
+          </>
+        }
+      >
+        Emporium has run skills development for over 15 years, placing 30,000+
+        candidates worldwide through more than 10 centres across India.
+      </CtaBand>
     </>
   );
 }

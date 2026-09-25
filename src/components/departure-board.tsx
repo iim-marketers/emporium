@@ -25,7 +25,6 @@ const statusCell = "bg-[linear-gradient(180deg,#3a2a08,#241a05)] text-amber";
 const GLYPHS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789 &-/.".split("");
 const DEST_LEN = 17;
 const STAT_LEN = 9;
-/** Only ever shown on a drive that is still to come. */
 const OPEN_STATUSES = ["OPEN ALL", "INVITE", "HIRING", "REGISTER", "APPLY NOW"];
 const CLOSED = "CLOSED";
 
@@ -150,7 +149,6 @@ export function DepartureBoard({ drives }: { drives: Job[] }) {
 
       if (!reduce) {
         const shuffle = window.setInterval(() => {
-          // Closed rows are left alone — they hold CLOSED.
           const open = rows.filter((row) => !isDriveClosed(row.job));
           if (!open.length) return;
           const row = open[Math.floor(Math.random() * open.length)];
@@ -174,7 +172,6 @@ export function DepartureBoard({ drives }: { drives: Job[] }) {
     );
     io.observe(board);
 
-    // Ensure the board flips even if it is already in view on load.
     const failsafe = window.setTimeout(() => {
       if (board.getBoundingClientRect().top < window.innerHeight) reveal();
     }, 200);
@@ -215,7 +212,7 @@ export function DepartureBoard({ drives }: { drives: Job[] }) {
       >
         <div className="flex items-center justify-between border-b border-(--line-d) px-1.5 pt-1 pb-3.5">
           <span className="font-mono text-[13px] font-bold tracking-[0.3em] text-amber">
-            ✈ DEPARTURES
+            DEPARTURES
           </span>
           <span className="font-mono text-[14px] tracking-[0.12em] text-[#7f8dc4]">
             {clock}
@@ -282,8 +279,8 @@ export function DepartureBoard({ drives }: { drives: Job[] }) {
         </div>
 
         <div className="mt-3 flex flex-wrap items-center justify-between gap-3 border-t border-(--line-d) pt-3 font-mono text-[clamp(9px,2.2cqi,11px)] tracking-[0.16em] text-[#5c6aa0]">
-          <span>EMPORIUM · CAMPUS DRIVES</span>
-          <span>{intake}</span>
+          <span className="text-amber">EMPORIUM · CAMPUS DRIVES</span>
+          {/* <span>{intake}</span> */}
         </div>
       </div>
     </div>

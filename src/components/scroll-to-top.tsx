@@ -3,8 +3,6 @@
 import { scrollToTop } from "@/components/hash-scroll";
 import { cn } from "@/lib/utils";
 
-/** Sits in the footer's legal bar rather than floating, so it never covers
- *  content. */
 export function ScrollToTop({ className }: { className?: string }) {
   return (
     <button

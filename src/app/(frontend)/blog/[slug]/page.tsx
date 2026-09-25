@@ -1,12 +1,18 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
-import { PageHero } from "@/components/page-hero";
-import { Reveal } from "@/components/reveal";
+import { PlainHero } from "@/components/page/kit";
+import { PostCard } from "@/components/post-card";
 import { ArticleBody } from "@/components/rich-text";
-import { formatDate, getPostBySlug, getPostSlugs } from "@/lib/cms";
+import {
+  formatDate,
+  getPostBySlug,
+  getPostSlugs,
+  getPosts,
+  postImage,
+} from "@/lib/cms";
 import { pageMetadata } from "@/lib/seo";
-import { sectionPad, surfaceWhite, wrap } from "@/lib/styles";
+import { wrap } from "@/lib/styles";
 import { cn } from "@/lib/utils";
 
 export async function generateStaticParams() {
@@ -37,30 +43,35 @@ export default async function BlogPostPage({
   params,
 }: PageProps<"/blog/[slug]">) {
   const { slug } = await params;
-  const post = await getPostBySlug(slug);
+  const [post, posts] = await Promise.all([getPostBySlug(slug), getPosts(4)]);
 
   if (!post) notFound();
 
+  const image = postImage(post);
+  const more = posts.filter((item) => item.slug !== post.slug).slice(0, 3);
+
   return (
     <>
-      <PageHero eyebrow="Blog" title={post.title} crumbs={[{ label: "Blog" }]}>
-        <p className="mt-5 font-mono text-[12px] tracking-[0.16em] text-haze uppercase">
+      <PlainHero
+        narrow
+        label={
+          <Link href="/blog" className="transition-colors hover:text-white">
+            ← Blog
+          </Link>
+        }
+        title={post.title}
+        image={image?.src}
+      >
+        <p className="mt-5 font-mono text-[12px] tracking-[0.16em] text-white/60 uppercase">
           {formatDate(post.publishedAt)}
         </p>
-      </PageHero>
+      </PlainHero>
 
-      <section className={cn(surfaceWhite, sectionPad, "pt-8!")}>
-        <div className={wrap}>
-          <Reveal as="article" className="mx-auto">
+      <section className="bg-white pb-20 max-phablet:pb-12">
+        <div className={cn(wrap)}>
+          <article className="pt-12">
             <ArticleBody data={post.content} />
-
-            <Link
-              href="/blog"
-              className="mt-12 inline-flex items-center gap-2 font-heading text-[15px] font-semibold text-royal hover:text-crimson"
-            >
-              <span aria-hidden="true">←</span> All posts
-            </Link>
-          </Reveal>
+          </article>
         </div>
       </section>
     </>

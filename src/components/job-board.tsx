@@ -170,18 +170,12 @@ function NoDrives() {
 type Destination = {
   key: string;
   location: string;
-  /** Kept apart so phones can show just the city. */
   city: string;
   region: string;
   flight: string;
   drives: Job[];
 };
 
-/**
- * Two drives in Imphal are one place to travel to, not two, so they share a tab
- * and the panel lists both. That is also why the tabs carry no date: a tab can
- * stand for several, so the cards below carry them instead.
- */
 function byDestination(items: Job[]): Destination[] {
   const found: Destination[] = [];
 
@@ -219,7 +213,6 @@ function DriveTab({
   onKeyDown: (event: React.KeyboardEvent) => void;
   tabRef: (node: HTMLButtonElement | null) => void;
 }) {
-  // Green wins: if anything here is open to all, the place is.
   const status = statusOf(
     place.drives.find((drive) => drive.board.status === "OPEN ALL") ??
       place.drives[0],

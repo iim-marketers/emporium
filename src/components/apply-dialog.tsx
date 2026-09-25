@@ -12,17 +12,41 @@ import {
 import { btn, type BtnProps } from "@/lib/btn";
 import { cn } from "@/lib/utils";
 
+type DialogButtonProps = {
+  label?: string;
+  subject?: string;
+} & BtnProps & { className?: string };
+
 export function ApplyDialog({
   label = "Apply Now",
+  ...props
+}: DialogButtonProps) {
+  return <FormDialog form="apply" title="Apply Now" label={label} {...props} />;
+}
+
+export function EnquireDialog({
+  label = "Enquire Now",
+  ...props
+}: DialogButtonProps) {
+  return (
+    <FormDialog form="enquire" title="Enquire Now" label={label} {...props} />
+  );
+}
+
+function FormDialog({
+  form,
+  title,
+  label,
   subject,
   variant = "primary",
   size,
   block,
   className,
-}: {
-  label?: string;
-  subject?: string;
-} & BtnProps & { className?: string }) {
+}: DialogButtonProps & {
+  form: "apply" | "enquire";
+  title: string;
+  label: string;
+}) {
   const [open, setOpen] = React.useState(false);
 
   return (
@@ -39,13 +63,18 @@ export function ApplyDialog({
       >
         <div className="px-6 pt-5 pb-4 max-phablet:px-4">
           <DialogTitle className="font-heading text-[21px] font-semibold text-ink">
-            Apply Now
+            {title}
           </DialogTitle>
+          {form === "enquire" && subject ? (
+            <p className="mt-1 text-[14px] leading-snug text-slate">
+              About · {subject}
+            </p>
+          ) : null}
         </div>
 
         <div className="px-6 pb-6 max-phablet:px-4">
           <EnquiryForm
-            variant="apply"
+            variant={form}
             surface="bare"
             subject={subject}
             onDone={() => {

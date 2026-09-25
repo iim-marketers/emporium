@@ -5,7 +5,6 @@ import { Reveal } from "@/components/reveal";
 import { directionsUrl, instagramUrl, type Centre } from "@/lib/centres";
 import { cn } from "@/lib/utils";
 
-/** Lucide dropped its brand icons, so this one is local. */
 function InstagramIcon({ className }: { className?: string }) {
   return (
     <svg

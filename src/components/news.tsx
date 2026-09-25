@@ -1,3 +1,4 @@
+import { ArrowRightIcon } from "lucide-react";
 import Link from "next/link";
 
 import { ImageWithSkeleton } from "@/components/image-with-skeleton";
@@ -61,6 +62,95 @@ export function PostTile() {
   );
 }
 
+function span(i: number, n: number) {
+  const rest = n - 1;
+  if (i === 0)
+    return n === 1
+      ? "col-span-4 row-span-2 max-laptop:col-span-2"
+      : "col-span-2 row-span-2";
+  const tablet =
+    rest % 2 === 1 && i === n - 1
+      ? "max-laptop:col-span-2 max-laptop:row-span-1"
+      : "max-laptop:col-span-1 max-laptop:row-span-1";
+  if (rest === 1) return cn("col-span-2 row-span-2", tablet);
+  if (rest === 2 || (rest === 3 && i === 1)) return cn("col-span-2", tablet);
+  return tablet;
+}
+
+function PostCard({
+  post,
+  lead = false,
+  className,
+}: {
+  post: Post;
+  lead?: boolean;
+  className?: string;
+}) {
+  const image = postImage(post);
+
+  return (
+    <Link
+      href={`/blog/${post.slug}`}
+      target="_blank"
+      className={cn(
+        "group relative isolate block overflow-hidden rounded-(--r) bg-navy",
+        className,
+      )}
+    >
+      {image ? (
+        <ImageWithSkeleton
+          src={image.src}
+          alt=""
+          fill
+          sizes={
+            lead
+              ? "(max-width: 640px) 80vw, (max-width: 960px) 92vw, 50vw"
+              : "(max-width: 640px) 80vw, (max-width: 960px) 46vw, 25vw"
+          }
+          className="-z-10 object-cover transition-transform duration-700 group-hover:scale-105"
+        />
+      ) : (
+        <div className="absolute inset-0 -z-10">
+          <PostTile />
+        </div>
+      )}
+      <span
+        aria-hidden="true"
+        className="absolute inset-0 -z-10 bg-[linear-gradient(180deg,transparent_30%,rgba(13,22,66,0.55)_60%,rgba(13,22,66,0.92)_100%)]"
+      />
+
+      <div
+        className={cn(
+          "absolute inset-x-0 bottom-0 text-white",
+          lead ? "p-7 max-phablet:p-5" : "p-5",
+        )}
+      >
+        <span className="font-mono text-[11px] tracking-[0.16em] text-white/70 uppercase">
+          {formatDate(post.publishedAt)}
+        </span>
+        <h3
+          className={cn(
+            "mt-2 leading-[1.25] font-medium text-white",
+            lead
+              ? "line-clamp-3 text-[clamp(21px,2.3vw,30px)] max-phablet:text-[19px]"
+              : "line-clamp-2 text-[17px]",
+          )}
+        >
+          {post.title}
+        </h3>
+        {lead && post.excerpt ? (
+          <p className="mt-3 line-clamp-2 max-w-[56ch] text-[15px] text-white/75 max-phablet:hidden">
+            {post.excerpt}
+          </p>
+        ) : null}
+      </div>
+    </Link>
+  );
+}
+
+const slide =
+  "h-[380px] w-[78%] max-w-[320px] flex-none snap-start max-mini:h-[340px]";
+
 export function BlogGrid({ posts }: { posts: Post[] }) {
   if (posts.length === 0) {
     return (
@@ -71,48 +161,50 @@ export function BlogGrid({ posts }: { posts: Post[] }) {
     );
   }
 
-  return (
-    <div className="grid grid-cols-4 gap-5.5 max-laptop:grid-cols-2 max-phone:grid-cols-1">
-      {posts.map((post) => {
-        const image = postImage(post);
+  const grid = posts.slice(0, 5);
+  const slides = posts.slice(0, 3);
 
-        return (
-          <Reveal
+  return (
+    <>
+      <Reveal className="grid auto-rows-[250px] grid-cols-4 gap-4 max-laptop:auto-rows-[230px] max-laptop:grid-cols-2 max-phablet:hidden">
+        {grid.map((post, i) => (
+          <PostCard
             key={post.slug}
-            as="article"
-            className="group max-h-150 flex flex-col overflow-hidden rounded-(--r) border border-hairline bg-white transition-[transform,box-shadow] duration-250 hover:-translate-y-1 hover:shadow-(--shadow)"
+            post={post}
+            lead={i === 0}
+            className={span(i, grid.length)}
+          />
+        ))}
+      </Reveal>
+
+      <div className="-mx-[4vw] hidden snap-x snap-mandatory scroll-px-[4vw] gap-3 overflow-x-auto px-[4vw] pb-1 [scrollbar-width:none] max-phablet:flex">
+        {slides.map((post, i) => (
+          <PostCard
+            key={post.slug}
+            post={post}
+            lead={i === 0}
+            className={slide}
+          />
+        ))}
+        {posts.length > slides.length ? (
+          // eslint-disable-next-line @next/next/no-html-link-for-pages
+          <a
+            href="/blog"
+            className={cn(
+              slide,
+              "flex flex-col items-center justify-center gap-4 rounded-(--r) border border-hairline bg-white text-center",
+            )}
           >
-            <div className="relative aspect-16/10 bg-cloud">
-              {image ? (
-                <ImageWithSkeleton
-                  src={image.src}
-                  alt=""
-                  fill
-                  sizes="(max-width: 560px) 92vw, (max-width: 960px) 45vw, 23vw"
-                  className="object-cover"
-                />
-              ) : (
-                <PostTile />
-              )}
-            </div>
-            <div className="flex flex-1 flex-col px-5.5 py-5">
-              <span className="font-mono text-[11px] tracking-[0.16em] text-crimson uppercase">
-                {formatDate(post.publishedAt)}
-              </span>
-              <h3 className="mt-2.5 text-[17px] leading-[1.3] text-ink">
-                <Link
-                  href={`/blog/${post.slug}`}
-                  className="after:absolute after:inset-0 after:content-['']"
-                  target="_blank"
-                >
-                  {post.title}
-                </Link>
-              </h3>
-            </div>
-          </Reveal>
-        );
-      })}
-    </div>
+            <span className="grid size-14 place-items-center rounded-full bg-crimson text-white">
+              <ArrowRightIcon className="size-5" />
+            </span>
+            <span className="text-[17px] font-semibold text-ink">
+              Show more
+            </span>
+          </a>
+        ) : null}
+      </div>
+    </>
   );
 }
 

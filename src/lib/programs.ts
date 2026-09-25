@@ -1,16 +1,38 @@
 export type ProgramLevel =
-  | "Certificate"
-  | "Advanced Certificate"
-  | "Fast Track";
+  "Certificate" | "Advanced Certificate" | "Fast Track";
 
 export type PayBand = {
-  /** Role the band applies to — omitted when the course quotes a single band. */
   role?: string;
   domestic: string;
   international: string;
 };
 
 export type Faq = { q: string; a: string };
+
+export type CourseDuration = { months: number; name: string; summary: string };
+
+export const courseDurations: CourseDuration[] = [
+  {
+    months: 2,
+    name: "Career Launch Sprint",
+    summary: "A fast start on grooming, communication and interview readiness.",
+  },
+  {
+    months: 3,
+    name: "Precision Placement Program",
+    summary: "Focused preparation built around placement interviews.",
+  },
+  {
+    months: 6,
+    name: "Professional Global Service Program",
+    summary: "Deeper service training for international-standard roles.",
+  },
+  {
+    months: 12,
+    name: "Complete Global Career Program",
+    summary: "The full course, every module from first class to placement.",
+  },
+];
 
 export type Program = {
   slug: string;
@@ -40,7 +62,6 @@ export type Program = {
   faqs: Faq[];
 };
 
-/** Quoted on all three course pages. */
 const positionDetails = [
   "With practically all of the top regional and international airlines, prestigious 5-star hotel chains, and well-known businesses in the travel, hospitality, and customer service industries, Emporium has successfully built reputable and lasting connections. These businesses then hold private on-campus interviews for Emporium students at different training facilities across the country.",
   "Today, the most popular career in aviation is that it has flexible educational requirements and offers rich prospects. The aviation business provides several work prospects, regardless of a candidate's 10+2 certificate or degree in aviation, hospitality, cruise lines, tourism, or similar fields. Starting salaries in aviation typically range from INR 2 to INR 5 lakhs annually. The remuneration may increase to INR 15 to 35 lakhs annually after five or more years of experience.",
@@ -65,15 +86,15 @@ export const programs: Program[] = [
   {
     slug: "aviation",
     code: "AVN-12",
-    tag: "AVIATION · 12 MONTHS",
+    tag: "AVIATION · 2–12 MONTHS",
     title:
       "Advanced Certification in Aviation, Hospitality Management and Travel and Tourism",
     shortTitle: "Aviation, Hospitality & Travel",
     heading:
       "Aviation Courses After 12th: Become an Air Hostess, Cabin Crew, and More",
     description:
-      "This 1 Year Certificate Course is designed for trainees who want flying careers in Airlines & Hotel Industry…",
-    duration: "12 months",
+      "This Certificate Course is designed for trainees who want flying careers in Airlines & Hotel Industry…",
+    duration: "2–12 months",
     level: "Advanced Certificate",
     mode: "Classroom",
     gate: "A1",
@@ -177,13 +198,13 @@ export const programs: Program[] = [
   {
     slug: "hospitality",
     code: "HOS-12",
-    tag: "HOSPITALITY · 12 MONTHS",
+    tag: "HOSPITALITY · 2–12 MONTHS",
     title: "Certification in Advanced Hospitality Management",
     shortTitle: "Advanced Hospitality Management",
     heading: "Get Advanced Certification in Hospitality Management",
     description:
-      "This 06 Months Certificate Course is a fast track course for aspirants willing to become part of Hotel Industry…",
-    duration: "12 months",
+      "This Certificate Course is a fast track course for aspirants willing to become part of Hotel Industry…",
+    duration: "2–12 months",
     level: "Advanced Certificate",
     mode: "Classroom",
     gate: "B1",
@@ -284,13 +305,13 @@ export const programs: Program[] = [
   {
     slug: "cruise",
     code: "CRU-12",
-    tag: "CRUISE LINE · 12 MONTHS",
+    tag: "CRUISE LINE · 2–12 MONTHS",
     title: "Exclusive Fast Track Certification in Cruise Lines",
     shortTitle: "Cruise Line Careers",
     heading: "Get Your Cruise Careers with a Cruise Ship Management Course",
     description:
-      "This 03 Months fast track course is designed for aspirants willing to become part of Luxurious Cruise Lines…",
-    duration: "12 months",
+      "This fast track course is designed for aspirants willing to become part of Luxurious Cruise Lines…",
+    duration: "2–12 months",
     level: "Fast Track",
     mode: "Classroom",
     gate: "C1",
@@ -397,7 +418,7 @@ export const programs: Program[] = [
       },
       {
         q: "How long is the Cruise Line course?",
-        a: "The duration of cruise line courses typically ranges from 3 to 6 months, depending on the specific program and level of training. This intensive period includes classroom instruction, practical training, soft skills development, and placement preparation — everything you need to launch your cruise line career confidently and successfully.",
+        a: "The Cruise Line course comes in four durations: 2, 3, 6 and 12 months, so you can pick the depth of training that suits you. This intensive period includes classroom instruction, practical training, soft skills development, and placement preparation — everything you need to launch your cruise line career confidently and successfully.",
       },
     ],
   },

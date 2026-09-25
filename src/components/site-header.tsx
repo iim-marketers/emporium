@@ -26,7 +26,14 @@ const navLink = [
   "hover:after:w-full data-[active=true]:after:w-full",
   "max-wide:text-[15px]",
   "data-[active=true]:font-semibold",
+  "group-data-[overlay=true]/header:text-white/85",
+  "group-data-[overlay=true]/header:hover:text-white",
+  "group-data-[overlay=true]/header:data-[active=true]:text-white",
 ].join(" ");
+
+const revealOnScroll =
+  "transition-[opacity,visibility,translate] duration-500 ease-out motion-reduce:transition-none";
+const hiddenUntilScroll = "invisible -translate-y-1.5 opacity-0";
 
 const panelSurface =
   "bg-[radial-gradient(900px_420px_at_86%_-12%,rgba(63,91,214,0.55),transparent_62%),radial-gradient(620px_380px_at_2%_104%,rgba(217,31,42,0.2),transparent_62%),linear-gradient(180deg,var(--navy)_0%,var(--navy-2)_55%,#0c1440_100%)]";
@@ -95,7 +102,6 @@ const gateSubLink = [
   "hover:text-white data-[active=true]:font-semibold data-[active=true]:text-white",
 ].join(" ");
 
-/** Gate codes read like a real board — 01, 02, … — not list indices. */
 const gateNo = (index: number) => String(index + 1).padStart(2, "0");
 
 export function SiteHeader() {
@@ -111,7 +117,6 @@ export function SiteHeader() {
     return pathname === path || pathname.startsWith(`${path}/`);
   };
 
-  /** Holds the current page, so the panel opens already unfolded. */
   const activeGroup =
     primaryNav.find((item) => item.children && isActive(item.href))?.href ??
     null;
@@ -121,8 +126,6 @@ export function SiteHeader() {
     setCourses(false);
   }, []);
 
-  /** A visitor already on the home page reads the mark as "back to the top",
-   *  so there it scrolls instead of re-navigating. */
   const onBrandClick = (event: React.MouseEvent<HTMLAnchorElement>) => {
     close();
 
@@ -133,6 +136,16 @@ export function SiteHeader() {
     event.preventDefault();
     scrollToTop();
   };
+
+  const [atTop, setAtTop] = React.useState(true);
+  React.useEffect(() => {
+    const onScroll = () => setAtTop(window.scrollY < 24);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  const overlay = pathname === "/" && atTop && !open;
 
   const toggleMenu = () => {
     if (!open) setGroup(activeGroup);
@@ -193,7 +206,6 @@ export function SiteHeader() {
     };
   }, [courses]);
 
-  /** Rows fan in one after another once the panel lands. */
   const stagger = (index: number) => ({
     transitionDelay: open ? `${110 + index * 45}ms` : "0ms",
   });
@@ -205,19 +217,36 @@ export function SiteHeader() {
   return (
     <header
       data-site-header
-      className="sticky top-0 z-50 [--header-h:72px] max-mini:[--header-h:64px]"
+      data-overlay={overlay}
+      className="group/header sticky top-0 z-50 [--header-h:72px] max-mini:[--header-h:64px]"
     >
-      <div className="relative z-10 border-b border-hairline bg-[rgba(255,255,255,0.86)] backdrop-blur-[14px] backdrop-saturate-[1.4]">
+      <div
+        className={cn(
+          "relative z-10 border-b transition-[background-color,border-color,backdrop-filter] duration-300",
+          overlay
+            ? "border-transparent bg-transparent"
+            : "border-hairline bg-[rgba(255,255,255,0.86)] backdrop-blur-[14px] backdrop-saturate-[1.4]",
+        )}
+      >
         <div
           className={cn(
             wrap,
             "flex h-(--header-h) items-center justify-between gap-3",
           )}
         >
-          <BrandMark variant="dark" preload onClick={onBrandClick} />
+          <BrandMark
+            variant="dark"
+            preload
+            inverse={overlay}
+            onClick={onBrandClick}
+          />
 
           <nav
-            className="flex items-center gap-7.5 max-wide:gap-5 max-laptop:hidden"
+            className={cn(
+              "flex items-center gap-7.5 max-wide:gap-5 max-laptop:hidden",
+              revealOnScroll,
+              overlay && hiddenUntilScroll,
+            )}
             aria-label="Primary"
           >
             {primaryNav.map((item) =>
@@ -352,16 +381,22 @@ export function SiteHeader() {
             )}
           </nav>
 
-          <div className="flex flex-none items-center gap-3.5 max-mini:gap-0.5">
+          <div
+            className={cn(
+              "flex flex-none items-center gap-3.5 max-mini:gap-0.5",
+              revealOnScroll,
+              overlay && hiddenUntilScroll,
+            )}
+          >
             <a
               href={site.studentLogin}
               target="_blank"
               rel="noreferrer"
-              className="text-[14px] font-semibold text-slate transition-colors duration-200 hover:text-royal max-wide:hidden"
+              className="text-[14px] font-semibold text-slate transition-colors duration-200 group-data-[overlay=true]/header:text-white/85 hover:text-royal group-data-[overlay=true]/header:hover:text-white max-wide:hidden"
             >
               Student Login
             </a>
-            {/* The form sits partway down /enquire, so the CTA aims at it. */}
+            {}
             <ScrollLink
               href="/enquire"
               to="enquire"
@@ -382,21 +417,21 @@ export function SiteHeader() {
             >
               <span
                 className={cn(
-                  "h-0.5 w-6 origin-center rounded-full bg-royal",
+                  "h-0.5 w-6 origin-center rounded-full bg-royal group-data-[overlay=true]/header:bg-white",
                   "transition-transform duration-200 ease-out motion-reduce:transition-none",
                   open && "translate-y-1.75 rotate-45",
                 )}
               />
               <span
                 className={cn(
-                  "h-0.5 w-6 rounded-full bg-royal",
+                  "h-0.5 w-6 rounded-full bg-royal group-data-[overlay=true]/header:bg-white",
                   "transition duration-200 ease-out motion-reduce:transition-none",
                   open && "scale-x-0 opacity-0",
                 )}
               />
               <span
                 className={cn(
-                  "h-0.5 w-6 origin-center rounded-full bg-royal",
+                  "h-0.5 w-6 origin-center rounded-full bg-royal group-data-[overlay=true]/header:bg-white",
                   "transition-transform duration-200 ease-out motion-reduce:transition-none",
                   open && "-translate-y-1.75 -rotate-45",
                 )}

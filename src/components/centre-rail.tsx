@@ -96,7 +96,6 @@ export function CentreRail({
       el.style.scrollSnapType = "";
     };
 
-    /* `scrollend` where it exists, a timer everywhere else. */
     el.addEventListener("scrollend", done, { once: true });
     if (settle.current) clearTimeout(settle.current);
     settle.current = setTimeout(done, 900);

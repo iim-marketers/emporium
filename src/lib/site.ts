@@ -9,11 +9,10 @@ export const site = {
   url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.emporiumsolutions.com",
   locale: "en_IN",
 
-  phone: "+91 98366 08888",
+  phone: "9836608888",
   phoneHref: "tel:+919836608888",
-  altPhone: "+91 98305 64000",
+  altPhone: "9830564000",
   altPhoneHref: "tel:+919830564000",
-  /** wa.me wants the bare international number; the display keeps the spacing. */
   whatsapp: "+91 98366 08888",
   whatsappHref: "https://wa.me/919836608888",
   email: "info@emporiumsolutions.com",
@@ -61,7 +60,6 @@ export const site = {
 export type NavItem = { label: string; href: string; blurb?: string };
 export type NavGroup = NavItem & { children?: NavItem[] };
 
-/** Course slugs live here so nav, footer and cards cannot drift apart. */
 export const courseNav: NavItem[] = [
   {
     label: "Aviation",

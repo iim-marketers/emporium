@@ -8,9 +8,7 @@ export type Job = {
   location: string;
   position: string;
   employer?: string;
-  /** The drive date as printed on the card: "16 September 2026". */
   date: string;
-  /** The same day as stored, for the countdown and the closing cut-off. */
   driveOn: string;
   time: string;
   venue: string;
@@ -19,7 +17,6 @@ export type Job = {
   board: { flight: string; destination: string; when: string; status: string };
 };
 
-/** wa.me wants a bare international number with no spaces or symbols. */
 function whatsapp(display: string) {
   const digits = display.replace(/\D/g, "");
   const intl = digits.length === 10 ? `91${digits}` : digits;
@@ -40,7 +37,6 @@ const boardDate = new Intl.DateTimeFormat("en-GB", {
   timeZone: "UTC",
 });
 
-/** The stored day as a local date, so the timezone cannot move it. */
 export function driveDate(driveOn: string): Date | null {
   const stored = new Date(driveOn);
   if (Number.isNaN(stored.getTime())) return null;

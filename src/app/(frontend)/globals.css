@@ -5,26 +5,25 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  --navy: #0d1642; /* deepest sky — hero + footer base */
+  --navy: #0d1642;
   --navy-2: #101a4d;
-  --royal: #1d2b79; /* brand blue */
-  --sky: #3f5bd6; /* mid sky — links, highlights */
-  --haze: #9db0ee; /* pale sky — accents on dark */
-  --crimson: #d91f2a; /* brand red — thin accents, emblem */
-  --crimson-deep: #c4121f; /* filled CTAs (AA contrast on white) */
-  --ink: #0e1330; /* near-black text */
-  --slate: #4a5170; /* secondary text */
-  --paper: #f5f6fb; /* cool light bg */
-  --cloud: #eaeefa; /* subtle panels */
-  --ticket: #fbfaf5; /* warm ticket paper */
-  --line: #dde2f1; /* hairlines on light */
-  --line-d: rgba(157, 176, 238, 0.18); /* hairlines on dark */
-  --amber: #ffb020; /* board status */
+  --royal: #1d2b79;
+  --sky: #3f5bd6;
+  --haze: #9db0ee;
+  --crimson: #d91f2a;
+  --crimson-deep: #c4121f;
+  --ink: #0e1330;
+  --slate: #4a5170;
+  --paper: #f5f6fb;
+  --cloud: #eaeefa;
+  --ticket: #fbfaf5;
+  --line: #dde2f1;
+  --line-d: rgba(157, 176, 238, 0.18);
+  --amber: #ffb020;
   --green: #3ecf8e;
   --shadow: 0 24px 60px -28px rgba(13, 22, 66, 0.45);
   --r: 18px;
 
-  /* shadcn tokens, retuned to the Emporium palette */
   --background: var(--paper);
   --foreground: var(--ink);
   --card: #ffffff;
@@ -65,11 +64,9 @@
 
   --font-sans: var(--font-poppins);
   --font-mono: var(--font-code);
-  /* Helvetica is a system face, not a webfont — Arial covers Windows/Android,
-     where no Helvetica is installed. */
   --font-heading: Helvetica, "Helvetica Neue", Arial, sans-serif;
+  --font-hero: var(--font-saol), Georgia, "Times New Roman", serif;
 
-  /* brand scale, available as Tailwind utilities (bg-navy, text-slate, …) */
   --color-navy: var(--navy);
   --color-navy-2: var(--navy-2);
   --color-royal: var(--royal);
@@ -129,25 +126,64 @@
    original `max-width` queries exactly. Tailwind's own sm/md/lg are untouched,
    so the shadcn components in ui/ keep working. */
 @theme {
-  --breakpoint-mini: 401px; /* max-mini    → ≤400  narrow phones */
-  --breakpoint-narrow: 481px; /* max-narrow  → ≤480 */
-  --breakpoint-phone: 561px; /* max-phone   → ≤560  small phones */
-  --breakpoint-phablet: 641px; /* max-phablet → ≤640  phones */
-  --breakpoint-tablet: 769px; /* max-tablet  → ≤768  large phones */
-  --breakpoint-laptop: 961px; /* max-laptop  → ≤960  tablets */
-  --breakpoint-navfit: 1061px; /* max-navfit  → ≤1060 nav phone number */
-  --breakpoint-wide: 1281px; /* max-wide    → ≤1280 nav spacing */
+  --breakpoint-mini: 401px;
+  --breakpoint-narrow: 481px;
+  --breakpoint-phone: 561px;
+  --breakpoint-phablet: 641px;
+  --breakpoint-tablet: 769px;
+  --breakpoint-laptop: 961px;
+  --breakpoint-navfit: 1061px;
+  --breakpoint-wide: 1281px;
 
-  /* Loading placeholders sit on panels that are already --cloud, so the base
-     is a shade deeper and a highlight sweeps across to read as "working". */
   --skeleton: #dbe2f4;
   --color-skeleton: var(--skeleton);
+
+  --animate-drift: drift 2.4s ease-in-out infinite;
+  --animate-rise: rise 1.1s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  --animate-draw: draw 1s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+
+  @keyframes rise {
+    from {
+      transform: translateY(105%);
+    }
+    to {
+      transform: translateY(0);
+    }
+  }
+  @keyframes draw {
+    from {
+      transform: scaleX(0);
+    }
+    to {
+      transform: scaleX(1);
+    }
+  }
+  --animate-kenburns: kenburns 22s ease-out both;
+
+  @keyframes drift {
+    0%,
+    100% {
+      transform: translateY(0);
+      opacity: 0.4;
+    }
+    50% {
+      transform: translateY(8px);
+      opacity: 1;
+    }
+  }
+  @keyframes kenburns {
+    from {
+      transform: scale(1.12);
+    }
+    to {
+      transform: scale(1);
+    }
+  }
 
   --animate-shimmer: shimmer 1.5s ease-in-out infinite;
   --animate-marquee: marquee 32s linear infinite;
   --animate-flap: flap 0.13s ease-out;
   --animate-fly: fly 30s linear -7.5s infinite;
-  /* The contact button nudges itself every few seconds until it is opened. */
   --animate-waggle: waggle 5s ease-in-out 4s infinite;
 
   @keyframes shimmer {
@@ -171,7 +207,6 @@
       offset-distance: 100%;
     }
   }
-  /* The shake occupies the first fifth of the cycle; the rest is a pause. */
   @keyframes waggle {
     0%,
     20%,
@@ -204,6 +239,12 @@
 }
 
 @layer base {
+  /* Bands often end on a fractional pixel; on scaled phone screens that
+     leaves a hairline of the page colour between two dark bands. Overlapping
+     each band by a pixel hides it. */
+  #top > * + * {
+    margin-top: -1px;
+  }
   * {
     box-sizing: border-box;
   }
@@ -246,4 +287,40 @@
     outline-offset: 3px;
     border-radius: 6px;
   }
+}
+
+@utility seam-y {
+  --seam-h: var(--seam-size, clamp(90px, 14vh, 170px));
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(
+      180deg,
+      var(--seam, var(--navy)),
+      transparent var(--seam-h)
+    ),
+    linear-gradient(0deg, var(--seam, var(--navy)), transparent var(--seam-h));
+}
+@utility seam-t {
+  --seam-h: var(--seam-size, clamp(90px, 14vh, 170px));
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    180deg,
+    var(--seam, var(--navy)),
+    transparent var(--seam-h)
+  );
+}
+@utility seam-b {
+  --seam-h: var(--seam-size, clamp(90px, 14vh, 170px));
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    0deg,
+    var(--seam, var(--navy)),
+    transparent var(--seam-h)
+  );
 }

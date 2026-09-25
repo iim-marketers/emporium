@@ -38,7 +38,11 @@ export default function ErrorPage({
           head back to the terminal and pick a destination.
         </p>
         <div className={cn(heroCta, "mx-auto justify-center")}>
-          <button type="button" onClick={() => retry()} className={btn({ block: "phone" })}>
+          <button
+            type="button"
+            onClick={() => retry()}
+            className={btn({ block: "phone" })}
+          >
             Try again <span className={arrow}>→</span>
           </button>
           <Link href="/" className={btn({ variant: "ghost", block: "phone" })}>

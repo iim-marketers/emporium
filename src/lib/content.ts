@@ -8,15 +8,15 @@ export const stats: Stat[] = [
 ];
 
 export const placementClaim = {
-  count: "Over 15,100+",
+  count: "Over 100,000+",
   line1: "students",
   line2: "placed",
-  line3: "in 14 different countries",
+  line3: "in 29 different countries",
   image: "/placements/hero-v2.png",
 };
 
 export const headlineClaim = {
-  count: "Over 50,000+",
+  count: "Over 100,000+",
   line1: "students",
   line2: "placed",
   line3: "in 29 different countries",
@@ -59,30 +59,96 @@ export const empanelments = {
 };
 
 export const recruiterLogos: string[] = [
-  ...["a", "b", "c", "d"].flatMap((group) =>
-    Array.from({ length: 10 }, (_, i) => `/recruiters/${group}${i + 1}.png`),
-  ),
-  ...Array.from({ length: 7 }, (_, i) => `/recruiters/e${i + 1}.png`),
-  "/recruiters/logo8.png",
-  "/recruiters/logo10.png",
-  "/recruiters/logo15.png",
-  "/recruiters/logo9.webp",
-  "/recruiters/logo11.webp",
+  "/recruiters/singapore-airlines.png",
   "/recruiters/el2.webp",
+  "/recruiters/d10.png",
+  "/recruiters/d3.png",
+  "/recruiters/c1.png",
+  "/recruiters/c10.png",
+  "/recruiters/e4.png",
+  "/recruiters/b5.png",
+  "/recruiters/b8.png",
+  "/recruiters/d7.png",
+  "/recruiters/c4.png",
+  "/recruiters/b1.png",
+  "/recruiters/a5.png",
+  "/recruiters/shangri-la.png",
+  "/recruiters/dream-cruises.png",
+  "/recruiters/makemytrip.png",
+  "/recruiters/hilton.png",
+  "/recruiters/yatra.png",
   "/recruiters/el4.webp",
+  "/recruiters/saudia.png",
+  "/recruiters/etihad.png",
+  "/recruiters/b3.png",
+  "/recruiters/e3.png",
+  "/recruiters/d8.png",
+  "/recruiters/b7.png",
+  "/recruiters/c2.png",
+  "/recruiters/d1.png",
+  "/recruiters/e5.png",
+  "/recruiters/b6.png",
+  "/recruiters/swissotel.png",
+  "/recruiters/c6.png",
+  "/recruiters/star-cruises.png",
+  "/recruiters/d6.png",
+  "/recruiters/easemytrip.png",
+  "/recruiters/jumeirah.png",
+  "/recruiters/b2.png",
+  "/recruiters/gulf-air.png",
+  "/recruiters/air-india.png",
+  "/recruiters/indigo.png",
+  "/recruiters/e2.png",
+  "/recruiters/c3.png",
+  "/recruiters/c7.png",
+  "/recruiters/cleartrip.png",
+  "/recruiters/logo10.png",
+  "/recruiters/a9.png",
+  "/recruiters/rotana.png",
+  "/recruiters/b4.png",
+  "/recruiters/ixigo.png",
+  "/recruiters/c8.png",
+  "/recruiters/e1.png",
+  "/recruiters/a1.png",
+  "/recruiters/d9.png",
+  "/recruiters/travelmaxx-logo.png",
 ];
 
 export const recruiterNames = [
+  "Singapore Airlines",
   "Qatar Airways",
+  "Emirates",
+  "Saudi Arabian Airlines",
+  "Etihad",
+  "Gulf Air",
+  "Air India",
   "IndiGo",
-  "Park Hyatt",
-  "Carnival Cruise",
-  "Air Asia",
   "The Oberoi",
-  "Go First",
-  "Leela Palace",
-  "GoAir International",
-  "The Hyatt Group",
+  "Taj",
+  "J.W. Marriott",
+  "The St. Regis",
+  "The Ritz-Carlton",
+  "Hyatt",
+  "ITC Welcomgroup",
+  "Leela Kempinski",
+  "Le Meridien",
+  "Accor Hotels",
+  "Shangri-La",
+  "The Park Hotel",
+  "Four Seasons",
+  "Crowne Plaza",
+  "Swissotel",
+  "Jumeirah Beach Resort Dubai",
+  "ORYX Rotana Dubai",
+  "Hilton Group",
+  "Dream Cruises",
+  "Star Cruises",
+  "Make My Trip",
+  "Yatra",
+  "Ease My Trip",
+  "Clear Trip",
+  "Ixigo",
+  "Travel Maxx",
 ];
 
 export type Pillar = { no: string; icon: string; title: string; body: string };
@@ -154,48 +220,28 @@ export const centreCards: CentreCard[] = [
   },
 ];
 
-export type TestimonialVideo = {
-  id: string;
-  title: string;
+export type TestimonialStory = {
+  city: string;
+  src: string;
+  poster: string;
 };
 
-/** Landscape only — the row is 16:9, and the channel's vertical Shorts would
- *  have to be cropped past the point of keeping their subject. */
-export const testimonialVideos: TestimonialVideo[] = [
-  { id: "0ek6Q1XbsH0", title: "A dream I didn't know was this close" },
-  {
-    id: "W5rjm9aEL4c",
-    title: "Dreams that took flight, careers that began here",
-  },
-  { id: "n62u4t4Wnhs", title: "From training to takeoff in just 60 days" },
-  { id: "X8cC0DivyLk", title: "Where dreams come true" },
-  {
-    id: "1aojZBio8OM",
-    title: "Found us on social media, found my career in 60 days",
-  },
-  { id: "7MzXSGsoldA", title: "One scroll. One decision. One new life." },
-  {
-    id: "9MOnUG8LD_E",
-    title: "Placed in 40 days at ITC Grand Chola",
-  },
-  {
-    id: "NsogEH67ZqI",
-    title: "Placed at ITC Grand Chola and Jio World Centre, Mumbai",
-  },
-  {
-    id: "wsYgzdmCpqs",
-    title: "Placed at Jio World Centre, Mumbai",
-  },
-  {
-    id: "WBG9qzZr-dI",
-    title: "The Emporium placement policy, explained",
-  },
-  {
-    id: "6RFs-MCQ8U4",
-    title: "60 days to your dream career in hospitality, aviation and cruise",
-  },
-  { id: "c_n6w_oqGvg", title: "Unlock your career potential today" },
+/** Files live at /testimonials/<slug>-<n>.mp4 with a matching .jpg poster;
+ *  adding a city is one more entry here. */
+const testimonialCities = [
+  { slug: "siliguri", city: "Siliguri", count: 5 },
+  { slug: "guwahati", city: "Guwahati", count: 8 },
+  { slug: "sikkim", city: "Sikkim", count: 5 },
 ];
+
+export const testimonialStories: TestimonialStory[] = testimonialCities.flatMap(
+  ({ slug, city, count }) =>
+    Array.from({ length: count }, (_, i) => ({
+      city,
+      src: `/testimonials/${slug}-${i + 1}.mp4`,
+      poster: `/testimonials/${slug}-${i + 1}.jpg`,
+    })),
+);
 
 export const placementsIntro =
   "Since we are working very closely with the industry for the last 9 years in India and we follow all the guidelines given by the airlines, hotels and tourism companies, we do not take open admissions to maintain the quality policy and to ensure that every student gets suitable jobs according to the profile.";
