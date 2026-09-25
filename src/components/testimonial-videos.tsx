@@ -3,7 +3,6 @@
 import {
   ChevronLeftIcon,
   ChevronRightIcon,
-  MapPinIcon,
   PlayIcon,
   Volume2Icon,
   VolumeXIcon,
@@ -23,13 +22,6 @@ import { cn } from "@/lib/utils";
 
 const pad = (n: number) => String(n).padStart(2, "0");
 
-const cities = Array.from(
-  testimonialStories.reduce(
-    (m, s) => m.set(s.city, (m.get(s.city) ?? 0) + 1),
-    new Map<string, number>(),
-  ),
-);
-
 const railBtn =
   "grid size-11 cursor-pointer place-items-center rounded-full border border-hairline bg-white text-ink transition-[background-color,color,opacity] hover:bg-navy hover:text-white disabled:pointer-events-none disabled:opacity-35";
 
@@ -41,15 +33,11 @@ const sideBtn =
 
 export function TestimonialGallery() {
   const rail = React.useRef<HTMLUListElement>(null);
-  const [city, setCity] = React.useState(cities[0][0]);
   const [scroll, setScroll] = React.useState({ at: 0, span: 1 });
   const [preview, setPreview] = React.useState<string | null>(null);
   const [open, setOpen] = React.useState<number | null>(null);
 
-  const stories = React.useMemo(
-    () => testimonialStories.filter((s) => s.city === city),
-    [city],
-  );
+  const stories = testimonialStories;
 
   const measure = React.useCallback(() => {
     const el = rail.current;
@@ -64,11 +52,10 @@ export function TestimonialGallery() {
   React.useEffect(() => {
     const el = rail.current;
     if (!el) return;
-    el.scrollTo({ left: 0 });
     const ro = new ResizeObserver(measure);
     ro.observe(el);
     return () => ro.disconnect();
-  }, [stories, measure]);
+  }, [measure]);
 
   const nudge = (d: 1 | -1) =>
     rail.current?.scrollBy({
@@ -78,65 +65,10 @@ export function TestimonialGallery() {
 
   return (
     <>
-      <div className="mb-7 flex items-center justify-between gap-6">
-        <div
-          role="group"
-          aria-label="Filter stories by city"
-          className="-mx-1 flex min-w-0 gap-2 overflow-x-auto px-1 py-1 [scrollbar-width:none]"
-        >
-          {cities.map(([c, count]) => {
-            const on = city === c;
-            return (
-              <button
-                key={"city-filter-" + c}
-                type="button"
-                aria-pressed={on}
-                onClick={() => setCity(c)}
-                className={cn(
-                  "flex flex-none cursor-pointer items-center gap-1 rounded-full border px-4 py-2.5 text-[14px] font-medium transition-colors",
-                  on
-                    ? "border-crimson bg-white text-ink"
-                    : "border-hairline bg-white text-slate hover:border-navy/30 hover:text-ink",
-                )}
-              >
-                <MapPinIcon
-                  className={cn(
-                    "size-4",
-                    on ? "text-crimson" : "text-slate/50",
-                  )}
-                />
-                {c}
-              </button>
-            );
-          })}
-        </div>
-
-        <div className="flex flex-none gap-2 max-phablet:hidden">
-          <button
-            type="button"
-            className={railBtn}
-            onClick={() => nudge(-1)}
-            disabled={scroll.at <= 0.001}
-            aria-label="Scroll stories back"
-          >
-            <ChevronLeftIcon className="size-4.5" />
-          </button>
-          <button
-            type="button"
-            className={railBtn}
-            onClick={() => nudge(1)}
-            disabled={scroll.at >= 0.999 || scroll.span >= 1}
-            aria-label="Scroll stories forward"
-          >
-            <ChevronRightIcon className="size-4.5" />
-          </button>
-        </div>
-      </div>
-
       <ul
         ref={rail}
         onScroll={measure}
-        className="m-0 -mx-2 flex snap-x snap-mandatory scroll-px-2 gap-4 overflow-x-auto px-2 pt-2 pb-3 [scrollbar-width:none] max-phablet:gap-3"
+        className="m-0 -mx-2 flex snap-x snap-mandatory scroll-px-2 gap-4 overflow-x-auto px-2 pb-3 [scrollbar-width:none] max-phablet:gap-3"
       >
         {stories.map((story, i) => (
           <li
@@ -183,6 +115,29 @@ export function TestimonialGallery() {
           </li>
         ))}
       </ul>
+
+      <div className="mt-6 flex items-center justify-center gap-6 max-phablet:hidden">
+        <div className="flex flex-none gap-2">
+          <button
+            type="button"
+            className={railBtn}
+            onClick={() => nudge(-1)}
+            disabled={scroll.at <= 0.001}
+            aria-label="Scroll stories back"
+          >
+            <ChevronLeftIcon className="size-4.5" />
+          </button>
+          <button
+            type="button"
+            className={railBtn}
+            onClick={() => nudge(1)}
+            disabled={scroll.at >= 0.999 || scroll.span >= 1}
+            aria-label="Scroll stories forward"
+          >
+            <ChevronRightIcon className="size-4.5" />
+          </button>
+        </div>
+      </div>
 
       <StoryViewer stories={stories} index={open} onIndex={setOpen} />
     </>

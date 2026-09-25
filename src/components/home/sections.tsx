@@ -141,7 +141,7 @@ export function FacesStrip() {
               alt={`An Emporium ${face.track.toLowerCase()} student in uniform`}
               fill
               sizes="(max-width: 560px) 25vw, (max-width: 960px) 17vw, 12.5vw"
-              className="object-cover "
+              className="object-cover grayscale transition-[filter,transform] duration-700 group-hover:scale-[1.04] group-hover:grayscale-0"
             />
             <span
               aria-hidden="true"
