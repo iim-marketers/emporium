@@ -133,10 +133,12 @@ export function FactsCard({ fields }: { fields: Fact[] }) {
 export function Stage({
   image,
   focus = "center",
+  priority = false,
   children,
 }: {
   image: string;
   focus?: string;
+  priority?: boolean;
   children: React.ReactNode;
 }) {
   return (
@@ -149,6 +151,7 @@ export function Stage({
           src={image}
           alt=""
           fill
+          priority={priority}
           sizes="100vw"
           className="object-cover"
           style={{ objectPosition: focus }}
@@ -172,29 +175,40 @@ export function CoverHero({
   label?: string;
   title: React.ReactNode;
   lede?: React.ReactNode;
-  image: string;
+  image?: string;
   focus?: string;
   dim?: boolean;
   children?: React.ReactNode;
 }) {
   return (
-    <section className="relative isolate flex min-h-[clamp(520px,74vh,720px)] flex-col overflow-hidden bg-navy text-white">
-      <Image
-        src={image}
-        alt=""
-        fill
-        priority
-        sizes="100vw"
-        className="-z-20 object-cover"
-        style={{ objectPosition: focus }}
-      />
+    <section
+      className={cn(
+        "relative isolate flex min-h-[clamp(520px,74vh,720px)] flex-col overflow-hidden text-white",
+        image && "bg-navy",
+      )}
+    >
+      {image ? (
+        <Image
+          src={image}
+          alt=""
+          fill
+          priority
+          sizes="100vw"
+          className="-z-20 object-cover"
+          style={{ objectPosition: focus }}
+        />
+      ) : null}
       <span
         aria-hidden="true"
         className={cn(
           "absolute inset-0 -z-10",
-          dim
-            ? "bg-[radial-gradient(ellipse_70%_60%_at_50%_50%,rgba(8,12,36,0.78),rgba(8,12,36,0.55))]"
-            : "bg-[radial-gradient(ellipse_70%_60%_at_50%_50%,rgba(8,12,36,0.62),rgba(8,12,36,0.35))]",
+          !image
+            ? dim
+              ? "bg-[radial-gradient(ellipse_60%_45%_at_50%_50%,rgba(8,12,36,0.7),transparent)]"
+              : "bg-[radial-gradient(ellipse_60%_45%_at_50%_50%,rgba(8,12,36,0.5),transparent)]"
+            : dim
+              ? "bg-[radial-gradient(ellipse_70%_60%_at_50%_50%,rgba(8,12,36,0.78),rgba(8,12,36,0.55))]"
+              : "bg-[radial-gradient(ellipse_70%_60%_at_50%_50%,rgba(8,12,36,0.62),rgba(8,12,36,0.35))]",
         )}
       />
 

@@ -30,7 +30,7 @@ export default async function JobsPage() {
   const drives = openDrives(await getJobs());
 
   return (
-    <Stage image={img.stage} focus={img.stageFocus}>
+    <Stage image={img.hero} focus={img.heroFocus} priority>
       <CoverHero
         label="Newest jobs"
         title={
@@ -39,8 +39,6 @@ export default async function JobsPage() {
           </>
         }
         // lede={jobsIntro}
-        image={img.hero}
-        focus={img.heroFocus}
       >
         <ApplyDialog label="Apply Now" variant="primary" block="phone" />
       </CoverHero>

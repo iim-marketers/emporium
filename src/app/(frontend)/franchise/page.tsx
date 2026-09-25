@@ -37,7 +37,7 @@ const img = pageImages.franchise;
 export default function FranchisePage() {
   return (
     <>
-      <Stage image={img.stage} focus={img.stageFocus}>
+      <Stage image={img.hero} focus={img.heroFocus} priority>
         <CoverHero
           label="Franchise"
           title={
@@ -47,8 +47,6 @@ export default function FranchisePage() {
             </>
           }
           lede={franchise.eyebrow}
-          image={img.hero}
-          focus={img.heroFocus}
         >
           <Link href="/contact" className={btn({ block: "phone" })}>
             Talk to our team <span className={arrow}>→</span>

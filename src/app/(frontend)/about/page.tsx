@@ -34,7 +34,7 @@ const img = pageImages.about;
 export default function AboutPage() {
   return (
     <>
-      <Stage image={img.stage} focus={img.stageFocus}>
+      <Stage image={img.hero} priority>
         <CoverHero
           label="About Us"
           title={
@@ -44,8 +44,6 @@ export default function AboutPage() {
             </>
           }
           lede={aboutIntro}
-          image={img.hero}
-          focus={img.heroFocus}
         >
           <Link href="/programs" className={btn({ block: "phone" })}>
             Explore courses <span className={arrow}>→</span>

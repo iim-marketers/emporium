@@ -15,11 +15,7 @@ import {
 } from "@/components/home/sections";
 import { BlogGrid } from "@/components/news";
 import { Reveal } from "@/components/reveal";
-import {
-  AccreditationStrip,
-  RecruiterWall,
-  TrustStrip,
-} from "@/components/sections";
+import { AccreditationStrip, RecruiterWall } from "@/components/sections";
 import { TestimonialGallery } from "@/components/testimonial-videos";
 import { getJobs, getPosts } from "@/lib/cms";
 import { arrow, btn } from "@/lib/btn";

@@ -48,7 +48,7 @@ const img = pageImages.placements;
 export default function PlacementsPage() {
   return (
     <>
-      <Stage image={img.stage} focus={img.stageFocus}>
+      <Stage image={img.hero} focus={img.heroFocus} priority>
         <CoverHero
           label="Placements"
           title={
@@ -57,8 +57,6 @@ export default function PlacementsPage() {
             </>
           }
           lede={placementsIntro}
-          image={img.hero}
-          focus={img.heroFocus}
           dim
         >
           <ApplyDialog label="Send your CV" variant="primary" block="phone" />

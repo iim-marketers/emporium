@@ -60,7 +60,7 @@ export default function EnquirePage() {
     <>
       <HashScroll id="enquire" />
 
-      <Stage image={img.stage} focus={img.stageFocus}>
+      <Stage image={img.hero} focus={img.heroFocus} priority>
         <CoverHero
           label="Book your seat"
           title={
@@ -69,8 +69,6 @@ export default function EnquirePage() {
             </>
           }
           lede="Tell us a little about yourself and our admissions team will reach out with course details, fees and the next intake dates."
-          image={img.hero}
-          focus={img.heroFocus}
         />
 
         <Sheet

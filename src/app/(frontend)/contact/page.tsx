@@ -38,7 +38,7 @@ export default function ContactPage() {
     <>
       <HashScroll id="enquire" />
 
-      <Stage image={img.stage} focus={img.stageFocus}>
+      <Stage image={img.hero} focus={img.heroFocus} priority>
         <CoverHero
           label="Contact Us"
           title={
@@ -47,8 +47,6 @@ export default function ContactPage() {
             </>
           }
           lede="Call the admissions desk, drop us an email, or send the form below and we will get a call back to you."
-          image={img.hero}
-          focus={img.heroFocus}
           dim
         />
 

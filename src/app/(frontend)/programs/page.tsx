@@ -43,7 +43,7 @@ const img = pageImages.programs;
 export default function ProgramsPage() {
   return (
     <>
-      <Stage image={img.stage} focus={img.stageFocus}>
+      <Stage image={img.hero} focus={img.heroFocus} priority>
         <CoverHero
           label="Our courses"
           title={
@@ -53,8 +53,6 @@ export default function ProgramsPage() {
             </>
           }
           lede="Three certificate courses covering aviation, hospitality, cruise lines and travel & tourism — each built around what recruiters actually screen for."
-          image={img.hero}
-          focus={img.heroFocus}
         >
           {/* <Link href="/enquire" className={btn({ block: "phone" })}>
             Book free counselling <span className={arrow}>→</span>
