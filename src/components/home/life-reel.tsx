@@ -6,10 +6,10 @@ import {
   ChevronLeftIcon,
   ChevronRightIcon,
 } from "lucide-react";
-import Image from "next/image";
 import * as React from "react";
 
 import { FixedBackdrop } from "@/components/fixed-backdrop";
+import { ImageWithSkeleton } from "@/components/image-with-skeleton";
 import { backgrounds } from "@/lib/backgrounds";
 import { lifeClips } from "@/lib/home-media";
 import { cn } from "@/lib/utils";
@@ -45,10 +45,50 @@ function ringGeometry(w: number, h: number) {
   };
 }
 
+function ReelVideo({
+  ref,
+  src,
+  muted,
+  onTimeUpdate,
+  onEnded,
+}: {
+  ref: React.Ref<HTMLVideoElement>;
+  src: string;
+  muted: boolean;
+  onTimeUpdate: React.ReactEventHandler<HTMLVideoElement>;
+  onEnded: () => void;
+}) {
+  const [ready, setReady] = React.useState(false);
+  return (
+    <video
+      ref={ref}
+      src={src}
+      muted={muted}
+      playsInline
+      preload="auto"
+      onLoadedData={() => setReady(true)}
+      onTimeUpdate={onTimeUpdate}
+      onEnded={onEnded}
+      className={cn(
+        "pointer-events-none absolute inset-0 size-full object-cover transition-opacity duration-300",
+        ready ? "opacity-100" : "opacity-0",
+      )}
+    />
+  );
+}
+
 export function LifeReel({ children }: { children: React.ReactNode }) {
   const root = React.useRef<HTMLDivElement>(null);
   const video = React.useRef<HTMLVideoElement>(null);
-  const drag = React.useRef<{ x: number; start: number; moved: boolean }>(null);
+  const drag = React.useRef<{
+    x: number;
+    start: number;
+    moved: boolean;
+    lastX: number;
+    lastT: number;
+    v: number;
+  }>(null);
+  const frame = React.useRef(0);
 
   const [pos, setPos] = React.useState(0);
   const [viewport, setViewport] = React.useState({ w: 1440, h: 900 });
@@ -69,7 +109,17 @@ export function LifeReel({ children }: { children: React.ReactNode }) {
     [],
   );
   const spinTo = (i: number) => setPos((p) => p + wrapIndex(i - p));
-  const settle = () => setPos((p) => Math.round(p));
+  const settle = (fling = 0) => setPos((p) => Math.round(p + fling));
+  const endDrag = () => {
+    const d = drag.current;
+    cancelAnimationFrame(frame.current);
+    setDragging(false);
+    const fling =
+      d?.moved && Math.abs(d.v) > 0.3
+        ? Math.max(-3, Math.min(3, (-d.v * 220) / cardW))
+        : 0;
+    settle(fling);
+  };
 
   React.useEffect(() => {
     const motion = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -103,11 +153,11 @@ export function LifeReel({ children }: { children: React.ReactNode }) {
     el.muted = muted;
     if (inView && !still) el.play().catch(() => {});
     else el.pause();
-  }, [active, inView, still, muted]);
+  }, [active, dragging, inView, still, muted]);
 
   const ease = dragging
     ? "none"
-    : "transform 750ms cubic-bezier(0.2,0.7,0.2,1), opacity 750ms, filter 750ms";
+    : "transform 750ms cubic-bezier(0.2,0.7,0.2,1), opacity 750ms";
 
   return (
     <>
@@ -126,33 +176,46 @@ export function LifeReel({ children }: { children: React.ReactNode }) {
           className="relative mt-12 cursor-grab touch-pan-y select-none active:cursor-grabbing max-phablet:mt-9"
           style={{ height: cardH + floor, perspective }}
           onPointerDown={(event) => {
-            drag.current = { x: event.clientX, start: pos, moved: false };
+            drag.current = {
+              x: event.clientX,
+              start: pos,
+              moved: false,
+              lastX: event.clientX,
+              lastT: event.timeStamp,
+              v: 0,
+            };
             setDragging(true);
           }}
           onPointerMove={(event) => {
             const d = drag.current;
             if (!d) return;
+            const dt = event.timeStamp - d.lastT;
+            if (dt > 0)
+              d.v = 0.8 * ((event.clientX - d.lastX) / dt) + 0.2 * d.v;
+            d.lastX = event.clientX;
+            d.lastT = event.timeStamp;
             const dx = event.clientX - d.x;
             if (Math.abs(dx) > 6) d.moved = true;
-            if (d.moved) setPos(d.start - dx / cardW);
+            if (!d.moved) return;
+            cancelAnimationFrame(frame.current);
+            frame.current = requestAnimationFrame(() =>
+              setPos(d.start - dx / cardW),
+            );
           }}
           onPointerUp={() => {
-            setDragging(false);
-            settle();
+            endDrag();
             setTimeout(() => {
               drag.current = null;
             });
           }}
           onPointerCancel={() => {
+            endDrag();
             drag.current = null;
-            setDragging(false);
-            settle();
           }}
           onPointerLeave={() => {
             if (!drag.current) return;
+            endDrag();
             drag.current = null;
-            setDragging(false);
-            settle();
           }}
         >
           <span
@@ -189,19 +252,28 @@ export function LifeReel({ children }: { children: React.ReactNode }) {
                   style={{
                     transform: `translateZ(${-radius}px) rotateY(${turn}deg) translateZ(${radius}px)`,
                     opacity: visible ? 1 - angle / 130 : 0,
-                    filter: `brightness(${1 - angle / 160})`,
                     transition: ease,
+                    willChange: "transform, opacity",
                   }}
                 >
-                  {on ? (
-                    <video
+                  {visible ? (
+                    <ImageWithSkeleton
+                      src={item.poster}
+                      alt=""
+                      fill
+                      draggable={false}
+                      sizes="(max-width: 640px) 62vw, 400px"
+                      className="pointer-events-none object-cover"
+                      skeletonClassName="bg-navy-2 text-white/10"
+                    />
+                  ) : null}
+
+                  {on && !dragging ? (
+                    <ReelVideo
                       ref={video}
                       key={item.src}
                       src={item.src}
-                      poster={item.poster}
                       muted={muted}
-                      playsInline
-                      preload="auto"
                       onTimeUpdate={(event) => {
                         const el = event.currentTarget;
                         if (el.duration)
@@ -211,16 +283,14 @@ export function LifeReel({ children }: { children: React.ReactNode }) {
                           });
                       }}
                       onEnded={() => spin(1)}
-                      className="pointer-events-none size-full object-cover"
                     />
-                  ) : visible ? (
-                    <Image
-                      src={item.poster}
-                      alt=""
-                      fill
-                      draggable={false}
-                      sizes="(max-width: 640px) 62vw, 400px"
-                      className="pointer-events-none object-cover"
+                  ) : null}
+
+                  {!on && visible ? (
+                    <span
+                      aria-hidden="true"
+                      className="pointer-events-none absolute inset-0 bg-black"
+                      style={{ opacity: angle / 160, transition: ease }}
                     />
                   ) : null}
 
@@ -242,6 +312,22 @@ export function LifeReel({ children }: { children: React.ReactNode }) {
               );
             })}
           </div>
+
+          {inView && !still
+            ? [active - 1, active + 1].map((n) => {
+                const src = lifeClips[(n + total) % total].src;
+                return (
+                  <video
+                    key={src}
+                    src={src}
+                    muted
+                    preload="auto"
+                    aria-hidden="true"
+                    className="hidden"
+                  />
+                );
+              })
+            : null}
         </div>
 
         <div className="flex items-center justify-center gap-1 ">
