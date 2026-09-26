@@ -3,12 +3,12 @@ import Link from "next/link";
 import { DepartureBoard } from "@/components/departure-board";
 import { FixedBackdrop, fixedSection } from "@/components/fixed-backdrop";
 import { CourseCarousel } from "@/components/home/course-carousel";
+import { FacesStrip } from "@/components/home/faces-strip";
 import { HomeHero } from "@/components/home/home-hero";
 import { LifeReel } from "@/components/home/life-reel";
 import { PillarPanels } from "@/components/home/pillar-panels";
 import {
   EditorialBand,
-  FacesStrip,
   HomeHead,
   homePad,
   MomentsMosaic,

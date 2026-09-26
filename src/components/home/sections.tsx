@@ -8,7 +8,7 @@ import { frameBtn } from "@/components/home/frame-btn";
 import { ImageWithSkeleton } from "@/components/image-with-skeleton";
 import { Reveal } from "@/components/reveal";
 import { headlineClaim } from "@/lib/content";
-import { ctaFilm, editorialPhoto, faces, moments } from "@/lib/home-media";
+import { ctaFilm, editorialPhoto, moments } from "@/lib/home-media";
 import { site } from "@/lib/site";
 import { wrap } from "@/lib/styles";
 import { cn } from "@/lib/utils";
@@ -114,45 +114,6 @@ export function PhotoBackdrop({
         />
       )}
     </>
-  );
-}
-
-const faceVisibility = (i: number) =>
-  cn(
-    i >= 8 && "hidden 2xl:block",
-    i >= 6 && "max-laptop:hidden",
-    i >= 4 && "max-phone:hidden",
-  );
-
-export function FacesStrip() {
-  return (
-    <section aria-label="Emporium students" className="bg-navy">
-      <ul className="grid grid-cols-8 2xl:grid-cols-10 max-laptop:grid-cols-6 max-phone:grid-cols-4">
-        {faces.map((face, i) => (
-          <li
-            key={face.src}
-            className={cn(
-              "group relative aspect-3/4 overflow-hidden",
-              faceVisibility(i),
-            )}
-          >
-            <Image
-              src={face.src}
-              alt={`An Emporium ${face.track.toLowerCase()} student in uniform`}
-              fill
-              sizes="(max-width: 560px) 25vw, (max-width: 960px) 17vw, 12.5vw"
-              className="object-cover grayscale transition-[filter,transform] duration-700 group-hover:scale-[1.04] group-hover:grayscale-0"
-            />
-            <span
-              aria-hidden="true"
-              className="absolute inset-x-0 bottom-0 translate-y-full bg-linear-to-t from-ink/90 to-transparent px-3 pt-8 pb-3 font-mono text-[10px] tracking-[0.22em] text-white uppercase transition-transform duration-500 group-hover:translate-y-0"
-            >
-              {face.track}
-            </span>
-          </li>
-        ))}
-      </ul>
-    </section>
   );
 }
 
