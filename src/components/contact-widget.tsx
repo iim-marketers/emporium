@@ -170,18 +170,18 @@ export function ContactWidget() {
         aria-controls="contact-channels"
         aria-label={open ? "Close contact options" : "Contact us"}
         className={cn(
-          "group pointer-events-auto relative flex cursor-pointer items-center gap-2.5",
+          "group pointer-events-none relative flex items-center gap-2.5",
           "rounded-full border-0 bg-transparent p-0",
         )}
       >
         <span
           className={cn(
-            "grid flex-none place-items-center rounded-full text-white",
+            "peer pointer-events-auto grid flex-none cursor-pointer place-items-center rounded-full text-white",
             "size-14 shadow-[0_16px_34px_-12px_rgba(196,18,31,0.75)]",
             open ? "bg-crimson-deep" : "bg-crimson-deep",
             "transition-[scale,background-color] duration-560",
             spin,
-            "group-hover:scale-105 group-active:scale-95",
+            "hover:scale-105 active:scale-95",
             "motion-reduce:animate-none motion-reduce:transition-none",
             !open && !touched && "animate-waggle",
           )}
@@ -214,7 +214,7 @@ export function ContactWidget() {
             chip,
             "opacity-0 transition-opacity duration-200 max-laptop:hidden",
             "motion-reduce:transition-none",
-            !open && "group-hover:opacity-100 group-focus-visible:opacity-100",
+            !open && "peer-hover:opacity-100 group-focus-visible:opacity-100",
           )}
         >
           Contact us
