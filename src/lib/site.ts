@@ -30,7 +30,7 @@ export const site = {
   },
 
   studentLogin: "https://onlinelms.ebraindigit.com/dashboard",
-  brochure: "/emporium-company-profile.pdf",
+  brochure: "/emporium-brochure.pdf",
 
   social: [
     {
