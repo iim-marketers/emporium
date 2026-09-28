@@ -15,6 +15,14 @@ import {
   Wrench,
   type LucideIcon,
 } from "lucide-react";
+import type { StaticImageData } from "next/image";
+
+import heroAviation from "../../public/courses/roles/hero-aviation.jpg";
+import heroCruise from "../../public/courses/roles/hero-cruise.jpg";
+import heroHospitality from "../../public/courses/roles/hero-hospitality.jpg";
+import lobbyMarble from "../../public/courses/roles/lobby-marble.jpg";
+import shipSunset from "../../public/courses/roles/ship-sunset.jpg";
+import wingSunset from "../../public/courses/roles/wing-sunset.jpg";
 
 const role = (name: string) => `/courses/roles/${name}.jpg`;
 const photo = (name: string) => `/home/photos/${name}.webp`;
@@ -47,27 +55,30 @@ export const roleImages: Record<string, string> = {
 export const roleLabel = (name: string) =>
   name.replace(/\s*\(F&B\)/, "").replace(/ services$/i, "");
 
-export const courseHeroes: Record<string, { image: string; focus: string }> = {
-  aviation: { image: role("hero-aviation"), focus: "62% 60%" },
-  hospitality: { image: role("hero-hospitality"), focus: "60% 45%" },
-  cruise: { image: role("hero-cruise"), focus: "58% 55%" },
+export const courseHeroes: Record<
+  string,
+  { image: StaticImageData; focus: string }
+> = {
+  aviation: { image: heroAviation, focus: "62% 60%" },
+  hospitality: { image: heroHospitality, focus: "60% 45%" },
+  cruise: { image: heroCruise, focus: "58% 55%" },
 };
 
-export type Workplace = { image: string; lead: string; line: string };
+export type Workplace = { image: StaticImageData; lead: string; line: string };
 
 export const workplaces: Record<string, Workplace> = {
   aviation: {
-    image: role("wing-sunset"),
+    image: wingSunset,
     lead: "Your office:",
     line: "35,000 feet up.",
   },
   hospitality: {
-    image: role("lobby-marble"),
+    image: lobbyMarble,
     lead: "Your office:",
     line: "five-star lobbies.",
   },
   cruise: {
-    image: role("ship-sunset"),
+    image: shipSunset,
     lead: "Your office:",
     line: "the open sea.",
   },

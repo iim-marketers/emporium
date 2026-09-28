@@ -1,9 +1,12 @@
 import type { LucideIcon } from "lucide-react";
-import Image from "next/image";
+import Image, { type StaticImageData } from "next/image";
 
 import { Reveal } from "@/components/reveal";
 import { wrap } from "@/lib/styles";
 import { cn } from "@/lib/utils";
+
+const blur = (image: string | StaticImageData) =>
+  typeof image === "string" ? "empty" : "blur";
 
 const label = "font-mono text-[10px] font-bold tracking-[0.24em] uppercase";
 
@@ -17,7 +20,7 @@ export function ImmersiveHero({
 }: {
   title: React.ReactNode;
   lede?: React.ReactNode;
-  image: string;
+  image: string | StaticImageData;
   focus?: string;
   dim?: boolean;
   children?: React.ReactNode;
@@ -30,6 +33,7 @@ export function ImmersiveHero({
         fill
         priority
         sizes="100vw"
+        placeholder={blur(image)}
         className="-z-20 animate-kenburns object-cover motion-reduce:animate-none"
         style={{ objectPosition: focus }}
       />
@@ -136,7 +140,7 @@ export function Stage({
   priority = false,
   children,
 }: {
-  image: string;
+  image: string | StaticImageData;
   focus?: string;
   priority?: boolean;
   children: React.ReactNode;
@@ -153,6 +157,7 @@ export function Stage({
           fill
           priority={priority}
           sizes="100vw"
+        placeholder={blur(image)}
           className="object-cover"
           style={{ objectPosition: focus }}
         />
@@ -175,7 +180,7 @@ export function CoverHero({
   label?: string;
   title: React.ReactNode;
   lede?: React.ReactNode;
-  image?: string;
+  image?: string | StaticImageData;
   focus?: string;
   dim?: boolean;
   children?: React.ReactNode;
@@ -194,6 +199,7 @@ export function CoverHero({
           fill
           priority
           sizes="100vw"
+        placeholder={blur(image)}
           className="-z-20 object-cover"
           style={{ objectPosition: focus }}
         />

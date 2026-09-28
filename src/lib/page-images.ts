@@ -1,42 +1,58 @@
-const page = (name: string) => `/pages/${name}.jpg`;
-const bg = (name: string) => `/backgrounds/${name}.jpg`;
+import type { StaticImageData } from "next/image";
+
+import auditorium from "../../public/backgrounds/auditorium.jpg";
+import gateWindow from "../../public/backgrounds/gate-window.jpg";
+import goldenRunway from "../../public/backgrounds/golden-runway.jpg";
+import planesNight from "../../public/backgrounds/planes-night.jpg";
+import runwayDusk from "../../public/backgrounds/runway-dusk.jpg";
+import terminalWalk from "../../public/backgrounds/terminal-walk.jpg";
+import airportLounge from "../../public/pages/airport-lounge.jpg";
+import cabinAisle from "../../public/pages/cabin-aisle.jpg";
+import counselling from "../../public/pages/counselling.jpg";
+import crewCabin from "../../public/pages/crew-cabin.jpg";
+import handshake from "../../public/pages/handshake.jpg";
+import helpDesk from "../../public/pages/help-desk.jpg";
+import jetBridge from "../../public/pages/jet-bridge.jpg";
+import lectureHall from "../../public/pages/lecture-hall.jpg";
+import windowClouds from "../../public/pages/window-clouds.jpg";
+import wingSunset from "../../public/pages/wing-sunset.jpg";
 
 type PageImages = {
-  hero: string;
+  hero: StaticImageData;
   heroFocus?: string;
-  stage: string;
+  stage: StaticImageData;
   stageFocus?: string;
 };
 
 const images = {
-  about: { hero: page("cabin-aisle"), stage: page("lecture-hall") },
+  about: { hero: cabinAisle, stage: lectureHall },
   programs: {
-    hero: page("window-clouds"),
+    hero: windowClouds,
     heroFocus: "50% 40%",
-    stage: bg("runway-dusk"),
+    stage: runwayDusk,
   },
   placements: {
-    hero: page("crew-cabin"),
+    hero: crewCabin,
     heroFocus: "50% 35%",
-    stage: bg("gate-window"),
+    stage: gateWindow,
   },
-  achievements: { hero: page("wing-sunset"), stage: bg("auditorium") },
+  achievements: { hero: wingSunset, stage: auditorium },
   contact: {
-    hero: page("help-desk"),
+    hero: helpDesk,
     heroFocus: "70% 40%",
-    stage: page("airport-lounge"),
+    stage: airportLounge,
   },
   enquire: {
-    hero: page("jet-bridge"),
+    hero: jetBridge,
     heroFocus: "50% 55%",
-    stage: bg("planes-night"),
+    stage: planesNight,
   },
   jobs: {
-    hero: page("counselling"),
+    hero: counselling,
     heroFocus: "70% 40%",
-    stage: bg("terminal-walk"),
+    stage: terminalWalk,
   },
-  franchise: { hero: page("handshake"), stage: bg("golden-runway") },
+  franchise: { hero: handshake, stage: goldenRunway },
 } satisfies Record<string, PageImages>;
 
 export const pageImages: Record<keyof typeof images, PageImages> = images;
