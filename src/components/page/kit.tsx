@@ -1,4 +1,4 @@
-import Image from "next/image";
+import Image, { type StaticImageData } from "next/image";
 
 import { FixedBackdrop, fixedSection } from "@/components/fixed-backdrop";
 import { ImageWithSkeleton } from "@/components/image-with-skeleton";
@@ -218,7 +218,7 @@ export function CtaBand({
   children,
   actions,
 }: {
-  image: string;
+  image: string | StaticImageData;
   eyebrow?: string;
   title: React.ReactNode;
   children?: React.ReactNode;
@@ -313,6 +313,7 @@ export function PlainHero({
   children,
   narrow = false,
   image,
+  blurDataURL,
 }: {
   label: React.ReactNode;
   title: React.ReactNode;
@@ -320,6 +321,7 @@ export function PlainHero({
   children?: React.ReactNode;
   narrow?: boolean;
   image?: string;
+  blurDataURL?: string;
 }) {
   const copy = (
     <>
@@ -352,6 +354,8 @@ export function PlainHero({
         aria-hidden="true"
         fill
         sizes="40vw"
+        placeholder={blurDataURL ? "blur" : "empty"}
+        blurDataURL={blurDataURL}
         className="-z-20 scale-110 object-cover blur-md"
       />
       <span

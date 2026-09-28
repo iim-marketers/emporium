@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { PlainHero } from "@/components/page/kit";
 import { PostCard } from "@/components/post-card";
 import { ArticleBody } from "@/components/rich-text";
+import { blurDataURL } from "@/lib/blur";
 import {
   formatDate,
   getPostBySlug,
@@ -48,6 +49,7 @@ export default async function BlogPostPage({
   if (!post) notFound();
 
   const image = postImage(post);
+  const blur = image ? await blurDataURL(image.src) : undefined;
   const more = posts.filter((item) => item.slug !== post.slug).slice(0, 3);
 
   return (
@@ -61,6 +63,7 @@ export default async function BlogPostPage({
         }
         title={post.title}
         image={image?.src}
+        blurDataURL={blur}
       >
         <p className="mt-5 font-mono text-[12px] tracking-[0.16em] text-white/60 uppercase">
           {formatDate(post.publishedAt)}

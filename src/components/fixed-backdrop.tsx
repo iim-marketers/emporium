@@ -1,4 +1,4 @@
-import Image from "next/image";
+import Image, { type StaticImageData } from "next/image";
 
 import { cn } from "@/lib/utils";
 
@@ -22,7 +22,7 @@ export function FixedBackdrop({
   focus = "center",
   className,
 }: {
-  src: string;
+  src: string | StaticImageData;
   tone?: keyof typeof veils;
   focus?: string;
   className?: string;

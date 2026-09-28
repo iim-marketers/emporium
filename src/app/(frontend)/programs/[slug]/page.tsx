@@ -130,6 +130,7 @@ export default async function ProgramPage({
             alt=""
             fill
             sizes="100vw"
+            placeholder={workplace || hero ? "blur" : "empty"}
             className="object-cover"
           />
           <span className="absolute inset-0 bg-[linear-gradient(180deg,rgba(13,22,66,0.55)_0%,rgba(13,22,66,0.25)_40%,rgba(13,22,66,0.55)_100%)]" />
