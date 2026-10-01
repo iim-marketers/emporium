@@ -85,12 +85,6 @@ const gateRow = [
   "data-[active=true]:before:bg-crimson",
 ].join(" ");
 
-const gateCode = [
-  "flex-none font-mono text-[11px] tracking-[0.2em] text-haze/70",
-  "transition-colors duration-200",
-  "group-data-[active=true]:text-crimson",
-].join(" ");
-
 const gateLabel = [
   "font-heading text-[18px] leading-none font-semibold tracking-[-0.01em]",
   "max-mini:text-[16px]",
@@ -483,7 +477,6 @@ export function SiteHeader() {
                       aria-current={isActive(item.href) ? "page" : undefined}
                       onClick={close}
                     >
-                      <span className={gateCode}>{gateNo(index)}</span>
                       <span className={gateLabel}>{item.label}</span>
                       <svg
                         width="16"

@@ -11,6 +11,8 @@ export const site = {
 
   phone: "9836608888",
   phoneHref: "tel:+919836608888",
+  franchisePhone: "9830962000",
+  franchisePhoneHref: "tel:+919830962000",
   altPhone: "9830564000",
   altPhoneHref: "tel:+919830564000",
   whatsapp: "+91 98366 08888",
@@ -85,6 +87,7 @@ export const primaryNav: NavGroup[] = [
   { label: "Jobs", href: "/jobs" },
   { label: "Franchise", href: "/franchise" },
   { label: "Contact", href: "/contact" },
+  { label: "Centres", href: "/centres" },
 ];
 
 export const footerNav: { heading: string; items: NavItem[] }[] = [
@@ -94,7 +97,6 @@ export const footerNav: { heading: string; items: NavItem[] }[] = [
       { label: "About", href: "/about" },
       { label: "Placements", href: "/placements" },
       { label: "Jobs", href: "/jobs" },
-      { label: "Achievements", href: "/achievements" },
     ],
   },
   {
@@ -102,6 +104,7 @@ export const footerNav: { heading: string; items: NavItem[] }[] = [
     items: [
       { label: "Franchise", href: "/franchise" },
       { label: "Contact", href: "/contact" },
+      { label: "Centres", href: "/centres" },
       { label: "Enquire", href: "/enquire" },
     ],
   },

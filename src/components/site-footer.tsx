@@ -117,7 +117,7 @@ export function SiteFooter() {
             <p className="mb-2.75 text-[14px] text-[#7f8bbb]">{site.hours}</p>
             <ApplyDialog
               label="Apply Now"
-              variant="ghost"
+              variant="primary"
               size="sm"
               className="mt-1.5"
             />

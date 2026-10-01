@@ -4,8 +4,9 @@ import { ChevronLeftIcon, ChevronRightIcon, Phone } from "lucide-react";
 import Image from "next/image";
 import * as React from "react";
 
+import { InstagramIcon } from "@/components/centre-card";
 import { frameBtn } from "@/components/home/frame-btn";
-import { directionsUrl, type Centre } from "@/lib/centres";
+import { directionsUrl, instagramUrl, type Centre } from "@/lib/centres";
 import { cn } from "@/lib/utils";
 
 const sideCard = [
@@ -135,6 +136,18 @@ export function CentreCarousel({
               sizes="(max-width: 960px) 92vw, 420px"
               className="object-cover"
             />
+            {centre.instagram ? (
+              <a
+                href={instagramUrl(centre.instagram)}
+                target="_blank"
+                rel="noreferrer"
+                aria-label={`${centre.name} on Instagram — @${centre.instagram}`}
+                title={`@${centre.instagram}`}
+                className="absolute top-3.5 right-3.5 grid size-10 place-items-center rounded-full bg-[linear-gradient(45deg,#f9ce34,#ee2a7b_50%,#6228d7)] text-white shadow-[0_6px_16px_-4px_rgba(0,0,0,0.45)] transition-transform duration-300 hover:scale-110"
+              >
+                <InstagramIcon className="size-5" />
+              </a>
+            ) : null}
           </div>
           <div className="flex flex-1 flex-col items-center px-8 pt-6 pb-8 text-center max-phablet:px-6">
             <h3 className="text-[22px] leading-[1.2] font-semibold tracking-[-0.02em]">
