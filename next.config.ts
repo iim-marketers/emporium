@@ -30,6 +30,10 @@ const legacyRedirects: [string, string][] = [
 const nextConfig: NextConfig = {
   experimental: {
     globalNotFound: true,
+    // Hostinger's build box caps processes/RAM; one worker per visible core stalls the build.
+    cpus: 1,
+    memoryBasedWorkersCount: true,
+    webpackMemoryOptimizations: true,
     // Must fit a CV at CV_MAX_BYTES plus the rest of the form.
     serverActions: { bodySizeLimit: "4.5mb" },
   },
