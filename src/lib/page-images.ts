@@ -53,6 +53,7 @@ const images = {
     stage: terminalWalk,
   },
   franchise: { hero: handshake, stage: goldenRunway },
+  centres: { hero: lectureHall, stage: airportLounge },
 } satisfies Record<string, PageImages>;
 
 export const pageImages: Record<keyof typeof images, PageImages> = images;

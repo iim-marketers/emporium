@@ -1,8 +1,6 @@
 import { Clock, Mail, MapPin, Phone } from "lucide-react";
 import Image from "next/image";
 
-import { CentreCarousel } from "@/components/centre-carousel";
-import { CentreRail } from "@/components/centre-rail";
 import { EnquiryForm } from "@/components/enquiry-form";
 import { HashScroll } from "@/components/hash-scroll";
 import {
@@ -11,18 +9,16 @@ import {
   sheetSurface,
   Stage,
 } from "@/components/page/immersive";
-import { Accent, PageHead, pageLabel } from "@/components/page/kit";
-import { centres } from "@/lib/centres";
+import { Accent, pageLabel } from "@/components/page/kit";
 import { pageImages } from "@/lib/page-images";
 import { pageMetadata } from "@/lib/seo";
 import { site } from "@/lib/site";
-import { wrap } from "@/lib/styles";
 import { cn } from "@/lib/utils";
 
 export const metadata = pageMetadata({
   title: "Contact Us",
   description:
-    "Emporium's corporate office in Kolkata plus training centres in Imphal, Senapati, Maram, Siliguri, Guwahati, Gangtok, Shillong and Itanagar — with phone numbers for each.",
+    "Contact Emporium's corporate office in Kolkata — call the admissions desk, email us, or send an enquiry for a call back.",
   path: "/contact",
   keywords: [
     "Emporium contact",
@@ -129,22 +125,6 @@ export default function ContactPage() {
           </div>
         </Sheet>
       </Stage>
-
-      <CentreCarousel items={centres}>
-        <div className={wrap}>
-          <PageHead
-            eyebrow="Our centres"
-            title={
-              <>
-                Where you <Accent onDark>can train.</Accent>
-              </>
-            }
-            onDark
-            center
-            className="mb-0"
-          />
-        </div>
-      </CentreCarousel>
     </>
   );
 }

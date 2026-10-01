@@ -98,14 +98,14 @@ export default function FranchisePage() {
             }
           />
           <div className="grid grid-cols-[1.2fr_0.8fr] items-start gap-6 max-laptop:grid-cols-1">
-            <Reveal className={cn(pageCard, "px-7 py-6 max-phablet:px-5")}>
+            <Reveal className={cn(pageCard, "px-7 pt-6 pb-4 max-phablet:px-5")}>
               <p className={cn(pageLabel, "pb-2 text-crimson")}>
                 Exclusive business benefits
               </p>
               <IndexList items={franchise.benefits} />
             </Reveal>
 
-            <Reveal className="rounded-[6px] bg-navy px-7 py-6 text-white max-phablet:px-5">
+            <Reveal className="rounded-[6px] bg-navy px-7 pt-6 pb-4 text-white max-phablet:px-5">
               <p className={cn(pageLabel, "pb-2 text-haze")}>
                 Emporium&apos;s strong support
               </p>
@@ -125,10 +125,10 @@ export default function FranchisePage() {
               Talk to our team <span className={arrow}>→</span>
             </Link>
             <a
-              href={site.phoneHref}
+              href={site.franchisePhoneHref}
               className={btn({ variant: "ghost", block: "phone" })}
             >
-              Call {site.phone}
+              Call {site.franchisePhone}
             </a>
           </>
         }

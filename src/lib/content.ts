@@ -354,7 +354,6 @@ export const franchise = {
     "Marketing & Advertising",
     "Staff Recruitment",
     "Centralized digital course Delivery",
-    "Site section & Layout",
   ],
   image: "/misc/franchise-v2.png",
 };

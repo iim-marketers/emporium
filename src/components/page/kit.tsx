@@ -198,7 +198,7 @@ export function IndexList({
         <li
           key={i}
           className={cn(
-            "list-none border-t py-3.5 text-[15px] leading-snug first:border-t-0",
+            "list-none border-t py-3.5 text-[14px] leading-snug first:border-t-0",
             onDark
               ? "border-white/12 text-white/85"
               : "border-hairline text-ink",

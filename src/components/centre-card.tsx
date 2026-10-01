@@ -5,7 +5,7 @@ import { Reveal } from "@/components/reveal";
 import { directionsUrl, instagramUrl, type Centre } from "@/lib/centres";
 import { cn } from "@/lib/utils";
 
-function InstagramIcon({ className }: { className?: string }) {
+export function InstagramIcon({ className }: { className?: string }) {
   return (
     <svg
       width="16"
