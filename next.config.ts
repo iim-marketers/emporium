@@ -37,12 +37,20 @@ const nextConfig: NextConfig = {
     // Must fit a CV at CV_MAX_BYTES plus the rest of the form.
     serverActions: { bodySizeLimit: "4.5mb" },
   },
-  redirects: async () =>
-    legacyRedirects.map(([source, destination]) => ({
+  redirects: async () => [
+    // The admin's session and CSRF checks only work on the www origin.
+    {
+      source: "/:path*",
+      has: [{ type: "host", value: "emporiumsolutions.com" }],
+      destination: "https://www.emporiumsolutions.com/:path*",
+      permanent: true,
+    },
+    ...legacyRedirects.map(([source, destination]) => ({
       source,
       destination,
       permanent: true,
     })),
+  ],
   images: {
     remotePatterns: [
       new URL("https://i.ytimg.com/vi/**"),
