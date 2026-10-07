@@ -4,6 +4,7 @@ import * as migration_20260910_070008_jobs from './20260910_070008_jobs';
 import * as migration_20260921_125256_3_90_upgrade from './20260921_125256_3_90_upgrade';
 import * as migration_20260923_082817_submissions from './20260923_082817_submissions';
 import * as migration_20260923_085700_drop_enquiry_subject from './20260923_085700_drop_enquiry_subject';
+import * as migration_20261007_182818_jobs_registration_closes from './20261007_182818_jobs_registration_closes';
 
 export const migrations = [
   {
@@ -34,6 +35,11 @@ export const migrations = [
   {
     up: migration_20260923_085700_drop_enquiry_subject.up,
     down: migration_20260923_085700_drop_enquiry_subject.down,
-    name: '20260923_085700_drop_enquiry_subject'
+    name: '20260923_085700_drop_enquiry_subject',
+  },
+  {
+    up: migration_20261007_182818_jobs_registration_closes.up,
+    down: migration_20261007_182818_jobs_registration_closes.down,
+    name: '20261007_182818_jobs_registration_closes'
   },
 ];

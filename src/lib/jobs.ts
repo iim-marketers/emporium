@@ -11,6 +11,7 @@ export type Job = {
   date: string;
   driveOn: string;
   time: string;
+  registrationCloses?: string;
   venue: string;
   registerWith: string;
   whatsapp: { display: string; href: string };
@@ -47,6 +48,13 @@ export function driveDate(driveOn: string): Date | null {
   );
 }
 
+function registrationCloses(doc: JobDoc) {
+  if (!doc.registrationClosesOn) return undefined;
+  const date = printedDate.format(new Date(doc.registrationClosesOn));
+  const time = doc.registrationClosesAt?.trim();
+  return time ? `${date}, ${time}` : date;
+}
+
 export function toJob(doc: JobDoc): Job {
   const stored = new Date(doc.driveOn);
 
@@ -59,6 +67,7 @@ export function toJob(doc: JobDoc): Job {
     date: printedDate.format(stored),
     driveOn: doc.driveOn,
     time: doc.time,
+    registrationCloses: registrationCloses(doc),
     venue: doc.venue,
     registerWith: doc.registerWith,
     whatsapp: whatsapp(doc.whatsapp),
