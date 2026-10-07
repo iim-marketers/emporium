@@ -25,6 +25,7 @@ const statusCell = "bg-[linear-gradient(180deg,#3a2a08,#241a05)] text-amber";
 const GLYPHS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789 &-/.".split("");
 const DEST_LEN = 17;
 const STAT_LEN = 9;
+const ROW_COUNT = 6;
 const OPEN_STATUSES = ["OPEN ALL", "INVITE", "HIRING", "REGISTER", "APPLY NOW"];
 const CLOSED = "CLOSED";
 
@@ -59,15 +60,20 @@ function noopSubscribe() {
 }
 
 export function DepartureBoard({ drives }: { drives: Job[] }) {
-  const rows = React.useMemo<BoardRow[]>(
+  const rows = React.useMemo<(BoardRow | null)[]>(
     () =>
-      drives.map((job) => ({
-        id: job.id,
-        flight: job.board.flight,
-        destination: job.board.destination,
-        gate: job.board.when,
-        job,
-      })),
+      Array.from({ length: ROW_COUNT }, (_, i) => {
+        const job = drives[i];
+        return job
+          ? {
+              id: job.id,
+              flight: job.board.flight,
+              destination: job.board.destination,
+              gate: job.board.when,
+              job,
+            }
+          : null;
+      }),
     [drives],
   );
 
@@ -139,6 +145,7 @@ export function DepartureBoard({ drives }: { drives: Job[] }) {
       revealed = true;
 
       rows.forEach((row, i) => {
+        if (!row) return;
         setText(destRefs.current[i] ?? [], row.destination, 150 + i * 140);
         setText(
           statRefs.current[i] ?? [],
@@ -149,7 +156,9 @@ export function DepartureBoard({ drives }: { drives: Job[] }) {
 
       if (!reduce) {
         const shuffle = window.setInterval(() => {
-          const open = rows.filter((row) => !isDriveClosed(row.job));
+          const open = rows.filter(
+            (row): row is BoardRow => !!row && !isDriveClosed(row.job),
+          );
           if (!open.length) return;
           const row = open[Math.floor(Math.random() * open.length)];
           const i = rows.indexOf(row);
@@ -233,10 +242,10 @@ export function DepartureBoard({ drives }: { drives: Job[] }) {
                 gridCols,
                 "border-t border-[rgba(157,176,238,0.08)] px-1.5 py-1.75 first:border-t-0 max-phone:px-1",
               )}
-              key={row.id}
+              key={row?.id ?? `empty-${rowIndex}`}
             >
               <span className="font-mono text-(length:--cell-fs) font-bold whitespace-nowrap text-haze">
-                {row.flight}
+                {row?.flight}
               </span>
 
               <span className={cells}>
@@ -255,7 +264,7 @@ export function DepartureBoard({ drives }: { drives: Job[] }) {
               </span>
 
               <span className="text-center font-mono text-(length:--cell-fs) text-[#eef2ff] max-phone:hidden">
-                {row.gate}
+                {row?.gate}
               </span>
 
               <span className="flex justify-end">
