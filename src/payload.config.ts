@@ -24,25 +24,15 @@ import { seedAdmin } from "./seed-admin";
 const dirname = path.dirname(fileURLToPath(import.meta.url));
 
 /** The admin issues a few requests against `serverURL` rather than relative
- *  paths, so it has to be the origin the panel is served from. Pointing it at
- *  the deployed site breaks those requests in local development. */
-function resolveServerURL() {
-  if (!process.env.VERCEL) {
-    return `http://localhost:${process.env.PORT ?? 3000}`;
-  }
-  if (process.env.VERCEL_ENV === "production") {
-    return process.env.NEXT_PUBLIC_SITE_URL;
-  }
-  return `https://${process.env.VERCEL_URL}`;
-}
+ *  paths, so it has to be the origin the panel is served from. */
+const serverURL =
+  process.env.NODE_ENV === "production"
+    ? process.env.NEXT_PUBLIC_SITE_URL
+    : `http://localhost:${process.env.PORT ?? 3000}`;
 
-const allowedOrigins = [
-  process.env.NEXT_PUBLIC_SITE_URL,
-  process.env.VERCEL_PROJECT_PRODUCTION_URL &&
-    `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`,
-  process.env.VERCEL_URL && `https://${process.env.VERCEL_URL}`,
-  !process.env.VERCEL && `http://localhost:${process.env.PORT ?? 3000}`,
-].filter((origin): origin is string => Boolean(origin));
+const allowedOrigins = [serverURL].filter((origin): origin is string =>
+  Boolean(origin),
+);
 
 export default buildConfig({
   admin: {
@@ -108,7 +98,7 @@ export default buildConfig({
   ],
   onInit: seedAdmin,
   secret: process.env.PAYLOAD_SECRET ?? "",
-  serverURL: resolveServerURL(),
+  serverURL,
   sharp,
   typescript: { outputFile: path.resolve(dirname, "payload-types.ts") },
 });
