@@ -273,6 +273,14 @@ export interface Job {
   driveOn: string;
   time: string;
   /**
+   * Optional. Printed on the card as when registration closes.
+   */
+  registrationClosesOn?: string | null;
+  /**
+   * Optional. Needs a closing date first.
+   */
+  registrationClosesAt?: string | null;
+  /**
    * The full address candidates should turn up to.
    */
   venue: string;
@@ -527,6 +535,8 @@ export interface JobsSelect<T extends boolean = true> {
   employer?: T;
   driveOn?: T;
   time?: T;
+  registrationClosesOn?: T;
+  registrationClosesAt?: T;
   venue?: T;
   registerWith?: T;
   whatsapp?: T;

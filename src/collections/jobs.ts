@@ -93,6 +93,43 @@ export const Jobs: CollectionConfig = {
       ],
     },
     {
+      type: "row",
+      fields: [
+        {
+          name: "registrationClosesOn",
+          label: "Registration closing date",
+          type: "date",
+          admin: {
+            width: "50%",
+            description:
+              "Optional. Printed on the card as when registration closes.",
+            date: {
+              pickerAppearance: "dayOnly",
+              displayFormat: "d MMMM yyyy",
+            },
+          },
+        },
+        {
+          name: "registrationClosesAt",
+          label: "Registration closing time",
+          type: "text",
+          admin: {
+            width: "50%",
+            placeholder: "e.g. 5:00 pm",
+            description: "Optional. Needs a closing date first.",
+            condition: (_, siblingData) =>
+              Boolean(siblingData?.registrationClosesOn),
+          },
+          hooks: {
+            beforeChange: [
+              ({ value, siblingData }) =>
+                siblingData?.registrationClosesOn ? value : null,
+            ],
+          },
+        },
+      ],
+    },
+    {
       name: "venue",
       type: "textarea",
       required: true,

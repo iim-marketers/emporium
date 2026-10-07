@@ -87,6 +87,9 @@ export function JobCard({
     job.employer ? ["Job Posting", job.employer] : null,
     ["Date", job.date],
     ["Time", job.time],
+    job.registrationCloses
+      ? ["Registration closes on", job.registrationCloses]
+      : null,
   ].filter(Boolean) as [string, string][];
 
   const status = statusOf(job);
@@ -104,7 +107,6 @@ export function JobCard({
       <div className="border-b  border-hairline bg-paper px-6.5 py-5 max-phablet:px-5">
         <div className="flex flex-wrap items-center justify-between gap-3">
           <span className="flex items-center gap-2 font-mono text-[11px] font-bold tracking-[0.2em] text-crimson">
-            <i className={cn("size-1.75 rounded-full", status.dot)} />
             NOW HIRING
           </span>
           <Countdown driveOn={job.driveOn} />
@@ -117,7 +119,7 @@ export function JobCard({
       <div className="px-6.5 py-6 max-phablet:px-5">
         <div className="grid grid-cols-4 gap-4 max-laptop:grid-cols-2 max-mini:grid-cols-1">
           {meta.map(([key, value]) => (
-            <div key={key}>
+            <div key={key} className="min-w-0 wrap-break-word">
               <div className={metaKey}>{key}</div>
               <div className={metaValue}>{value}</div>
             </div>
@@ -141,7 +143,8 @@ export function JobCard({
             rel="noreferrer"
             className={btn({ variant: "dark", block: "phone" })}
           >
-            <WhatsAppIcon /> WhatsApp {job.whatsapp.display}
+            <WhatsAppIcon className="mb-1 " />
+            WhatsApp {job.whatsapp.display}
           </a>
           <ApplyDialog subject={job.position} block="phone" />
         </div>
@@ -244,15 +247,6 @@ function DriveTab({
           : "border-hairline bg-white text-ink hover:border-royal/35 hover:bg-cloud",
       )}
     >
-      <i className={cn("size-1.75 flex-none rounded-full", status.dot)} />
-      <span
-        className={cn(
-          "font-mono text-[13px] font-bold tracking-[0.06em] max-phablet:hidden",
-          selected ? "text-haze" : "text-royal",
-        )}
-      >
-        {place.flight}
-      </span>
       <span className="font-heading text-[14.5px] font-semibold">
         {place.city}
         {place.region && (
@@ -307,9 +301,9 @@ export function JobList({ items }: { items: Job[] }) {
     <Reveal>
       {strip && (
         <>
-          <p className="mb-3.5 text-[14.5px] text-slate">
+          {/* <p className="mb-3.5 text-[14.5px] text-slate">
             {places.length} cities are hiring — pick the one near you.
-          </p>
+          </p> */}
           <div
             role="tablist"
             aria-label="Hiring drives by city"

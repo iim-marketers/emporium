@@ -45,6 +45,7 @@ export default async function JobsPage() {
 
       <Sheet first>
         <PageHead
+          className="mb-4"
           eyebrow="Open drives"
           title={
             <>
