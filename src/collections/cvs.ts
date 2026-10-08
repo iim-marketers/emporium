@@ -1,6 +1,7 @@
 import type { CollectionConfig } from "payload";
 
 import { isSignedIn } from "./access";
+import { signedInOrSignedLink } from "./cv-links";
 
 export const Cvs: CollectionConfig = {
   slug: "cvs",
@@ -9,7 +10,7 @@ export const Cvs: CollectionConfig = {
   access: {
     create: () => false,
     delete: isSignedIn,
-    read: isSignedIn,
+    read: signedInOrSignedLink,
     update: () => false,
   },
   upload: {
