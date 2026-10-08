@@ -1,6 +1,7 @@
 import type { CollectionConfig } from "payload";
 
 import type { Application } from "../payload-types";
+import { signedCvUrl } from "./cv-links";
 import { excelExport } from "./export";
 import {
   contactFields,
@@ -53,7 +54,7 @@ export const Applications: CollectionConfig = {
         { header: "Location", width: 24, value: (doc) => doc.location },
         { header: "Applying for", width: 24, value: (doc) => doc.subject },
         { header: "Message", width: 60, value: (doc) => doc.message },
-        { header: "CV", width: 16, value: (doc) => (typeof doc.cv === "object" ? doc.cv.url : null), link: "Download CV" },
+        { header: "CV", width: 16, value: (doc) => signedCvUrl(doc.cv), link: "Download CV" },
         { header: "Status", width: 12, value: (doc) => statusLabels[doc.status] },
         { header: "Submitted from", width: 24, value: (doc) => doc.source },
       ],
