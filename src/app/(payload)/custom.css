@@ -54,6 +54,8 @@
   --em-status-live-fg: #16723f;
   --em-status-draft-bg: var(--theme-elevation-100);
   --em-status-draft-fg: var(--theme-elevation-600);
+  --em-status-closed-bg: color-mix(in srgb, #c0392b 12%, transparent);
+  --em-status-closed-fg: #a1301f;
 
   /* Collection icons for the sidebar, keyed to the `nav-<slug>` ids Payload
      puts on each link. Drawn as masks so they inherit the link colour. */
@@ -75,6 +77,8 @@ html[data-theme="dark"] {
   --em-accent-text: #c3cdf5;
   --em-status-live-bg: color-mix(in srgb, var(--em-green) 28%, transparent);
   --em-status-live-fg: #8fdcaf;
+  --em-status-closed-bg: color-mix(in srgb, #e5654f 26%, transparent);
+  --em-status-closed-fg: #f3a597;
 }
 
 /* ---------------------------------------------------------------- buttons */
@@ -106,11 +110,18 @@ html[data-theme="dark"] .btn--style-primary {
 /* The header carried no edge of its own and only painted a background once
    the page scrolled, so at rest it ran into the list below it. */
 .app-header {
+  position: sticky;
+  top: 0;
   border-bottom: 1px solid var(--theme-elevation-100);
 }
 
 .app-header__bg {
   background: var(--theme-bg);
+  opacity: 1;
+}
+
+.doc-controls {
+  top: var(--app-header-height);
 }
 
 .step-nav {
@@ -435,6 +446,13 @@ html[data-theme="dark"] .emporium-icon--on-light {
   color: var(--theme-elevation-900);
 }
 
+/* Below 768px the header carries its own toggler. */
+@media (max-width: 768px) {
+  .template-default__nav-toggler-wrapper {
+    display: none;
+  }
+}
+
 /* ------------------------------------------------------- views and gutters */
 
 /* The header sits inside the same wrapper as the view, so every page started
@@ -541,7 +559,6 @@ html[data-theme="dark"] .emporium-icon--on-light {
 .cell-_status > span {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
   padding: 2px 10px;
   border-radius: 999px;
   font-size: 12px;
@@ -551,17 +568,14 @@ html[data-theme="dark"] .emporium-icon--on-light {
   color: var(--em-status-draft-fg);
 }
 
-.cell-_status > span::before {
-  content: "";
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: currentColor;
-}
-
 .cell-_status > .selected--published {
   background: var(--em-status-live-bg);
   color: var(--em-status-live-fg);
+}
+
+.cell-_status > .selected--closed {
+  background: var(--em-status-closed-bg);
+  color: var(--em-status-closed-fg);
 }
 
 .page-controls {

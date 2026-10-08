@@ -86,7 +86,11 @@ export const jobsIntro =
 /** Today counts as still open, and an unreadable date is treated as open too:
  *  a stale card beats a drive that silently vanishes. */
 export function isDriveClosed(job: Job, today: Date = new Date()): boolean {
-  const when = driveDate(job.driveOn);
+  return hasDrivePassed(job.driveOn, today);
+}
+
+export function hasDrivePassed(driveOn: string, today: Date = new Date()): boolean {
+  const when = driveDate(driveOn);
   return !!when && differenceInCalendarDays(when, today) < 0;
 }
 

@@ -207,5 +207,17 @@ export const Jobs: CollectionConfig = {
         },
       ],
     },
+    {
+      // Merged into the `_status` field drafts add, so only the list cell changes.
+      name: "_status",
+      label: ({ t }) => t("version:status"),
+      type: "select",
+      options: [],
+      admin: {
+        components: {
+          Cell: "/components/admin/drive-status-cell#DriveStatusCell",
+        },
+      },
+    },
   ],
 };
