@@ -1,6 +1,6 @@
 /** Payload needs an auth collection to run the admin panel at all. This holds
  *  one row, seeded from ADMIN_EMAIL and ADMIN_PASSWORD by `onInit`. */
-import type { CollectionConfig } from "payload";
+import { APIError, type CollectionConfig } from "payload";
 
 export const Users: CollectionConfig = {
   slug: "users",
@@ -11,6 +11,17 @@ export const Users: CollectionConfig = {
     delete: () => false,
     read: ({ req }) => Boolean(req.user),
     update: ({ req }) => Boolean(req.user),
+  },
+  hooks: {
+    // The password comes from ADMIN_PASSWORD, so a reset would be undone on the next boot.
+    beforeOperation: [
+      ({ args, operation }) => {
+        if (operation === "forgotPassword" || operation === "resetPassword") {
+          throw new APIError("Password reset is disabled.", 403);
+        }
+        return args;
+      },
+    ],
   },
   fields: [
     {

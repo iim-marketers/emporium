@@ -1,5 +1,6 @@
-/** Runs on every Payload boot. Rehashes only when ADMIN_PASSWORD changes,
- *  tracked by a digest so there is no stored password to compare against. */
+/** Runs on every Payload boot. Rehashes only in production and only when
+ *  ADMIN_PASSWORD changes, tracked by a digest so there is no stored password
+ *  to compare against. */
 import { createHash } from "crypto";
 import type { Payload } from "payload";
 
@@ -32,6 +33,9 @@ export async function seedAdmin(payload: Payload) {
     payload.logger.info(`Created the admin account for ${email}.`);
     return;
   }
+
+  // Local dev shares the live database, and a password change ends every session.
+  if (process.env.NODE_ENV !== "production") return;
 
   if (account.envPasswordDigest !== envPasswordDigest) {
     await payload.update({

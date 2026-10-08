@@ -665,6 +665,10 @@ html[data-theme="dark"] .emporium-logo__caption {
   color: var(--theme-elevation-600);
 }
 
+.login__form a[href$="/forgot"] {
+  display: none;
+}
+
 .login__form .field-type.password .field-type__wrap > div {
   position: relative;
 }
