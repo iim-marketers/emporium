@@ -45,6 +45,8 @@ const nextConfig: NextConfig = {
       destination: "https://www.emporiumsolutions.com/:path*",
       permanent: true,
     },
+    { source: "/admin/forgot", destination: "/admin/login", permanent: false },
+    { source: "/admin/reset/:token", destination: "/admin/login", permanent: false },
     ...legacyRedirects.map(([source, destination]) => ({
       source,
       destination,
