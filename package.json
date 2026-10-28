@@ -14,10 +14,10 @@
   },
   "dependencies": {
     "@base-ui/react": "^1.7.0",
-    "@payloadcms/db-postgres": "3.90.1",
-    "@payloadcms/next": "3.90.1",
-    "@payloadcms/richtext-lexical": "3.90.1",
-    "@payloadcms/storage-vercel-blob": "3.90.1",
+    "@payloadcms/db-postgres": "3.92.1",
+    "@payloadcms/next": "3.92.1",
+    "@payloadcms/richtext-lexical": "3.92.1",
+    "@payloadcms/storage-vercel-blob": "3.92.1",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "cmdk": "^1.1.1",
@@ -30,11 +30,11 @@
     "next": "16.4.3",
     "next-themes": "^0.4.6",
     "nextjs-toploader": "^3.9.17",
-    "payload": "3.90.1",
+    "payload": "3.92.1",
     "react": "19.2.8",
     "react-day-picker": "^10.0.1",
     "react-dom": "19.2.8",
-    "shadcn": "^4.18.0",
+    "shadcn": "^4.23.0",
     "sharp": "^0.35.4",
     "sonner": "^2.0.8",
     "tailwind-merge": "^3.6.0",
@@ -49,5 +49,8 @@
     "eslint-config-next": "16.4.3",
     "tailwindcss": "^4",
     "typescript": "^5"
+  },
+  "overrides": {
+    "dompurify": "3.4.17"
   }
 }

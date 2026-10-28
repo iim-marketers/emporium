@@ -29,8 +29,8 @@ import { EmporiumLogo as EmporiumLogo_78cd0b14279b85aa0b253c7d344f5855 } from '.
 import { EmporiumPasswordEye as EmporiumPasswordEye_1fe62e0b08ac3c81c23f5b7397233670 } from '../../../components/admin/password-eye'
 import { EmporiumNavAside as EmporiumNavAside_8cc41772a7b33ac408a867e0240d543d } from '../../../components/admin/nav-aside'
 import { EmporiumDashboardLink as EmporiumDashboardLink_7d2f18325c5b5a27676b14bc4ae47897 } from '../../../components/admin/nav-dashboard-link'
-import { VercelBlobClientUploadHandler as VercelBlobClientUploadHandler_16c82c5e25f430251a3e3ba57219ff4e } from '@payloadcms/storage-vercel-blob/client'
 import { CollectionCards as CollectionCards_f9c02e79a4aed9a3924487c0cd4cafb1 } from '@payloadcms/next/rsc'
+import { VercelBlobClientUploadHandler as VercelBlobClientUploadHandler_16c82c5e25f430251a3e3ba57219ff4e } from '@payloadcms/storage-vercel-blob/client'
 
 /** @type import('payload').ImportMap */
 export const importMap = {
@@ -65,6 +65,6 @@ export const importMap = {
   "/components/admin/password-eye#EmporiumPasswordEye": EmporiumPasswordEye_1fe62e0b08ac3c81c23f5b7397233670,
   "/components/admin/nav-aside#EmporiumNavAside": EmporiumNavAside_8cc41772a7b33ac408a867e0240d543d,
   "/components/admin/nav-dashboard-link#EmporiumDashboardLink": EmporiumDashboardLink_7d2f18325c5b5a27676b14bc4ae47897,
-  "@payloadcms/storage-vercel-blob/client#VercelBlobClientUploadHandler": VercelBlobClientUploadHandler_16c82c5e25f430251a3e3ba57219ff4e,
-  "@payloadcms/next/rsc#CollectionCards": CollectionCards_f9c02e79a4aed9a3924487c0cd4cafb1
+  "@payloadcms/next/rsc#CollectionCards": CollectionCards_f9c02e79a4aed9a3924487c0cd4cafb1,
+  "@payloadcms/storage-vercel-blob/client#VercelBlobClientUploadHandler": VercelBlobClientUploadHandler_16c82c5e25f430251a3e3ba57219ff4e
 }
