@@ -24,7 +24,7 @@ export const centres: Centre[] = [
       "Minto Park, Kolkata, 700020",
       "West Bengal, India",
     ],
-    phones: [tel("9836608888"), tel("9830564000")],
+    phones: [tel("8240912121"), tel("9830564000")],
     instagram: "emporium_institute",
     image: "/centres/kolkata.jpg",
   },

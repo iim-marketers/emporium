@@ -9,14 +9,14 @@ export const site = {
   url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.emporiumsolutions.com",
   locale: "en_IN",
 
-  phone: "9836608888",
-  phoneHref: "tel:+919836608888",
+  phone: "8240912121",
+  phoneHref: "tel:+918240912121",
   franchisePhone: "9830962000",
   franchisePhoneHref: "tel:+919830962000",
   altPhone: "9830564000",
   altPhoneHref: "tel:+919830564000",
-  whatsapp: "+91 98366 08888",
-  whatsappHref: "https://wa.me/919836608888",
+  whatsapp: "+91 82409 12121",
+  whatsappHref: "https://wa.me/918240912121",
   email: "info@emporiumsolutions.com",
   hours: "Monday to Sunday, 10am to 9:00pm",
 

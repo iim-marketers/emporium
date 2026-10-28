@@ -664,7 +664,7 @@ export const blogPosts: BlogPost[] = [
       { kind: "heading", level: 3, text: "How do I apply?" },
       {
         kind: "text",
-        text: "Visit www.emporiumsolutions.com, call **+91 98366 08888**, or walk into any of our training centers. Bring your 10+2 certificate, ID proof (Aadhar/passport), and passport-size photos.",
+        text: "Visit www.emporiumsolutions.com, call **+91 82409 12121**, or walk into any of our training centers. Bring your 10+2 certificate, ID proof (Aadhar/passport), and passport-size photos.",
       },
       { kind: "heading", level: 2, text: "Emporium Is More Than a Classroom" },
       {
@@ -691,7 +691,7 @@ export const blogPosts: BlogPost[] = [
       },
       {
         kind: "text",
-        text: "**Call**: +91 98366 08888 **Visit**: Emporium HQ, 230/B A.J.C. Bose Road, Kolkata **Explore**: www.emporiumsolutions.com",
+        text: "**Call**: +91 82409 12121 **Visit**: Emporium HQ, 230/B A.J.C. Bose Road, Kolkata **Explore**: www.emporiumsolutions.com",
       },
       {
         kind: "text",
