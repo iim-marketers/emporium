@@ -133,9 +133,23 @@ export const centres: Centre[] = [
       "Arunachal Pradesh, 791111",
       "Landmark — Bharatiya Janata Party State office",
     ],
-    phones: [tel("9181222551")],
+    phones: [tel("9073943000")],
     instagram: "emporium.dbyc.itanagar",
     image: "/centres/itanagar.jpeg",
+  },
+  {
+    slug: "aizawl",
+    name: "Aizawl Centre",
+    venue: "Emporium Skills Training Institute",
+    state: "Mizoram",
+    address: [
+      "Chaltlang, Aizawl,",
+      "Mizoram, India",
+      "Landmark — Triumph Bike Showroom Building",
+    ],
+    phones: [tel("9612222777")],
+    instagram: "emporium_mizoram",
+    image: "/centres/aizawl.jpg",
   },
 ];
 
