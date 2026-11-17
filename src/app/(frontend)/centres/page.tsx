@@ -9,7 +9,7 @@ import { wrap } from "@/lib/styles";
 export const metadata = pageMetadata({
   title: "Our Centres",
   description:
-    "Emporium training centres in Kolkata, Imphal, Senapati, Maram, Siliguri, Guwahati, Gangtok, Shillong and Itanagar — with addresses, directions and phone numbers for each.",
+    "Emporium training centres in Kolkata, Imphal, Senapati, Maram, Siliguri, Guwahati, Gangtok, Shillong, Itanagar and Aizawl — with addresses, directions and phone numbers for each.",
   path: "/centres",
   keywords: [
     "Emporium centres",
