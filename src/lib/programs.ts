@@ -287,10 +287,10 @@ export const programs: Program[] = [
         q: "What qualifications are required for a Hospitality course?",
         a: "The minimum educational qualification typically required is completion of 10+2 (Higher Secondary) from any stream. Beyond academic credentials, possessing strong communication skills, a genuine passion for service excellence, an outgoing personality, and cultural awareness significantly enhance your prospects in this people-oriented industry.",
       },
-      {
-        q: "What is the salary after completing a Hospitality Management course?",
-        a: "Entry-level professionals can expect starting salaries ranging from ₹15,000 to ₹30,000 per month, with variations based on the specific job role, organization type, and location. As you gain experience and specialize in particular areas, salary potential increases substantially, with mid-level and senior positions offering significantly higher compensation packages, especially in international placements.",
-      },
+      // {
+      //   q: "What is the salary after completing a Hospitality Management course?",
+      //   a: "Entry-level professionals can expect starting salaries ranging from ₹15,000 to ₹30,000 per month, with variations based on the specific job role, organization type, and location. As you gain experience and specialize in particular areas, salary potential increases substantially, with mid-level and senior positions offering significantly higher compensation packages, especially in international placements.",
+      // },
       {
         q: "Is a Hospitality course suitable for cabin crew jobs?",
         a: "Yes, hospitality courses provide excellent foundational training for cabin crew careers. The curriculum covers essential areas including professional grooming standards, effective communication techniques, customer service excellence, safety protocols, emergency procedures, and cultural sensitivity — all critical competencies for successful cabin crew members in today's competitive aviation industry.",
@@ -404,10 +404,10 @@ export const programs: Program[] = [
         q: "What skills are required for a cruise line job?",
         a: "Success in cruise line careers requires a blend of interpersonal and professional skills including exceptional customer service abilities, clear and effective communication, strong teamwork and collaboration, professional grooming and presentation, excellent time management, cultural sensitivity and adaptability, problem-solving capabilities, stamina and physical fitness, positive attitude under pressure, and the ability to work harmoniously in a multicultural environment. These skills ensure you can deliver outstanding service while thriving in the unique lifestyle of working at sea.",
       },
-      {
-        q: "What is the salary after completing a Cruise Line course?",
-        a: "Entry-level positions in the cruise industry offer competitive compensation packages, with freshers typically earning between ₹30,000 to ₹80,000 per month, depending on the cruise company, job role, and your skills. A significant advantage is that accommodation, meals, medical facilities, and entertainment are provided free of cost onboard, allowing you to save most of your earnings. With experience and career progression, salaries increase substantially, and many positions also include tips and bonuses that can significantly boost your total income.",
-      },
+      // {
+      //   q: "What is the salary after completing a Cruise Line course?",
+      //   a: "Entry-level positions in the cruise industry offer competitive compensation packages, with freshers typically earning between ₹30,000 to ₹80,000 per month, depending on the cruise company, job role, and your skills. A significant advantage is that accommodation, meals, medical facilities, and entertainment are provided free of cost onboard, allowing you to save most of your earnings. With experience and career progression, salaries increase substantially, and many positions also include tips and bonuses that can significantly boost your total income.",
+      // },
       {
         q: "Does Emporium Training Institute provide placement support for cruise line jobs?",
         a: "Yes, Emporium Training Institute takes pride in offering comprehensive placement assistance for all our cruise line course graduates. Our dedicated placement cell provides complete support including resume building, mock interviews, grooming sessions, cruise company connections, recruitment drive coordination, and ongoing guidance throughout your job search and application process. We work closely with leading cruise lines to ensure our students have access to excellent career opportunities upon course completion.",

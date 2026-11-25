@@ -43,8 +43,8 @@ export function SiteFooter() {
   return (
     <footer className="bg-[#080d2b] pt-8 lg:pt-16 pb-8 text-white">
       <div className={wrap}>
-        <div className="grid grid-cols-[1.4fr_1fr_1fr_1.3fr] gap-10 border-b border-(--line-d) pb-11 max-laptop:grid-cols-2 max-phone:grid-cols-1">
-          <div>
+        <div className="grid grid-cols-[1.4fr_1fr_1fr_1.3fr] gap-10 border-b border-(--line-d) pb-11 max-laptop:grid-cols-2 max-phone:gap-x-6">
+          <div className="max-phone:col-span-2">
             <BrandMark variant="light" />
             <p className="mt-4.5 max-w-[34ch] text-[15px] text-[#9aa6d6]">
               Certificate courses in Aviation, Hospitality &amp; Cruise line —
@@ -95,7 +95,7 @@ export function SiteFooter() {
             </div>
           ))}
 
-          <div>
+          <div className="max-phone:col-span-2">
             <h4 className={footHeading}>Corporate office</h4>
             <a
               href={address.mapHref}
